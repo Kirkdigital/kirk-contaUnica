@@ -12,7 +12,8 @@ Aplicações
 Laravel - componser
 Postgres
 
-Resteurar backup do navicat
+## Retaurar backup do navicat
+
 ![plano](https://github.com/julianopimentel/laravel-deskapps/blob/6806fb267477c5560e1de8df20d770780de0744d/screenshot/schema.png)
 
 Validar em projetos Laravel o andamento do projeto
