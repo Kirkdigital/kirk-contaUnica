@@ -8,7 +8,7 @@
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Calendar
+                        <i class="fa fa-align-justify"></i> Calender
 
 
                         <div class="container">
@@ -17,8 +17,9 @@
                     </div>
                 </div>
             </div>
+             
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                    <div class="card">
+                    <!--<div class="card">
                     <div class="card-header"><strong>Adicionar agendamento</strong> <small>detalhado</small></div>
                     <div class="card-body">
                       <div class="row">
@@ -29,20 +30,20 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.row-->
+                      
                       <div class="row">
-                          <div class="form-group">
+                        <div class="col-sm-12">
                              <label for="ccyear">Inicio</label>
                               <input class="form-control" name="birth_at" type="date" placeholder="date">
                           </div>
-                          <div class="form-group">
+                          <div class="col-sm-12">
                              <label for="ccyear">Fim</label>
                               <input class="form-control" name="birth_at" type="date" placeholder="date">
                         </div>
                       </div>
-                      <!-- /.row-->
+                       
                     </div>
-                  </div>
+                  </div>/.row-->
                     <div class="card">
                     <div class="card-header"><strong>Histórico</strong> <small>últimos agendamentos</small></div>
                     <div class="card-body">
@@ -50,13 +51,14 @@
                         <div class="col-sm-12">
                           <div class="form-group">
                             <label for="name">Titulo</label>
-                            <input class="form-control" id="name" type="text" placeholder="Enter your name">
+                            
                           </div>
                         </div>
                       </div>
                       <!-- /.row-->
                     </div>
                   </div>
+                </div>
                 </div>
 
                 <script>
