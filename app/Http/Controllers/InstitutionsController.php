@@ -161,7 +161,10 @@ class InstitutionsController extends Controller
         $institution->integrador = $user->id;
         $institution->save();
 
-
+        $useraccount = new Users_Account();
+        $useraccount->user_id = $user->id;
+        $useraccount->account_id = Institution::latest('id')->get()->first()->id;
+        $useraccount->save();
 
 
         //return response()->json( [ $this->runMigrations($institution), $institution ], 200);
@@ -227,6 +230,12 @@ class InstitutionsController extends Controller
         if ($institution) {
             $institution->delete();
         }
+
+        $User_account = Users_Account::where('account_id', '=', $id);
+        if ($User_account) {
+            $User_account->delete();
+        }
+
         $request->session()->flash("warning", 'events.change_delete');
         return redirect()->route('account.index');
     }
@@ -238,7 +247,7 @@ class InstitutionsController extends Controller
         //mater toda a sessao
         $request->session()->forget('schema');
 
-        $results = DB::select('select * from institution where id = ?', [$id]);
+        $results = DB::select('select * from accounts where id = ?', [$id]);
 
         //inserir na session
         $request->session()->put('schema', $results);
