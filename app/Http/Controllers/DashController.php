@@ -10,6 +10,7 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\Post;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Doctrine\DBAL\Events;
@@ -48,6 +49,22 @@ class DashController extends Controller
         $config = Config_system::orderBy('id', 'desc')->first();
         $meta = Config_meta::orderBy('id', 'desc')->first();
 
+        if($meta === null)
+        {
+            $this->pegar_tenant();
+            $settings = new Config_meta();
+            $settings->id       = '1';
+            $settings->save();
+            
+
+            $settings = new Config_system();
+            $settings->id       = '1';
+            $settings->save();
+            
+            $request->session()->flash("info", "Configurar a meta nas configurações");
+            return redirect()->route('dashboard.index');
+        }
+
         $anoanterior = (date('Y') - '1');
         //numero de pessoas ativas e no ano atual
         $people = People::all();
@@ -80,10 +97,10 @@ class DashController extends Controller
         $anoconversao = People::where('is_conversion', true)->whereYear('created_at', date('Y'))->count();
         $anopessoa = People::whereYear('created_at', date('Y'))->count();
 
-        $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->first()->visitante_ano); // 20
-        $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->first()->batismo_ano); 
-        $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->first()->conversao_ano); // 20
-        $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->first()->pessoa_ano); 
+        $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->visitante_ano); // 20
+        $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->batismo_ano); 
+        $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->conversao_ano); // 20
+        $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->pessoa_ano); 
         //$totalvisitante = $people->where('is_newvisitor', true)->count();
 
         $anodizimo = Historic::where('tipo', '9')->whereYear('date', date('Y'))->sum('amount');
@@ -92,10 +109,10 @@ class DashController extends Controller
         $anodespesa = Historic::where('tipo', '12')->whereYear('date', date('Y'))->sum('amount');
         $totalfinanceiro = ($anodizimo + $anooferta + $anodoacao + $anodespesa);
 
-        $porcentage_dizimo = $this->porcentagem_nx($anodizimo, $meta->first()->fin_dizimo_ano); // 20
-        $porcentage_oferta = $this->porcentagem_nx($anooferta, $meta->first()->fin_oferta_ano); 
-        $porcentage_doacao = $this->porcentagem_nx($anodoacao, $meta->first()->fin_acao_ano); // 20
-        $porcentage_despesa = $this->porcentagem_nx($anodespesa, $meta->first()->fin_despesa_ano); 
+        $porcentage_dizimo = $this->porcentagem_nx($anodizimo, $meta->fin_dizimo_ano); // 20
+        $porcentage_oferta = $this->porcentagem_nx($anooferta, $meta->fin_oferta_ano); 
+        $porcentage_doacao = $this->porcentagem_nx($anodoacao, $meta->fin_acao_ano); // 20
+        $porcentage_despesa = $this->porcentagem_nx($anodespesa, $meta->fin_despesa_ano); 
         $totalporcentagem = ($porcentage_dizimo + $porcentage_oferta + $porcentage_doacao + $porcentage_despesa);
         $porcentage_total = $this->porcentagem_total($totalporcentagem);
 
@@ -134,13 +151,6 @@ class DashController extends Controller
         $fin_anterior_dez = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('12'))->sum('amount');
 
         //financeiro recente
-        $historics = auth()->user()
-        ->historics()->with(['userSender']) 
-        ->orderby('id','desc')
-        ->paginate(6);   
-
-        $types = $historic->type();     
-
         $date = date('Y-m');
         $dizimoatual = Historic::where('tipo', '9')->where('date','like', "%$date%")->sum('amount');
         $ofertaatual = Historic::where('tipo', '10')->where('date','like',"%$date%")->sum('amount');
@@ -195,8 +205,6 @@ class DashController extends Controller
                     'anolikes',
                     'totalbatismo',
                     'totalconversao',
-                    'historics',
-                    'types',
                     'metadash',
                     'fin_atual_jan',
                     'fin_atual_fev',

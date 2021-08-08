@@ -119,16 +119,16 @@ class InstitutionsController extends Controller
         };
 
         $validatedData = $request->validate([
-            'name'             => 'required|min:1|max:64',
-            //'email'           => 'required',
+            'name_company'             => 'required|min:1|max:64',
+            'email'           => 'required',
             //'status_id'         => 'required',
-            //'doc'   => 'required',
-            //'mobile'         => 'required',
-            //'country'         => 'required'
+            'doc'   => 'required',
+            'mobile'         => 'required',
+            'country'         => 'required'
         ]);
 
         //tratamento no nome para criar o esquema
-        $string = $request->input('name');
+        $string = $request->input('name_company');
         $string_novo = strtolower(preg_replace(
             "[^a-zA-Z0-9-]",
             "-",
@@ -156,15 +156,15 @@ class InstitutionsController extends Controller
         $institution->status_id = '5';
         $institution->country       = $request->input('country');
         $institution->integrador = $user->id;
-        // $institution->save();
+        $institution->save();
 
 
 
 
-        return response()->json( [ $this->runMigrations($institution), $institution ], 200);
+        //return response()->json( [ $this->runMigrations($institution), $institution ], 200);
 
-        //$request->session()->flash("success", 'events.change_create');
-        //return redirect()->route('account.index');
+        $request->session()->flash("success", 'events.change_create');
+        return redirect()->route('account.index');
 
     }
     
