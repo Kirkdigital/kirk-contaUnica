@@ -73,7 +73,6 @@ Route::group(['middleware' => ['get.menu']], function () {
             //'people' => PeoplesController::class,
             'account' => InstitutionsController::class,
         ]);
-        Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
         //Route::resource('profile',        'ProfileController');
         Route::get('/profile', 'ProfileController@index')->name('profile');
         Route::get('profile/change', 'ProfileController@change')->name('changeLang');
@@ -143,6 +142,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/thema', function () {  return view('dashboard.buttons.them'); });
+        Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
         Route::resource('users',        'UsersController')->except( ['create', 'store'] );
         Route::resource('roles',        'RolesController');
