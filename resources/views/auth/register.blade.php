@@ -50,11 +50,6 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="email">Account</label>
-                  <input class="form-control" type="text" placeholder="Buscar a conta" name="account" required autofocus>
-                </div>
-
                 <div class="row">
                   <div class="form-group col-6">
                     <label>Telefone</label>
