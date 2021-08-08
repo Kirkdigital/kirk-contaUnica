@@ -1,14 +1,22 @@
-# CoreUI Free Laravel Bootstrap Admin Template [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=CoreUI%20-%20Free%20Bootstrap%204%20Admin%20Template%20&url=https://coreui.io&hashtags=bootstrap,admin,template,dashboard,panel,free,angular,react,vue)
+# Gestão de Igrejas - DeskApps
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![Bootstrap Admin Template](https://github.com/julianopimentel/laravel-deskapps/blob/5bbf1db68843754431a12374c2597b9a248b712b/screenshot/dashboard.png)]
-
-Curious why I decided to create CoreUI? Please read this article: [Jack of all trades, master of none. Why Bootstrap Admin Templates suck.](https://medium.com/@lukaszholeczek/jack-of-all-trades-master-of-none-5ea53ef8a1f#.7eqx1bcd8)
-
-CoreUI offers 6 versions: [Bootstrap](https://github.com/coreui/coreui-free-bootstrap-admin-template), [Angular](https://github.com/coreui/coreui-free-angular-admin-template), [Laravel](https://github.com/coreui/coreui-free-laravel-admin-template), [React.js](https://github.com/coreui/coreui-free-react-admin-template), [Vue.js](https://github.com/coreui/coreui-free-vue-admin-template), and [Vue.js + Laravel](https://github.com/coreui/coreui-free-vue-laravel-admin-template).
+![Dashboard](https://github.com/julianopimentel/laravel-deskapps/blob/5bbf1db68843754431a12374c2597b9a248b712b/screenshot/dashboard.png)
+![Login](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/login.png)
+![Financeiro](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/financeiro.png)
 
 CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of redundant components, so the app is light enough to offer ultimate user experience. This means mobile devices also, where the navigation is just as easy and intuitive as on a desktop or laptop. The CoreUI Layout API lets you customize your project for almost any device – be it Mobile, Web or WebApp – CoreUI covers them all!
+
+Aplicações
+Laravel - componser
+Postgres
+
+## Retaurar backup do navicat
+
+![plano](https://github.com/julianopimentel/laravel-deskapps/blob/6806fb267477c5560e1de8df20d770780de0744d/screenshot/schema.png)
+
+Validar em projetos Laravel o andamento do projeto
 
 ## Table of Contents
 
@@ -28,27 +36,9 @@ CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of 
 
 CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
 
-* [CoreUI Free Bootstrap Admin Template](https://github.com/coreui/coreui-free-bootstrap-admin-template)
 * [CoreUI Free Angular Admin Template](https://github.com/coreui/coreui-free-angular-admin-template)
-* [CoreUI Free Laravel Admin Template](https://github.com/coreui/coreui-free-laravel-admin-template)
-* [CoreUI Free React.js Admin Template](https://github.com/coreui/coreui-free-react-admin-template)
-* [CoreUI Free Vue.js Admin Template](https://github.com/coreui/coreui-free-vue-admin-template)
 * [CoreUI Free Vue.js + Laravel Admin Template](https://github.com/coreui/coreui-free-vue-laravel-admin-template)
 
-## CoreUI Pro
-
-* 💪  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
-* 💪  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
-* 💪  [CoreUI Pro Laravel Admin Template](https://coreui.io/pro/laravel)
-* 💪  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
-* 💪  [CoreUI Pro Vue Admin Template](https://coreui.io/pro/vue)
-* 💪  [CoreUI Pro Vue + Laravel Admin Template](https://coreui.io/pro/vue-laravel)
-
-## Admin Templates built on top of CoreUI Pro
-
-| Default Theme | Legacy Theme | Dark Layout |
-| --- | --- | --- |
-| [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_default.png)](https://coreui.io/pro/laravel/) | [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_legacy.png)](https://coreui.io/pro/laravel/)| [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_dark.png)](https://coreui.io/pro/laravel/)
 
 ## Installation
 
@@ -129,16 +119,6 @@ To this:
 * DB_USERNAME=laravel
 * DB_PASSWORD=password
 
-### If you choice to use MySQL
-
-Copy file ".env.example", and change its name to ".env".
-Then in file ".env" complete this database configuration:
-* DB_CONNECTION=mysql
-* DB_HOST=127.0.0.1
-* DB_PORT=3306
-* DB_DATABASE=laravel
-* DB_USERNAME=root
-* DB_PASSWORD=
 
 ### Set APP_URL
 
@@ -328,25 +308,6 @@ It is an example of managing e-mail templates. Allows you to create, edit and de
 * <https://github.com/rakieta2015>
 
 
-## Community
-
-Get updates on CoreUI's development and chat with the project maintainers and community members.
-
-- Follow [@core_ui on Twitter](https://twitter.com/core_ui).
-- Read and subscribe to [CoreUI Blog](https://coreui.io/blog/).
-
-
-## CoreUI Icons (500+ Free icons) - Premium designed free icon set with marks in SVG, Webfont and raster formats.
-
-CoreUI Icons are beautifully crafted symbols for common actions and items. You can use them in your digital products for web or mobile app. Ready-to-use fonts and stylesheets that work with your favorite frameworks.
-
-![CoreUI Free Icons](https://coreui.io/images/icons_free_bg_set.png)
-
-
-### CoreUI Icons Preview & Docs
-
-[https://coreui.io/icons/](https://coreui.io/icons/)
-
 ## Copyright and license
 
 copyright 2020 creativeLabs Łukasz Holeczek. Code released under [the MIT license](https://github.com/coreui/coreui-free-laravel-admin-template/blob/master/LICENSE).
@@ -355,5 +316,3 @@ There is only one limitation you can't can’t re-distribute the CoreUI as stock
 ## Support CoreUI Development
 
 CoreUI is an MIT licensed open source project and completely free to use. However, the amount of effort needed to maintain and develop new features for the project is not sustainable without proper financial backing. You can support development by donating on [PayPal](https://www.paypal.me/holeczek), buying [CoreUI Pro Version](https://coreui.io/pro) or buying one of our [premium admin templates](https://genesisui.com/?support=1).
-
-As of now I am exploring the possibility of working on CoreUI fulltime - if you are a business that is building core products using CoreUI, I am also open to conversations regarding custom sponsorship / consulting arrangements. Get in touch on [Twitter](https://twitter.com/lukaszholeczek).
