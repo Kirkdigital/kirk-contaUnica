@@ -40,7 +40,7 @@ class ConfigSystemController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        $settings = Config_system::orderBy('id', 'desc')->get();
+        $settings = Config_system::orderBy('id', 'desc')->first();
     
         return view('settings.system', compact('settings'));
     }
@@ -50,7 +50,7 @@ class ConfigSystemController extends Controller
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
 
-        $settings = Config_meta::orderBy('id', 'desc')->get();
+        $settings = Config_meta::orderBy('id', 'desc')->first();
         return view('settings.meta', compact('settings'));
     }
 
@@ -74,11 +74,13 @@ class ConfigSystemController extends Controller
         $settings->view_periodo       = $request->has('view_periodo')? 1 : 0;
         $settings->view_dash       = $request->has('view_dash')? 1 : 0;
         $settings->view_detail       = $request->has('view_detail')? 1 : 0;
+        $settings->view_resumo_financeiro       = $request->has('view_resumo_financeiro')? 1 : 0;
         $settings->add_people       = $request->has('add_people')? 1 : 0;
         $settings->add_institution       = $request->has('add_institution')? 1 : 0;
         $settings->edit_institution       = $request->has('edit_institution')? 1 : 0;
         $settings->add_group       = $request->has('add_group')? 1 : 0;
         $settings->edit_people       = $request->has('edit_people')? 1 : 0;
+        $settings->user_id       = auth()->user()->id;
         $settings->save();
         $request->session()->flash("success", "Successfully updated");
         return redirect()->route('settings');
@@ -111,6 +113,8 @@ class ConfigSystemController extends Controller
         (float)$settings->fin_oferta_ano       = $request->input('fin_oferta_ano');
         (float)$settings->fin_despesa_ano       = $request->input('fin_despesa_ano');
         (float)$settings->fin_acao_ano       = $request->input('fin_acao_ano');
+        $settings->user_id       = auth()->user()->id;
+        $settings->ano       = date('Y');
         $settings->save();
         $request->session()->flash("success", "Successfully updated");
         return redirect()->route('settings');

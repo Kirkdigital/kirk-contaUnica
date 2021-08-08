@@ -5,9 +5,11 @@
 
 <div class="container-fluid">
   <div class="fade-in">
-   
-    
-    @if( $config->first()->view_dash == true)
+    @if($config->view_periodo==false and $config->view_dash==false and $config->view_detail==false and $config->view_resumo_financeiro==false)
+    Dashboard desabilitado
+    @endif
+
+    @if( $config->view_dash == true)
     <div class="row">
       <div class="col-sm-6 col-md-2">
         <div class="card">
@@ -117,11 +119,9 @@
         </div>
       </div>
             <!-- /.col-->
-
     </div>
-
     @endif
-    @if( $config->first()->view_periodo == true)
+    @if( $config->view_periodo == true)
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -143,7 +143,7 @@
         </div>
         <!-- /.row-->
         <div class="c-chart-wrapper" style="height:300px;margin-top:40px;">
-          <canvas class="chart" id="main-chart1" height="300"></canvas>
+          <canvas class="chart" id="chats-periodo-ano" height="300"></canvas>
         </div>
       </div>
       <div class="card-footer">
@@ -183,7 +183,7 @@
     </div>
     <!-- /.card-->
     @endif
-    @if( $config->first()->view_detail == true)
+    @if( $config->view_detail == true)
     <!-- /.row-->
     <div class="row">
       <div class="col-md-12">
@@ -277,7 +277,7 @@
                     </svg>
                     <div>Pessoas associadas aos Grupos</div>
                     <div class="ml-auto font-weight-bold mr-2"></div>
-                    <div class="text-muted small">({{ ($meta->first()->grupo_ativo_ano)}})</div>
+                    <div class="text-muted small">({{ ($meta->grupo_ativo_ano)}})</div>
                   </div>
                   <div class="progress-group-bars">
                     <div class="progress progress-xs">
@@ -287,7 +287,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="card-body">
                     <div class="c-chart-wrapper">
-                      <canvas id="canvas-6"></canvas>
+                      <canvas id="chats-tipo-pessoa"></canvas>
                     </div>
                   </div>
                   </div>
@@ -344,26 +344,28 @@
               </div>
               <!-- /.col-->
             </div>
-            @endif
+            
           </div>
         </div>
-       
-
-                <!-- /.row-->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">Financeiro</div>
-          <div class="card-body">
+        @endif
+        @if( $config->view_resumo_financeiro == true)
+                <div class="card">
+                <div class="card-body">
+                 
+                    <div class="col-sm-5">
+                      <h4 class="card-title mb-0">Financeiro</h4>
+                      <div class="small text-muted">Movimento mensal</div>
+                    </div>
+         <br>
             <div class="row">
               <!-- /.col-->
               <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
-                Resumo do mês
+                Tipo de movimento
                 <div class="row">
                   <!-- /.col-->
                   <div class="card-body">
                     <div class="c-chart-wrapper">
-                      <canvas id="canvas-7"></canvas>
+                      <canvas id="chats-tipo-movimento"></canvas>
                     </div>
                   </div>
                 </div>
@@ -376,13 +378,14 @@
                   <!-- /.col-->
                   <div class="card-body">
                     <div class="c-chart-wrapper">
-                      <canvas id="canvas-8"></canvas>
+                      <canvas id="chats-form-pagamento"></canvas>
                     </div>
                   </div>
-                </div>
+                </div> @endif
                 <!-- /.row-->
               </div>
               <!-- /.col-->
+             
             </div>
           </div>
           </div>
@@ -391,7 +394,7 @@
         @section('javascript')
         <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
           <script type="text/javascript">
-          var pieChart = new Chart(document.getElementById('canvas-6'), {
+          var pieChart = new Chart(document.getElementById('chats-tipo-pessoa'), {
           type: 'polarArea',
           data: {
           labels: ['Visitante', 'Batismo', 'Conversão', 'Novas Pessoas'],
@@ -408,7 +411,7 @@
         </script>
 
 <script type="text/javascript">
-  var pieChart = new Chart(document.getElementById('canvas-7'), {
+  var pieChart = new Chart(document.getElementById('chats-tipo-movimento'), {
   type: 'pie',
   data: {
   labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
@@ -425,7 +428,7 @@ responsive: true
 </script>
 
 <script type="text/javascript">
-  var pieChart = new Chart(document.getElementById('canvas-8'), {
+  var pieChart = new Chart(document.getElementById('chats-form-pagamento'), {
   type: 'doughnut',
   data: {
   labels: ['Dinheiro', 'Cheque', 'Crédito', 'Débito','Boleto', 'Pix'],
@@ -442,7 +445,7 @@ responsive: true
 </script>
 
 <script type="text/javascript">
-  var pieChart = new Chart(document.getElementById('main-chart1'), {
+  var pieChart = new Chart(document.getElementById('chats-periodo-ano'), {
   type: 'line',
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -512,4 +515,4 @@ responsive: true
           })
       </script>
           
-          @endsection
+@endsection

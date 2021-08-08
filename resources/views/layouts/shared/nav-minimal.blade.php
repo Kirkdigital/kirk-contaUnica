@@ -3,11 +3,11 @@
     <img class="c-sidebar-brand-minimized" src="{{ url('assets/brand/coreui-signet-white.svg') }}" width="70" height="36" alt="DeskApps">
 </div>
 <nav class="c-sidebar-nav">
-    <li class="c-sidebar-nav-item">
+    <!-- <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('posts') }}">
             <i class="c-icon cil-globe-alt c-sidebar-nav-icon"></i>
             {{ __('Posts') }}</a>
-    </li>
+    </li> -->
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('account') }}">
             <i class="c-icon cil-building c-sidebar-nav-icon"></i>

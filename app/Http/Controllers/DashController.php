@@ -45,8 +45,8 @@ class DashController extends Controller
         $you = auth()->user();
 
         //pegar informações complementares 
-        $config = Config_system::all();
-        $meta = Config_meta::first();
+        $config = Config_system::orderBy('id', 'desc')->first();
+        $meta = Config_meta::orderBy('id', 'desc')->first();
 
         $anoanterior = (date('Y') - '1');
         //numero de pessoas ativas e no ano atual

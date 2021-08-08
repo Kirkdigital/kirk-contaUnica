@@ -24,7 +24,7 @@ class Config_system extends Model
      */
     protected $fillable = [
         'delete_institution', 'delete_people', 'delete_note', 'delete_note', 
-        'delete_financial', 'delete_calendar', 'view_periodo', 'view_dash', 'view_detail',
+        'delete_financial', 'delete_calendar', 'view_periodo', 'view_dash', 'view_detail','view_resumo_financeiro'
     ];
 
     /**
