@@ -26,8 +26,6 @@ Validar em projetos Laravel o andamento do projeto
 * [Usage](#Usage)
 * [Features](#Features)
 * [Creators](#creators)
-* [Community](#community)
-* [Community Projects](#community-projects)
 * [License](#license)
 
 ## Versions
