@@ -15,8 +15,9 @@ class MailController extends Controller
      */
     public function index()
     {
+        $this->pegar_tenant();
         $emailTemplates = EmailTemplate::paginate( 20 );
-        return view('dashboard.email.index', ['emailTemplates' => $emailTemplates]);
+        return view('settings.email.index', ['emailTemplates' => $emailTemplates]);
     }
 
     /**
@@ -26,7 +27,7 @@ class MailController extends Controller
      */
     public function create()
     {
-        return view('dashboard.email.create');
+        return view('settings.email.create');
     }
 
     /**
@@ -37,6 +38,7 @@ class MailController extends Controller
      */
     public function store(Request $request)
     {
+        $this->pegar_tenant();
         $validatedData = $request->validate([
             'name'    => 'required|min:1|max:64',
             'subject' => 'required|min:1|max:128',
@@ -59,8 +61,9 @@ class MailController extends Controller
      */
     public function show($id)
     {
+        $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('dashboard.email.show', [ 'template' => $template ]);
+        return view('settings.email.show', [ 'template' => $template ]);
     }
 
     /**
@@ -71,8 +74,9 @@ class MailController extends Controller
      */
     public function edit($id)
     {
+        $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('dashboard.email.edit', [ 'template' => $template ]);
+        return view('settings.email.edit', [ 'template' => $template ]);
     }
 
     /**
@@ -84,6 +88,7 @@ class MailController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->pegar_tenant();
         $validatedData = $request->validate([
             'name'    => 'required|min:1|max:64',
             'subject' => 'required|min:1|max:128',
@@ -106,6 +111,7 @@ class MailController extends Controller
      */
     public function destroy($id, Request $request)
     {
+        $this->pegar_tenant();
         $template = EmailTemplate::find($id);
         if($template){
             $template->delete();
@@ -115,11 +121,13 @@ class MailController extends Controller
     }
 
     public function prepareSend($id){
+        $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('dashboard.email.send', [ 'template' => $template ]);
+        return view('settings.email.send', [ 'template' => $template ]);
     }
 
     public function send($id, Request $request){
+        $this->pegar_tenant();
         $template = EmailTemplate::find($id);
         Mail::send([], [], function ($message) use ($request, $template)
         {
