@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Controllers\TenantController;
-
+use App\Models\Users_Account;
 
 class InstitutionsController extends Controller
 {
@@ -36,8 +36,11 @@ class InstitutionsController extends Controller
     public function index()
     {
         $you = auth()->user();
-        $institution = Institution::orderBy('name_company', 'asc')->where('integrador', $you->id)->with('status')->paginate(10);
-        return view('account.List', ['institutions' => $institution]);
+
+        $institution = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate(10);
+        //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
+     
+        return view('account.List',['institutions' => $institution]);
     }
 
     public function license_index(Request $request)

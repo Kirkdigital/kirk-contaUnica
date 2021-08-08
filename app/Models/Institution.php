@@ -11,7 +11,7 @@ class Institution extends Model
 
     use HasFactory;
      
-    protected $table = 'public.institution';
+    protected $table = 'public.accounts';
 
     /**
      * The attributes that are mass assignable.
@@ -48,5 +48,8 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
-
+    public function AccountList()
+    {
+        return $this->belongsTo('App\Models\Users_Account', 'account_id');
+    }
 }

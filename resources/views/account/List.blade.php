@@ -19,19 +19,19 @@
                   <tbody>
                     @foreach($institutions as $institution)
                     <tr>
-                      <td>{{ $institution->id }}</td>
-                      <td width="60%">{{ $institution->name_company }}</td>
+                      <td>{{ $institution->AccountList->id }}</td>
+                      <td width="60%">{{ $institution->AccountList->name_company }}</td>
                       <td>
-                        <span class="{{ $institution->status->class }}">
-                        {{ $institution->status->name }}
+                        <span class="{{ $institution->AccountList->status->class }}">
+                          {{ $institution->AccountList->status->name }}
                         </span>
                       </td>
                       <td width="1%">
-                       <a href="{{ url('/account/' . $institution->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
+                       <a href="{{ url('/account/' . $institution->AccountList->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                       </td>
                       <td width="1%">
                       @if(Auth::user()->isAdmin())
-                        <form action="{{ route('account.destroy', $institution->id ) }}" method="POST">
+                        <form action="{{ route('account.destroy', $institution->AccountList->id ) }}" method="POST">
                           @method('DELETE')
                           @csrf
                           <button class="btn btn-primary-outline show_confirm" data-toggle="tooltip" title='Delete'><i class="c-icon c-icon-sm cil-trash text-danger"></i></button>
@@ -40,7 +40,7 @@
                        
                       </td>
                       <td width="1%">
-                      <form method="post" action="{{route('tenant',['id' => $institution->id]) }}">
+                      <form method="post" action="{{route('tenant',['id' => $institution->AccountList->id]) }}">
                           @method('POST')
                           @csrf
                             <button class="btn btn-primary-outline" type="submit"><i class="c-icon c-icon-sm cil-room text-dark"></i></button>
