@@ -12,7 +12,7 @@ Aplicações
 Laravel - componser
 Postgres
 
-## Retaurar backup do navicat
+## Retaurar backup do postgres
 
 ![plano](https://github.com/julianopimentel/laravel-deskapps/blob/6806fb267477c5560e1de8df20d770780de0744d/screenshot/schema.png)
 
@@ -21,16 +21,14 @@ Validar em projetos Laravel o andamento do projeto
 ## Table of Contents
 
 * [Versions](#versions)
-* [CoreUI Pro](#coreui-pro)
-* [Admin Templates built on top of CoreUI Pro](#admin-templates-built-on-top-of-coreui-pro)
 * [Installation](#installation)
+* [Banco](#banco)
 * [Usage](#Usage)
 * [Features](#Features)
 * [Creators](#creators)
 * [Community](#community)
 * [Community Projects](#community-projects)
 * [License](#license)
-* [Support CoreUI Development](#support-coreui-development)
 
 ## Versions
 
@@ -89,8 +87,8 @@ Then in file ".env" replace this database configuration:
 * DB_USERNAME=deskapps
 * DB_PASSWORD=deskapps@123
 
-
-Na pasta backup encontra o arquivo para restaurar no navicat, sempre irei atualizar quando fizer qualquer modificação
+## banco
+Na pasta backup encontra o arquivo para restaurar no pgadmin, sempre irei atualizar quando fizer qualquer modificação
 
 
 ### Set APP_URL
