@@ -13,10 +13,12 @@
             <i class="c-icon cil-building c-sidebar-nav-icon"></i>
             {{ __('account.account') }}</a>
     </li>
+    @if(Auth::user()->isAdmin())
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('license') }}">
             <i class="c-icon cil-credit-card c-sidebar-nav-icon"></i>
             {{ __('account.license') }}</a>
     </li>
+    @endif
 </nav>
 </div>
