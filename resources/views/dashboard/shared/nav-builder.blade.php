@@ -64,5 +64,7 @@ if(!function_exists('renderDropdown')){
             @endforeach
         @endif
         </ul>
+        <!-- remover o minimized do menu principal
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+        -->
     </div>

@@ -68,6 +68,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
         Route::resource('notes', 'NotesController');      
         Route::post('/tenant/{id}', 'InstitutionsController@tenant')->name('tenant');
+        Route::get('/select2-autocomplete-account', 'PeoplesController@dataAjaxAC');
        // Route::resource('people',        'PeoplesController');
         Route::resources([
             //'people' => PeoplesController::class,
@@ -124,7 +125,9 @@ Route::group(['middleware' => ['get.menu']], function () {
     Auth::routes();
     Route::get('people', 'PeoplesController@index')->name('people.index');
     Route::get('people/create', 'PeoplesController@create')->name('people.create');
+    Route::get('people/precadastro', 'PeoplesController@createprecadastro')->name('people.createprecadastro');
     Route::post('peoples', 'PeoplesController@store')->name('people.store');
+    Route::post('peoples', 'PeoplesController@storeprecadastro')->name('people.storeprecadastro');
     Route::get('people/{id}/edit', 'PeoplesController@edit')->name('people.edit');
     Route::put('people/{id}', 'PeoplesController@update')->name('people.update');
     Route::any('people-search', 'PeoplesController@searchHistoric')->name('people.search');

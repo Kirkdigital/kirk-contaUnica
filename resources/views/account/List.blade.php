@@ -5,7 +5,9 @@
       <div class="container-fluid">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="card">
-                    <div class="card-header"><i class="fa fa-align-justify"></i>{{ __('account.select') }}</div>
+                    <div class="card-header">
+                      @if(!$institutions->isEmpty())
+                      <i class="fa fa-align-justify"></i><strong>{{ __('account.select') }}</strong></div>
                     <div class="card-body">
                       <table class="table table-responsive-sm table-striped">
                      <thead>
@@ -54,7 +56,15 @@
               </div>
             </div>
           </div>
-            
+          @else
+          <i class="fa fa-align-justify"></i>Você não possui nenhum cadastro associado</div>
+          <div class="card-body">
+          Seja Bem-vindo! <br>
+          Gostaria de criar um pré-cadastro a sua igreja?
+          <label for="ccmonth"><a href="{{ route('people.createprecadastro') }}" class="btn btn-dark m-2">Associar</a><br>
+
+          </div>
+          @endif
         </div>
       </div>
 

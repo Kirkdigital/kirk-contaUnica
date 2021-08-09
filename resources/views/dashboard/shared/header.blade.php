@@ -13,7 +13,7 @@
         
           <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link">
           
-          {{ Auth::user()->name }}      &nbsp
+            <strong>{{ Auth::user()->name }}   </strong>   &nbsp
           <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           
           @if(empty(Auth::user()->image))

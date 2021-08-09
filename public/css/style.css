@@ -8278,8 +8278,7 @@ html:not([dir="rtl"])
 }
 
 .c-header {
-  background: #fff;
-  border-bottom: 1px solid #d8dbe0;
+  background: #ebedef;
 }
 
 .c-header .c-subheader {
@@ -10916,7 +10915,7 @@ html:not([dir="rtl"]) .progress-group-icon {
       flex-direction: column;
   -ms-flex-order: -1;
       order: -1;
-  width: 256px;
+  width: 206px;
   padding: 0;
   box-shadow: none;
 }
@@ -12045,13 +12044,13 @@ html:not([dir="rtl"])
   html:not([dir="rtl"]) .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper,
   html:not([dir="rtl"])
   .c-sidebar.c-sidebar-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper {
-    margin-left: 256px;
+    margin-left: 206px;
   }
 
   *[dir="rtl"] .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper,
   *[dir="rtl"]
   .c-sidebar.c-sidebar-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper {
-    margin-right: 256px;
+    margin-right: 206px;
   }
 
   html:not([dir="rtl"]) .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed.c-sidebar-sm ~ .c-wrapper,
@@ -15042,7 +15041,7 @@ html:not([dir="rtl"]) .list-inline {
   -ms-flex-positive: 1;
       flex-grow: 1;
   min-width: 0;
-  padding-top: 2rem;
+  padding-top: 0.5rem;
 }
 
 @media (min-width: 768px) {

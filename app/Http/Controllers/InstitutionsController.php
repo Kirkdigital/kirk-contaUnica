@@ -77,6 +77,7 @@ class InstitutionsController extends Controller
         return view('account.License', ['institutions' => $institution], compact('countinst'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *

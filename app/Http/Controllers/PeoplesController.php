@@ -9,6 +9,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\Status;
 use App\Models\People;
 use App\Models\Config_system;
+use App\Models\Institution;
 
 class PeoplesController extends Controller
 {
@@ -59,7 +60,48 @@ class PeoplesController extends Controller
         return view('people.createForm', [ 'statuses' => $statuses ]);
     }
 
+    public function createprecadastro()
+    {   
+        $institution = Institution::all();
+        return view('account.precadastro-1',[ 'institution' => $institution ]);
+    }
+
     public function store(Request $request)
+    {
+        $validatedData = $request->all([
+            'name'             => 'required|min:1|max:255',
+            'email'           => 'required',
+            'mobile'         => 'required',
+            'country'         => 'required',
+            'status_id'         => 'required'
+        ]);
+        $this->pegar_tenant();
+
+        $people = new People();
+        $people->name          = $request->input('name');
+        $people->email         = $request->input('email');
+        $people->mobile        = $request->input('mobile');
+        $people->birth_at      = $request->input('birth_at');
+        $people->address       = $request->input('address');
+        $people->city          = $request->input('city');
+        $people->state          = $request->input('state');
+        $people->cep           = $request->input('cep');
+        $people->country       = $request->input('country');
+        $people->status_id = $request->input('status_id');
+        $people->is_visitor       = $request->input('is_visitor');
+        $people->is_transferred       = $request->input('is_transferred');
+        $people->is_responsible       = $request->input('is_responsible');
+        $people->is_conversion       = $request->input('is_conversion');
+        $people->is_baptism       = $request->input('is_baptism');
+        $people->sex       = $request->input('sex');
+        $people->note       = $request->input('note');
+        $people->is_newvisitor = 'false';
+        $people->save();
+        $request->session()->flash("success", "Successfully created people");
+        return redirect()->route('people.index');
+    }
+
+    public function storeprecadastro(Request $request)
     {
         $validatedData = $request->all([
             'name'             => 'required|min:1|max:255',
@@ -116,6 +158,19 @@ class PeoplesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+             //autocompleto pessoa
+             public function dataAjaxAC(Request $request)
+             {
+                 $data = Institution::all();
+                 if($request->has('q')){
+                     $search = $request->q;
+                     $data = Institution::select("id","name_company","email")
+                             ->where('name_company','LIKE',"%$search%")
+                             ->get();
+                 }
+                 return response()->json($data);
+             }
 
      
     public function update(Request $request, $id)

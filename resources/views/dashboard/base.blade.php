@@ -84,7 +84,7 @@
   <!-- retirar minimized fica minimizado c-sidebar-minimized-->
   
   <body class="c-app">
-  <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show c-sidebar-minimized" id="sidebar">
+  <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
       @include('dashboard.shared.nav-builder')
 
       @include('dashboard.shared.header')
