@@ -50,7 +50,7 @@
               <div class="form-group text-right">
                 <a href="{{ route('password.request') }}" class="float-left mt-3">{{ __('auth.forgot_password') }}</a>
 
-                <button class="btn btn-dark px-4" type="submit">{{ __('auth.login') }}</button>
+                <button class="btn btn-dark px-4" data-toggle="modal" data-target=".cd-load" type="submit">{{ __('auth.login') }}</button>
               </div>
               <div class="mt-5 text-center">
                 Don't have an account? <a href="{{ route('register') }}">Create new one</a>

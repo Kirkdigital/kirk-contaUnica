@@ -9430,6 +9430,19 @@ html:not([dir="rtl"]) .list-group-accent .list-group-item.list-group-item-divide
   border-color: rgba(0, 0, 21, 0.2);
 }
 
+.modal-load {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;

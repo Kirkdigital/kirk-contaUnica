@@ -80,19 +80,18 @@
       @include('layouts.shared.nav-minimal')
 
       @include('dashboard.shared.header')
+      
+      @include('layouts.shared.loading')
 
       <div class="c-body">
 
         <main class="c-main">
         @include('dashboard.shared.flash-message')
           @yield('content') 
-
         </main>
         @include('dashboard.shared.footer')
       </div>
     </div>
-
-
 
 
 
@@ -127,7 +126,5 @@
   
 </script>
 @yield('javascript')
-
-
-  </body>
+</body>
 </html>

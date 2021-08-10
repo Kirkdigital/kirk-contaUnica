@@ -27,6 +27,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right pt-0">
               <div class="dropdown-header bg-light py-2"><strong>Account</strong></div>
+
+              
               <a class="dropdown-item" href="/updates">
                 <svg class="c-icon mr-2">
                   <use xlink:href="{{ url('/icons/sprites/free.svg#cil-bell') }}"></use>

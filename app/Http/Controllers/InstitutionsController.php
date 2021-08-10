@@ -244,7 +244,6 @@ class InstitutionsController extends Controller
 
     public function tenant(Request $request, $id)
     {
-
         //mater toda a sessao
         $request->session()->forget('schema');
 
@@ -269,6 +268,8 @@ class InstitutionsController extends Controller
 
         // Testa a nova conexão
         //Schema::connection('tenant')->getConnection()->reconnect();
+        //ver os dados de conexão.
+        //dump(Schema::connection('tenant')->getConnection());
 
         return redirect()->route('dashboard.index');
     }

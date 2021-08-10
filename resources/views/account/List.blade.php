@@ -1,13 +1,13 @@
 @extends('layouts.baseminimal')
 
 @section('content')
-
+<div class="loader loader-default is-active"></div>
       <div class="container-fluid">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="card">
                     <div class="card-header">
                       @if(!$institutions->isEmpty())
-                      <i class="fa fa-align-justify"></i><strong>{{ __('account.select') }}</strong></div>
+                      <i class="fa fa-align-justify"></i><h6><strong>{{ __('account.select') }}</strong></h6></div>
                     <div class="card-body">
                       <table class="table table-responsive-sm table-striped">
                      <thead>
@@ -45,7 +45,7 @@
                       <form method="post" action="{{route('tenant',['id' => $institution->AccountList->id]) }}">
                           @method('POST')
                           @csrf
-                            <button class="btn btn-primary-outline" type="submit"><i class="c-icon c-icon-sm cil-room text-dark"></i></button>
+                            <button class="btn btn-primary-outline" data-toggle="modal" data-target=".cd-deskapps"><i class="c-icon c-icon-sm cil-room text-dark"></i></button>
                         </form>
                       </td>
                     </tr>
@@ -65,10 +65,9 @@
 
           </div>
           @endif
+          
         </div>
       </div>
-
-
 @endsection
 
 @section('javascript')
