@@ -183,13 +183,13 @@ sup {
 a {
   text-decoration: none;
   background-color: transparent;
-  color: #321fdb;
+  color: #3c4b64;
 }
 
 @media (hover: hover), (-ms-high-contrast: none) {
   a:hover {
     text-decoration: underline;
-    color: #321fdb;
+    color: #3c4b64;
   }
 }
 
@@ -5411,8 +5411,7 @@ html:not([dir="rtl"]) .dropleft .dropdown-toggle:empty::after {
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
-  border: 0;
-  color: #4f5d73;
+  border-color: transparent;
 }
 
 .dropdown-item:hover,
@@ -22477,3 +22476,50 @@ h2 {
               text-decoration: none; }
               .card.card-large-icons .card-body a.card-cta i {
                 margin-left: 7px; }
+
+                .stepwizard-step p {
+                  margin-top: 10px;
+              }
+              
+              .stepwizard-row {
+                  display: table-row;
+              }
+              
+              .stepwizard {
+                  display: table;
+                  width: 100%;
+                  position: relative;
+              }
+              
+              .stepwizard-step button[disabled] {
+                  opacity: 1 !important;
+                  filter: alpha(opacity=100) !important;
+              }
+              
+              .stepwizard-row:before {
+                  top: 14px;
+                  bottom: 0;
+                  position: absolute;
+                  content: " ";
+                  width: 100%;
+                  height: 1px;
+                  background-color: #ccc;
+                  z-order: 0;
+              
+              }
+              
+              .stepwizard-step {
+                  display: table-cell;
+                  text-align: center;
+                  position: relative;
+              }
+              
+              .btn-circle {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                padding: 6px 0;
+                font-size: 12px;
+                line-height: 1.428571429;
+                border-radius: 15px;
+              }

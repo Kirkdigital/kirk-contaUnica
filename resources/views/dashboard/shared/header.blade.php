@@ -43,7 +43,8 @@
                 <svg class="c-icon mr-2">
                   <use xlink:href="{{ url('/icons/sprites/free.svg#cil-credit-card') }}"></use>
                 </svg> Payments</a>
-              <div class="dropdown-divider"></div><a class="dropdown-item">
+              <div class="dropdown-divider"></div>
+                <a class="dropdown-item">
                 <svg class="c-icon mr-2">
                   <use xlink:href="{{ url('/icons/sprites/free.svg#cil-account-logout') }}"></use>
                 </svg>
