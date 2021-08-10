@@ -63,7 +63,7 @@ class PeoplesController extends Controller
     public function createprecadastro()
     {   
         $institution = Institution::all();
-        return view('account.precadastro-1',[ 'institution' => $institution ]);
+        return view('account.wizard',[ 'institution' => $institution ]);
     }
 
     public function store(Request $request)

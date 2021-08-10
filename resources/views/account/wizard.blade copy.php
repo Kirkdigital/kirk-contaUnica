@@ -64,8 +64,11 @@
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label for="name">Nome</label>
+                                  <div class="input-group-prepend"><span class="input-group-text">
+                                      <svg class="c-icon">
+                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                                      </svg></span>
                                 <input class="form-control" id='name' name="name" type="text" value='{{ Auth::user()->name }}' required>
-                              </div>
                             </div>
                           </div>
                           <!-- /.row-->
@@ -76,32 +79,48 @@
                                 <div class="input-group">
                                   <div class="input-group-prepend"><span class="input-group-text">
                                       <svg class="c-icon">
-                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-at"></use>
                                       </svg></span></div>
                                   <input class="form-control" name="email" type="email" value="{{ Auth::user()->email }}" disabled>
-                                </div>
-                              </div>
                             </div>
                           </div>
                           <!-- /.row-->
                           <div class="row">
                             <div class="form-group col-sm-4">
+                              
                               <label for="ccmonth">Celular</label>
-                              <input class="form-control" name="mobile" type="text" placeholder="11 99999-9999"  pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" value="{{ Auth::user()->mobile }}"> <span class="help-block">Format (99) 99999-9999</span>
-                            </div>
+                              <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">
+                                    <svg class="c-icon">
+                                      <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-screen-smartphone"></use>
+                                    </svg></span></div>
+                              <input class="form-control" name="mobile" type="text" placeholder="11 99999-9999"  pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" value="{{ Auth::user()->mobile }}">
+                              
+                            </div></div>
                             <div class="form-group col-sm-3">
                               <label for="ccyear">Data de Nascimento</label>
-                              <input class="form-control" name="birth_at" type="date" placeholder="date"><span class="help-block">Please enter a valid date</span>
-                            </div>
+                              <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">
+                                    <svg class="c-icon">
+                                      <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-calendar"></use>
+                                    </svg></span></div>
+                              <input class="form-control" name="birth_at" type="date" placeholder="date">
+                            </div></div>
                             <div class="form-group col-sm-3">
                               <label class="col-md-3 col-form-label">Sexo</label>
-                              <div class="col-md-9 col-form-label">
+                              <div class="col-md-12 col-form-label">
                                 <div class="form-check form-check-inline mr-1">
                                   <input class="form-check-input" type="radio" value="m" name="sex">
+                                  <svg class="c-icon">
+                                    <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                                  </svg>
                                   <label class="form-check-label" for="m">Masculino</label>
                                 </div>
                                 <div class="form-check form-check-inline mr-1">
                                   <input class="form-check-input" type="radio" value="f" name="sex">
+                                  <svg class="c-icon">
+                                    <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user-female"></use>
+                                  </svg>
                                   <label class="form-check-label" for="f">Feminino</label>
                                 </div>
                               </div>
@@ -112,6 +131,7 @@
                           <div class="row">
                             <div class="col-sm-11">
                               <div class="form-group">
+                                <span class="help-block">Format (99) 99999-9999</span>
                               </div>
                             </div>
                             <div class="col-sm-1">
@@ -120,9 +140,9 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                    
+                       
                 </div>
+
                 <div class="row setup-content" id="step-3">
                     
                   <div class="col-md-12">
@@ -195,29 +215,6 @@
     <!-- /.row-->
   </div>
 </div>
-
-<script type="text/javascript">
-  $('.itemName').select2({
-    placeholder: 'Select an item',
-    
-    ajax: {
-      url: '/select2-autocomplete-account',
-      dataType: 'json',
-      delay: 250,
-      processResults: function (data) {
-        return {
-          results:  $.map(data, function (item) {
-                return {
-                    text: item.name_company,
-                    id: item.id
-                }
-            })
-        };
-      },
-      cache: true
-    }
-  });
-  </script>
   
   <script type="text/javascript">
 $(document).ready(function () {
