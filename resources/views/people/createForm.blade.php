@@ -11,11 +11,19 @@
           <div class="card-body">
           <form method="POST" action="{{ route('people.store') }}">
                             @csrf
+
+                            {!! csrf_field() !!}      
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="name">Nome</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text">
+                        <svg class="c-icon">
+                          <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                        </svg></span></div>
                   <input class="form-control" id='name' name="name" type="text" placeholder="João Silva" required>
+                  </div>
                 </div>
               </div>
             </div>
@@ -27,7 +35,7 @@
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text">
                         <svg class="c-icon">
-                          <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                          <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-at"></use>
                         </svg></span></div>
                     <input class="form-control" name="email" type="email" placeholder="joao@live.com" autocomplete="joao@live.com" required>
                   </div>

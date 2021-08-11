@@ -46,9 +46,6 @@ class PeoplesController extends Controller
         
     }
 
-
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -75,7 +72,7 @@ class PeoplesController extends Controller
             'country'         => 'required',
             'status_id'         => 'required'
         ]);
-        $this->pegar_tenant();
+ 
 
         $people = new People();
         $people->name          = $request->input('name');
@@ -96,6 +93,7 @@ class PeoplesController extends Controller
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
+        $this->pegar_tenant();
         $people->save();
         $request->session()->flash("success", "Successfully created people");
         return redirect()->route('people.index');
