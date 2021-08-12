@@ -18,6 +18,9 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
+                              <span class="invalid-feedback">
+                                <strong>Eoor</strong>
+                            </span>
                                 <label for="email">Email</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -27,8 +30,8 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}"
-                                        name="email" value="{{ old('email') }}" required autofocus>
+                                                                      <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}"
+                                        name="email" value="{{ old('email') }}" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -45,7 +48,7 @@
                                         </span>
                                     </div>
                                     <input class="form-control" type="password" placeholder="{{ __('Password') }}"
-                                        name="password" required>
+                                        name="password">
                                 </div>
                             </div>
                             <div class="form-group">
