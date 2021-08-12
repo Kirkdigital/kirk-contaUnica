@@ -22428,6 +22428,30 @@ h2 {
   background-size: 100%;
   }
 
+  @media (max-width: 900px) {
+    .background-walk-y {
+    background-size: cover;
+    display:none; } }
+  
+  .background-walk-x {
+    background-repeat: no-repeat;
+    background-position: 0 0%;
+    -webkit-animation-name: backgroundWalkX;
+            animation-name: backgroundWalkX;
+    -webkit-animation-duration: 70s;
+            animation-duration: 70s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear; }
+  
+            .p-5 {
+              padding: 3rem !important;
+          }
 @media (max-width: 1199.98px) {
   .background-walk-y {
     background-size: cover; } }
