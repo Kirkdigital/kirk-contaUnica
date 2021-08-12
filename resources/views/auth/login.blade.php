@@ -18,9 +18,6 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
-                              <span class="invalid-feedback">
-                                <strong>Eoor</strong>
-                            </span>
                                 <label for="email">Email</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -30,11 +27,19 @@
                                             </svg>
                                         </span>
                                     </div>
-                                                                      <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}"
+                                    <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}"
                                         name="email" value="{{ old('email') }}" autofocus>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            @error('email')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                              <strong>Error!</strong> {{ $message }}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            @enderror
+                             <div class="form-group">
                                 <div class="d-block">
                                     <label for="password" class="control-label">Password</label>
                                 </div>
@@ -51,13 +56,22 @@
                                         name="password">
                                 </div>
                             </div>
+                            @error('password')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                              <strong>Error!</strong> {{ $message }}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            @enderror
+                            <!--
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
                                         id="remember-me">
                                     <label class="custom-control-label" for="remember-me">Remember Me</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group text-right">
                                 <a href="{{ route('password.request') }}"
                                     class="float-left mt-3">{{ __('auth.forgot_password') }}</a>
