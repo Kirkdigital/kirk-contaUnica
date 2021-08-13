@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="fade-in">
 
-    @if($precadastro > 10)
+    @if($precadastro > 1)
     <div class="card card-accent-success mb-12" style="max-width: 18rem;">
       <div class="card-body text-success">
         <h6 class="card-title">Há cadastros a serem aprovados</h6>
