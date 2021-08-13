@@ -52,4 +52,13 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Models\Users_Account', 'account_id');
     }
+    public function search(Array $data, $totalPagesPaginate)
+    {
+        return $this->where(function ($query) use ($data){
+            if (isset($data['name']))
+                $query->where('name_company',  'LIKE','%' . $data['name']. '%');
+       
+        })
+        ->paginate($totalPagesPaginate);
+    }
 }

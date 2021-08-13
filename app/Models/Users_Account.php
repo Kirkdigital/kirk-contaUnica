@@ -30,5 +30,4 @@ class Users_Account extends Model
     {
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
-    
 }

@@ -18,6 +18,7 @@ use App\Models\Users_Account;
 class InstitutionsController extends Controller
 {
  
+    private $totalPagesPaginate = 10;
     /**
      * Create a new controller instance.
      *
@@ -37,10 +38,9 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
 
-        $institution = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate(10);
+        $institutions = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate($this->totalPagesPaginate);  
         //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
-     
-        return view('account.List',['institutions' => $institution]);
+        return view('account.List',['institutions' => $institutions]);
     }
 
     public function license_index(Request $request)
