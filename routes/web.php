@@ -133,7 +133,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::get('wizard', 'PeoplesController@createprecadastro')->name('people.createprecadastro');
     Route::post('wizard', 'PeoplesController@storeprecadastro')->name('people.storeprecadastro');
-    Route::any('wizard-search', 'PeoplesController@searchHistoric')->name('account.search');
+    Route::any('wizard-search', 'PeoplesController@searchAccount')->name('account.search');
 
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([

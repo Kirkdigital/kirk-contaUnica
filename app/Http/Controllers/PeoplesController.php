@@ -58,7 +58,7 @@ class PeoplesController extends Controller
         $institutions = Institution::all();
         return view('account.wizard', ['institutions' => $institutions]);
     }
-    public function searchHistoric(Request $request, Institution $institution)
+    public function searchAccount(Request $request, Institution $institution)
     {
         $dataForm = $request->except('_token');
         $institutions =  $institution->search($dataForm, $this->totalPagesPaginate);
@@ -176,7 +176,7 @@ class PeoplesController extends Controller
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
 
         $people = People::find($id);
-        $people->name          = $request->input('name');
+        $people->name          = strtoupper($request->input('name'));
         $people->email         = $request->input('email');
         $people->mobile        = $request->input('mobile');
         $people->birth_at      = $request->input('birth_at');
@@ -214,5 +214,20 @@ class PeoplesController extends Controller
         }
         session()->flash("warning", "Sucessfully deleted people");
         return redirect()->route('people.index');
+    }
+
+
+    public function searchHistoric(Request $request, People $people)
+    {
+        $this->pegar_tenant();
+        if ((session()->get('schema')) === null)
+            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
+
+        $config = Config_system::all();
+        $dataForm = $request->except('_token');
+        $date = date('Y');
+        $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
+
+        return view('people.index', compact('peoples', 'dataForm', 'config', 'date'));
     }
 }
