@@ -66,9 +66,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $group->type }}</td>
-                                                <td>(0)
-
-                                                    @dump($group->grouplist)
+                                                <td>{{ $group->count }}
 
                                                 </td>
                                                 <td>

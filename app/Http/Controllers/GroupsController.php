@@ -156,16 +156,27 @@ class GroupsController extends Controller
             'itemName'             => 'required',
         ]);
 
-        $group = new People_Groups();
-        $group->group_id          = $value;
-        $group->user_id        = $request->input('itemName');
-        $group->registered = date('Y-m-d H:m:s');
+        $adicionarpessoa = new People_Groups();
+        $adicionarpessoa->group_id          = $value;
+        $adicionarpessoa->user_id        = $request->input('itemName');
+        $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $this->pegar_tenant();
-        $group1 = People_Groups::where('user_id', $request->input('itemName'))->where('group_id', $value)->count();
+        $validarpessoa = People_Groups::where('user_id', $request->input('itemName'))->where('group_id', $value);
+        //pegar valor para somar
+        $adicionarsoma = Group::find($value);
+        $adicionarsoma->count = $adicionarsoma->count+1;
+
         //validacao para inserir um valor igual
-        if ($group1 == 0) {
+        if ($validarpessoa->count() == 0) {
             DB::commit();
-            $group->save();
+            //$validarpessoa->count;
+
+            //DB::select('update * from group where id = ?', [$value]);
+
+            $adicionarsoma->save();
+            $adicionarpessoa->save();
+            
+
             $request->session()->flash("success", "Adicionado com sucesso");
             return redirect()->back();
 
