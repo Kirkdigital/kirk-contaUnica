@@ -189,7 +189,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/select2-autocomplete-people', 'BalanceController@dataAjax');
         Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
         Route::get('financial', 'BalanceController@index')->name('deposit.balance');
-        Route::get('financial/{id}/edit', 'BalanceController@show')->name('financial.edit');
+        Route::get('financial/{id}', 'BalanceController@show')->name('financial.show');
 
         //post e timeline em testes
         Route::get('posts', 'PostController@posts')->name('posts');
@@ -211,13 +211,17 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::delete('people/{id}', 'PeoplesController@destroy')->name('people.destroy');
 
     //grupos
-    Route::get('group', 'GroupsController@index')->name('people.index');
-    Route::get('group/create', 'GroupsController@create')->name('people.create');
-    Route::post('group', 'GroupsController@store')->name('people.store');
-    Route::get('group/{id}/edit', 'GroupsController@edit')->name('people.edit');
-    Route::put('group/{id}', 'GroupsController@update')->name('people.update');
-    Route::any('group-search', 'GroupsController@searchHistoric')->name('people.search');
-    Route::delete('group/{id}', 'GroupsController@destroy')->name('people.destroy');
+    Route::get('group', 'GroupsController@index')->name('group.index');
+    Route::get('group/create', 'GroupsController@create')->name('group.create');
+    Route::post('group', 'GroupsController@store')->name('group.store');
+    Route::post('grouppessoa', 'GroupsController@storepeoplegroup')->name('group.storepeoplegroup');
+    Route::get('group/{id}/edit', 'GroupsController@edit')->name('group.edit');
+    Route::get('group/{id}', 'GroupsController@show')->name('group.show');
+    Route::put('group/{id}', 'GroupsController@update')->name('group.update');
+    Route::any('group-search', 'GroupsController@searchHistoric')->name('group.search');
+    Route::delete('group/{id}', 'GroupsController@destroy')->name('group.destroy');
+    Route::delete('group/{id}/delete', 'GroupsController@destroygroup')->name('group.destroygroup');
+    
 
     //pre-cadastro
     Route::get('wizard', 'PeoplesController@createprecadastro')->name('people.createprecadastro');

@@ -194,7 +194,7 @@
                                                            @else
                                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
                                                            @endif
-                                                       @endforeach
+                                             @endforeach
                                               </select>
                                             </div>
                                         </div>
