@@ -58,6 +58,7 @@ class PeoplesController extends Controller
         $institutions = Institution::all();
         return view('account.wizard', ['institutions' => $institutions]);
     }
+    
     public function searchAccount(Request $request, Institution $institution)
     {
         $dataForm = $request->except('_token');

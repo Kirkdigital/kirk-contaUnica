@@ -163,7 +163,7 @@
                                                                 xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
                                                             </use>
                                                         </svg>                                                    </div>
-                                                    <input class="form-control" id="cep" name="cep" type="text" placeholder="Postal Code" value="{{ $people->cep }}">
+                                                    <input class="form-control" id="cep" name="cep" type="text" placeholder="Postal Code" value="{{ $people->cep }}" pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
                                             </div>
                                             </div>
                                         </div>

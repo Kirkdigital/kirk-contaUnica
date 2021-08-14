@@ -251,6 +251,7 @@ class InstitutionsController extends Controller
 
         //inserir na session
         $request->session()->put('schema', $results);
+        $request->session()->put('key', $id);
 
         //pegar valor na sesscion
         $tenant = $request->session()->get('schema');

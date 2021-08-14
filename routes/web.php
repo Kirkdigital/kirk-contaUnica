@@ -109,7 +109,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/select2-autocomplete-people', 'BalanceController@dataAjax');
         Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
         Route::get('financial', 'BalanceController@index')->name('deposit.balance');
-        Route::get('financial-post', function () {  return view('dashboard.financial.index'); });
+        Route::get('financial/{id}/edit', 'BalanceController@show')->name('financial.edit');
 
         //post
         Route::get('posts', 'PostController@posts')->name('posts');

@@ -125,7 +125,9 @@
                                             @endif
                                         </td>
                                         <td>{{ $historic->date }}</td>
-                                        <td></td>
+                                        <td width="1%">
+                                            <a href="{{ url('/financial/' . $historic->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                        </td>
                                     </tr>
                                     @empty
                                     @endforelse

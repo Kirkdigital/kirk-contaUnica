@@ -72,7 +72,6 @@ class Historic extends Model
         ->orderby('id','desc')
         ->paginate(100);
     }
-
     public function status()
     {
         return $this->belongsTo('App\Models\Status', 'tipo');

@@ -10,6 +10,8 @@ use App\Models\People;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\Historic;
+use App\Models\Institution;
+use App\Models\User;
 
 class BalanceController extends Controller
 {
@@ -18,8 +20,7 @@ class BalanceController extends Controller
 
     public function index(Historic $historic)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         $historics = auth()->user()
                     ->historics()->with(['userSender'])->with('status')->with('statuspag') 
                     ->orderby('id','desc')
@@ -39,7 +40,7 @@ class BalanceController extends Controller
 
     public function depositar()
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        $this->pegar_tenant();
         $peoples = People::all()->sortBy('name');
         $statuspag = Status::all()->where("type",'pagamento');
         $statusfinan = Status::all()->where("type",'financial')->where('class','entrada');
@@ -50,8 +51,7 @@ class BalanceController extends Controller
     //autocompleto pessoa
     public function dataAjax(Request $request)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        
+        $this->pegar_tenant();
         $data = People::all();
         if($request->has('q')){
             $search = $request->q;
@@ -65,7 +65,7 @@ class BalanceController extends Controller
 
     public function depositStore(ValidationMoneyFormRequest $request)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        $this->pegar_tenant();
         //dd($request->all());
         //dd(auth()->user()->balance()->firstOrCreate([]));
         $balance = auth()->user()->balance()->firstOrCreate([]);
@@ -83,7 +83,7 @@ class BalanceController extends Controller
 
     public function withdraw()
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        $this->pegar_tenant();
         $peoples = People::all()->sortBy('name');
         $statuspag = Status::all()->where("type",'pagamento');
         $statusfinan = Status::all()->where("type",'financial')->where('class','retira');
@@ -95,8 +95,7 @@ class BalanceController extends Controller
     public function withdrawStore(ValidationMoneyFormRequest $request)
     {
         //dd($request->all());
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         $balance = auth()->user()->balance()->firstOrCreate([]);
         $response = $balance->withdraw($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
 
@@ -117,8 +116,7 @@ class BalanceController extends Controller
 
     public function confirmTransfer(Request $request, People $user)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         if (!$sender = $user->getSender($request->sender)) {
             return redirect()
                 ->back()
@@ -138,8 +136,7 @@ class BalanceController extends Controller
 
     public function transferStore(ValidationMoneyFormRequest $request, People $user)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         if (!$sender = $user->find($request->sender_id))
             return redirect()
                 ->route('balance.transfer')
@@ -160,8 +157,7 @@ class BalanceController extends Controller
 
     public function historic(Historic $historic)
     {
-        
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        $this->pegar_tenant();
         $historics = auth()->user()
                     ->historics()->with(['userSender'])
                     ->orderby('id','desc')
@@ -176,12 +172,9 @@ class BalanceController extends Controller
 
     public function searchHistoric(Request $request, Historic $historic)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         $dataForm = $request->except('_token');
-
         $historics =  $historic->search($dataForm, $this->totalPagesPaginate);
-
         $types = $historic->type();
 
         $statuspag = Status::all()->where("type",'pagamento');
@@ -190,4 +183,20 @@ class BalanceController extends Controller
         return view('balance.historics', compact('historics', 'types', 'dataForm', 'statuspag', 'statusfinan'));
     }
 
+    public function show($id)
+    {
+        $this->pegar_tenant();
+        $codigo = session()->get('key');
+        $historics = Historic::find($id);
+        $account = Institution::find($codigo);
+
+        $people = People::find($historics->user_id_transaction);
+
+        $statuspag = Status::find($historics->pag);
+        $statusfinan = Status::find($historics->tipo);
+
+        $usuario = User::find($historics->user_id);
+
+        return view('balance.detail', compact( 'historics', 'account', 'people', 'statuspag', 'statusfinan', 'usuario'));
+    }
 }

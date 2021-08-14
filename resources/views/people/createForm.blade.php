@@ -184,7 +184,7 @@
                                                             </svg>
                                                     </div>
                                                     <input class="form-control" name="cep" type="text"
-                                                        placeholder="Postal Code">
+                                                        placeholder="Postal Code" pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
                                                 </div>
                                             </div>
                                         </div>

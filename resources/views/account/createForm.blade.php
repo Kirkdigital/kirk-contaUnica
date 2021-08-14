@@ -29,17 +29,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <svg class="c-icon c-icon-sm">
-                                                <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
+                                                <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-featured-playlist"></use>
                                             </svg>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="{{ __('CNPJ') }}" name="doc">
+                                    <input class="form-control" type="text"  placeholder="01.452.25/0001-19"
+                                    pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" name="doc" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">@</span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}"
+                                    <input class="form-control" type="email" placeholder="{{ __('E-Mail Address') }}"
                                         name="email">
                                 </div>
                                 <div class="input-group mb-3">
@@ -50,8 +51,9 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="phone-input" type="text"
-                                        placeholder="{{ __('Mobile') }}" name="mobile" autofocus>
+                                    <input class="form-control" name="mobile" type="tel"
+                                    placeholder="11 99999-9999"
+                                    pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" required>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group row">
@@ -133,7 +135,7 @@
                                                     </use>
                                                 </svg></span></div>
                                         <input class="form-control" name="cep" type="number" placeholder="Postal Code"
-                                            maxlength="8">
+                                            maxlength="9" pattern="[0-9]{5}-[0-9]{3}">
                                     </div>
                                 </div>
                             </div>
