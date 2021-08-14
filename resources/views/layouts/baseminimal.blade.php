@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<!--
-* CoreUI Free Laravel Bootstrap Admin Template
-* @version v2.0.1
-* @link https://coreui.io
-* Copyright (c) 2020 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://coreui.io/license)
--->
-
 <html lang="en">
   <head>
     <base href="./">
@@ -40,10 +32,6 @@
     <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet"> <!-- icons -->
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     
     <!-- Scripts 
     <script src="{{ mix('js/app.js', 'themes/reactions') }}" defer></script>-->
@@ -92,10 +80,6 @@
         @include('dashboard.shared.footer')
       </div>
     </div>
-
-
-
-
 
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>

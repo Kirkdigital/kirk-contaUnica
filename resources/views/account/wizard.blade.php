@@ -120,7 +120,7 @@
                                                             <div class="input-group-prepend"><span class="input-group-text">
                                                                     <svg class="c-icon">
                                                                         <use
-                                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user">
+                                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-face">
                                                                         </use>
                                                                     </svg></span></div>
                                                             <input class="form-control" id='name' name="name" type="text"
@@ -138,7 +138,7 @@
                                                             <div class="input-group-prepend"><span class="input-group-text">
                                                                     <svg class="c-icon">
                                                                         <use
-                                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user">
+                                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-at">
                                                                         </use>
                                                                     </svg></span></div>
                                                             <input class="form-control" id='email' name="email" type="email"
@@ -229,7 +229,7 @@
                                                     <div class="input-group-prepend"><span class="input-group-text">
                                                             <svg class="c-icon">
                                                                 <use
-                                                                    xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-contact">
+                                                                    xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
                                                                 </use>
                                                             </svg></span></div>
                                                     <input class="form-control" name="address" type="text"
