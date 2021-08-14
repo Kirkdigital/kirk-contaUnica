@@ -57,7 +57,7 @@
 
                 </div>
             </div>
-            <button class="btn btn-success" type="submit">Depositar</button>
+            <button class="btn btn-danger" type="submit">Retirar</button>
             <a href="{{ url('financial') }}" class="btn btn-dark">Voltar</a>
         </div>
         

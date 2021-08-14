@@ -25,11 +25,10 @@
                                 <div class="col-sm-8 col-md-5 col-lg-5 col-xl-5">
                                     <div class="box-header">
                                         <a href="{{ route('balance.depositar') }}" class="btn btn-primary">Entrada</a>
-
                                         @if ($amount > 0)
                                         <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">Retirada</a>
                                         @endif
-                                        @if ($amount > 0)
+                                        @if($amount > 0 && Auth::user()->isAdmin())
                                         <a href="{{ route('balance.transfer') }}" class="btn btn-info disabled">Transferir</a>
                                         @endif
                                     </div>

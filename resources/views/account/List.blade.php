@@ -28,11 +28,11 @@
                           {{ $institution->AccountList->status->name }}
                         </span>
                       </td>
+                      @if(Auth::user()->isAdmin())
                       <td width="1%">
                        <a href="{{ url('/account/' . $institution->AccountList->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                       </td>
                       <td width="1%">
-                      @if(Auth::user()->isAdmin())
                         <form action="{{ route('account.destroy', $institution->AccountList->id ) }}" method="POST">
                           @method('DELETE')
                           @csrf
