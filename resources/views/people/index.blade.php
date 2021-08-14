@@ -45,8 +45,7 @@
                                       <th>Mobile</th>
                                       <th>Localization</th>
                                       <th>Status</th>
-                                      <th></th>
-                                      <th></th>
+                                      <th colspan="3"><Center>{{ __('account.action') }}</Center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,20 +70,21 @@
                                           {{ $people->status->name }}
                                         </span>
                                       </td>
+
+
                                       @if( $config->first()->edit_people == true)
-                                      <td>
-                                        <a href="{{ url('/people/' . $people->id . '/edit') }}" class="btn btn-block btn-primary">Edit</a>
+                                      <td width="1%">
+                                       <a href="{{ url('/people/' . $people->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                       </td>
                                       @endif
                                       @if( $config->first()->delete_people == true)
-                                      <td>
-                                        <form action="{{ route('people.destroy', $people->id ) }}" method="POST">
+                                      <td width="1%">
+                                        <form action="{{ route('people.destroy', $people->id ) }}" method="POST">   
                                           @method('DELETE')
                                           @csrf
-                                          <button class="btn btn-block btn-danger">Delete</button>
+                                          <button class="btn btn-primary-outline show_confirm" data-toggle="tooltip" title='Delete'><i class="c-icon c-icon-sm cil-trash text-danger"></i></button>
                                         </form>
-                                       </td>
-                                       @endif
+                                        @endif
                                     </tr>
                                     </tr>
                                     @empty

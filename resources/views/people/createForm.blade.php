@@ -10,14 +10,17 @@
                     <div class="nav-tabs-boxed">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#dados" role="tab"
-                                    aria-controls="dados"><i class="c-icon c-icon-sm cil-contact text-dark"></i> Dados Pessoais</a></li>
+                                    aria-controls="dados">
+                                    <i class="c-icon c-icon-sm cil-contact text-dark"></i> Dados Pessoais</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#endereco" role="tab"
-                                    aria-controls="endereco"><i class="c-icon c-icon-sm cil-location-pin text-dark"></i> Endereço</a></li>
+                                    aria-controls="endereco"><i class="c-icon c-icon-sm cil-location-pin text-dark"></i>
+                                    Endereço</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#membro" role="tab"
-                                    aria-controls="membro"><i class="c-icon c-icon-sm cil-book text-dark"></i> Membresia</a></li>
+                                    aria-controls="membro"><i class="c-icon c-icon-sm cil-book text-dark"></i> Membresia</a>
+                            </li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#acesso" role="tab"
-                                    aria-controls="acesso"><i class="c-icon c-icon-sm cil-https text-dark"></i> Dados de Acesso</a></li>
-
+                                    aria-controls="acesso"><i class="c-icon c-icon-sm cil-https text-dark"></i> Dados de
+                                    Acesso</a></li>
                         </ul>
                         <form method="POST" action="{{ route('people.store') }}">
                             @csrf
@@ -31,7 +34,11 @@
                                                     <label for="name">Nome</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-face text-dark"></i>
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-face">
+                                                                    </use>
+                                                                </svg>
                                                         </div>
                                                         <input class="form-control" id='name' name="name" type="text"
                                                             placeholder="João Silva" required>
@@ -46,7 +53,11 @@
                                                     <label for="ccnumber">Email</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-at text-dark"></i>
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-at">
+                                                                    </use>
+                                                                </svg>
                                                         </div>
                                                         <input class="form-control" name="email" type="email"
                                                             placeholder="joao@live.com" autocomplete="joao@live.com"
@@ -63,7 +74,11 @@
                                                     <label for="ccnumber">Celular</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-mobile text-dark"></i>
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-mobile">
+                                                                    </use>
+                                                                </svg>
                                                         </div>
                                                         <input class="form-control" name="mobile" type="tel"
                                                             placeholder="11 99999-9999"
@@ -76,7 +91,11 @@
                                                     <label for="ccnumber">Data de Nascimento</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-calendar text-dark"></i>
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-calendar">
+                                                                    </use>
+                                                                </svg>
                                                         </div>
                                                         <input class="form-control" name="birth_at" type="date"
                                                             placeholder="date">
@@ -87,15 +106,21 @@
                                                 <label class="col-md-3 col-form-label">Sexo</label>
                                                 <div class="col-md-12 col-form-label">
                                                     <div class="form-check form-check-inline mr-1">
-                                                        <input class="form-check-input" type="radio" value="m"
-                                                            name="sex">
-                                                            <i class="c-icon c-icon-sm cil-user text-dark"></i>
+                                                        <input class="form-check-input" type="radio" value="m" name="sex">
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user">
+                                                            </use>
+                                                        </svg>
                                                         <label class="form-check-label" for="m">Masculino</label>
                                                     </div>
                                                     <div class="form-check form-check-inline mr-1">
-                                                        <input class="form-check-input" type="radio" value="f"
-                                                            name="sex">
-                                                            <i class="c-icon c-icon-sm cil-user-female text-dark"></i>
+                                                        <input class="form-check-input" type="radio" value="f" name="sex">
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user-female">
+                                                            </use>
+                                                        </svg>
                                                         <label class="form-check-label" for="f">Feminino</label>
                                                     </div>
                                                 </div>
@@ -109,42 +134,58 @@
                                             <label for="street">Street</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text">
-                                                        <i class="c-icon c-icon-sm cil-address-book text-dark"></i>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
+                                                            </use>
+                                                        </svg>
                                                 </div>
-                                            <input class="form-control" name="address" type="text"
-                                                placeholder="Enter street name">
-                                        </div>
+                                                <input class="form-control" name="address" type="text"
+                                                    placeholder="Enter street name">
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-5">
                                                 <label for="city">City</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-house text-dark"></i>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
+                                                                </use>
+                                                            </svg>
                                                     </div>
-                                                <input class="form-control" name="city" type="text"
-                                                    placeholder="Enter your city">
-                                            </div>
+                                                    <input class="form-control" name="city" type="text"
+                                                        placeholder="Enter your city">
+                                                </div>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label for="country">State</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-home text-dark"></i>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-home">
+                                                                </use>
+                                                            </svg>
                                                     </div>
-                                                <input class="form-control" name="state" type="text" placeholder="State"
-                                                    placeholder="SP">
-                                            </div>
+                                                    <input class="form-control" name="state" type="text" placeholder="State"
+                                                        placeholder="SP">
+                                                </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="postal-code">Postal Code</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-newspaper text-dark"></i>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                                </use>
+                                                            </svg>
                                                     </div>
-                                                <input class="form-control" name="cep" type="text"
-                                                    placeholder="Postal Code">
-                                            </div>
+                                                    <input class="form-control" name="cep" type="text"
+                                                        placeholder="Postal Code">
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- /.row-->
@@ -152,11 +193,15 @@
                                             <label for="country">Country</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text">
-                                                        <i class="c-icon c-icon-sm cil-globe-alt text-dark"></i>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                            </use>
+                                                        </svg>
                                                 </div>
-                                            <input class="form-control" name="country" type="text"
-                                                placeholder="Country name" value="Brazil" required>
-                                        </div>
+                                                <input class="form-control" name="country" type="text"
+                                                    placeholder="Country name" value="Brazil" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

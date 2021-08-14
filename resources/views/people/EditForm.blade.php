@@ -32,8 +32,11 @@
                                                     <label for="name">Nome</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-face text-dark"></i>
-                                                        </div>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-face">
+                                                                </use>
+                                                            </svg>                                                        </div>
                                                         <input class="form-control" id="name" name="name" type="text" value="{{ $people->name }}">
                                                     </div>
                                                 </div>
@@ -46,8 +49,11 @@
                                                     <label for="ccnumber">Email</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-at text-dark"></i>
-                                                        </div>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-at">
+                                                                </use>
+                                                            </svg>                                                        </div>
                                                         <input class="form-control" id="email" name="email" type="text" placeholder="joao@live.com" value="{{ $people->email }}">
                                                     </div>
                                                 </div>
@@ -61,8 +67,11 @@
                                                     <label for="ccnumber">Celular</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-mobile text-dark"></i>
-                                                        </div>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-mobile">
+                                                                </use>
+                                                            </svg>                                                        </div>
                                                         <input class="form-control" id="mobile" name="mobile" type="tel" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" value="{{ $people->mobile }}">
                                                     </div>
                                                 </div>
@@ -72,8 +81,11 @@
                                                     <label for="ccnumber">Data de Nascimento</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
-                                                                <i class="c-icon c-icon-sm cil-calendar text-dark"></i>
-                                                        </div>
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-calendar">
+                                                                </use>
+                                                            </svg>                                                        </div>
                                                         <input class="form-control" id="birth_at" name="birth_at"  type="date"  placeholder="date" value="{{ $people->birth_at }}">
                                                     </div>
                                                 </div>
@@ -83,12 +95,19 @@
                                                 <div class="col-md-12 col-form-label">
                                                     <div class="form-check form-check-inline mr-1">
                                                       <input class="form-check-input" id="sex"  type="radio" value="m" name="sex" {{ $people->sex == 'm' ? 'checked' : '' }}>
-                                                            <i class="c-icon c-icon-sm cil-user text-dark"></i>
-                                                        <label class="form-check-label" for="m">Masculino</label>
+                                                      <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user">
+                                                        </use>
+                                                    </svg>                                                        <label class="form-check-label" for="m">Masculino</label>
                                                     </div>
                                                     <div class="form-check form-check-inline mr-1">
                                                       <input class="form-check-input" id="sex" type="radio" value="f" name="sex" {{ $people->sex == 'f' ? 'checked' : '' }}>
-                                                            <i class="c-icon c-icon-sm cil-user-female text-dark"></i>
+                                                      <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user-female">
+                                                        </use>
+                                                    </svg>
                                                         <label class="form-check-label" for="f">Feminino</label>
                                                     </div>
                                                 </div>
@@ -102,8 +121,11 @@
                                             <label for="street">Street</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text">
-                                                        <i class="c-icon c-icon-sm cil-address-book text-dark"></i>
-                                                </div>
+                                                    <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
+                                                        </use>
+                                                    </svg>                                                </div>
                                                 <input class="form-control" id="address" name="address" type="text" placeholder="Enter street name" value="{{ $people->address }}">
                                         </div>
                                         </div>
@@ -112,8 +134,11 @@
                                                 <label for="city">City</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-house text-dark"></i>
-                                                    </div>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
+                                                            </use>
+                                                        </svg>                                                    </div>
                                                     <input class="form-control" id="city" name="city" type="text" placeholder="Enter your city" value="{{ $people->city }}">
                                             </div>
                                             </div>
@@ -121,8 +146,11 @@
                                                 <label for="country">State</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-home text-dark"></i>
-                                                    </div>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-home">
+                                                            </use>
+                                                        </svg>                                                    </div>
                                                     <input class="form-control" id="state" name="state" type="text" placeholder="State" placeholder="SP" value="{{ $people->state }}">
                                             </div>
                                             </div>
@@ -130,8 +158,11 @@
                                                 <label for="postal-code">Postal Code</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <i class="c-icon c-icon-sm cil-newspaper text-dark"></i>
-                                                    </div>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                            </use>
+                                                        </svg>                                                    </div>
                                                     <input class="form-control" id="cep" name="cep" type="text" placeholder="Postal Code" value="{{ $people->cep }}">
                                             </div>
                                             </div>
@@ -141,8 +172,11 @@
                                             <label for="country">Country</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text">
-                                                        <i class="c-icon c-icon-sm cil-globe-alt text-dark"></i>
-                                                </div>
+                                                    <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                        </use>
+                                                    </svg>                                                </div>
                                                 <input class="form-control" id="country" type="text" name="country" placeholder="Country name" value="{{ $people->country }}">
                                         </div>
                                         </div>
