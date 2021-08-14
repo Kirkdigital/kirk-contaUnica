@@ -15,114 +15,193 @@ use App\Http\Controllers\TimelineController;
 
 Route::group(['middleware' => ['get.menu']], function () {
     Route::get('/', 'WelcomeController@welcome')->name('welcome');
-    Route::get('/demo', function () {           return view('demo.homepage'); });
-    Route::get('/contact', function () {           return view('contato'); });
-    Route::get('/updates', function () {     return view('updates'); });
+    Route::get('/demo', function () {
+        return view('demo.homepage');
+    });
+    Route::get('/contact', function () {
+        return view('contato');
+    });
+    Route::get('/updates', function () {
+        return view('updates');
+    });
 
 
     Route::group(['middleware' => ['role:user']], function () {
-        Route::get('/group', function () {  return view('dashboard.group.index'); });
-        Route::get('/reports', function () {    return view('dashboard.reports.index'); });
-        Route::get('/colors', function () {     return view('dashboard.colors'); });
-        Route::get('/typography', function () { return view('dashboard.typography'); });
-        Route::get('/charts', function () {     return view('dashboard.charts'); });
-        Route::get('/widgets', function () {    return view('dashboard.widgets'); });
-        Route::get('/404', function () {        return view('dashboard.404'); });
-        Route::get('/500', function () {        return view('dashboard.500'); });
-        Route::prefix('base')->group(function () {  
-            Route::get('/breadcrumb', function(){   return view('dashboard.base.breadcrumb'); });
-            Route::get('/cards', function(){        return view('dashboard.base.cards'); });
-            Route::get('/carousel', function(){     return view('dashboard.base.carousel'); });
-            Route::get('/collapse', function(){     return view('dashboard.base.collapse'); });
-
-            Route::get('/forms', function(){        return view('dashboard.base.forms'); });
-            Route::get('/jumbotron', function(){    return view('dashboard.base.jumbotron'); });
-            Route::get('/list-group', function(){   return view('dashboard.base.list-group'); });
-            Route::get('/navs', function(){         return view('dashboard.base.navs'); });
-
-            Route::get('/pagination', function(){   return view('dashboard.base.pagination'); });
-            Route::get('/popovers', function(){     return view('dashboard.base.popovers'); });
-            Route::get('/progress', function(){     return view('dashboard.base.progress'); });
-            Route::get('/scrollspy', function(){    return view('dashboard.base.scrollspy'); });
-
-            Route::get('/switches', function(){     return view('dashboard.base.switches'); });
-            Route::get('/tables', function () {     return view('dashboard.base.tables'); });
-            Route::get('/tabs', function () {       return view('dashboard.base.tabs'); });
-            Route::get('/tooltips', function () {   return view('dashboard.base.tooltips'); });
+        Route::get('/reports', function () {
+            return view('dashboard.reports.index');
         });
-        Route::prefix('buttons')->group(function () {  
-            Route::get('/buttons', function(){          return view('dashboard.buttons.buttons'); });
-            Route::get('/button-group', function(){     return view('dashboard.buttons.button-group'); });
-            Route::get('/dropdowns', function(){        return view('dashboard.buttons.dropdowns'); });
-            Route::get('/brand-buttons', function(){    return view('dashboard.buttons.brand-buttons'); });
+        Route::get('/colors', function () {
+            return view('dashboard.colors');
+        });
+        Route::get('/typography', function () {
+            return view('dashboard.typography');
+        });
+        Route::get('/charts', function () {
+            return view('dashboard.charts');
+        });
+        Route::get('/widgets', function () {
+            return view('dashboard.widgets');
+        });
+        Route::get('/404', function () {
+            return view('dashboard.404');
+        });
+        Route::get('/500', function () {
+            return view('dashboard.500');
+        });
+        Route::prefix('base')->group(function () {
+            Route::get('/breadcrumb', function () {
+                return view('dashboard.base.breadcrumb');
+            });
+            Route::get('/cards', function () {
+                return view('dashboard.base.cards');
+            });
+            Route::get('/carousel', function () {
+                return view('dashboard.base.carousel');
+            });
+            Route::get('/collapse', function () {
+                return view('dashboard.base.collapse');
+            });
+
+            Route::get('/forms', function () {
+                return view('dashboard.base.forms');
+            });
+            Route::get('/jumbotron', function () {
+                return view('dashboard.base.jumbotron');
+            });
+            Route::get('/list-group', function () {
+                return view('dashboard.base.list-group');
+            });
+            Route::get('/navs', function () {
+                return view('dashboard.base.navs');
+            });
+
+            Route::get('/pagination', function () {
+                return view('dashboard.base.pagination');
+            });
+            Route::get('/popovers', function () {
+                return view('dashboard.base.popovers');
+            });
+            Route::get('/progress', function () {
+                return view('dashboard.base.progress');
+            });
+            Route::get('/scrollspy', function () {
+                return view('dashboard.base.scrollspy');
+            });
+
+            Route::get('/switches', function () {
+                return view('dashboard.base.switches');
+            });
+            Route::get('/tables', function () {
+                return view('dashboard.base.tables');
+            });
+            Route::get('/tabs', function () {
+                return view('dashboard.base.tabs');
+            });
+            Route::get('/tooltips', function () {
+                return view('dashboard.base.tooltips');
+            });
+        });
+        Route::prefix('buttons')->group(function () {
+            Route::get('/buttons', function () {
+                return view('dashboard.buttons.buttons');
+            });
+            Route::get('/button-group', function () {
+                return view('dashboard.buttons.button-group');
+            });
+            Route::get('/dropdowns', function () {
+                return view('dashboard.buttons.dropdowns');
+            });
+            Route::get('/brand-buttons', function () {
+                return view('dashboard.buttons.brand-buttons');
+            });
         });
         Route::prefix('icon')->group(function () {  // word: "icons" - not working as part of adress
-            Route::get('/coreui-icons', function(){         return view('dashboard.icons.coreui-icons'); });
-            Route::get('/flags', function(){                return view('dashboard.icons.flags'); });
-            Route::get('/brands', function(){               return view('dashboard.icons.brands'); });
+            Route::get('/coreui-icons', function () {
+                return view('dashboard.icons.coreui-icons');
+            });
+            Route::get('/flags', function () {
+                return view('dashboard.icons.flags');
+            });
+            Route::get('/brands', function () {
+                return view('dashboard.icons.brands');
+            });
         });
-        Route::prefix('notifications')->group(function () {  
-            Route::get('/alerts', function(){   return view('dashboard.notifications.alerts'); });
-            Route::get('/badge', function(){    return view('dashboard.notifications.badge'); });
-            Route::get('/modals', function(){   return view('dashboard.notifications.modals'); });
+        Route::prefix('notifications')->group(function () {
+            Route::get('/alerts', function () {
+                return view('dashboard.notifications.alerts');
+            });
+            Route::get('/badge', function () {
+                return view('dashboard.notifications.badge');
+            });
+            Route::get('/modals', function () {
+                return view('dashboard.notifications.modals');
+            });
         });
-        Route::resource('notes', 'NotesController');      
+        Route::resource('notes', 'NotesController');
+
+        // account e tenant
         Route::post('/tenant/{id}', 'InstitutionsController@tenant')->name('tenant');
         Route::get('/select2-autocomplete-account', 'PeoplesController@dataAjaxAC');
-       // Route::resource('people',        'PeoplesController');
         Route::resources([
-            //'people' => PeoplesController::class,
             'account' => InstitutionsController::class,
         ]);
-        //Route::resource('profile',        'ProfileController');
+
+        //profile
         Route::get('/profile', 'ProfileController@index')->name('profile');
         Route::get('profile/change', 'ProfileController@change')->name('changeLang');
         Route::post('/profile/update', 'ProfileController@updateProfile')->name('profile.update');
-       // Route::resource('settings',        'ConfigSystemController');
 
-       Route::get('settings', 'ConfigSystemController@index')->name('settings');
+        // settings
+        Route::get('settings', 'ConfigSystemController@index')->name('settings');
         Route::get('settings/system', 'ConfigSystemController@indexSystem')->name('indexSystem');
-            Route::post('settings/updatesystem', 'ConfigSystemController@updateSystem')->name('settings.updateSystem');
+        Route::post('settings/updatesystem', 'ConfigSystemController@updateSystem')->name('settings.updateSystem');
         Route::get('settings/meta', 'ConfigSystemController@indexMeta')->name('indexMeta');
-            Route::post('settings/updatemeta', 'ConfigSystemController@updateMeta')->name('settings.updateMeta');
+        Route::post('settings/updatemeta', 'ConfigSystemController@updateMeta')->name('settings.updateMeta');
 
         Route::resource('dashboard',        'DashController');
+
+        //importar e exportar pessoas
         Route::resource('backup', 'BackupController');
         Route::get('export',        'BackupController@export')->name('export');
         Route::post('import',        'BackupController@import')->name('import');
+
+        //calendar
         Route::get('/calender', [FullCalenderController::class, 'index']);
         Route::post('fullcalenderAjax', [FullCalenderController::class, 'ajax']);
-        Route::get('/thema', function () {  return view('dashboard.buttons.them'); });
-                
+
+        //tema para consulta
+        Route::get('/thema', function () {
+            return view('dashboard.buttons.them');
+        });
+
         //sistema financeiro
         Route::any('historic-search', 'BalanceController@searchHistoric')->name('historic.search');
         Route::get('historic', 'BalanceController@historic')->name('admin.historic');
-    
+
         Route::post('transfer', 'BalanceController@transferStore')->name('transfer.store');
         Route::post('confirm-transfer', 'BalanceController@confirmTransfer')->name('confirm.transfer');
         Route::get('transfer', 'BalanceController@transfer')->name('balance.transfer');
-    
+
         Route::post('withdraw', 'BalanceController@withdrawStore')->name('withdraw.store');
         Route::get('withdraw', 'BalanceController@withdraw')->name('balance.withdraw');
-    
+
         Route::get('depositar', 'BalanceController@depositar')->name('balance.depositar');
         Route::get('/select2-autocomplete-people', 'BalanceController@dataAjax');
         Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
         Route::get('financial', 'BalanceController@index')->name('deposit.balance');
         Route::get('financial/{id}/edit', 'BalanceController@show')->name('financial.edit');
 
-        //post
+        //post e timeline em testes
         Route::get('posts', 'PostController@posts')->name('posts');
         Route::post('ajaxRequest', 'PostController@ajaxRequest')->name('ajaxRequest');
-
         Route::get('timeline/', 'TimelineController@index')->name('timeline.index');
         Route::get('timeline/{post}', [TimelineController::class, 'show'])->name('timeline.show');
-
         Route::post('timeline/{post}/reaction', [ReactionsController::class, 'toggle'])->middleware('auth');
-
-        
     });
+
     Auth::routes();
+
+    //pessoas
     Route::get('people', 'PeoplesController@index')->name('people.index');
     Route::get('people/create', 'PeoplesController@create')->name('people.create');
     Route::post('peoples', 'PeoplesController@store')->name('people.store');
@@ -131,6 +210,16 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::any('people-search', 'PeoplesController@searchHistoric')->name('people.search');
     Route::delete('people/{id}', 'PeoplesController@destroy')->name('people.destroy');
 
+    //grupos
+    Route::get('group', 'GroupsController@index')->name('people.index');
+    Route::get('group/create', 'GroupsController@create')->name('people.create');
+    Route::post('group', 'GroupsController@store')->name('people.store');
+    Route::get('group/{id}/edit', 'GroupsController@edit')->name('people.edit');
+    Route::put('group/{id}', 'GroupsController@update')->name('people.update');
+    Route::any('group-search', 'GroupsController@searchHistoric')->name('people.search');
+    Route::delete('group/{id}', 'GroupsController@destroy')->name('people.destroy');
+
+    //pre-cadastro
     Route::get('wizard', 'PeoplesController@createprecadastro')->name('people.createprecadastro');
     Route::post('wizard', 'PeoplesController@storeprecadastro')->name('people.storeprecadastro');
     Route::any('wizard-search', 'PeoplesController@searchAccount')->name('account.search');
@@ -147,17 +236,19 @@ Route::group(['middleware' => ['get.menu']], function () {
     ]);
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('/thema', function () {  return view('dashboard.buttons.them'); });
+        Route::get('/thema', function () {
+            return view('dashboard.buttons.them');
+        });
         Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
-        Route::resource('users',        'UsersController')->except( ['create', 'store'] );
+        Route::resource('users',        'UsersController')->except(['create', 'store']);
         Route::resource('roles',        'RolesController');
         Route::resource('settings/mail',        'MailController');
         Route::get('prepareSend/{id}',        'MailController@prepareSend')->name('prepareSend');
         Route::post('mailSend/{id}',        'MailController@send')->name('mailSend');
         Route::get('/roles/move/move-up',      'RolesController@moveUp')->name('roles.up');
         Route::get('/roles/move/move-down',    'RolesController@moveDown')->name('roles.down');
-        Route::prefix('menu/element')->group(function () { 
+        Route::prefix('menu/element')->group(function () {
             Route::get('/',             'MenuElementController@index')->name('menu.index');
             Route::get('/move-up',      'MenuElementController@moveUp')->name('menu.up');
             Route::get('/move-down',    'MenuElementController@moveDown')->name('menu.down');
@@ -169,7 +260,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/show',         'MenuElementController@show')->name('menu.show');
             Route::get('/delete',       'MenuElementController@delete')->name('menu.delete');
         });
-        Route::prefix('menu/menu')->group(function () { 
+        Route::prefix('menu/menu')->group(function () {
             Route::get('/',         'MenuController@index')->name('menu.menu.index');
             Route::get('/create',   'MenuController@create')->name('menu.menu.create');
             Route::post('/store',   'MenuController@store')->name('menu.menu.store');
@@ -196,6 +287,5 @@ Route::group(['middleware' => ['get.menu']], function () {
     });
     Route::group(['middleware' =>  ['role:admin']], function () {
         Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-    
     });
 });
