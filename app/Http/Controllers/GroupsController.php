@@ -185,12 +185,17 @@ class GroupsController extends Controller
         return redirect()->back();
     }
 
-    public function destroygroup($id)
+    public function destroygroup(Request $request, $id)
     {
+        $value = $request->session()->get('group');
+
         $this->pegar_tenant();
         $group = People_Groups::find($id);
         if ($group) {
             $group->delete();
+            $adicionarsoma = Group::find($value);
+            $adicionarsoma->count = $adicionarsoma->count-1;
+            $adicionarsoma->save();
         }
         session()->flash("warning", "Deletada a pessoa do grupo");
         return redirect()->back();
