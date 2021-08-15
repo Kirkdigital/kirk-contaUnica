@@ -169,17 +169,13 @@ class GroupsController extends Controller
         //validacao para inserir um valor igual
         if ($validarpessoa->count() == 0) {
             DB::commit();
-            //$validarpessoa->count;
 
-            //DB::select('update * from group where id = ?', [$value]);
-
+            //salvar todos os dados
             $adicionarsoma->save();
             $adicionarpessoa->save();
-            
 
             $request->session()->flash("success", "Adicionado com sucesso");
             return redirect()->back();
-
         }
         $request->session()->flash("info", "Pessoa já adicionada");
         return redirect()->back();

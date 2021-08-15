@@ -52,11 +52,14 @@ class BalanceController extends Controller
     public function dataAjax(Request $request)
     {
         $this->pegar_tenant();
-        $data = People::all();
+        $data = People::select("id","name","email")
+        ->orderby('name', 'asc')
+        ->get();
         if($request->has('q')){
             $search = $request->q;
             $data = People::select("id","name","email")
                     ->where('name','LIKE',"%$search%")
+                    ->orderby('name', 'asc')
                     ->get();
         }
         return response()->json($data);

@@ -100,7 +100,7 @@
             });
             </script>
     <script>
-        $("#name").on("input", function() {
+        $("#name_group").on("input", function() {
             $(this).val($(this).val().toUpperCase());
         });
     </script>
