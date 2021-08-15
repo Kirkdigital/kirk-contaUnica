@@ -165,20 +165,6 @@ class PeoplesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //autocompleto pessoa
-    public function dataAjaxAC(Request $request)
-    {
-        $data = Institution::all();
-        if ($request->has('q')) {
-            $search = $request->q;
-            $data = Institution::select("id", "name_company", "email")
-                ->where('name_company', 'LIKE', "%$search%")
-                ->get();
-        }
-        return response()->json($data);
-    }
-
-
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([

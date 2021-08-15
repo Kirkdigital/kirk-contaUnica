@@ -141,7 +141,6 @@ Route::group(['middleware' => ['get.menu']], function () {
 
         // account e tenant
         Route::post('/tenant/{id}', 'InstitutionsController@tenant')->name('tenant');
-        Route::get('/select2-autocomplete-account', 'PeoplesController@dataAjaxAC');
         Route::resources([
             'account' => InstitutionsController::class,
         ]);
