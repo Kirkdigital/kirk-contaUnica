@@ -12,6 +12,7 @@ use App\Models\Config_system;
 use App\Models\People_Groups;
 use App\Http\Controllers\Input;
 use App\Models\People;
+use Facade\Ignition\DumpRecorder\Dump;
 
 class GroupsController extends Controller
 {
@@ -56,6 +57,7 @@ class GroupsController extends Controller
 
     public function store(Request $request)
     {
+        $this->pegar_tenant();
         $validatedData = $request->all([
             'name_group'             => 'required|min:1|max:255',
             'tipo'           => 'required',
@@ -66,9 +68,17 @@ class GroupsController extends Controller
         $group->type         = $request->input('tipo');
         $group->user_id        = $request->input('itemName');
         $group->status_id      = $request->input('status_id');
+        $group->count      = '1';
         $group->note       = $request->input('note');
-        $this->pegar_tenant();
         $group->save();
+
+        $contador = Group::latest('id')->get()->first()->id;
+        $adicionarpessoa = new People_Groups();
+        $adicionarpessoa->group_id          = $contador;
+        $adicionarpessoa->user_id        = $request->input('itemName');
+        $adicionarpessoa->registered = date('Y-m-d H:m:s');
+        $adicionarpessoa->save();
+
         $request->session()->flash("success", "Successfully created group");
         return redirect()->route('group.index');
     }
@@ -101,6 +111,27 @@ class GroupsController extends Controller
         $group->user_id        = $request->input('itemName');
         $group->status_id      = $request->input('status_id');
         $group->note       = $request->input('note');
+        $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->count();
+        
+        //buscar o id grupo
+        $group1 = Group::find($id);
+        //filtrar nos grupos a pessoa
+        $busca = People_Groups::select('id')->with('grupo')->with('usuario')->where('group_id',$id)->where('user_id', $group1->user_id)->first();
+        //deletar esses dados
+        //dump($busca->id);
+        $grupopessoa = People_Groups::where('group_id',$id)->where('user_id', $group1->user_id);
+        if ($grupopessoa) {
+            $grupopessoa->delete();
+        }
+
+        $adicionarpessoa = new People_Groups();
+        $adicionarpessoa->group_id          =  $id;
+        $adicionarpessoa->user_id        = $request->input('itemName');
+        $adicionarpessoa->registered = date('Y-m-d H:m:s');
+        $adicionarpessoa->save();
+
+        $group->save();
+
         session()->flash("success", "Successfully updated group");
         return redirect()->route('group.index');
     }

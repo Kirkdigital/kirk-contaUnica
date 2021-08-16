@@ -14,8 +14,6 @@
                                     <div class="form-group">
                                         <label>Nome: {{ $group->name_group }}</label><br>
                                         <label>Tipo: {{ $group->type }}</label><br>
-                                        <label>Responsável: {{ $responsavel->name }}</label><br>
-                                        <label>Contato: {{ $responsavel->mobile }}</label><br>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +48,7 @@
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Pessoas nesse grupo</div>
                         <div class="card-body">
-                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                            <table class="table table-responsive-sm table-striped table-sm">
                                 <thead>
                                     <tr>
                                         <th>Pessoa</th>
@@ -64,13 +62,20 @@
                                 <tbody>
                                     @foreach ($pessoasgrupos as $pessoasgrupo)
                                         <tr>
-                                            <td>{{ $pessoasgrupo->usuario->name }}</td>
+                                            <td>{{ $pessoasgrupo->usuario->name }} 
+                                                @if ($pessoasgrupo->usuario->id == $responsavel->id)   
+                                                    <span class="badge badge-info">Responsável</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $pessoasgrupo->usuario->mobile }}</td>
                                             <td>{{ $pessoasgrupo->registered }}</td>
                                             <td width="1%">
                                                 <a href="{{ url('/people/' . $pessoasgrupo->usuario->id . '/edit') }}"
                                                     class="btn btn-primary-outline"><i
                                                         class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                        @if ($pessoasgrupo->usuario->id == $responsavel->id)
+                                                        <td></td>
+                                                        @else
                                             <td width="1%">
                                                 <form action="{{ url('/group/' . $pessoasgrupo->id . '/delete') }}"
                                                     method="POST">
@@ -81,10 +86,12 @@
                                                             class="c-icon c-icon-sm cil-trash text-danger"></i></button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                         </div>
                     </div>
                 </div>

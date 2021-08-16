@@ -98,6 +98,11 @@
             $(this).val($(this).val().toUpperCase());
         });
     </script>
+        <script>
+          $("#tipo").on("input", function() {
+              $(this).val($(this).val().toUpperCase());
+          });
+      </script>
 @endsection
 
 @section('javascript')
