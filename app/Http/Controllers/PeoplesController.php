@@ -136,6 +136,7 @@ class PeoplesController extends Controller
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
         $people->status_id = $request->input('status_id');
+        $people->is_verify       = 'true';
         $people->is_visitor       = $request->has('is_visitor') ? 1 : 0;
         $people->is_transferred       = $request->has('is_transferred') ? 1 : 0;
         $people->is_responsible       = $request->has('is_responsible') ? 1 : 0;
