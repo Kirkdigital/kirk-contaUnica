@@ -111,17 +111,14 @@ class GroupsController extends Controller
         $group->user_id        = $request->input('itemName');
         $group->status_id      = $request->input('status_id');
         $group->note       = $request->input('note');
-        $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->count();
         
         //buscar o id grupo
         $group1 = Group::find($id);
         //filtrar nos grupos a pessoa
-        $busca = People_Groups::select('id')->with('grupo')->with('usuario')->where('group_id',$id)->where('user_id', $group1->user_id)->first();
-        //deletar esses dados
-        //dump($busca->id);
-        $grupopessoa = People_Groups::where('group_id',$id)->where('user_id', $group1->user_id);
-        if ($grupopessoa) {
-            $grupopessoa->delete();
+        //deletar do usuário antigo e atual
+        $validaruser = People_Groups::where('group_id',$id)->whereIn('user_id',[$group1->user_id,$request->input('itemName')]);
+        if ($validaruser) {
+            $validaruser->delete();
         }
 
         $adicionarpessoa = new People_Groups();
@@ -129,6 +126,9 @@ class GroupsController extends Controller
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $adicionarpessoa->save();
+
+        //fazer a contagem ao inserir
+        $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->count();
 
         $group->save();
 
