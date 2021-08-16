@@ -94,6 +94,7 @@ class PeoplesController extends Controller
         $people->is_responsible       = $request->input('is_responsible');
         $people->is_conversion       = $request->input('is_conversion');
         $people->is_baptism       = $request->input('is_baptism');
+        $people->is_verify       = 'true';
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
@@ -118,7 +119,7 @@ class PeoplesController extends Controller
         {     
         //inserir no banco correto
         $people = new People();
-        $people->name          = $request->input('name');
+        $people->name          = strtoupper($request->input('name'));
         $people->email         = auth()->user()->email;
         $people->mobile        = $request->input('mobile');
         $people->birth_at      = $request->input('birth_at');
@@ -138,7 +139,7 @@ class PeoplesController extends Controller
         }
         else{
             session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
-            return redirect()->back();
+            return redirect()->route('account.index');
         }
     }
 
@@ -152,7 +153,7 @@ class PeoplesController extends Controller
     public function edit($id)
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        $people = People::find($id);
+        $people = People::with('acesso')->find($id);
         $statuses = Status::all()->where("type", 'people');
         return view('people.EditForm', ['statuses' => $statuses, 'people' => $people]);
     }

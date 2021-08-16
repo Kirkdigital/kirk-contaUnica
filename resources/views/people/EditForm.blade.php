@@ -237,19 +237,33 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="hf-email">Email</label>
                                                 <div class="col-md-9">
-                                                    <input class="form-control" placeholder="Enter Email.."
-                                                        autocomplete="email" disabled><span class="help-block">Please enter
-                                                        your email</span>
+                                                    <input class="form-control" placeholder="Caso possua email informado, pessoa não possuiu o acesso" value="@if($people->user_id)
+                                                    {{ $people->acesso->email }}
+                                                    @endif"
+                                                        autocomplete="email" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 col-form-label" for="hf-password">Password</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control" placeholder="Enter Password.."
-                                                        autocomplete="current-password" disabled><span
-                                                        class="help-block">Please enter
-                                                        your password</span>
-                                                </div>
+                                                <label class="col-md-3 col-form-label" for="hf-password">Pessoa possui acesso?</label>
+                                                                                        @if ($people->user_id)
+                                                                                            Cadastro associado uma conta central associado
+                                                                                        @else
+                                                                                            Cadastro ainda não possui uma conta central associado, gostaria de criar?
+                                                                                            <br>
+                                                                                            <div class="col-sm-8 col-md-2 col-lg-2 col-xl-2">
+                                                                                                <div class="box-header">
+                                                                                                    <button type="submit" class="btn btn-primary" disabled>Criar conta</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label" for="hf-password">Pessoa é um pré-cadastro?</label>
+                                                                                        @if ($people->is_verify == false)
+                                                                                            Sim, está associado uma conta central
+                                                                                        @else
+                                                                                            Não.
+                                                                                        @endif
                                             </div>
 
                                     </div>

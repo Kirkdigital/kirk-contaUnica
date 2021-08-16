@@ -69,7 +69,10 @@ class People extends Model
                     ->get()
                     ->first();    
     }   
-    
+    public function acesso()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
     public function search(Array $data, $totalPagesPaginate)
     {
         return $this->where(function ($query) use ($data){

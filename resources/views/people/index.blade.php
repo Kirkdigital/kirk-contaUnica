@@ -51,7 +51,10 @@
                                 <tbody>
                                     @forelse($peoples as $people)
                                     <tr>
-                                      <td><strong>{{ $people->name }}</strong></td>
+                                      <td><strong>{{ $people->name }}</strong> 
+                                        @if($people->is_verify == false)
+                                        <span class="badge badge-danger">NEW</span>
+                                        @endif</td>
                                       <td>{{ $people->email }}</td>
                                       <td>{{ $people->mobile }}</td>
                                       <td>
