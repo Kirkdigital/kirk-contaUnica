@@ -9,7 +9,7 @@ use App\Models\Notes;
 use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
-use App\Models\Post;
+use App\Models\People_Groups;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
@@ -97,12 +97,13 @@ class DashController extends Controller
         $anobatismo = People::where('is_baptism', true)->whereYear('created_at', date('Y'))->count();
         $anoconversao = People::where('is_conversion', true)->whereYear('created_at', date('Y'))->count();
         $anopessoa = People::whereYear('created_at', date('Y'))->count();
+        $anogrupo = People_Groups::whereYear('registered', date('Y'))->count();
 
         $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->visitante_ano); // 20
         $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->batismo_ano); 
         $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->conversao_ano); // 20
         $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->pessoa_ano); 
-        //$totalvisitante = $people->where('is_newvisitor', true)->count();
+        $porcentage_grupo = $this->porcentagem_nx($anogrupo, $meta->grupo_ativo_ano); 
 
         $anodizimo = Historic::where('tipo', '9')->whereYear('date', date('Y'))->sum('amount');
         $anooferta = Historic::where('tipo', '10')->whereYear('date', date('Y'))->sum('amount');
@@ -236,6 +237,8 @@ class DashController extends Controller
                     'doacaoatual',
                     'despesaatual',
                     'precadastro',
+                    'anogrupo',
+                    'porcentage_grupo'
                 ));
                 
     }

@@ -287,11 +287,11 @@
                     </svg>
                     <div>Pessoas associadas aos Grupos</div>
                     <div class="ml-auto font-weight-bold mr-2"></div>
-                    <div class="text-muted small">({{ ($meta->grupo_ativo_ano)}})</div>
+                    <div class="text-muted small">({{ ($anogrupo)}})</div>
                   </div>
                   <div class="progress-group-bars">
                     <div class="progress progress-xs">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" style="width: {{ $porcentage_grupo}}%" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
