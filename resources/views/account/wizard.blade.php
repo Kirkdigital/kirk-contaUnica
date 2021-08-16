@@ -39,7 +39,7 @@
                                         <center>
                                             <h3>Selecionar uma comunidade</h3>
                                         </center>
-                                        <form action="{{ route('account.search') }}" method="POST"
+                                        <form action="{{ route('wizard.search') }}" method="POST"
                                             class="form form-inline">
                                             {!! csrf_field() !!}
                                             <div class="card-body">
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form method="POST" action="{{ route('people.storeprecadastro') }}">
+                                <form method="POST" action="{{ route('wizard.store') }}">
                                     @csrf
                                     <div class="row setup-content" id="step-2">
                                         <div class="col-md-12">

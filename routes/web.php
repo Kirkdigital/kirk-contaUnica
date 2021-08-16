@@ -222,10 +222,10 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::delete('group/{id}/delete', 'GroupsController@destroygroup')->name('group.destroygroup');
     
 
-    //pre-cadastro
-    Route::get('wizard', 'PeoplesController@createprecadastro')->name('people.createprecadastro');
-    Route::post('wizard', 'PeoplesController@storeprecadastro')->name('people.storeprecadastro');
-    Route::any('wizard-search', 'PeoplesController@searchAccount')->name('account.search');
+    //pre-cadastro - wizard
+    Route::get('wizard', 'WizardController@create')->name('wizard.create');
+    Route::post('wizard', 'WizardController@store')->name('wizard.store');
+    Route::any('wizard-search', 'WizardController@searchAccount')->name('wizard.search');
 
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([
