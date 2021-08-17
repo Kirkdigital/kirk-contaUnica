@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menurole extends Model
 {
-    protected $table = 'public.menu_role';
+    protected $table = 'admin.menu_role';
     public $timestamps = false; 
 }

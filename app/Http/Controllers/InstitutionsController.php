@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Institution;
 use App\Models\Status;
-use App\Models\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Controllers\TenantController;
 use App\Models\Users_Account;
 
 class InstitutionsController extends Controller
 {
- 
+
     private $totalPagesPaginate = 10;
     /**
      * Create a new controller instance.
@@ -38,9 +34,9 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
 
-        $institutions = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate($this->totalPagesPaginate);  
+        $institutions = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate($this->totalPagesPaginate);
         //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
-        return view('account.List',['institutions' => $institutions]);
+        return view('account.List', ['institutions' => $institutions]);
     }
 
     public function license_index(Request $request)
@@ -48,24 +44,23 @@ class InstitutionsController extends Controller
         $you = auth()->user();
         $countinstlist = Institution::where('integrador', $you->id)->get();
         $countinst = $countinstlist->count();
-       
+
         if ($request->ajax()) {
-           
+
             $data = Institution::select('*')->where('integrador', $you->id);
             return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-     
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
-    
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-        }
-        
-        return view('account.License', compact('countinst'));
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
 
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('account.License', compact('countinst'));
     }
 
     public function license_index1()
@@ -143,15 +138,15 @@ class InstitutionsController extends Controller
             )
         ));
         $contador = Institution::latest('id')->get()->first()->id;
-        $tenant1 = ($string_novo).'_'. strval($contador+1);
-        
+        $tenant1 = ($string_novo) . '_' . strval($contador + 1);
+
         $user = auth()->user();
         $institution = new Institution();
         $institution->name_company      = $request->input('name_company');
         $institution->email      = $request->input('email');
         $institution->doc      = $request->input('doc');
         $institution->mobile      = $request->input('mobile');
-        $institution->tenant        = preg_replace('/[ -]+/' , '_' , $tenant1);
+        $institution->tenant        = preg_replace('/[ -]+/', '_', $tenant1);
         $institution->address1       = $request->input('address1');
         $institution->address2       = $request->input('address2');
         $institution->city       = $request->input('city');
@@ -167,14 +162,32 @@ class InstitutionsController extends Controller
         $useraccount->account_id = Institution::latest('id')->get()->first()->id;
         $useraccount->save();
 
+        //criar o esquema (gambiarra)
+        DB::select('CREATE SCHEMA '.$institution->tenant);
 
-        //return response()->json( [ $this->runMigrations($institution), $institution ], 200);
+        $tenant = (object) array( 'host' => '127.0.0.1', 'port' => '5432', 'account_name' => 'postgres', 'password' => 'ajvv6679' );
+        
+        Config::set('database.connections.tenant.host', $tenant->host); 
+        Config::set('database.connections.tenant.port', $tenant->port); 
+        Config::set('database.connections.tenant.database', 'tenant'); 
+        Config::set('database.connections.tenant.username', $tenant->account_name); 
+        Config::set('database.connections.tenant.password', $tenant->password); 
+        Config::set('database.connections.tenant.schema',  $institution->tenant);
 
-        $request->session()->flash("success", 'events.change_create');
+        dump(config::get('database.connections.tenant'));
+        DB::reconnect('tenant');   
+
+        $migrated = Artisan::call('migrate:fresh'); 
+        if (!$migrated) {
+            DB::purge('tenant'); 
+            DB::reconnect('pgsql');
+            $request->session()->flash("success", 'events.change_create');
+            return redirect()->route('account.index');
+        }
+        $request->session()->flash("danger", 'Erro ao rodar migrations');
         return redirect()->route('account.index');
-
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -182,18 +195,6 @@ class InstitutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function runMigrations(Institution $institution){
-        $migrated = Artisan::call('tenancy:migrate', [
-            '--website_id' => $institution->id,
-        ]);
-
-        if( !$migrated ){ // return FALSE for sucess
-            return 'Tenant criado com sucesso.';
-        }
-        return 'Erro ao rodar migrations.';
-    }
-
 
     public function update(Request $request, $id)
     {
@@ -274,5 +275,4 @@ class InstitutionsController extends Controller
 
         return redirect()->route('dashboard.index');
     }
-    
 }

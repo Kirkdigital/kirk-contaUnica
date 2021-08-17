@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
+
 
 class BalancesTable extends Migration
 {
@@ -13,7 +15,7 @@ class BalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('balances', function(Blueprint $table)
+        Schema::create(config::get('database.connections.tenant.schema').'.balances', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->integer('user_id');

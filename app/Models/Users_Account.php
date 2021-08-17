@@ -9,7 +9,7 @@ class Users_Account extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.users_account';
+    protected $table = 'admin.users_account';
     public $timestamps = false; 
     /**
      * Get the notes for the status.

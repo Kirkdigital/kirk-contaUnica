@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
+
 
 class historicsTable extends Migration {
 
@@ -13,7 +15,7 @@ class historicsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('historics', function(Blueprint $table)
+		Schema::create(config::get('database.connections.tenant.schema').'.historics', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->integer('user_id');

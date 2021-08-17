@@ -2,9 +2,7 @@
 
 namespace Illuminate\Console\Command\TenantsMigrateCommand;
 
-use App\Models\Institution as Tenant;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;

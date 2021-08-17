@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
+
 
 class peopleTable extends Migration {
 
@@ -13,7 +15,7 @@ class peopleTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('people', function(Blueprint $table)
+		Schema::create(config::get('database.connections.tenant.schema').'.people', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('name')->nullable();

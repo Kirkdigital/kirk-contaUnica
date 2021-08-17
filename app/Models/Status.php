@@ -9,7 +9,7 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.status';
+    protected $table = 'admin.status';
     public $timestamps = false; 
     /**
      * Get the notes for the status.

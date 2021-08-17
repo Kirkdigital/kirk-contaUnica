@@ -22,7 +22,7 @@ class User extends Authenticatable implements ReactsInterface
     use HasFactory;
 
     
-    protected $table = 'public.users';
+    protected $table = 'admin.users';
 
     /**
      * The attributes that are mass assignable.

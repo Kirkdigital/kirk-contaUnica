@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
 
 class eventsTable extends Migration {
 
@@ -13,7 +14,7 @@ class eventsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('events', function(Blueprint $table)
+		Schema::create(config::get('database.connections.tenant.schema').'.events', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('title');
