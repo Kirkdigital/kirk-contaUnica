@@ -14,7 +14,6 @@ class Config_system extends Model
     use Notifiable;
 
     protected $connection = 'tenant';
- 
     protected $table ='config_system';
     
     /**

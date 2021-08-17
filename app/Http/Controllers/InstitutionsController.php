@@ -164,7 +164,7 @@ class InstitutionsController extends Controller
 
         //criar o esquema (gambiarra)
         DB::select('CREATE SCHEMA '.$institution->tenant);
-
+       
         $tenant = (object) array( 'host' => '127.0.0.1', 'port' => '5432', 'account_name' => 'postgres', 'password' => 'ajvv6679' );
         
         Config::set('database.connections.tenant.host', $tenant->host); 
@@ -174,7 +174,7 @@ class InstitutionsController extends Controller
         Config::set('database.connections.tenant.password', $tenant->password); 
         Config::set('database.connections.tenant.schema',  $institution->tenant);
 
-        dump(config::get('database.connections.tenant'));
+        //dump(config::get('database.connections.tenant'));
         DB::reconnect('tenant');   
 
         $migrated = Artisan::call('migrate:fresh'); 
@@ -248,7 +248,7 @@ class InstitutionsController extends Controller
         //mater toda a sessao
         $request->session()->forget('schema');
 
-        $results = DB::select('select * from accounts where id = ?', [$id]);
+        $results = DB::select('select * from admin.accounts where id = ?', [$id]);
 
         //inserir na session
         $request->session()->put('schema', $results);

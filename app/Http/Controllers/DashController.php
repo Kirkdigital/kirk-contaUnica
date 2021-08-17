@@ -83,13 +83,13 @@ class DashController extends Controller
         $porcentage_f = $this->porcentagem_nx($sexfemin, $totalsex); 
 
         //total
-        $likes = DB::table('likes')
-        ->leftJoin('posts', 'likes.likeable_id', '=', 'posts.id')
+        $likes = DB::table('admin.likes')
+        ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
         ->where('posts.user_id', '11')
         ->count();
         //ano
-        $anolikes = DB::table('likes')
-        ->leftJoin('posts', 'likes.likeable_id', '=', 'posts.id')
+        $anolikes = DB::table('admin.likes')
+        ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
         ->whereYear('posts.created_at', date('Y'))->count();
 
         //valor total ano meta

@@ -15,6 +15,7 @@ class Post extends Model implements ReactableInterface
     use Likeable;
     use HasFactory, Reactable;
 
+    protected $connection = 'adminaccount';
 
     protected $fillable = ['title'];
 

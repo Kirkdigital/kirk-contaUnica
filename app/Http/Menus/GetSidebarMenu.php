@@ -20,7 +20,7 @@ class GetSidebarMenu implements MenuInterface{
     }
 
     private function getMenuFromDB($menuId, $menuName){
-        $this->menu = Menus::join('menu_role', 'menus.id', '=', 'menu_role.menus_id')
+        $this->menu = Menus::join('admin.menu_role', 'menus.id', '=', 'menu_role.menus_id')
             ->select('menus.*')
             ->where('menus.menu_id', '=', $menuId)
             ->where('menu_role.role_name', '=', $menuName)

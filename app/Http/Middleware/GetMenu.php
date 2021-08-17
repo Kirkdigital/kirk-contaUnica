@@ -27,7 +27,7 @@ class GetMenu
             $userRoles = Auth::user()->getRoleNames();
             //$userRoles = $userRoles['items'];
             $roleHierarchy = RoleHierarchy::select('role_hierarchy.role_id', 'roles.name')
-            ->join('roles', 'roles.id', '=', 'role_hierarchy.role_id')
+            ->join('admin.roles', 'roles.id', '=', 'role_hierarchy.role_id')
             ->orderBy('role_hierarchy.hierarchy', 'asc')->get();
             $flag = false;
             foreach($roleHierarchy as $roleHier){

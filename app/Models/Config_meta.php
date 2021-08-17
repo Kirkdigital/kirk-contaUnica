@@ -14,7 +14,7 @@ class Config_meta extends Model
     use Notifiable;
 
     protected $connection = 'tenant';
- 
+
     protected $table ='config_meta';
     
     /**
