@@ -230,7 +230,10 @@ class InstitutionsController extends Controller
     {
         $institution = Institution::find($id);
         if ($institution) {
-            $institution->delete();
+            //$institution->delete();
+            $institution = Institution::find($id);
+            $institution->deleted_at          = date('Y-m-d H:m:s');
+            $institution->save();
         }
 
         $User_account = Users_Account::where('account_id', '=', $id);

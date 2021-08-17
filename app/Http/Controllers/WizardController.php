@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\People;
@@ -10,6 +11,7 @@ use App\Models\Institution;
 
 class WizardController extends Controller
 {
+    use SoftDeletes;
 
     private $totalPagesPaginate = 12;
     /**
@@ -30,7 +32,7 @@ class WizardController extends Controller
 
     public function create()
     {
-        $institutions = Institution::all();
+        $institutions = Institution::all()->where('deleted_at', '=', null);
         return view('account.wizard', ['institutions' => $institutions]);
     }
     
