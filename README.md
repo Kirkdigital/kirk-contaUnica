@@ -9,9 +9,15 @@
 CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of redundant components, so the app is light enough to offer ultimate user experience. This means mobile devices also, where the navigation is just as easy and intuitive as on a desktop or laptop. The CoreUI Layout API lets you customize your project for almost any device – be it Mobile, Web or WebApp – CoreUI covers them all!
 
 Aplicações
-Laravel - componser
-Postgres
+Laravel - 8
+componser -
+PHP - 8
+nodejs 10
+Postgres -10
 
+
+Processo:
+Instalar o componser + php 
 ## Retaurar backup do postgres
 
 ![plano](https://github.com/julianopimentel/laravel-deskapps/blob/6806fb267477c5560e1de8df20d770780de0744d/screenshot/schema.png)
@@ -189,6 +195,23 @@ Once done with seeds file edit, __run__:
 ``` bash 
 $ php artisan migrate:refresh --seed
 # This command also rollbacks database and migrates it again.
+```
+
+
+##Erros
+Quando for atualizar o comando componser install, pode ocorrer erros, mas pode usar o componser update e analisar os problemas, geralmente é o php que está com as extensões desativadas.
+
+Quando logar pela primeira vez e retonar:
+Illuminate\Database\QueryException
+```SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "roles" does not exist LINE 1: ...as_roles"."model_type" as "pivot_model_type" from "roles" in... ^ (SQL: select "roles".*, "model_has_roles"."model_id" as "pivot_model_id", "model_has_roles"."role_id" as "pivot_role_id", "model_has_roles"."model_type" as "pivot_model_type" from "roles" inner join "model_has_roles" on "roles"."id" = "model_has_roles"."role_id" where "model_has_roles"."model_id" = 1 and```
+
+Adicionar a linha em vendor\spatie\laravel-permission\src\Models\Role
+```     class Role extends Model implements RoleContract
+        {
++    protected $connection = 'adminaccount';
+
+        use HasPermissions;
+        use RefreshesPermissionCache;
 ```
 
 ## Features
