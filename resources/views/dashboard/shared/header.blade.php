@@ -17,11 +17,11 @@
           <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           
           @if(empty(Auth::user()->image))
-          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/uploads/images/user.png') }}"></div>
+          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/uploads/images/user.png?v=1') }}"></div>
           @endif
 
           @if(!empty(Auth::user()->image))
-          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/' .auth()->user()->image) }}"></div>
+          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/' .auth()->user()->image) }}?v=1"></div>
           @endif
 
             </a>
