@@ -20,10 +20,7 @@ class WelcomeController extends Controller
             else
             return redirect()->back();
         }
-        else{
-            return redirect()->route('posts.posts');
-        }
-        return view('welcome');
+        return view('login');
         
     }
 }
