@@ -21,7 +21,7 @@
           @endif
 
           @if(!empty(Auth::user()->image))
-          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/' .auth()->user()->image) }}?v=1"></div>
+          <div class="c-avatar"><img class="c-avatar-img" src="{{ url('/public/' .auth()->user()->image) }}"></div>
           @endif
 
             </a>
