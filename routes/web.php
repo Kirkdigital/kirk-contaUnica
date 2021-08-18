@@ -43,10 +43,10 @@ Route::group(['middleware' => ['get.menu']], function () {
             return view('dashboard.widgets');
         });
         Route::get('/404', function () {
-            return view('dashboard.404');
+            return view('error.404');
         });
         Route::get('/500', function () {
-            return view('dashboard.500');
+            return view('error.500');
         });
         Route::prefix('base')->group(function () {
             Route::get('/breadcrumb', function () {
