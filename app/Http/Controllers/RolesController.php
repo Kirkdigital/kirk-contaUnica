@@ -18,8 +18,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = DB::table('roles')
-        ->leftJoin('role_hierarchy', 'roles.id', '=', 'role_hierarchy.role_id')
+        $roles = DB::table('admin.roles')
+        ->leftJoin('admin.role_hierarchy', 'roles.id', '=', 'role_hierarchy.role_id')
         ->select('roles.*', 'role_hierarchy.hierarchy')
         ->orderBy('hierarchy', 'asc')
         ->get();
