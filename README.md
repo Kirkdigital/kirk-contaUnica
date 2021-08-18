@@ -202,13 +202,16 @@ $ php artisan migrate:refresh --seed
 Quando for atualizar o comando componser install, pode ocorrer erros, mas pode usar o componser update e analisar os problemas, geralmente é o php que está com as extensões desativadas.
 
 Quando logar pela primeira vez e retonar:
+``` bash
 Illuminate\Database\QueryException
-```SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "roles" does not exist LINE 1: ...as_roles"."model_type" as "pivot_model_type" from "roles" in... ^ (SQL: select "roles".*, "model_has_roles"."model_id" as "pivot_model_id", "model_has_roles"."role_id" as "pivot_role_id", "model_has_roles"."model_type" as "pivot_model_type" from "roles" inner join "model_has_roles" on "roles"."id" = "model_has_roles"."role_id" where "model_has_roles"."model_id" = 1 and```
+SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "roles" does not exist LINE 1: ...as_roles"."model_type" as "pivot_model_type" from "roles" in... ^ (SQL: select "roles".*, "model_has_roles"."model_id" as "pivot_model_id", "model_has_roles"."role_id" as "pivot_role_id", "model_has_roles"."model_type" as "pivot_model_type" from "roles" inner join "model_has_roles" on "roles"."id" = "model_has_roles"."role_id" where "model_has_roles"."model_id" = 1 and
+```
 
 Adicionar a linha em vendor\spatie\laravel-permission\src\Models\Role
-```     class Role extends Model implements RoleContract
+``` bash
+        class Role extends Model implements RoleContract
         {
-+    protected $connection = 'adminaccount';
+$       +    protected $connection = 'adminaccount';
 
         use HasPermissions;
         use RefreshesPermissionCache;
@@ -282,7 +285,6 @@ If the column is a foreign key, it should be specified: in the field "Optional r
 
 #### E-mail Templates
 It is an example of managing e-mail templates. Allows you to create, edit and delete templates. It also allows you to send an E-mail to a selected address.
-
 
 ## Creators
 
