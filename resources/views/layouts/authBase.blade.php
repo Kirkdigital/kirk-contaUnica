@@ -43,9 +43,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- Icons-->
-    <link href="{{ asset('css/free.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/free.min.css?v=1') }}" rel="stylesheet">
     <!-- Main styles for this application-->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css?v=1') }}" rel="stylesheet">
 
   </head>
   <body class="c-app flex-row align-items-center">
@@ -54,7 +54,7 @@
     @include('dashboard.shared.flash-message')
     @include('layouts.shared.loading')
     <!-- CoreUI and necessary plugins-->
-    <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/coreui.bundle.min.js?v=1') }}"></script>
         <!-- Mensagem flash https://medium.com/hacktive-devs/handling-feedback-in-web-laravel-applications-9f6691616218-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @yield('javascript')

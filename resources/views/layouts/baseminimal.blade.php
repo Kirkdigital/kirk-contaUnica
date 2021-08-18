@@ -38,9 +38,9 @@
     <meta property="og:type" content="website">
 
     <!-- Icons-->
-    <link href="{{ asset('css/free.min.css') }}" rel="stylesheet"> <!-- icons -->
+    <link href="{{ asset('css/free.min.css?v=1') }}" rel="stylesheet"> <!-- icons -->
     <!-- Main styles for this application-->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css?v=1') }}" rel="stylesheet">
     
     <!-- Scripts 
     <script src="{{ mix('js/app.js', 'themes/reactions') }}" defer></script>-->
@@ -89,8 +89,8 @@
     </div>
 
     <!-- CoreUI and necessary plugins-->
-    <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/coreui-utils.js') }}"></script>
+    <script src="{{ asset('js/coreui.bundle.min.js?v=1') }}"></script>
+    <script src="{{ asset('js/coreui-utils.js?v=1') }}"></script>
     <!-- Mensagem flash https://medium.com/hacktive-devs/handling-feedback-in-web-laravel-applications-9f6691616218-->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
