@@ -177,7 +177,7 @@ class GroupsController extends Controller
         //$pessoasgrupo = People_Groups::with('grouplista');
 
        //@dump($pessoasgrupo);
-        return view('group.Show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
+        return view('group.show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
     public function storepeoplegroup(Request $request)
