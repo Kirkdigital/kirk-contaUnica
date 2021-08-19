@@ -6,9 +6,6 @@
         <div class="fade-in">
             <div class="row">
                 <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-9">
-                        </div></div>
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i><strong>Pessoas nesse grupo</strong></div>
                         <div class="card-body">
