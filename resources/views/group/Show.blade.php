@@ -5,48 +5,12 @@
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-9">
+                        </div></div>
                     <div class="card">
-                        <div class="card-header"><strong>Detalhes do grupo</strong></div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Nome: {{ $group->name_group }}</label><br>
-                                        <label>Tipo: {{ $group->type }}</label><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row-->
-                </div>
-                {{ session(['group' => $group->id]) }}
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header"><strong>Buscar Pessoa</strong></div>
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('group.storepeoplegroup') }}">
-                                @csrf
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <select class="itemName form-control" id="itemName" name="itemName"
-                                            required></select>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-sm btn-primary" type="submit">Adicionar</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- /.col-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Pessoas nesse grupo</div>
+                        <div class="card-header"><i class="fa fa-align-justify"></i><strong>Pessoas nesse grupo</strong></div>
                         <div class="card-body">
                             <table class="table table-responsive-sm table-striped table-sm">
                                 <thead>
@@ -91,13 +55,33 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            
                         </div>
                     </div>
+                    <!-- /.row-->
                 </div>
-                <!-- /.col-->
+                {{ session(['group' => $group->id]) }}
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header"><strong>Buscar Pessoa</strong></div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('group.storepeoplegroup') }}">
+                                @csrf
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <select class="itemName form-control" id="itemName" name="itemName"
+                                            required></select>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit">Adicionar</button>
+                            <a href="{{ route('group.index') }}"
+                            class="btn btn-sm btn-dark">{{ __('Return') }}</a>
+                        </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <!-- /.row-->
         </div>
     </div>
     <script type="text/javascript">
