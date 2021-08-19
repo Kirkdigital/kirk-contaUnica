@@ -88,7 +88,8 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-12  order-lg-2 order-1 min-vh-100 background-walk-y position-fix overlay-gradient-bottom"
-                    style="background-image: url(assets/img/login-home.jpg);">
+                    style="background-image: url(assets/img/login-home.jpg)">
+                    
                     <div class="absolute-bottom-left index-2">
                         <div class="text-dark p-5 pb-2">
                             <div class="mb-5 pb-3">
