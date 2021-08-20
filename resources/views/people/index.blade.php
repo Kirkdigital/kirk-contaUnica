@@ -7,9 +7,7 @@
                 <div class="card">
                     <div class="container">
 
-                      <div class="card-header">
-                        <i class="fa fa-align-justify"></i>{{ __('People') }}
-                      </div>
+                      <div class="card-header"><h5>Pessoas</h5></div>
                             <form action="{{ route('people.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                          <div class="card-body">
@@ -77,7 +75,7 @@
 
                                       @if( $config->first()->edit_people == true)
                                       <td width="1%">
-                                       <a href="{{ url('/people/' . $people->id . '/edit') }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
+                                       <a href="{{ route('people.edit', $people->id) }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                       </td>
                                       @endif
                                       @if( $config->first()->delete_people == true)

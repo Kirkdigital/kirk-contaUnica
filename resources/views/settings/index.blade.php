@@ -40,7 +40,7 @@
                   <div class="card-body">
                     <h4>SEO</h4>
                     <p>Configurações de Rede Sociais</p>
-                    <a href="{{ url('settings/social') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <a href="{{ route('indexSocial') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                   <div class="card-body">
                     <h4>Email</h4>
                     <p>Configuração do SMTP e templetas.</p>
-                    <a href="{{ url('settings/email') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <a href="{{ route('indexEmail') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
                   <div class="card-body">
                     <h4>Roles</h4>
                     <p>Configurações de grupos e permissões</p>
-                    <a {{ url('settings/roles') }} class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <a href="{{ url('settings/roles') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>

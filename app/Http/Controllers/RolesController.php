@@ -22,7 +22,7 @@ class RolesController extends Controller
     {
         $this->pegar_tenant();
         $roles = Roles::all();
-        return view('dashboard.roles.index', array(
+        return view('settings.roles.index', array(
             'roles' => $roles,
         ));
     }
@@ -34,7 +34,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        return view('dashboard.roles.create');
+        return view('settings.roles.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.roles.show', array(
+        return view('settings.roles.show', array(
             'role' => Role::where('id', '=', $id)->first()
         ));
     }
@@ -89,7 +89,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.roles.edit', array(
+        return view('settings.roles.edit', array(
             'role' => Role::where('id', '=', $id)->first()
         ));
     }

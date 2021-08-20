@@ -6,10 +6,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="container">
-
-                            <div class="card-header">
-                                <i class="fa fa-align-justify"></i>{{ __('Group') }}
-                            </div>
+                            <div class="card-header"><h5>Grupos</h5></div>
                             <form action="{{ route('group.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">
@@ -75,20 +72,20 @@
                                                     </span>
                                                 </td>
                                                 <td width="1%">
-                                                    <a href="{{ url('/group/' . $group->id) }}"
+                                                    <a href="{{ route('group.show', $group->id ) }}"
                                                         class="btn btn-primary-outline"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 </td>
                                                 @if ($config->edit_group == true)
                                                     <td width="1%">
-                                                        <a href="{{ url('/group/' . $group->id . '/edit') }}"
+                                                        <a href="{{ route('group.edit', $group->id ) }}"
                                                             class="btn btn-primary-outline"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                                     </td>
                                                 @endif
                                                 @if ($config->delete_group == true)
                                                     <td width="1%">
-                                                        <form action="{{ route('group.destroy', $group->id) }}"
+                                                        <form action="{{ route('group.destroy', $group->id ) }}"
                                                             method="POST">
                                                             @method('DELETE')
                                                             @csrf

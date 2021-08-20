@@ -31,7 +31,7 @@
                                             <td>{{ $pessoasgrupo->usuario->mobile }}</td>
                                             <td>{{ $pessoasgrupo->registered }}</td>
                                             <td width="1%">
-                                                <a href="{{ url('/people/' . $pessoasgrupo->usuario->id . '/edit') }}"
+                                                <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"
                                                     class="btn btn-primary-outline"><i
                                                         class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                         @if ($pessoasgrupo->usuario->id == $responsavel->id)

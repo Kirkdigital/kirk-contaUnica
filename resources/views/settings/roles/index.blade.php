@@ -2,71 +2,77 @@
 
 @section('content')
 
-        <div class="container-fluid">
-          <div class="animated fadeIn">
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                      <i class="fa fa-align-justify"></i>Emails Templates</div>
-                    <div class="card-body">
-                        @if(Session::has('message'))
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-                                </div>
-                            </div>
-                         @endif
-                        <div class="row"> 
-                          <a href="{{ route('mail.create') }}" class="btn btn-primary m-2">Add Template</a>
+
+<div class="container-fluid">
+  <div class="fade-in">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header"><h5>Roles</h5></div>
+            <div class="card-body">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-8">
+                        <div class="row">
+                            <a href="{{ route('roles.create') }}"
+                                class="btn btn-primary m-2">{{ __('Add new role') }}</a>
                         </div>
-                        <br>
-                        <table class="table table-responsive-sm table-striped">
-                        <thead>
-                          <tr>
-                            <th>Name</th>
-                            <th>Subject</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($emailTemplates as $mail)
-                            <tr>
-                              <td><strong>{{ $mail->name }}</strong></td>
-                              <td><strong>{{ $mail->subject }}</strong></td>
-                              <td>
-                                <a href="{{ route('prepareSend', ['id' => $mail->id] ) }}" class="btn btn-warning">Send</a>
-                              </td>
-                              <td>
-                                <a href="{{ url('/mail/' . $mail->id) }}" class="btn btn-primary">View</a>
-                              </td>
-                              <td>
-                                <a href="{{ url('/mail/' . $mail->id . '/edit') }}" class="btn btn-primary">Edit</a>
-                              </td>
-                              <td>
-                                <form action="{{ route('mail.destroy', $mail->id ) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
-                              </td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                      {{ $emailTemplates->links() }}
-                    </div>
                 </div>
-              </div>
+                <br>
+                <table class="table table-striped datatable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th colspan="3">
+                                <Center>{{ __('account.action') }}</Center>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($roles as $role)
+                            <tr>
+                                <td>
+                                    {{ $role->name }}
+                                </td>
+                                <td>
+                                    {{ $role->created_at }}
+                                </td>
+                                <td>
+                                    {{ $role->updated_at }}
+                                </td>
+                                <td width="1%">
+                                    <a href="{{ route('roles.show', $role->id ) }}"
+                                        class="btn btn-primary-outline"><i
+                                            class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                </td>
+                                    <td width="1%">
+                                        <a href="{{ route('roles.edit', $role->id ) }}"
+                                            class="btn btn-primary-outline"><i
+                                                class="c-icon c-icon-sm cil-pencil text-success"></i></a>
+                                    </td>
+                                    <td width="1%">
+                                        <form action="{{ route('roles.destroy', $role->id ) }}"
+                                            method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-primary-outline show_confirm"
+                                                data-toggle="tooltip" title='Delete'><i
+                                                    class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                        </form>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
-
 
 @section('javascript')
 

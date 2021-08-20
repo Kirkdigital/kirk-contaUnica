@@ -2,33 +2,46 @@
 
 @section('content')
 
+
 <div class="container-fluid">
-    <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Template: {{ $template->name }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <h4>Name</h4>
-                        <p>{{ $template->name }}</p>
-                        <h4>Subject</h4>
-                        <p>{{ $template->subject }}</p>
-                        <h4>Content</h4>
-                        <p>{{ $template->content }}</p>
-
-
-                        <a href="{{ route('mail.index') }}" class="btn btn-primary">Return</a> 
-                    </div>
-                </div>
+  <div class="fade-in">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header"><h4>Menu roles</h4></div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{ $role->name }}
+                            </td>
+                            <td>
+                                {{ $role->created_at }}
+                            </td>
+                            <td>
+                                {{ $role->updated_at }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-primary" href="{{ route('roles.index') }}">Return</a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 @endsection
-
 
 @section('javascript')
 

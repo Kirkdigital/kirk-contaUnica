@@ -49,7 +49,6 @@ class ConfigSystemController extends Controller
     public function indexMeta()
     {
         $this->pegar_tenant();
-        
         if (session()->get('schema') === null){
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         }
@@ -125,30 +124,6 @@ class ConfigSystemController extends Controller
         $settings->site_link       = $request->input('site_link');
         $settings->whatsapp_link       = $request->input('whatsapp_link');
         $settings->telegram_link       = $request->input('telegram_link');
-        $settings->save();
-        $request->session()->flash("success", "Successfully updated");
-        return redirect()->back();
-    }
-    public function updateSystem1(Request $request)
-    {
-        $this->pegar_tenant();
-        $settings = Config_system::find('1');
-        $settings->delete_institution       = $request->has('delete_institution')? 1 : 0;
-        $settings->delete_people       = $request->has('delete_people')? 1 : 0;
-        $settings->delete_note       = $request->has('delete_note')? 1 : 0;
-        $settings->delete_group       = $request->has('delete_group')? 1 : 0;
-        $settings->delete_financial       = $request->has('delete_financial')? 1 : 0;
-        $settings->delete_calendar       = $request->has('delete_calendar')? 1 : 0;
-        $settings->view_periodo       = $request->has('view_periodo')? 1 : 0;
-        $settings->view_dash       = $request->has('view_dash')? 1 : 0;
-        $settings->view_detail       = $request->has('view_detail')? 1 : 0;
-        $settings->view_resumo_financeiro       = $request->has('view_resumo_financeiro')? 1 : 0;
-        $settings->add_people       = $request->has('add_people')? 1 : 0;
-        $settings->add_institution       = $request->has('add_institution')? 1 : 0;
-        $settings->edit_institution       = $request->has('edit_institution')? 1 : 0;
-        $settings->add_group       = $request->has('add_group')? 1 : 0;
-        $settings->edit_people       = $request->has('edit_people')? 1 : 0;
-        $settings->user_id       = auth()->user()->id;
         $settings->save();
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
