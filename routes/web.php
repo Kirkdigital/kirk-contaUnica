@@ -156,6 +156,12 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::post('settings/updatesystem', 'ConfigSystemController@updateSystem')->name('settings.updateSystem');
         Route::get('settings/meta', 'ConfigSystemController@indexMeta')->name('indexMeta');
         Route::post('settings/updatemeta', 'ConfigSystemController@updateMeta')->name('settings.updateMeta');
+        Route::get('settings/email', 'ConfigSystemController@indexEmail')->name('indexEmail');
+        Route::post('settings/updateemail', 'ConfigSystemController@updateEmail')->name('settings.updateEmail');
+        Route::get('settings/social', 'ConfigSystemController@indexSocial')->name('indexSocial');
+        Route::post('settings/updatesocial', 'ConfigSystemController@updateSocial')->name('settings.updateSocial');
+        Route::resource('settings/roles',        'RolesController');
+        Route::resource('settings/mail',        'MailController');
 
         Route::resource('dashboard',        'DashController');
 
@@ -245,8 +251,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
         Route::resource('users',        'UsersController')->except(['create', 'store']);
-        Route::resource('roles',        'RolesController');
-        Route::resource('settings/mail',        'MailController');
         Route::get('prepareSend/{id}',        'MailController@prepareSend')->name('prepareSend');
         Route::post('mailSend/{id}',        'MailController@send')->name('mailSend');
         Route::get('/roles/move/move-up',      'RolesController@moveUp')->name('roles.up');

@@ -18,12 +18,12 @@ class ConfigSystemTable extends Migration
         Schema::create(config::get('database.connections.tenant.schema').'.config_system', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
-			$table->string('logo');
-			$table->string('favicon');
+			$table->string('logo')->nullable();
+			$table->string('favicon')->nullable();
 			$table->string('name');
 			$table->string('timezone');
-			$table->boolean('default_language')->nullable();
-			$table->string('currency')->nullable()->default(1);
+			$table->integer('default_language')->nullable();
+			$table->string('currency')->nullable();
 			$table->timestamps(10);
 		});
     }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config_email;
 use App\Models\Config_system;
 use App\Models\Config_meta;
+use App\Models\Config_social;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
@@ -38,20 +40,39 @@ class ConfigSystemController extends Controller
     public function indexSystem()
     {
         $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
+        if (session()->get('schema') === null){
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        $settings = Config_system::orderBy('id', 'desc')->first();
-    
+        }
+        $settings = Config_system::find('1')->first();
         return view('settings.system', compact('settings'));
     }
     public function indexMeta()
     {
         $this->pegar_tenant();
+        
+        if (session()->get('schema') === null){
+            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
+        }
+        $settings = Config_meta::orderBy('id', 'desc')->first();
+        return view('settings.meta', compact('settings'));
+    }
+    public function indexSocial()
+    {
+        $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
 
-        $settings = Config_meta::orderBy('id', 'desc')->first();
-        return view('settings.meta', compact('settings'));
+        $settings = Config_social::find('1')->first();
+        return view('settings.social', compact('settings'));
+    }
+    public function indexEmail()
+    {
+        $this->pegar_tenant();
+        if ((session()->get('schema')) === null)
+            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
+
+        $settings = Config_email::find('1')->first();
+        return view('settings.email', compact('settings'));
     }
 
     /**
@@ -63,8 +84,55 @@ class ConfigSystemController extends Controller
      */
     public function updateSystem(Request $request)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        $settings = new Config_system();
+        $this->pegar_tenant();
+        $settings = Config_system::find('1');
+        $settings->logo       = $request->input('logo');
+        $settings->favicon       = $request->input('favicon');
+        $settings->name       = $request->input('name');
+        $settings->timezone       = $request->input('timezone');
+        $settings->default_language       = $request->input('language');
+        $settings->currency       = $request->input('currency');
+        $settings->save();
+        $request->session()->flash("success", "Successfully updated");
+        return redirect()->back();
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $this->pegar_tenant();
+        $settings = Config_email::find('1');
+        $settings->email_from       = $request->input('email_from');
+        $settings->smtp_host       = $request->input('smtp_host');
+        $settings->smtp_port       = $request->input('smtp_port');
+        $settings->smtp_user       = $request->input('smtp_user');
+        $settings->smtp_pass       = $request->input('smtp_pass');
+        $settings->save();
+        $request->session()->flash("success", "Successfully updated");
+        return redirect()->back();
+    }
+
+    public function updateSocial(Request $request)
+    {
+        $this->pegar_tenant();
+        $settings = Config_social::find('1');
+        $settings->facebook_link       = $request->input('facebook_link');
+        $settings->twitter_link       = $request->input('twitter_link');
+        $settings->google_link       = $request->input('google_link');
+        $settings->youtube_link       = $request->input('youtube_link');
+        $settings->linkedin_link       = $request->input('linkedin_link');
+        $settings->instagram_link       = $request->input('instagram_link');
+        $settings->vk_link       = $request->input('vk_link');
+        $settings->site_link       = $request->input('site_link');
+        $settings->whatsapp_link       = $request->input('whatsapp_link');
+        $settings->telegram_link       = $request->input('telegram_link');
+        $settings->save();
+        $request->session()->flash("success", "Successfully updated");
+        return redirect()->back();
+    }
+    public function updateSystem1(Request $request)
+    {
+        $this->pegar_tenant();
+        $settings = Config_system::find('1');
         $settings->delete_institution       = $request->has('delete_institution')? 1 : 0;
         $settings->delete_people       = $request->has('delete_people')? 1 : 0;
         $settings->delete_note       = $request->has('delete_note')? 1 : 0;
@@ -83,40 +151,44 @@ class ConfigSystemController extends Controller
         $settings->user_id       = auth()->user()->id;
         $settings->save();
         $request->session()->flash("success", "Successfully updated");
-        return redirect()->route('settings');
+        return redirect()->back();
     }
     public function updateMeta(Request $request)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        $settings = new  Config_meta();
-        $settings->visitante_mes       = $request->input('visitante_mes');
-        $settings->grupo_ativo_mes       = $request->input('grupo_ativo_mes');
-        $settings->batismo_mes       = $request->input('batismo_mes');
-        $settings->conversao_mes       = $request->input('conversao_mes');
-        $settings->pessoa_mes       = $request->input('pessoa_mes');
-        $settings->visualizacao_mes       = $request->input('visualizacao_mes');
-        $settings->comentario_mes       = $request->input('comentario_mes');
+        $this->pegar_tenant();
+        $settings = new Config_meta();
+        $settings->ano       = date('Y');
+        //mes
+        (int)$settings->visitante_mes       = intval($request->input('visitante_ano')/12);
+        (int)$settings->grupo_ativo_mes       = intval($request->input('grupo_ativo_ano')/12);
+        (int)$settings->batismo_mes       = intval($request->input('batismo_ano')/12);
+        (int)$settings->conversao_mes       = intval($request->input('conversao_ano')/12);
+        (int)$settings->pessoa_mes       = intval($request->input('pessoa_ano')/12);
+        //$settings->visualizacao_mes       = $request->input('visualizacao_ano');
+        //$settings->comentario_mes       = $request->input('comentario_ano');
+        //$settings->publicacao_mes       = $request->input('publicacao_mes');
+
+        //ano
         $settings->visitante_ano       = $request->input('visitante_ano');
         $settings->grupo_ativo_ano       = $request->input('grupo_ativo_ano');
         $settings->batismo_ano       = $request->input('batismo_ano');
         $settings->conversao_ano       = $request->input('conversao_ano');
         $settings->pessoa_ano       = $request->input('pessoa_ano');
-        $settings->visualizacao_ano       = $request->input('visualizacao_ano');
-        $settings->publicacao_ano       = $request->input('publicacao_ano');
-        $settings->publicacao_mes       = $request->input('publicacao_mes');
-        $settings->comentario_ano       = $request->input('comentario_ano');
-        (float)$settings->fin_dizimo_mes       = $request->input('fin_dizimo_mes');
-        (float)$settings->fin_oferta_mes       = $request->input('fin_oferta_mes');
-        (float)$settings->fin_despesa_mes       = $request->input('fin_despesa_mes');
-        (float)$settings->fin_acao_mes       = $request->input('fin_acao_mes');
+        //$settings->visualizacao_ano       = $request->input('visualizacao_ano');
+        //$settings->publicacao_ano       = $request->input('publicacao_ano');
+        //$settings->comentario_ano       = $request->input('comentario_ano');
+        
+        //financeiro
+        (int)$settings->fin_dizimo_mes       = intval($request->input('fin_dizimo_ano')/12);
+        (int)$settings->fin_oferta_mes       = intval($request->input('fin_oferta_ano')/12);
+        (int)$settings->fin_despesa_mes       = intval($request->input('fin_despesa_ano')/12);
+        (int)$settings->fin_acao_mes       = intval($request->input('fin_acao_ano')/12);
         (float)$settings->fin_dizimo_ano       = $request->input('fin_dizimo_ano');
         (float)$settings->fin_oferta_ano       = $request->input('fin_oferta_ano');
         (float)$settings->fin_despesa_ano       = $request->input('fin_despesa_ano');
         (float)$settings->fin_acao_ano       = $request->input('fin_acao_ano');
-        $settings->user_id       = auth()->user()->id;
-        $settings->ano       = date('Y');
         $settings->save();
         $request->session()->flash("success", "Successfully updated");
-        return redirect()->route('settings');
+        return redirect()->back();
     }
 }

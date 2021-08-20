@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 
-class Config_system extends Model
+class Config_social extends Model
 {
+
     use HasFactory;
     use Notifiable;
 
     protected $connection = 'tenant';
-    protected $table ='config_system';
+    protected $table ='config_social';
     
     /**
      * The attributes that are mass assignable.
@@ -21,17 +22,10 @@ class Config_system extends Model
      * @var array
      */
     protected $fillable = [
-        'logo', 'favicon', 'name', 'timezone', 
-        'default_language', 'currency',
+        'facebook_link', 'twitter_link', 'google_link', 'youtube_link', 
+        'linkedin_link', 'instagram_link', 'vk_link', 'site_link', 'whatsapp_link','telegram_link',
     ];
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'id',
-    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -39,6 +33,7 @@ class Config_system extends Model
      */
     protected $casts = [
         'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'update_at' => 'datetime',
     ];
+
 }

@@ -26,7 +26,7 @@ class ConfigSocial extends Migration
             $table->string('vk_link')->nullable();
             $table->string('site_link')->nullable();
             $table->string('whatsapp_link')->nullable();
-            $table->string('telegran_link')->nullable();
+            $table->string('telegram_link')->nullable();
 			$table->timestamps(10);
 		});
     }

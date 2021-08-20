@@ -20,6 +20,7 @@ class Controller extends BaseController
         return $validator->errors()->all();
 
     }
+    //global tenant set
     public function pegar_tenant()
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao')); 

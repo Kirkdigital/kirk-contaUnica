@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config_email;
 use App\Models\Config_system;
 use Illuminate\Http\Request;
 use App\Models\People;
@@ -59,6 +60,12 @@ class DashController extends Controller
             
 
             $settings = new Config_system();
+            $settings->id       = '1';
+            $settings->name       = 'DeskApps';
+            $settings->timezone       = 'America/Manaus';
+            $settings->save();
+
+            $settings = new Config_email();
             $settings->id       = '1';
             $settings->save();
 

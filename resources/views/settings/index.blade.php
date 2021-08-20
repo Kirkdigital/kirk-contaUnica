@@ -27,7 +27,7 @@
                   </div>
                   <div class="card-body">
                     <h4>General</h4>
-                    <p>General settings such as, site title, site description, address and so on.</p>
+                    <p>Informações gereais e configurações da conta</p>
                     <a href="{{ route('indexSystem') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
@@ -39,8 +39,8 @@
                   </div>
                   <div class="card-body">
                     <h4>SEO</h4>
-                    <p>Search engine optimization settings, such as meta tags and social media.</p>
-                    <a href="features-setting-detail.html" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <p>Configurações de Rede Sociais</p>
+                    <a href="{{ url('settings/social') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -51,20 +51,20 @@
                   </div>
                   <div class="card-body">
                     <h4>Email</h4>
-                    <p>Email SMTP settings, notifications and others related to email.</p>
-                    <a href="{{ url('settings/mail') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <p>Configuração do SMTP e templetas.</p>
+                    <a href="{{ url('settings/email') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="card card-large-icons">
                   <div class="card-icon bg-primary text-white">
-                    <i class="fas fa-power-off"></i>
+                    <i class="fas fa-users"></i>
                   </div>
                   <div class="card-body">
-                    <h4>System</h4>
-                    <p>PHP version settings, time zones and other environments.</p>
-                    <a href="features-setting-detail.html" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <h4>Roles</h4>
+                    <p>Configurações de grupos e permissões</p>
+                    <a {{ url('settings/roles') }} class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -75,11 +75,12 @@
                   </div>
                   <div class="card-body">
                     <h4>Meta</h4>
-                    <p>inserir melhor detalhes</p>
+                    <p>Configurar metas para o uso do Dashboard</p>
                     <a href="{{ route('indexMeta') }}" class="card-cta">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
+              <!--
               <div class="col-lg-6">
                 <div class="card card-large-icons">
                   <div class="card-icon bg-primary text-white">
@@ -92,9 +93,9 @@
                   </div>
                 </div>
               </div>
+              -->
             </div>
           </div>
-          
         </div>
       <!-- /.col-->
     </div>

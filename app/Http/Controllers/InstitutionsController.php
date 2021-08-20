@@ -253,8 +253,10 @@ class InstitutionsController extends Controller
 
         $results = DB::select('select * from admin.accounts where id = ?', [$id]);
 
-        //inserir na session
+        //inserir na array dos dados
         $request->session()->put('schema', $results);
+
+        //inserir o código
         $request->session()->put('key', $id);
 
         //pegar valor na sesscion
@@ -267,6 +269,8 @@ class InstitutionsController extends Controller
         // Make sure to use the database name we want to establish a connection.
         // Setando os dados da nova conexão.
         Config::set('database.connections.tenant.schema', $a);
+
+        //inserir o nome da conexão
         $request->session()->put('conexao', $a);
         // Conecta no banco
         //DB::reconnect('tenant');
