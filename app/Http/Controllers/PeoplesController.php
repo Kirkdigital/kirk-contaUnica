@@ -13,6 +13,7 @@ use App\Models\Institution;
 use App\Models\People_Groups;
 use App\Models\Users_Account;
 use App\Http\Controllers\Input;
+use App\Models\Roles;
 
 class PeoplesController extends Controller
 {
@@ -40,7 +41,7 @@ class PeoplesController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $peoples = People::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
-        $config = Config_system::all();
+        $config = Roles::all();
         return view('people.index', compact('peoples', 'config'));
     }
 

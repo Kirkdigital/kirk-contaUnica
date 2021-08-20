@@ -12,6 +12,7 @@ use App\Models\Config_system;
 use App\Models\People_Groups;
 use App\Http\Controllers\Input;
 use App\Models\People;
+use App\Models\Roles;
 use Facade\Ignition\DumpRecorder\Dump;
 
 class GroupsController extends Controller
@@ -40,7 +41,7 @@ class GroupsController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
-        $config = Config_system::orderBy('id', 'desc')->first();
+        $config = Roles::orderBy('id', 'desc')->first();
         return view('group.index', compact('groups', 'config'));
     }
 

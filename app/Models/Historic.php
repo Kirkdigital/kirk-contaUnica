@@ -70,7 +70,7 @@ class Historic extends Model
         ->where('user_id', auth()->user()->id)
         ->with(['userSender'])
         ->orderby('id','desc')
-        ->paginate(100);
+        ->paginate(50);
     }
     public function status()
     {

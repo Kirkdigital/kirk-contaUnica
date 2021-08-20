@@ -20,6 +20,7 @@ class peopleGroupTable extends Migration {
 			$table->bigInteger('id', true);
 			$table->bigInteger('user_id');
 			$table->bigInteger('group_id');
+			$table->bigInteger('responsavel')->nullable();
 			$table->dateTime('registered')->nullable();
 		});
 	}

@@ -8,11 +8,9 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use App\Models\Menurole;
 use App\Models\RoleHierarchy;
-use App\Models\Roles;
 
 class RolesController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -20,11 +18,42 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $this->pegar_tenant();
-        $roles = Roles::all();
+        $roles = DB::table('roles')
+        ->leftJoin('admin.role_hierarchy', 'roles.id', '=', 'role_hierarchy.role_id')
+        ->select('roles.*', 'role_hierarchy.hierarchy')
+        ->orderBy('hierarchy', 'asc')
+        ->get();
         return view('dashboard.roles.index', array(
             'roles' => $roles,
         ));
+    }
+
+    public function moveUp(Request $request){
+        $element = RoleHierarchy::where('role_id', '=', $request->input('id'))->first();
+        $switchElement = RoleHierarchy::where('hierarchy', '<', $element->hierarchy)
+            ->orderBy('hierarchy', 'desc')->first();
+        if(!empty($switchElement)){
+            $temp = $element->hierarchy;
+            $element->hierarchy = $switchElement->hierarchy;
+            $switchElement->hierarchy = $temp;
+            $element->save();
+            $switchElement->save();
+        }
+        return redirect()->route('roles.index');
+    }
+
+    public function moveDown(Request $request){
+        $element = RoleHierarchy::where('role_id', '=', $request->input('id'))->first();
+        $switchElement = RoleHierarchy::where('hierarchy', '>', $element->hierarchy)
+            ->orderBy('hierarchy', 'asc')->first();
+        if(!empty($switchElement)){
+            $temp = $element->hierarchy;
+            $element->hierarchy = $switchElement->hierarchy;
+            $switchElement->hierarchy = $temp;
+            $element->save();
+            $switchElement->save();
+        }
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -45,27 +74,23 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->pegar_tenant();
-        $settings = new Roles();
-        $settings->delete_institution       = $request->has('delete_institution')? 1 : 0;
-        $settings->delete_people       = $request->has('delete_people')? 1 : 0;
-        $settings->delete_note       = $request->has('delete_note')? 1 : 0;
-        $settings->delete_group       = $request->has('delete_group')? 1 : 0;
-        $settings->delete_financial       = $request->has('delete_financial')? 1 : 0;
-        $settings->delete_calendar       = $request->has('delete_calendar')? 1 : 0;
-        $settings->view_periodo       = $request->has('view_periodo')? 1 : 0;
-        $settings->view_dash       = $request->has('view_dash')? 1 : 0;
-        $settings->view_detail       = $request->has('view_detail')? 1 : 0;
-        $settings->view_resumo_financeiro       = $request->has('view_resumo_financeiro')? 1 : 0;
-        $settings->add_people       = $request->has('add_people')? 1 : 0;
-        $settings->add_institution       = $request->has('add_institution')? 1 : 0;
-        $settings->edit_institution       = $request->has('edit_institution')? 1 : 0;
-        $settings->add_group       = $request->has('add_group')? 1 : 0;
-        $settings->edit_people       = $request->has('edit_people')? 1 : 0;
-        $settings->user_id       = auth()->user()->id;
-        $settings->save();
-        $request->session()->flash("success", "Successfully updated");
-        return redirect()->route('settings');
+        $role = new Role();
+        $role->name = $request->input('name');
+        $role->save();
+        $hierarchy = RoleHierarchy::select('hierarchy')
+        ->orderBy('hierarchy', 'desc')->first();
+        if(empty($hierarchy)){
+            $hierarchy = 0;
+        }else{
+            $hierarchy = $hierarchy['hierarchy'];
+        }
+        $hierarchy = ((integer)$hierarchy) + 1;
+        $roleHierarchy = new RoleHierarchy();
+        $roleHierarchy->role_id = $role->id;
+        $roleHierarchy->hierarchy = $hierarchy;
+        $roleHierarchy->save();
+        $request->session()->flash('message', 'Successfully created role');
+        return redirect()->route('roles.create');
     }
 
     /**

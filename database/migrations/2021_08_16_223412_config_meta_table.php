@@ -45,9 +45,7 @@ class ConfigMetaTable extends Migration
 			$table->integer('visualizacao_ano')->nullable()->default(0);
 			$table->integer('comentario_ano')->nullable()->default(0);
             $table->integer('grupo_ativo_ano')->nullable()->default(0);
-
 			$table->timestamps(10);
-			$table->integer('user_id')->nullable();
 		});
 	}
 

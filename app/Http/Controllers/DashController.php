@@ -10,6 +10,7 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\People_Groups;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
@@ -46,7 +47,7 @@ class DashController extends Controller
         $you = auth()->user();
 
         //pegar informações complementares 
-        $config = Config_system::orderBy('id', 'desc')->first();
+        $roles = Roles::orderBy('id', 'desc')->first();
         $meta = Config_meta::orderBy('id', 'desc')->first();
 
         if($meta === null)
@@ -59,6 +60,11 @@ class DashController extends Controller
 
             $settings = new Config_system();
             $settings->id       = '1';
+            $settings->save();
+
+            $settings = new Roles();
+            $settings->id       = '1';
+            $settings->id       = 'PADRAO';
             $settings->save();
             
             $request->session()->flash("info", "Configurar a meta nas configurações");
@@ -167,7 +173,7 @@ class DashController extends Controller
         $formapag_pix = Historic::where('pag', '20')->where('date','like', "%$date%")->sum('amount');
 
         return view('dashboard.homepage', 
-            compact('config', 
+            compact('roles', 
                     'peopleativo', 
                     'peoplevisitor', 
                     'meta',

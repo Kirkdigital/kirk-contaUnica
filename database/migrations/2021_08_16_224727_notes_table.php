@@ -14,7 +14,7 @@ class notesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.notes', function(Blueprint $table)
+		Schema::create(config::get('database.connections.tenant.schema').'.message', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('title');
@@ -36,7 +36,7 @@ class notesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('notes');
+		Schema::drop('message');
 	}
 
 }

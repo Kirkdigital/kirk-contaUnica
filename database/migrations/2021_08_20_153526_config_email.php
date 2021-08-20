@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Config;
 
 
-class ConfigSystemTable extends Migration
+class ConfigEmail extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +15,15 @@ class ConfigSystemTable extends Migration
      */
     public function up()
     {
-        Schema::create(config::get('database.connections.tenant.schema').'.config_system', function(Blueprint $table)
+        Schema::create(config::get('database.connections.tenant.schema').'.config_email', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
-			$table->string('logo');
-			$table->string('favicon');
-			$table->string('name');
-			$table->string('timezone');
-			$table->boolean('default_language')->nullable();
-			$table->string('currency')->nullable()->default(1);
+			$table->string('email_from');
+			$table->string('smtp_host');
+			$table->integer('smtp_port');
+			$table->string('smtp_user');
+			$table->string('smtp_pass');
+            $table->integer('smtp_security')->nullable();
 			$table->timestamps(10);
 		});
     }
@@ -35,6 +35,6 @@ class ConfigSystemTable extends Migration
      */
     public function down()
     {
-        Schema::drop('config_system');
+        Schema::drop('config_email');
     }
 }

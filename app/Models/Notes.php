@@ -11,7 +11,7 @@ class Notes extends Model
     use HasFactory;
     
     protected $connection = 'tenant';
-    protected $table = 'notes';
+    protected $table = 'message';
 
     /**
      * Get the User that owns the Notes.
