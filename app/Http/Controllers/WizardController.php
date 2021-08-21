@@ -6,8 +6,10 @@ use Validator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use App\Models\People;
+use App\Models\People_Precadastro;
 use App\Models\Institution;
+use Illuminate\Support\Facades\DB;
+
 
 class WizardController extends Controller
 {
@@ -48,16 +50,15 @@ class WizardController extends Controller
         $you = auth()->user();
 
         //pegar tenant
-        $value = $request->session()->get('key');
+        $value = $request->session()->get('key-wizard');
         Config::set('database.connections.tenant.schema', $value);
-       
+        //dump($value);
         //validar se tem
-        $validarprecadastro = People::where('user_id', $you->id);
-
+        $validarprecadastro = People_Precadastro::where('user_id', $you->id);
         if ($validarprecadastro->count() == 0)
         {     
         //inserir no banco correto
-        $people = new People();
+        $people = new People_Precadastro();
         $people->name          = strtoupper($request->input('name'));
         $people->email         = auth()->user()->email;
         $people->mobile        = $request->input('mobile');
@@ -67,18 +68,17 @@ class WizardController extends Controller
         $people->state          = $request->input('state');
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
-        $people->status_id = '14';
-        $people->is_verify       = 'false';
+        $people->status_id = '21';
         $people->sex       = $request->input('sex');
-        $people->note       = 'PRECADASTRO';
         $people->user_id = $you->id;
         $people->save();
+        
         $request->session()->flash("success", 'Cadastrado com sucesso, aguardar aprovação do administrador');
         return redirect()->route('account.index');
         }
         else{
-            session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
-            return redirect()->route('account.index');
+           session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
+           return redirect()->route('account.index');
         }
     }
 }

@@ -28,7 +28,7 @@
                                         <div class="stepwizard-step">
                                             <a href="#step-4" type="button" class="btn btn-default btn-circle"
                                                 disabled="disabled">3</a>
-                                            <p>Finaalização</p>
+                                            <p>Finalização</p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,9 +93,10 @@
                                                             </td>
                                                             <td width="1%">
                                                                 <button
-                                                                    class="btn btn-primary-outline nextBtn btn-lg btn-square pull-right"><i
+                                                                    class="btn btn-primary-outline nextBtn btn-lg btn-square pull-right">
+                                                                    {{ session(['key-wizard' => $institution->tenant]) }}<i
                                                                         class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i>
-                                                                    {{ session(['key' => $institution->tenant]) }}</button>
+                                                                    </button>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -110,7 +111,7 @@
                                     <div class="row setup-content" id="step-2">
                                         <div class="col-md-12">
                                             <center>
-                                                <h3>Dados Pessoais</h3>
+                                                <h3>Dados Pessoais</h3>{{ session()->get('key-wizard') }} 
                                             </center>
                                             <div class="row">
                                                 <div class="col-sm-12">

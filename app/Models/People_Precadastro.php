@@ -21,24 +21,8 @@ class People_Precadastro extends Model
      */
     protected $fillable = [
         'name', 'email', 'mobile', 'birth_at', 'address', 'country', 'state', 'city', 'role', 'cep', 
-        'is_verify', 'is_visitor', 'is_transferred',
-        'is_responsible',
-        'is_conversion',
-        'is_baptism',
-        'is_newvisitor',
-        'note',
-        'username',
+        'is_verify', 'user_id', 'note',
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'is_active', 'password',
-    ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -46,6 +30,7 @@ class People_Precadastro extends Model
      */
     protected $casts = [
         'created_at' => 'datetime',
+        'upteded_at' => 'datetime',
     ];
 
     protected $dates = [
@@ -57,18 +42,6 @@ class People_Precadastro extends Model
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
     
-    public function historics()
-    {
-        return $this->hasMany(Historic::class);
-    }
-    
-    public function getSender($sender)
-    {
-        return $this->where('name', 'LIKE', "%$sender%")
-                    ->orWhere('email', $sender)
-                    ->get()
-                    ->first();    
-    }   
     public function acesso()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
