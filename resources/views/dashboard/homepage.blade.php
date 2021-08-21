@@ -5,16 +5,6 @@
 
 <div class="container-fluid">
   <div class="fade-in">
-
-    @if($precadastro >= 1)
-    <div class="card card-accent-success mb-12" style="max-width: 18rem;">
-      <div class="card-body text-success">
-        <h6 class="card-title">Há cadastros a serem aprovados</h6>
-        <a href="{{ route('people.index') }}" class="btn btn-primary">Pré-cadastro</a>
-        </p>
-      </div>
-    </div>
-    @endif
     @if($roles->view_periodo==false and $roles->view_dash==false and $roles->view_detail==false and $roles->view_resumo_financeiro==false)
     Dashboard desabilitado
     @endif

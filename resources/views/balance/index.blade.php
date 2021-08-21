@@ -8,10 +8,7 @@
             <div class="col-sm-12 col-sm-auto">
                 <div class="card">
                     <div class="container">
-
-                        <div class="card-header">
-                            Balance
-                        </div>
+                        <div class="card-header"><h5>Balance</h5></div>
                         <div class="card-body">
                             <div class="form-group row">
 

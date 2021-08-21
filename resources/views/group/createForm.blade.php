@@ -5,7 +5,7 @@
 <div class="container-fluid">
             <div class="fade-in">
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                   <div class="card">
                     <div class="card-header"><strong>Dados do grupo</strong> <small>Pessoa responsável</small></div>
                     <div class="card-body">
@@ -54,13 +54,10 @@
                         <textarea class="form-control"  id='note' name="note" rows="3" placeholder="Content.."></textarea>
                       </div>
                     </div>
-
-                    </div>                    
-                    <div class="card-footer">
-                      <button class="btn btn-sm btn-success" type="submit"> Salvar</button>
-                      <a href="{{ route('group.index') }}" class="btn btn-sm btn-primary" type="reset"> {{ __('Return') }}</a>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-dark" href="{{ route('group.index') }}">Return</a>
                     </form>
-                    </div>
                   </div>
                                         <!-- /.row-->
                   </div>  

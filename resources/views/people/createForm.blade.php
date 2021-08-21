@@ -271,17 +271,12 @@
                                                         your password</span>
                                                 </div>
                                             </div>
-
                                     </div>
                                 </div>
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-dark" href="{{ route('people.index') }}">Return</a>
                             </div>
-                    </div>
-
-                    <!-- /.col-->
-                </div>
-                <div class="col-md-12">
-                    <button class="btn btn-block btn-success" type="submit">{{ __('Save') }}</button>
-                    <a href="{{ route('people.index') }}" class="btn btn-block btn-primary">{{ __('Return') }}</a>
+                        </div>
                     </form>
                 </div>
                 <!-- /.row-->

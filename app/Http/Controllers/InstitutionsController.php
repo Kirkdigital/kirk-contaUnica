@@ -280,6 +280,6 @@ class InstitutionsController extends Controller
         //ver os dados de conexão.
         //dump(Schema::connection('tenant')->getConnection());
 
-        return redirect()->route('dashboard.index');
+        return redirect()->route('home.index');
     }
 }

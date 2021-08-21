@@ -57,11 +57,11 @@ class RolesTable extends Migration
 			$table->boolean('view_resumo_financeiro')->nullable()->default(1);
 
             //settings
-            $table->boolean('settings_settings')->nullable()->default(1);
+            $table->boolean('settings_general')->nullable()->default(1);
 			$table->boolean('settings_email')->nullable()->default(1);
 			$table->boolean('settings_meta')->nullable()->default(1);
-			$table->boolean('settings_account')->nullable()->default(1);
-            $table->boolean('settings_social')->nullable()->default(1);
+			$table->boolean('settings_social')->nullable()->default(1);
+            $table->boolean('settings_roles')->nullable()->default(1);
 
 			$table->timestamps(10);
 		});

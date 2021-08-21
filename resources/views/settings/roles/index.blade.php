@@ -40,16 +40,18 @@
                                 <td>
                                     {{ $role->updated_at }}
                                 </td>
-                                <td width="1%">
+                                <!-- <td width="1%">
                                     <a href="{{ route('roles.show', $role->id ) }}"
                                         class="btn btn-primary-outline"><i
                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                 </td>
+                                -->
                                     <td width="1%">
                                         <a href="{{ route('roles.edit', $role->id ) }}"
                                             class="btn btn-primary-outline"><i
                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                     </td>
+                                    <!-- 
                                     <td width="1%">
                                         <form action="{{ route('roles.destroy', $role->id ) }}"
                                             method="POST">
@@ -58,12 +60,12 @@
                                             <button class="btn btn-primary-outline show_confirm"
                                                 data-toggle="tooltip" title='Delete'><i
                                                     class="c-icon c-icon-sm cil-trash text-danger"></i></button>
-                                        </form>
+                                    </form>
+                                -->
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
           </div>
         </div>

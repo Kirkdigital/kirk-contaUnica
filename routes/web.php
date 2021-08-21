@@ -163,7 +163,9 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resource('settings/roles',        'RolesController');
         Route::resource('settings/mail',        'MailController');
 
+        //dash
         Route::resource('dashboard',        'DashController');
+        Route::resource('home',        'HomeController');
 
         //importar e exportar pessoas
         Route::resource('backup', 'BackupController');

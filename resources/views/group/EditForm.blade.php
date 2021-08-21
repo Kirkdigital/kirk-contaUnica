@@ -60,11 +60,9 @@
                         <textarea class="form-control"  id='note'  name="note" rows="3" placeholder="Content..">{{$group->note}}</textarea>
                       </div>
                     </div>
-
-                    </div>                    
-                    <div class="card-footer">
-                      <button class="btn btn-sm btn-success" type="submit"> Salvar</button>
-                      <a href="{{ route('group.index') }}" class="btn btn-sm btn-primary" type="reset"> {{ __('Return') }}</a>
+                    <br>
+                      <button class="btn btn-primary" type="submit">Save</button>
+                      <a class="btn btn-dark" href="{{ route('group.index') }}">Return</a>
                     </form>
                     </div>
                   </div>
