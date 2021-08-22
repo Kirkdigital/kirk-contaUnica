@@ -94,7 +94,39 @@
             </div>
           </div>
           @endif
-        </div>      
+          @if(!$groups->isEmpty())
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h6>Meus grupos</h6>
+                  <table class="table table-responsive-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Pessoas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($groups as $group)
+                            <tr>
+                                <td><strong>{{ $group->grupo->name_group }}</strong></td>
+                                <td>{{ $group->grupo->type }}</td>
+                                <td>{{ $group->grupo->count }}</td>
+                            </tr>
+                            </tr>
+                        @empty
+                        @endforelse
+                    </tbody>
+                </table>
+                </div>
+              </div>
+              @endif
+            </div>
+          </div>
+
+    
         @endsection
         @section('javascript')
           

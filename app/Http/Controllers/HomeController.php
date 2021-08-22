@@ -11,13 +11,16 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\Config_social;
+use App\Models\Group;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
 use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Doctrine\DBAL\Events;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -89,6 +92,15 @@ class HomeController extends Controller
             $a = $element->name_company;
         }
 
+        $user = People::where('user_id', $you->id)->first();
+        if($user == null)
+        {
+            $id = 0;
+        }
+        else
+        $id = $user->id;
+        $groups = People_Groups::with('grupo')->where('user_id', $id)->get();
+
         return view('home', 
             compact(
                     'precadastro',
@@ -96,7 +108,8 @@ class HomeController extends Controller
                     'message',
                     'social',
                     'a',
-                ));
+                    'user'
+                ), ['groups' => $groups]);
                 
     }
 }

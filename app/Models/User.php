@@ -73,8 +73,7 @@ class User extends Authenticatable implements ReactsInterface
     public function historics()
     {
         return $this->hasMany(Historic::class);
-    }
-    
+    }   
     public function getSender($sender)
     {
         return $this->where('name', 'LIKE', "%$sender%")

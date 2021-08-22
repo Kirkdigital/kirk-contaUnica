@@ -27,7 +27,6 @@ class People extends Model
         'is_baptism',
         'is_newvisitor',
         'note',
-        'username',
     ];
 
     /**
@@ -36,7 +35,7 @@ class People extends Model
      * @var array
      */
     protected $hidden = [
-        'is_active', 'password',
+        'is_active',
     ];
 
     /**
