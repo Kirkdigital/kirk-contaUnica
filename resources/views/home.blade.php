@@ -21,68 +21,68 @@
                                 <h6>Rede Sociais</h6>
                                 <p>
                                     @if ($social->facebook_link !== null)
-                                        <button class="btn btn-sm btn-facebook" type="button">
+                                        <a class="btn btn-sm btn-facebook" type="button" href="{{$social->facebook_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-facebook-f"></use>
                                             </svg><span>Facebook</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->twitter_link !== null)
-                                        <button class="btn btn-sm btn-twitter" type="button">
+                                        <a class="btn btn-sm btn-twitter" type="button" href="{{$social->twitter_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-twitter"></use>
                                             </svg><span>Twitter</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->linkedin_link !== null)
-                                        <button class="btn btn-sm btn-linkedin" type="button">
+                                        <a class="btn btn-sm btn-linkedin" type="button" href="{{$social->linkedin_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-linkedin"></use>
                                             </svg><span>LinkedIn</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->youtube_link !== null)
-                                        <button class="btn btn-sm btn-youtube" type="button">
+                                        <a class="btn btn-sm btn-youtube" type="button" href="{{$social->youtube_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-youtube"></use>
                                             </svg><span>YouTube</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->instagram_link !== null)
-                                        <button class="btn btn-sm btn-instagram" type="button">
+                                        <a class="btn btn-sm btn-instagram" type="button" href="{{$social->instagram_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-instagram"></use>
                                             </svg><span>Instagram</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->vk_link !== null)
-                                        <button class="btn btn-sm btn-vk" type="button">
+                                        <a class="btn btn-sm btn-vk" type="button" href="{{$social->vk_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-vk"></use>
                                             </svg><span>VK</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->site_link !== null)
-                                        <button class="btn btn-sm btn-yahoo" type="button">
+                                        <a class="btn btn-sm btn-yahoo" type="button" href="{{$social->site_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
                                                 </use>
                                             </svg><span>Website</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->telegram_link !== null)
-                                        <button class="btn btn-sm btn-yahoo" type="button">
+                                        <a class="btn btn-sm btn-yahoo" type="button" href="https://t.me/{{$social->telegram_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-telegram"></use>
                                             </svg><span>Telegram</span>
-                                        </button>
+                                        </a>
                                     @endif
                                     @if ($social->whatsapp_link !== null)
-                                        <button class="btn btn-sm btn-vimeo" type="button">
+                                        <a class="btn btn-sm btn-vimeo" type="button" href="https://api.whatsapp.com/send?phone={{$social->whatsapp_link}}" target="_blank">
                                             <svg class="c-icon mr-2">
                                                 <use xlink:href="/icons/sprites/brand.svg#cib-whatsapp"></use>
                                             </svg><span>Whatsapp</span>
-                                        </button>
+                                        </a>
                                     @endif
                                 </p>
                             </div>
@@ -178,7 +178,7 @@
                                             <div class="progress-group">
                                                 <div class="progress-group-header align-items-end">
                                                     <svg class="c-icon progress-group-icon">
-                                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user">
+                                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
                                                         </use>
                                                     </svg>
                                                     <div>Ofertas</div>
@@ -196,7 +196,7 @@
                                             <div class="progress-group">
                                                 <div class="progress-group-header align-items-end">
                                                     <svg class="c-icon progress-group-icon">
-                                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-door">
+                                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
                                                         </use>
                                                     </svg>
                                                     <div>Doações</div>
@@ -215,7 +215,7 @@
                                                 <div class="progress-group-header align-items-end">
                                                     <svg class="c-icon progress-group-icon">
                                                         <use
-                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-child">
+                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
                                                         </use>
                                                     </svg>
                                                     <div>Despesas</div>

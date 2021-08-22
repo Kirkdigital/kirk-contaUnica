@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Telegram</label>
-                                    <input type="text" class="form-control" name="telegram_link" placeholder="5521981255454" value="{{ $settings->telegram_link }}">
+                                    <input type="text" class="form-control" name="telegram_link" placeholder="seuusuario" value="{{ $settings->telegram_link }}">
                                 </div>
                                 <!-- /.row-->
                         </div>
