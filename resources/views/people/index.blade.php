@@ -80,11 +80,19 @@
                                       @endif
                                       @if( $config->first()->delete_people == true)
                                       <td width="1%">
+                                        @if($people->user_id)
                                         <form action="{{ url('people/'. $people->id. '/'. $people->user_id ) }}" method="POST">   
                                           @method('DELETE')
                                           @csrf
                                           <button class="btn btn-primary-outline show_confirm" data-toggle="tooltip" title='Delete'><i class="c-icon c-icon-sm cil-trash text-danger"></i></button>
                                         </form>
+                                        @elseif ($people->user_id == null)
+                                        <form action="{{ url('people/'. $people->id. '/'. $people->user_id = 0 ) }}" method="POST">   
+                                          @method('DELETE')
+                                          @csrf
+                                          <button class="btn btn-primary-outline show_confirm" data-toggle="tooltip" title='Delete'><i class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                        </form>
+                                        @endif
                                         @endif
                                     </tr>
                                     </tr>
@@ -92,7 +100,6 @@
                                     @endforelse
                                 </tbody>
                             </table>
-
                             @if (isset($dataForm))
                             {!! $peoples->appends($dataForm)->links() !!}
                             @else

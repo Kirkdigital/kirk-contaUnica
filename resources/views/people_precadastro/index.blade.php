@@ -13,8 +13,18 @@
                          <div class="card-body">
                             <div class="form-group row">
 
-                              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-8">
+                              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-6">
                             </div>
+                            <div class="col-md-2">
+                              <div class="inner">
+                                  <select class="form-control" id="status" name="status">
+                                      <option value="">Status</option>
+                                      @foreach($status as $status)
+                                      <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                     <div class="inner">
                                         <input type="text" id='name' name="name" class="form-control" placeholder="Nome">

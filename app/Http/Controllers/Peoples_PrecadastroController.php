@@ -39,9 +39,10 @@ class Peoples_PrecadastroController extends Controller
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
-        $peoples = People_Precadastro::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
+        $peoples = People_Precadastro::orderBy('id', 'desc')->with('status')->paginate($this->totalPagesPaginate);
+        $status = Status::all()->where("type",'precadastro');
         $config = Roles::all();
-        return view('people_precadastro.index', compact('peoples', 'config'));
+        return view('people_precadastro.index', compact('peoples', 'config','status'));
     }
     public function edit($id)
     {
@@ -155,12 +156,12 @@ class Peoples_PrecadastroController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
-        $config = Config_system::all();
+        
+        $status = Status::all()->where("type",'precadastro');
+        $config = Roles::all();
         $dataForm = $request->except('_token');
-        $date = date('Y');
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people_precadastro.index', compact('peoples', 'dataForm', 'config', 'date'));
+        return view('people_precadastro.index', compact('peoples', 'dataForm', 'status','config'));
     }
 }

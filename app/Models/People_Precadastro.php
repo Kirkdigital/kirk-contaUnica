@@ -21,7 +21,7 @@ class People_Precadastro extends Model
      */
     protected $fillable = [
         'name', 'email', 'mobile', 'birth_at', 'address', 'country', 'state', 'city', 'role', 'cep', 
-        'is_verify', 'user_id', 'note',
+        'is_verify', 'user_id', 'note', 'status_id',
     ];
     /**
      * The attributes that should be cast to native types.
@@ -50,7 +50,7 @@ class People_Precadastro extends Model
     {
         return $this->where(function ($query) use ($data){
             if (isset($data['status']))
-                $query->where('status', $data['status']);
+                $query->where('status_id', $data['status']);
 
             if (isset($data['name']))
                 $query->where('name',  'LIKE','%' . $data['name']. '%');

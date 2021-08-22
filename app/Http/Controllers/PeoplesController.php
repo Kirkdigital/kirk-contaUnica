@@ -160,12 +160,10 @@ class PeoplesController extends Controller
     public function destroy($id, $user_id)
     {
         $this->pegar_tenant();
-
         $validargrupo = People_Groups::where('user_id', $id);
-        $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
 
         //valdiar grupo antes de excluir
-        if ($validargrupo->count() > 1) {
+        if ($validargrupo->count() >= 1) {
             session()->flash("info", "Pessoa possui vinculo com grupos, precisa desassociar");
             return redirect()->back();
         }
@@ -177,7 +175,10 @@ class PeoplesController extends Controller
                 $people->delete();
             }
             //deletar o acesso
-            $validaracesso->delete();
+            if($user_id != 0){
+                $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
+                $validaracesso->delete();
+            }
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');
             return redirect()->back();
