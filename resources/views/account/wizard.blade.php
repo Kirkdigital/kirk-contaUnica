@@ -32,7 +32,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {!! csrf_field() !!}
                                 <div class="row setup-content" id="step-1">
                                     <br>
                                     <div class="col-md-12">
@@ -108,6 +107,7 @@
                                 </div>
                                 <form method="POST" action="{{ route('wizard.store') }}">
                                     @csrf
+                                    {!! csrf_field() !!}
                                     <div class="row setup-content" id="step-2">
                                         <div class="col-md-12">
                                             <center>

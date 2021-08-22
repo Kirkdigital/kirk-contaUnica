@@ -6,15 +6,7 @@
 <div class="container-fluid">
   <div class="fade-in">
     <h6 class="card-title">Bem vindo a {{ $a }}</h6>
-    @if($precadastro >= 1)
-    <div class="card card-accent-success mb-12" style="max-width: 18rem;">
-      <div class="card-body text-success">
-        <h6 class="card-title">Há cadastros a serem aprovados</h6>
-        <a href="{{ route('people.index') }}" class="btn btn-primary">Pré-cadastro</a>
-        </p>
-      </div>
-    </div>
-    @endif
+
     <style type="text/css">
       .btn {
         margin-bottom: 4px;
@@ -93,9 +85,16 @@
               </p>
             </div>
           </div>
-        </div>
-
-        </div>        
+          @if($precadastro >= 1 && Auth::user()->isAdmin() === true)
+          <div class="card card-accent-success mb-12" style="max-width: 18rem;">
+            <div class="card-body text-success">
+              <h6 class="card-title">Há cadastros a serem aprovados</h6>
+              <a href="{{ route('peopleList.index') }}" class="btn btn-primary">Pré-cadastro</a>
+              </p>
+            </div>
+          </div>
+          @endif
+        </div>      
         @endsection
         @section('javascript')
           

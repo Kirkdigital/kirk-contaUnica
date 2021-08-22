@@ -33,7 +33,6 @@ class HomeController extends Controller
         $this->middleware('auth');
            
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -79,7 +78,7 @@ class HomeController extends Controller
         }
 
         //numero de pessoas ativas e no ano atual
-        $precadastro = People_Precadastro::where('is_verify', false)->count();;
+        $precadastro = People_Precadastro::where('status_id', '21')->count();;
 
         $eventos = Event::whereYear('created_at', date('Y'))->count();
         $message = Notes::whereYear('created_at', date('Y'))->count();

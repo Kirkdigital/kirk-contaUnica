@@ -8,17 +8,12 @@
                     <div class="container">
 
                       <div class="card-header"><h5>Pessoas</h5></div>
-                            <form action="{{ route('people.search') }}" method="POST" class="form form-inline">
+                            <form action="{{ route('peopleList.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                          <div class="card-body">
                             <div class="form-group row">
 
                               <div class="col-sm-12 col-md-4 col-lg-4 col-xl-8">
-                                @if( $config->first()->add_people == true)
-                                <div class="row">
-                                  <a href="{{ route('people.create') }}" class="btn btn-primary m-2">{{ __('Add People') }}</a>
-                                </div>
-                                @endif
                             </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                     <div class="inner">
@@ -71,21 +66,11 @@
                                           {{ $people->status->name }}
                                         </span>
                                       </td>
-
-
                                       @if( $config->first()->edit_people == true)
                                       <td width="1%">
-                                       <a href="{{ route('people.edit', $people->id) }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>
+                                       <a href="{{ route('peopleList.edit', $people->id) }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i></a>
                                       </td>
                                       @endif
-                                      @if( $config->first()->delete_people == true)
-                                      <td width="1%">
-                                        <form action="{{ url('people/'. $people->id. '/'. $people->user_id ) }}" method="POST">   
-                                          @method('DELETE')
-                                          @csrf
-                                          <button class="btn btn-primary-outline show_confirm" data-toggle="tooltip" title='Delete'><i class="c-icon c-icon-sm cil-trash text-danger"></i></button>
-                                        </form>
-                                        @endif
                                     </tr>
                                     </tr>
                                     @empty

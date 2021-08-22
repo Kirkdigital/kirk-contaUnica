@@ -215,7 +215,15 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('people/{id}/edit', 'PeoplesController@edit')->name('people.edit');
     Route::put('people/{id}', 'PeoplesController@update')->name('people.update');
     Route::any('people-search', 'PeoplesController@searchHistoric')->name('people.search');
-    Route::delete('people/{id}', 'PeoplesController@destroy')->name('people.destroy');
+    Route::delete('people/{id}/{user_id}', 'PeoplesController@destroy')->name('people.destroy');
+
+    //pessoas_precadastro
+    Route::get('peopleList', 'Peoples_PrecadastroController@index')->name('peopleList.index');
+    Route::any('peoplesList/{id}', 'Peoples_PrecadastroController@update')->name('peopleList.update');
+    Route::get('peopleList/{id}/edit', 'Peoples_PrecadastroController@edit')->name('peopleList.edit');
+    Route::any('peopleList-search', 'Peoples_PrecadastroController@searchHistoric')->name('peopleList.search');
+    Route::delete('peopleList/{id}', 'Peoples_PrecadastroController@reprovar')->name('peopleList.reprovar');
+
 
     //grupos
     Route::get('group', 'GroupsController@index')->name('group.index');

@@ -157,33 +157,27 @@ class PeoplesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $user_id)
     {
         $this->pegar_tenant();
 
         $validargrupo = People_Groups::where('user_id', $id);
-        $validaracesso = Users_Account::where('user_id', $id)->with('accountlist');  
+        $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
 
-        if ($validargrupo->count() > 1)
-        {
+        //valdiar grupo antes de excluir
+        if ($validargrupo->count() > 1) {
             session()->flash("info", "Pessoa possui vinculo com grupos, precisa desassociar");
             return redirect()->back();
-
         }
-        if ($validaracesso->count() > 1)
-        {
-            session()->flash("info", "Pessoa possui acesso vinculado, precisa remover o acesso a conta");
-            return redirect()->back();
-
-        }
-        //@dump($validaracesso->count());
-
+        //caso esteja zerado
         if ($validargrupo->count() == 0) {
-
-           $people = people::find($id);
+            //deletar pessoa
+            $people = people::find($id);
             if ($people) {
-            $people->delete();
+                $people->delete();
             }
+            //deletar o acesso
+            $validaracesso->delete();
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');
             return redirect()->back();
