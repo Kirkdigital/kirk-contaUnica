@@ -24,6 +24,7 @@ class User extends Authenticatable implements ReactsInterface
     
     protected $table = 'admin.users';
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -65,15 +66,6 @@ class User extends Authenticatable implements ReactsInterface
     public function isAdmin() {
         return $this->master  === true;
     }
-    public function balance()
-    {
-        return $this->hasOne(Balance::class);
-    }
-
-    public function historics()
-    {
-        return $this->hasMany(Historic::class);
-    }   
     public function getSender($sender)
     {
         return $this->where('name', 'LIKE', "%$sender%")

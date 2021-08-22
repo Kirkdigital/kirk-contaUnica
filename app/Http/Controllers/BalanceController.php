@@ -21,16 +21,15 @@ class BalanceController extends Controller
     public function index(Historic $historic)
     {
         $this->pegar_tenant();
-        $historics = auth()->user()
-                    ->historics()->with(['userSender'])->with('status')->with('statuspag') 
+        $historics = Historic::with('status')->with('statuspag') 
                     ->orderby('id','desc')
                     ->paginate(7);   
                     
         $types = $historic->type();  
-        
-        $balance = auth()->user()->balance;
+        $conta = session()->get('key');
+        $balance = Balance::where('account_id', $conta)->first();
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
-
+        //@dump($balance->amount);
         //dd(auth()->user());
         //dd(auth()->user()->name);
         //dd(auth()->user()->balance);
@@ -69,9 +68,10 @@ class BalanceController extends Controller
     public function depositStore(ValidationMoneyFormRequest $request)
     {
         $this->pegar_tenant();
+        $conta = session()->get('key');
         //dd($request->all());
         //dd(auth()->user()->balance()->firstOrCreate([]));
-        $balance = auth()->user()->balance()->firstOrCreate([]);
+        $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
         $response = $balance->deposit($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
 
         if ($response['success']) {
@@ -99,7 +99,8 @@ class BalanceController extends Controller
     {
         //dd($request->all());
         $this->pegar_tenant();
-        $balance = auth()->user()->balance()->firstOrCreate([]);
+        $conta = session()->get('key');
+        $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
         $response = $balance->withdraw($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
 
         if ($response['success']) {
@@ -112,57 +113,10 @@ class BalanceController extends Controller
             ->with('error', $response['message']);
     }
 
-    public function transfer()
-    {
-        return view('balance.transfer');
-    }
-
-    public function confirmTransfer(Request $request, People $user)
-    {
-        $this->pegar_tenant();
-        if (!$sender = $user->getSender($request->sender)) {
-            return redirect()
-                ->back()
-                ->with('error', 'Usuário não encontrado!');
-        }
-        if ($sender->id === auth()->user()->id) {
-            return redirect()
-                ->back()
-                ->with('error', 'Não é possivel transferir para você mesmo!');
-        }
-
-        $balance = auth()->user()->balance;
-
-        return view('balance.transfer-confirm', compact('sender', 'balance'));
-
-    }
-
-    public function transferStore(ValidationMoneyFormRequest $request, People $user)
-    {
-        $this->pegar_tenant();
-        if (!$sender = $user->find($request->sender_id))
-            return redirect()
-                ->route('balance.transfer')
-                ->with('success', 'Recebedor não encontrado!');
-
-        $balance = auth()->user()->balance()->firstOrCreate([]);
-        $response = $balance->transfer($request->valor, $sender);
-
-        if ($response['success']) {
-            return redirect('balance')
-                ->with('success', $response['message']);
-        }
-
-        return redirect()
-            ->route('balance.transfer')
-            ->with('error', $response['message']);
-    }
-
     public function historic(Historic $historic)
     {
         $this->pegar_tenant();
-        $historics = auth()->user()
-                    ->historics()->with(['userSender'])
+        $historics = Historic::with('status')->with('statuspag')
                     ->orderby('id','desc')
                     ->paginate($this->totalPagesPaginate);   
                     

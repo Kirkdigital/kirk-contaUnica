@@ -50,6 +50,12 @@ class RolesTable extends Migration
             $table->boolean('view_calendar')->nullable()->default(1);
 			$table->boolean('delete_calendar')->nullable()->default(1);
 
+            //home
+            $table->boolean('home_financeiro')->nullable()->default(1);
+            $table->boolean('home_financeiro_valores')->nullable()->default(1);
+            $table->boolean('home_grupo')->nullable()->default(1);
+            $table->boolean('home_social')->nullable()->default(1);
+
             //dash
             $table->boolean('view_periodo')->nullable()->default(1);
 			$table->boolean('view_dash')->nullable()->default(1);

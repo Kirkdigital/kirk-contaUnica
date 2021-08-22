@@ -24,6 +24,15 @@ class ConfigSystemTable extends Migration
 			$table->string('timezone');
 			$table->integer('default_language')->nullable();
 			$table->string('currency')->nullable();
+
+            $table->boolean('obg_last_name')->nullable()->default(1);
+            $table->boolean('obg_email')->nullable()->default(1);
+            $table->boolean('obg_celular')->nullable()->default(1);
+            $table->boolean('obg_birth_at')->nullable()->default(1);
+            $table->boolean('obg_sex')->nullable()->default(1);
+            $table->boolean('obg_city')->nullable()->default(1);
+            $table->boolean('obg_state')->nullable()->default(1);
+            $table->boolean('obg_note')->nullable()->default(1);
 			$table->timestamps(10);
 		});
     }

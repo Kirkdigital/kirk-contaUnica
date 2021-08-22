@@ -18,7 +18,7 @@ class BalancesTable extends Migration
         Schema::create(config::get('database.connections.tenant.schema').'.balances', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
-			$table->integer('user_id');
+			$table->integer('account_id');
 			$table->float('amount', 10, 0)->default(0);
 		});
     }

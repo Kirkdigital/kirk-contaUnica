@@ -29,12 +29,6 @@ class Historic extends Model
 
         return $types[$type];
     }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function userSender()
     {
         return $this->belongsTo(People::class, 'user_id_transaction');    
@@ -67,7 +61,7 @@ class Historic extends Model
                 $query->where('type', $data['type']);        
         })
         //->toSql(); dd($historics);
-        ->where('user_id', auth()->user()->id)
+        // filtro por usuário ->where('user_id', auth()->user()->id)
         ->with(['userSender'])
         ->orderby('id','desc')
         ->paginate(50);
