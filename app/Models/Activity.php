@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
-class Balance extends Model
+class Activity extends Model
 {
     public $timestamps = false;
     protected $connection = 'tenant';
 
-    public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people): array
+    public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people, $you): array
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
 
