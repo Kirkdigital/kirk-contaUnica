@@ -5,19 +5,16 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Yajra\Datatables\Datatables;
 use App\Models\Status;
 use App\Models\People;
 use App\Models\Config_system;
-use App\Models\Institution;
+use App\Models\Auditoria;
 use App\Models\People_Groups;
 use App\Models\Users_Account;
-use App\Http\Controllers\Input;
 use App\Models\Roles;
 
 class PeoplesController extends Controller
 {
-
     private $totalPagesPaginate = 12;
     /**
      * Create a new controller instance.
@@ -88,6 +85,7 @@ class PeoplesController extends Controller
         $people->is_newvisitor = 'false';
         $this->pegar_tenant();
         $people->save();
+        $this->adicionar_log('1', 'C', $people);
         $request->session()->flash("success", "Successfully created people");
         return redirect()->route('people.index');
     }
@@ -124,8 +122,7 @@ class PeoplesController extends Controller
             'country'         => 'required'
 
         ]);
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+        $this->pegar_tenant();
         $people = People::find($id);
         $people->name          = strtoupper($request->input('name'));
         $people->email         = $request->input('email');
@@ -147,6 +144,7 @@ class PeoplesController extends Controller
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
         $people->save();
+        $this->adicionar_log('1', 'U', $people);
         session()->flash("success", "Successfully updated people");
         return redirect()->route('people.index');
     }
@@ -173,11 +171,14 @@ class PeoplesController extends Controller
             $people = people::find($id);
             if ($people) {
                 $people->delete();
+                $this->adicionar_log('1', 'D', $people);
             }
             //deletar o acesso
             if($user_id != 0){
                 $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
                 $validaracesso->delete();
+                $this->adicionar_log('11', 'D', $validaracesso);
+
             }
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');

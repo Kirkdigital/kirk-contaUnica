@@ -99,10 +99,11 @@ class Peoples_PrecadastroController extends Controller
         if ($response['success']) {
             $people_pre->save();
             $people->save();
+            $this->adicionar_log('6', 'C', $people_pre);
+            $this->adicionar_log('1', 'C', $people);
             return redirect('peopleList')
                 ->with('success', $response['message']);
         }
-
         return redirect()
             ->back()
             ->with('error', $response['message']);
@@ -120,7 +121,7 @@ class Peoples_PrecadastroController extends Controller
         $useraccount->save();
 
         if ($useraccount) {
-
+            $this->adicionar_log('11', 'C', $useraccount);
             DB::commit();
 
             return [
@@ -146,6 +147,7 @@ class Peoples_PrecadastroController extends Controller
         if ($people) {
             $people->delete();
             $people->status_id = '23';
+            $this->adicionar_log('6', 'D', $people);
             $people->save();
             session()->flash("info", "Reprovado com sucesso");
             return redirect()->route('peopleList.index');

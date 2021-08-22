@@ -29,11 +29,6 @@ class BalanceController extends Controller
         $conta = session()->get('key');
         $balance = Balance::where('account_id', $conta)->first();
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
-        //@dump($balance->amount);
-        //dd(auth()->user());
-        //dd(auth()->user()->name);
-        //dd(auth()->user()->balance);
-
         return view('balance.index',compact('amount', 'historics', 'types'));
     }
 
@@ -43,7 +38,6 @@ class BalanceController extends Controller
         $peoples = People::all()->sortBy('name');
         $statuspag = Status::all()->where("type",'pagamento');
         $statusfinan = Status::all()->where("type",'financial')->where('class','entrada');
-
         return view('balance.depositar', ['peoples' => $peoples, 'statusfinan' => $statusfinan],compact('statuspag'));
     }
     
@@ -69,11 +63,8 @@ class BalanceController extends Controller
     {
         $this->pegar_tenant();
         $conta = session()->get('key');
-        //dd($request->all());
-        //dd(auth()->user()->balance()->firstOrCreate([]));
         $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
         $response = $balance->deposit($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
-
         if ($response['success']) {
             return redirect('financial')
                 ->with('success', $response['message']);
@@ -90,19 +81,16 @@ class BalanceController extends Controller
         $peoples = People::all()->sortBy('name');
         $statuspag = Status::all()->where("type",'pagamento');
         $statusfinan = Status::all()->where("type",'financial')->where('class','retira');
-
         return view('balance.withdraw', ['peoples' => $peoples, 'statusfinan' => $statusfinan],compact('statuspag'));
 
     }
 
     public function withdrawStore(ValidationMoneyFormRequest $request)
     {
-        //dd($request->all());
         $this->pegar_tenant();
         $conta = session()->get('key');
         $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
         $response = $balance->withdraw($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
-
         if ($response['success']) {
             return redirect('financial')
                 ->with('success', $response['message']);

@@ -19,8 +19,8 @@ class ActivityLog extends Migration
 		{
 			$table->bigInteger('id', true);
 			$table->string('activity_id');
+            $table->string('type');
 			$table->string('user_id')->nullable();
-			$table->string('admin_id')->nullable();
 			$table->json('manipulations')->nullable();
             $table->json('request')->nullable();
 			$table->timestamps(10);

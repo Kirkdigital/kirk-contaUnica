@@ -239,6 +239,7 @@ class InstitutionsController extends Controller
         $User_account = Users_Account::where('account_id', '=', $id);
         if ($User_account) {
             $User_account->delete();
+            $this->adicionar_log('7', 'U', $User_account);
         }
 
         $request->session()->flash("warning", 'events.change_delete');

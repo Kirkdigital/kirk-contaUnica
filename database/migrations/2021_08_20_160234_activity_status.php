@@ -19,8 +19,6 @@ class ActivityStatus extends Migration
 		{
 			$table->bigInteger('id', true);
 			$table->string('description');
-			$table->string('type')->nullable();
-			$table->timestamps(10);
 		});
     }
 }

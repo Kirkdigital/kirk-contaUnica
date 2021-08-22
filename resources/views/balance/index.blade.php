@@ -25,9 +25,6 @@
                                         @if ($amount > 0)
                                         <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">Retirada</a>
                                         @endif
-                                        @if($amount > 0 && Auth::user()->isAdmin())
-                                        <a href="{{ route('balance.transfer') }}" class="btn btn-info disabled">Transferir</a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>

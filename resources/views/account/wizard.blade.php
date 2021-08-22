@@ -273,8 +273,8 @@
                                                                         xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
                                                                     </use>
                                                                 </svg></span></div>
-                                                        <input class="form-control" name="cep" type="number"
-                                                            placeholder="Postal Code" maxlength="8">
+                                                        <input class="form-control" name="cep" type="text" pattern="[0-9]{5}-[0-9]{3}"
+                                                            placeholder="Postal Code" maxlength="9">
                                                     </div>
                                                 </div>
                                             </div>

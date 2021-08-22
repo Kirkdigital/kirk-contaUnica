@@ -18,9 +18,6 @@
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#membro" role="tab"
                                     aria-controls="membro"><i class="c-icon c-icon-sm cil-book text-dark"></i> Membresia</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#acesso" role="tab"
-                                    aria-controls="acesso"><i class="c-icon c-icon-sm cil-https text-dark"></i> Dados de
-                                    Acesso</a></li>
                         </ul>
                         <form method="POST" action="{{ route('people.store') }}">
                             @csrf
@@ -125,6 +122,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-check checkbox">
+                                            <input class="form-check-input" id="liberar_acesso"
+                                                name="liberar_acesso" type="checkbox">
+                                            <label class="form-check-label" for="check1">Criar acesso</label>
                                         </div>
                                     </div>
                                 </div>
@@ -249,28 +251,6 @@
                                                     placeholder="Content.."></textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="acesso" role="tabpanel">
-                                    <div class="card-body">
-                                        <form class="form-horizontal" action="" method="post">
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label" for="hf-email">Email</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control" placeholder="Enter Email.."
-                                                        autocomplete="email" disabled><span class="help-block">Please enter
-                                                        your email</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label" for="hf-password">Password</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control" placeholder="Enter Password.."
-                                                        autocomplete="current-password" disabled><span
-                                                        class="help-block">Please enter
-                                                        your password</span>
-                                                </div>
-                                            </div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" type="submit">Save</button>

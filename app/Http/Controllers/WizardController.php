@@ -72,6 +72,7 @@ class WizardController extends Controller
         $people->sex       = $request->input('sex');
         $people->user_id = $you->id;
         $people->save();
+        $this->adicionar_log('10', 'C', $people);
         
         $request->session()->flash("success", 'Cadastrado com sucesso, aguardar aprovação do administrador');
         return redirect()->route('account.index');

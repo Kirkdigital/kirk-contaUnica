@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -25,4 +26,11 @@ class Controller extends BaseController
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao')); 
     }
+    public function adicionar_log($status, $type, $json)
+    {
+        $auditoria = Auditoria::firstOrCreate([]);
+        $auditoria->log($status, $type, $json);
+    }
+
+
 }

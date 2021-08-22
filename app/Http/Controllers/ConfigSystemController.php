@@ -91,7 +91,9 @@ class ConfigSystemController extends Controller
         $settings->timezone       = $request->input('timezone');
         $settings->default_language       = $request->input('language');
         $settings->currency       = $request->input('currency');
-        $settings->save();
+                $settings->save();
+        $this->adicionar_log('7', 'U', $settings);
+        $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
     }
@@ -106,6 +108,7 @@ class ConfigSystemController extends Controller
         $settings->smtp_user       = $request->input('smtp_user');
         $settings->smtp_pass       = $request->input('smtp_pass');
         $settings->save();
+        $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
     }
@@ -125,6 +128,7 @@ class ConfigSystemController extends Controller
         $settings->whatsapp_link       = $request->input('whatsapp_link');
         $settings->telegram_link       = $request->input('telegram_link');
         $settings->save();
+        $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
     }
@@ -163,6 +167,7 @@ class ConfigSystemController extends Controller
         (float)$settings->fin_despesa_ano       = $request->input('fin_despesa_ano');
         (float)$settings->fin_acao_ano       = $request->input('fin_acao_ano');
         $settings->save();
+        $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
     }

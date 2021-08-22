@@ -19,8 +19,7 @@ class FullCalenderController extends Controller
     if ((session()->get('schema')) === null)
         return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
         
-    Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+       $this->pegar_tenant();
        if($request->ajax()) {
       
             $data = Event::whereDate('start', '>=', $request->start)
@@ -40,8 +39,7 @@ class FullCalenderController extends Controller
     */
    public function ajax(Request $request)
    {
-    Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+    $this->pegar_tenant();
        switch ($request->type) {
           case 'add':
              $event = Event::create([
@@ -49,7 +47,7 @@ class FullCalenderController extends Controller
                  'start' => $request->start,
                  'end' => $request->end,
              ]);
-
+             $this->adicionar_log('4', 'C', $event);
              return response()->json($event);
             break;
  
@@ -59,13 +57,13 @@ class FullCalenderController extends Controller
                  'start' => $request->start,
                  'end' => $request->end,
              ]);
-
+             $this->adicionar_log('4', 'U', $event);
              return response()->json($event);
             break;
  
           case 'delete':
              $event = Event::find($request->id)->delete();
- 
+             $this->adicionar_log('4', 'D', $event);
              return response()->json($event);
             break;
             

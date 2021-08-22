@@ -31,9 +31,8 @@ class NotesController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-            
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        $notes = Notes::with('user')->with('status')->paginate( 20 );
+
+        $notes = Notes::with('user')->with('status')->paginate(20);
         return view('dashboard.notes.notesList', ['notes' => $notes]);
     }
 
@@ -44,9 +43,10 @@ class NotesController extends Controller
      */
     public function create()
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar schema
+        $this->pegar_tenant();
         $statuses = Status::all();
-        return view('dashboard.notes.create', [ 'statuses' => $statuses ]);
+        return view('dashboard.notes.create', ['statuses' => $statuses]);
     }
 
     /**
@@ -57,7 +57,8 @@ class NotesController extends Controller
      */
     public function store(Request $request)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar schema
+        $this->pegar_tenant();
         $validatedData = $request->validate([
             'title'             => 'required|min:1|max:64',
             'content'           => 'required',
@@ -74,6 +75,7 @@ class NotesController extends Controller
         $note->applies_to_date = $request->input('applies_to_date');
         $note->users_id = $user->id;
         $note->save();
+        $this->adicionar_log('3', 'C', $note);
         $request->session()->flash('message', 'Successfully created note');
         return redirect()->route('notes.index');
     }
@@ -86,9 +88,10 @@ class NotesController extends Controller
      */
     public function show($id)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar schema
+        $this->pegar_tenant();
         $note = Notes::with('user')->with('status')->find($id);
-        return view('dashboard.notes.noteShow', [ 'note' => $note ]);
+        return view('dashboard.notes.noteShow', ['note' => $note]);
     }
 
     /**
@@ -99,10 +102,11 @@ class NotesController extends Controller
      */
     public function edit($id)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar schema
+        $this->pegar_tenant();
         $note = Notes::find($id);
         $statuses = Status::all();
-        return view('dashboard.notes.edit', [ 'statuses' => $statuses, 'note' => $note ]);
+        return view('dashboard.notes.edit', ['statuses' => $statuses, 'note' => $note]);
     }
 
     /**
@@ -114,8 +118,8 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-        //var_dump('bazinga');
+        //pegar schema
+        $this->pegar_tenant();
         //die();
         $validatedData = $request->validate([
             'title'             => 'required|min:1|max:64',
@@ -131,6 +135,7 @@ class NotesController extends Controller
         $note->note_type = $request->input('note_type');
         $note->applies_to_date = $request->input('applies_to_date');
         $note->save();
+        $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');
         return redirect()->route('notes.index');
     }
@@ -143,11 +148,13 @@ class NotesController extends Controller
      */
     public function destroy($id)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar schema
+        $this->pegar_tenant();
         $note = Notes::find($id);
-        if($note){
+        if ($note) {
             $note->delete();
         }
+        $this->adicionar_log('3', 'D', $note);
         return redirect()->route('notes.index');
     }
 }

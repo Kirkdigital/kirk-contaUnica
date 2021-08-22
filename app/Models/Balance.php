@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\People;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -35,11 +34,9 @@ class Balance extends Model
             'total_after' => $this->amount,
             'user_id' => auth()->user()->id
         ]);
-
         if ($deposit && $historic) {
-
+            $this->adicionar_log('5', 'C', $historic);
             DB::commit();
-
             return [
                 'success' => true,
                 'message' => 'Depositado com sucesso!',
@@ -88,7 +85,7 @@ class Balance extends Model
         ]);
 
         if ($withdraw && $historic) {
-
+            $this->adicionar_log('5', 'C', $historic);
             DB::commit();
 
             return [
@@ -107,5 +104,9 @@ class Balance extends Model
 
         }
     }
-
+    public function adicionar_log($status, $type, $json)
+    {
+        $auditoria = Auditoria::firstOrCreate([]);
+        $auditoria->log($status, $type, $json);
+    }
 }

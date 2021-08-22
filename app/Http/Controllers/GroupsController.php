@@ -72,6 +72,7 @@ class GroupsController extends Controller
         $group->count      = '1';
         $group->note       = $request->input('note');
         $group->save();
+        $this->adicionar_log('2', 'C', $group);
 
         $contador = Group::latest('id')->get()->first()->id;
         $adicionarpessoa = new People_Groups();
@@ -79,6 +80,7 @@ class GroupsController extends Controller
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $adicionarpessoa->save();
+        $this->adicionar_log('12', 'C', $adicionarpessoa);
 
         $request->session()->flash("success", "Successfully created group");
         return redirect()->route('group.index');
@@ -120,6 +122,7 @@ class GroupsController extends Controller
         $validaruser = People_Groups::where('group_id',$id)->whereIn('user_id',[$group1->user_id,$request->input('itemName')]);
         if ($validaruser) {
             $validaruser->delete();
+            //$this->adicionar_log('12', 'D', $validaruser);
         }
 
         $adicionarpessoa = new People_Groups();
@@ -127,10 +130,11 @@ class GroupsController extends Controller
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $adicionarpessoa->save();
+        $this->adicionar_log('12', 'U', $adicionarpessoa);
 
         //fazer a contagem ao inserir
         $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->count();
-
+        $this->adicionar_log('2', 'U', $group);
         $group->save();
 
         session()->flash("success", "Successfully updated group");
@@ -149,6 +153,12 @@ class GroupsController extends Controller
         $group = Group::find($id);
         if ($group) {
             $group->delete();
+            $this->adicionar_log('2', 'U', $id);
+        }
+        $validaruser = People_Groups::where('group_id',$id);
+        if ($validaruser) {
+            $validaruser->delete();
+            $this->adicionar_log('12', 'D', $validaruser);
         }
         session()->flash("warning", "Sucessfully deleted group");
         return redirect()->route('group.index');
@@ -174,10 +184,6 @@ class GroupsController extends Controller
         $group = Group::find($id);
         $pessoasgrupos = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->get();
         $responsavel = People::find($group->user_id);
-        //$pessoasgrupo = Group::with('grouplist', 'user_id');
-        //$pessoasgrupo = People_Groups::with('grouplista');
-
-       //@dump($pessoasgrupo);
         return view('group.Show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
@@ -205,7 +211,7 @@ class GroupsController extends Controller
             //salvar todos os dados
             $adicionarsoma->save();
             $adicionarpessoa->save();
-
+            $this->adicionar_log('12', 'C', $adicionarpessoa);
             $request->session()->flash("success", "Adicionado com sucesso");
             return redirect()->back();
         }
@@ -224,6 +230,7 @@ class GroupsController extends Controller
             $adicionarsoma = Group::find($value);
             $adicionarsoma->count = $adicionarsoma->count-1;
             $adicionarsoma->save();
+            $this->adicionar_log('12', 'D', $group);
         }
         session()->flash("warning", "Deletada a pessoa do grupo");
         return redirect()->back();

@@ -39,11 +39,7 @@ class BackupController extends Controller
         $config = Config_system::all();
         //pegar a data
         $ldate = date('Y-m');
-
-
-        $tenant = session()->get('schema');
-
-        return view('dashboard.backup.index', compact('config','tenant'));
+        return view('dashboard.backup.index', compact('config'));
     }
 
     public function backup()
@@ -56,8 +52,8 @@ class BackupController extends Controller
     */
     public function export(Request $request) 
     {        
-        return Excel::download(new UsersExport, 'users.xlsx');
-
+        
+        return Excel::download(new UsersExport, 'backup.xlsx');
         $request->session()->flash("success", "Successfully export");
         return back();
     }
@@ -68,7 +64,6 @@ class BackupController extends Controller
     public function import(Request $request) 
     {
         Excel::import(new UsersImport,request()->file('file'));
-        
         if(request()->file('file') === null)
         {
             $request->session()->flash("info", "Erro import");
