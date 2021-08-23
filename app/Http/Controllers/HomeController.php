@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use App\Models\Config_email;
 use App\Models\Config_system;
 use Illuminate\Http\Request;
@@ -73,6 +74,13 @@ class HomeController extends Controller
 
             $settings1 = new Config_social();
             $settings1->id       = '1';
+            $settings1->save();
+
+            $settings1 = new Auditoria();
+            $settings1->activity_id       = '9';
+            $settings1->type       = 'C';
+            $settings1->user_id       = $you->id;
+            $settings1->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
             $settings1->save();
             
             $request->session()->flash("info", "É necessário configurar a conta");

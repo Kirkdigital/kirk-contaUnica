@@ -122,7 +122,7 @@ class GroupsController extends Controller
         $validaruser = People_Groups::where('group_id',$id)->whereIn('user_id',[$group1->user_id,$request->input('itemName')]);
         if ($validaruser) {
             $validaruser->delete();
-            //$this->adicionar_log('12', 'D', $validaruser);
+            $this->adicionar_log('12', 'D', '{"group_id":"'.$id.'","user_id":"'.$group1->user_id.','.$request->input('itemName').'"}');
         }
 
         $adicionarpessoa = new People_Groups();
@@ -153,12 +153,12 @@ class GroupsController extends Controller
         $group = Group::find($id);
         if ($group) {
             $group->delete();
-            $this->adicionar_log('2', 'U', $id);
+            $this->adicionar_log('2', 'D', $group);
         }
         $validaruser = People_Groups::where('group_id',$id);
         if ($validaruser) {
             $validaruser->delete();
-            $this->adicionar_log('12', 'D', $validaruser);
+            $this->adicionar_log('12', 'D', '{"delete_peoplegroup":"'.$id.'"}');
         }
         session()->flash("warning", "Sucessfully deleted group");
         return redirect()->route('group.index');

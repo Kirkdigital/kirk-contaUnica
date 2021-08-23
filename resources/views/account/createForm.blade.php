@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <button class="btn btn-block btn-success" type="submit">{{ __('Save') }}</button>
+                    <button class="btn btn-block btn-success" data-toggle="modal" data-target=".cd-load" type="submit">{{ __('Save') }}</button>
                     <a href="{{ route('account.index') }}" class="btn btn-block btn-primary">{{ __('Return') }}</a>
                     </form>
                 </div>

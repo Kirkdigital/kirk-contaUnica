@@ -178,7 +178,6 @@ class PeoplesController extends Controller
                 $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
                 $validaracesso->delete();
                 $this->adicionar_log('11', 'D', $validaracesso);
-
             }
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');

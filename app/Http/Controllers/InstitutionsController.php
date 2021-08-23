@@ -14,7 +14,7 @@ use App\Models\Users_Account;
 class InstitutionsController extends Controller
 {
 
-    private $totalPagesPaginate = 10;
+    private $totalPagesPaginate = 8;
     /**
      * Create a new controller instance.
      *
@@ -34,7 +34,11 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
 
-        $institutions = Users_Account::where('user_id', $you->id)->with('accountlist')->with('status')->paginate($this->totalPagesPaginate);
+        $institutions = Users_Account::
+                        where('user_id', $you->id)
+                        ->with('accountlist')
+                        ->with('status')
+                        ->paginate($this->totalPagesPaginate);
         //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
         return view('account.List', ['institutions' => $institutions]);
     }
@@ -66,7 +70,7 @@ class InstitutionsController extends Controller
     public function license_index1()
     {
         $you = auth()->user();
-        $institution = Institution::orderBy('name_company', 'asc')->where('integrador', $you->id)->with('status')->paginate(100);
+        $institution = Institution::orderBy('name_company', 'desc')->where('integrador', $you->id)->with('status')->paginate(100);
         $countinstlist = Institution::where('integrador', $you->id)->get();
         $countinst = $countinstlist->count();
         return view('account.License', ['institutions' => $institution], compact('countinst'));
@@ -182,7 +186,7 @@ class InstitutionsController extends Controller
         if (!$migrated) {
             DB::purge('tenant'); 
             DB::reconnect('pgsql');
-            $this->adicionar_log_global('9', 'C', $migrated);
+            $this->adicionar_log_global('9', 'C', '{"schema":"'.$institution->tenant.'"}');
             $request->session()->flash("success", 'events.change_create');
             return redirect()->route('account.index');
         }
@@ -243,11 +247,11 @@ class InstitutionsController extends Controller
         $User_account = Users_Account::where('account_id', '=', $id);
         if ($User_account) {
             $User_account->delete();
-        }
-        //$this->adicionar_log_global('11', 'C', $User_account);
+            $this->adicionar_log_global('11', 'D', '{"delete_account_list":"'.$id.'"}');
 
-        $request->session()->flash("warning", 'events.change_delete');
-        return redirect()->route('account.index');
+        }
+       $request->session()->flash("warning", 'events.change_delete');
+       return redirect()->route('account.index');
     }
 
 

@@ -121,7 +121,7 @@ class Peoples_PrecadastroController extends Controller
         $useraccount->save();
 
         if ($useraccount) {
-            $this->adicionar_log('11', 'C', $useraccount);
+            $this->adicionar_log_global('11', 'C', $useraccount);
             DB::commit();
 
             return [
