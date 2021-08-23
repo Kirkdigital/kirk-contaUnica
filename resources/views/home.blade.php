@@ -23,6 +23,17 @@
 
             </style>
             <div class="fade-in">
+                @if(
+                $social->facebook_link !== null | 
+                $social->twitter_link !== null |
+                $social->linkedin_link !== null |
+                $social->youtube_link !== null |
+                $social->instagram_link !== null |
+                $social->vk_link !== null |
+                $social->site_link !== null |
+                $social->telegram_link !== null |
+                $social->whatsapp_link !== null
+                )
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -96,6 +107,7 @@
                                 </p>
                             </div>
                         </div>
+                        @endif
                         @if (!$groups->isEmpty())
                             <div class="row">
                                 <div class="col-12">

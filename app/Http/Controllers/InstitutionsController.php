@@ -156,11 +156,12 @@ class InstitutionsController extends Controller
         $institution->country       = $request->input('country');
         $institution->integrador = $user->id;
         $institution->save();
-
+        $this->adicionar_log_global('9', 'C', $institution);
         $useraccount = new Users_Account();
         $useraccount->user_id = $user->id;
         $useraccount->account_id = Institution::latest('id')->get()->first()->id;
         $useraccount->save();
+        $this->adicionar_log_global('11', 'C', $useraccount);
 
         //criar o esquema (gambiarra)
         DB::select('CREATE SCHEMA '.$institution->tenant);
@@ -181,6 +182,7 @@ class InstitutionsController extends Controller
         if (!$migrated) {
             DB::purge('tenant'); 
             DB::reconnect('pgsql');
+            $this->adicionar_log_global('9', 'C', $migrated);
             $request->session()->flash("success", 'events.change_create');
             return redirect()->route('account.index');
         }
@@ -215,6 +217,7 @@ class InstitutionsController extends Controller
         $institution->city       = $request->input('city');
         $institution->state       = $request->input('state');
         $institution->cep       = $request->input('cep');
+        $this->adicionar_log_global('9', 'U', $institution);
         $institution->save();
         $request->session()->flash("success", 'events.change_update');
         return redirect()->route('account.index');
@@ -233,14 +236,15 @@ class InstitutionsController extends Controller
             //$institution->delete();
             $institution = Institution::find($id);
             $institution->deleted_at          = date('Y-m-d H:m:s');
+            $this->adicionar_log_global('9', 'D', $institution);
             $institution->save();
         }
 
         $User_account = Users_Account::where('account_id', '=', $id);
         if ($User_account) {
             $User_account->delete();
-            $this->adicionar_log('7', 'U', $User_account);
         }
+        //$this->adicionar_log_global('11', 'C', $User_account);
 
         $request->session()->flash("warning", 'events.change_delete');
         return redirect()->route('account.index');

@@ -56,7 +56,6 @@ class HomeController extends Controller
             $settings->id       = '1';
             $settings->save();
             
-
             $settings = new Config_system();
             $settings->id       = '1';
             $settings->name       = 'DeskApps';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auditoria;
+use App\Models\Auditoria_global;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -31,6 +32,9 @@ class Controller extends BaseController
         $auditoria = Auditoria::firstOrCreate([]);
         $auditoria->log($status, $type, $json);
     }
-
-
+    public function adicionar_log_global($status, $type, $json)
+    {
+        $auditoria = Auditoria_global::firstOrCreate([]);
+        $auditoria->log_global($status, $type, $json);
+    }
 }
