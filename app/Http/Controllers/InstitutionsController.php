@@ -47,7 +47,7 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
         $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->count();
+        $countinst = $countinstlist->whereNull('deleted_at')->count();
 
         if ($request->ajax()) {
 
@@ -56,7 +56,7 @@ class InstitutionsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
+                    $btn = '<a href="{{route(tenant,[id =>' . $row->id .']) }}" data-toggle="tooltip" data-id=" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
 
                     return $btn;
                 })
@@ -72,7 +72,7 @@ class InstitutionsController extends Controller
         $you = auth()->user();
         $institution = Institution::orderBy('name_company', 'desc')->where('integrador', $you->id)->with('status')->paginate(100);
         $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->count();
+        $countinst = $countinstlist->whereNull('deleted_at')->count();
         return view('account.License', ['institutions' => $institution], compact('countinst'));
     }
 
@@ -98,7 +98,7 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
         $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->count();
+        $countinst = $countinstlist->whereNull('deleted_at')->count();
 
         $statuses = Status::all()->where("type", 'system');
 
@@ -115,7 +115,7 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
         $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->count();
+        $countinst = $countinstlist->whereNull('deleted_at')->count();
         if ($countinst >= $you->license) {
             $request->session()->flash("error", 'events.error_license');
             return redirect('account');

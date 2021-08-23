@@ -45,7 +45,6 @@
                 <th width="60px">Expired</th>
                 <th>City</th>
                 <th>Country</th>
-                <th width="20px">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -69,7 +68,6 @@
             {data: 'expired', name: 'expired'},
             {data: 'city', name: 'city'},
             {data: 'country', name: 'country'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
 
