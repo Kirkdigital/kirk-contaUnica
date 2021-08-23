@@ -168,7 +168,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resource('home',        'HomeController');
 
         //importar e exportar pessoas
-        Route::resource('backup', 'BackupController');
+        Route::resource('settings/backup', 'BackupController');
         Route::get('export',        'BackupController@export')->name('export');
         Route::post('import',        'BackupController@import')->name('import');
 
@@ -224,7 +224,6 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::any('peopleList-search', 'Peoples_PrecadastroController@searchHistoric')->name('peopleList.search');
     Route::delete('peopleList/{id}', 'Peoples_PrecadastroController@reprovar')->name('peopleList.reprovar');
 
-
     //grupos
     Route::get('group', 'GroupsController@index')->name('group.index');
     Route::get('group/create', 'GroupsController@create')->name('group.create');
@@ -237,11 +236,14 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::delete('group/{id}', 'GroupsController@destroy')->name('group.destroy');
     Route::delete('group/{id}/delete', 'GroupsController@destroygroup')->name('group.destroygroup');
     
-
     //pre-cadastro - wizard
     Route::get('wizard', 'WizardController@create')->name('wizard.create');
     Route::post('wizard', 'WizardController@store')->name('wizard.store');
     Route::any('wizard-search', 'WizardController@searchAccount')->name('wizard.search');
+
+    //logs
+    Route::get('logs', 'LogsController@index')->name('logs.index');
+
 
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([

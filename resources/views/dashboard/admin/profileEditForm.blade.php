@@ -101,10 +101,8 @@
                                     </div>
                                 </div>
                                 <!-- /.row-->
-                                <div class="card-footer">
-                                    <button class="btn btn-sm btn-success" type="submit">{{ __('Save') }}</button>
-                                    <a href="{{ route('account.index') }}"
-                                        class="btn btn-sm btn-primary">{{ __('Return') }}</a>
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-dark" href="{{ route('account.index') }}">Return</a>
                             </form>
                         </div>
                     </div>

@@ -80,27 +80,24 @@
                   </div>
                 </div>
               </div>
-              <!--
               <div class="col-lg-6">
                 <div class="card card-large-icons">
                   <div class="card-icon bg-primary text-white">
-                    <i class="fas fa-stopwatch"></i>
+                    <i class="fas fa-cloud"></i>
                   </div>
                   <div class="card-body">
-                    <h4>Automation</h4>
-                    <p>Settings about automation such as cron job, backup automation and so on.</p>
-                    <a href="features-setting-detail.html" class="card-cta text-primary">Change Setting <i class="fas fa-chevron-right"></i></a>
+                    <h4>Backup</h4>
+                    <p>Importar ou gerar backup.</p>
+                    <a href={{ url('settings/backup') }} class="card-cta text-primary">Change Setting <i class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
               </div>
-              -->
             </div>
           </div>
         </div>
       <!-- /.col-->
     </div>
     <!-- /.row-->
-  </div>
 </div>
 
 @endsection

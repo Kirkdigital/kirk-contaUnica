@@ -26,7 +26,7 @@
                                             class="logo" width="150"></p>
                                     <input type="file" name="logo" accept=".png, .jpg, .jpeg, .gif, .svg">
                                     <p><small class="text-success">Allowed Types: gif, jpg, png, jpeg</small></p>
-                                    <input type="hidden" name="logo" 
+                                    <input type="hidden" name="logo"
                                         value="assets/img/2e79d6b2095794bd62b0155dae20ac08.jpg">
                                 </div>
                                 <div class="form-group">
@@ -41,25 +41,24 @@
                                     <a href="http://php.net/manual/en/timezones.php" target="_blank">Timezone</a>
                                 </div>
                                 <!--
-                                <div class="form-group">
-                                    <label class="control-label">Linguagem padrão</label>
-                                    <select name="language" class="form-control">
-                                        <option value="1">Portuguese-BR</option>
-                                        <option value="2">English</option>
-                                    </select>
-                                </div>
-                                -->
+                                    <div class="form-group">
+                                        <label class="control-label">Linguagem padrão</label>
+                                        <select name="language" class="form-control">
+                                            <option value="1">Portuguese-BR</option>
+                                            <option value="2">English</option>
+                                        </select>
+                                    </div>
+                                    -->
                                 <div class="form-group">
                                     <label class="control-label">Moeda</label>
                                     <input type="text" class="form-control" name="currency" placeholder="currency"
                                         value="{{ $settings->currency }}" required>
                                 </div>
                                 <!-- /.row-->
-                                <div class="card-footer">
-                                  <button class="btn btn-sm btn-primary" type="submit">{{ __('Save') }}</button>
-                                  <a href="{{ route('settings') }}" class="btn btn-sm btn-dark">{{ __('Return') }}</a>
-                                  </form>
-                              </div>
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-dark" href="{{ route('settings') }}">Return</a>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

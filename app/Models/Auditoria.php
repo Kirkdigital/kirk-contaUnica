@@ -62,4 +62,12 @@ class Auditoria extends Model
         }
         return $types[$type];
     }
+    public function status_log()
+    {
+        return $this->belongsTo('App\Models\Status_log', 'activity_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }

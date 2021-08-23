@@ -37,22 +37,20 @@
                                         value="" required>
                                 </div>
                                 <!-- /.row-->
-                        </div>
-                        <!-- /.row-->
-                        <div class="card-footer">
-                            <button class="btn btn-sm btn-primary" type="submit">{{ __('Save') }}</button>
-                            <a href="{{ route('settings') }}" class="btn btn-sm btn-dark">{{ __('Return') }}</a>
+
+                                <!-- /.row-->
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-dark" href="{{ route('settings') }}">Return</a>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-@endsection
+    @endsection
 
-@section('javascript')
+    @section('javascript')
 
-@endsection
+    @endsection

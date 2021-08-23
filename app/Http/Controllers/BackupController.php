@@ -6,6 +6,7 @@ use App\Models\Config_system;
 use Illuminate\Http\Request;
 use App\Excel\UsersExport;
 use App\Excel\UsersImport;
+use App\Models\People;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -37,9 +38,10 @@ class BackupController extends Controller
         $you = auth()->user();
         //pegar configurações 
         $config = Config_system::all();
+        $people = People::all()->count(); 
         //pegar a data
         $ldate = date('Y-m');
-        return view('dashboard.backup.index', compact('config'));
+        return view('dashboard.backup.index', compact('config', 'people'));
     }
 
     public function backup()

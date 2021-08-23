@@ -81,7 +81,6 @@ class DashController extends Controller
         $anoanterior = (date('Y') - '1');
         //numero de pessoas ativas e no ano atual
         $people = People::all();
-        $precadastro = People::where('is_verify', false)->count();;
         $financeiro = Historic::all();
 
         //valor total
@@ -249,7 +248,6 @@ class DashController extends Controller
                     'ofertaatual',
                     'doacaoatual',
                     'despesaatual',
-                    'precadastro',
                     'anogrupo',
                     'porcentage_grupo'
                 ));

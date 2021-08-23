@@ -48,11 +48,9 @@
                                     <input type="text" class="form-control" name="telegram_link" placeholder="seuusuario" value="{{ $settings->telegram_link }}">
                                 </div>
                                 <!-- /.row-->
-                        </div>
                         <!-- /.row-->
-                        <div class="card-footer">
-                            <button class="btn btn-sm btn-primary" type="submit">{{ __('Save') }}</button>
-                            <a href="{{ route('settings') }}" class="btn btn-sm btn-dark">{{ __('Return') }}</a>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a class="btn btn-dark" href="{{ route('settings') }}">Return</a>
                             </form>
                         </div>
                     </div>

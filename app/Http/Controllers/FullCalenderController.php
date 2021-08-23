@@ -62,8 +62,9 @@ class FullCalenderController extends Controller
             break;
  
           case 'delete':
+            $student = Event::where('id', $request->id)->get()->toJson(JSON_PRETTY_PRINT);
              $event = Event::find($request->id)->delete();
-             $this->adicionar_log('4', 'D', $event);
+             $this->adicionar_log('4', 'D', $student);
              return response()->json($event);
             break;
             
