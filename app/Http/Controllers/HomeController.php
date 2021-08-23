@@ -75,7 +75,7 @@ class HomeController extends Controller
             $settings1->id       = '1';
             $settings1->save();
             
-            $request->session()->flash("info", "Configurar a meta nas configurações");
+            $request->session()->flash("info", "É necessário configurar a conta");
             return redirect()->route('dashboard.index');
         }
 
