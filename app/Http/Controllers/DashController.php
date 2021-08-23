@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Config_email;
-use App\Models\Config_system;
 use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Notes;
@@ -50,33 +48,6 @@ class DashController extends Controller
         //pegar informações complementares 
         $roles = Roles::orderBy('id', 'desc')->first();
         $meta = Config_meta::orderBy('id', 'desc')->first();
-
-        if($meta === null)
-        {
-            $this->pegar_tenant();
-            $settings = new Config_meta();
-            $settings->id       = '1';
-            $settings->save();
-            
-
-            $settings = new Config_system();
-            $settings->id       = '1';
-            $settings->name       = 'DeskApps';
-            $settings->timezone       = 'America/Manaus';
-            $settings->save();
-
-            $settings = new Config_email();
-            $settings->id       = '1';
-            $settings->save();
-
-            $settings = new Roles();
-            $settings->id       = '1';
-            $settings->id       = 'PADRAO';
-            $settings->save();
-            
-            $request->session()->flash("info", "Configurar a meta nas configurações");
-            return redirect()->route('dashboard.index');
-        }
 
         $anoanterior = (date('Y') - '1');
         //numero de pessoas ativas e no ano atual

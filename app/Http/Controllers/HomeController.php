@@ -68,8 +68,12 @@ class HomeController extends Controller
 
             $settings = new Roles();
             $settings->id       = '1';
-            $settings->id       = 'PADRAO';
+            $settings->name       = 'PADRAO';
             $settings->save();
+
+            $settings1 = new Config_social();
+            $settings1->id       = '1';
+            $settings1->save();
             
             $request->session()->flash("info", "Configurar a meta nas configurações");
             return redirect()->route('dashboard.index');
