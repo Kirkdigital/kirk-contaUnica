@@ -124,8 +124,8 @@
                                             </div>
                                         </div>
                                         <div class="form-check checkbox">
-                                            <input class="form-check-input" id="liberar_acesso"
-                                                name="liberar_acesso" type="checkbox">
+                                            <input class="form-check-input" id="criar_acesso"
+                                                name="criar_acesso" type="checkbox">
                                             <label class="form-check-label" for="check1">Criar acesso</label>
                                         </div>
                                     </div>

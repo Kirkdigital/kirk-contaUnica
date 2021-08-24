@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Menurole;
 use App\Models\RoleHierarchy;
 
-class RolesController extends Controller
+class RolesAdminController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -140,6 +140,7 @@ class Peoples_PrecadastroController extends Controller
 
         }
     }
+    
     public function reprovar($id)
     {
         $this->pegar_tenant();

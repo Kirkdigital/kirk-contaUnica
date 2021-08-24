@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config_system;
 use Validator;
+use DB;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\Status;
 use App\Models\People;
-use App\Models\Config_system;
-use App\Models\Auditoria;
 use App\Models\People_Groups;
 use App\Models\Users_Account;
 use App\Models\Roles;
+use App\Models\User;
 
 class PeoplesController extends Controller
 {
@@ -85,9 +87,50 @@ class PeoplesController extends Controller
         $people->is_newvisitor = 'false';
         $this->pegar_tenant();
         $people->save();
-        $this->adicionar_log('1', 'C', $people);
-        $request->session()->flash("success", "Successfully created people");
-        return redirect()->route('people.index');
+        //consulta para criar o acesso a conta
+        $validaruser = User::where('email', $people->email)->get();
+        $criaracesso = $request->has('criar_acesso') ? 1 : 0;
+        //criar a conta
+        if ($criaracesso == true) {
+
+            if ($validaruser->first() == null) {
+                //criar o usuario
+                $user =  User::create([
+                    'name' => $people->name,
+                    'email' => $people->email,
+                    'password' => Hash::make(\Illuminate\Support\Str::random(8)),
+                    'country' =>  $people->country,
+                    'mobile' => $people->mobile
+                ]);
+                $user->assignRole('user');
+
+                $this->adicionar_log_global('14', 'C', $user);
+
+                $validaruser = User::where('email', $people->email)->get();
+                $associar = People::where('email', $people->email)->first();
+                $associar->user_id = $validaruser->first()->id;
+                $associar->save();
+
+                $this->criar($validaruser->first()->id, session()->get('key'));
+
+                $request->session()->flash("success", "Successfully created people");
+                return redirect()->route('people.index');
+            } else {
+                //associar ao usuario
+                $associar = People::where('email', $people->email)->first();
+                $associar->user_id = $validaruser->first()->id;
+                $associar->save();
+
+                $this->criar($validaruser->first()->id, session()->get('key'));
+                $request->session()->flash("success", "Successfully created people");
+                return redirect()->route('people.index');
+            }
+        } else {
+            //se estiver desmarcado o criar conta, apenas adiciona a pessoa
+            $this->adicionar_log('1', 'C', $people);
+            $request->session()->flash("success", "Successfully created people");
+            return redirect()->route('people.index');
+        }
     }
 
     /**
@@ -144,9 +187,53 @@ class PeoplesController extends Controller
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
         $people->save();
-        $this->adicionar_log('1', 'U', $people);
-        session()->flash("success", "Successfully updated people");
-        return redirect()->route('people.index');
+
+        //consulta para criar o acesso a conta
+        $validaruser = User::where('email', $people->email)->get();
+        $criaracesso = $request->has('criar_acesso') ? 1 : 0;
+        //criar a conta
+        if ($criaracesso == true) {
+            if ($validaruser->first() == null) {
+                //criar o usuario
+                $user =  User::create([
+                    'name' => $people->name,
+                    'email' => $people->email,
+                    'password' => Hash::make(\Illuminate\Support\Str::random(8)),
+                    'country' =>  $people->country,
+                    'mobile' => $people->mobile
+                ]);
+                $user->assignRole('user');
+                //logs
+                $this->adicionar_log_global('14', 'C', $user);
+                $this->adicionar_log('1', 'U', $people);
+                //validar email
+                $validaruser = User::where('email', $people->email)->get();
+                $associar = People::where('email', $people->email)->first();
+                $associar->user_id = $validaruser->first()->id;
+                $associar->save();
+                //criar acesso
+                $this->criar($validaruser->first()->id, session()->get('key'));
+
+                $request->session()->flash("success", "Successfully updated people");
+                return redirect()->route('people.index');
+            } else {
+                //associar ao usuario validando o email
+                $associar = People::where('email', $people->email)->first();
+                $associar->user_id = $validaruser->first()->id;
+                $associar->save();
+                //logs
+                $this->adicionar_log('1', 'U', $people);
+                //criar acesso
+                $this->criar($validaruser->first()->id, session()->get('key'));
+                $request->session()->flash("success", "Successfully updated people");
+                return redirect()->route('people.index');
+            }
+        } else {
+            //se estiver desmarcado o criar conta, apenas adiciona a pessoa
+            $this->adicionar_log('1', 'U', $people);
+            $request->session()->flash("success", "Successfully updated people");
+            return redirect()->route('people.index');
+        }
     }
 
     /**
@@ -174,10 +261,11 @@ class PeoplesController extends Controller
                 $this->adicionar_log('1', 'D', $people);
             }
             //deletar o acesso
-            if($user_id != 0){
+            if ($user_id != 0) {
                 $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
                 $validaracesso->delete();
-                $this->adicionar_log('11', 'D', $validaracesso);
+                $this->adicionar_log_global('11', 'D', '{"people_id":"'.$id.'","account_id":"'.session()->get('key').'","user_id":"'.$user_id.'"}');
+                //$this->adicionar_log('11', 'D', $validaracesso->get());
             }
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');
@@ -197,5 +285,32 @@ class PeoplesController extends Controller
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
         return view('people.index', compact('peoples', 'dataForm', 'config', 'date'));
+    }
+
+    public function criar($user_id, $accout_id): array
+    {
+        DB::beginTransaction();
+        $useraccount = new Users_Account();
+        $useraccount->user_id = $user_id;
+        $useraccount->account_id = $accout_id;
+        $useraccount->save();
+
+        if ($useraccount) {
+            $this->adicionar_log_global('11', 'C', $useraccount);
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Criado o acesso!',
+            ];
+        } else {
+
+            DB::rollback();
+
+            return [
+                'success' => false,
+                'message' => 'Ocorreu um erro!',
+            ];
+        }
     }
 }
