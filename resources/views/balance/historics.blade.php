@@ -13,34 +13,42 @@
                                     {!! csrf_field() !!}
                                     <div class="card-body">
                                         <div class="form-group row">
+                                            Recibo
                                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2">
                                                 <div class="inner">
                                                     <input type="number" name="id" class="form-control"
                                                         placeholder="Recibo">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                                            De:
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                                 <div class="inner">
                                                     <input type="date" name="datefrom" class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                                            Até:
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                                 <div class="inner">
                                                     <input type="date" name="dateto" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
+                                        <p>
                                         <div class="form-group row">
+                                            <div class="col-md-1">
+                                            <strong>Tipo</strong> 
+                                            </div>Movimentação:
                                             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                                 <div class="inner">
                                                     <select name="type" class="form-control">
-                                                        <option value="">Movimento</option>
+                                                        <option value="">Movimentação</option>
                                                         @foreach ($types as $key => $type)
                                                             <option value="{{ $key }}">{{ $type }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
+                                            Tipo
                                             <div class="col-md-2">
                                                 <div class="inner">
                                                     <select class="form-control" id="tipo" name="tipo">
@@ -52,6 +60,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            Forma de pagamento
                                             <div class="col-md-2">
                                                 <div class="inner">
                                                     <select class="form-control" id="pag" name="pag">
@@ -63,11 +72,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-2">
                                                 <div class="box-header">
                                                     <button type="submit" class="btn btn-primary">Pesquisar</button>
-                                                    <a href="{{ url('financial') }}" class="btn btn-dark">Voltar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,7 +141,7 @@
                                                 <td>{{ $historic->date }}</td>
                                                 <td width="1%">
                                                     <a href="{{ url('/financial/' . $historic->id) }}"
-                                                        class="btn btn-primary-outline"><i
+                                                        ><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 </td>
                                             </tr>

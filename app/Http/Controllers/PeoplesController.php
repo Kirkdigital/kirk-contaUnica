@@ -280,12 +280,13 @@ class PeoplesController extends Controller
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
-        $config = Config_system::all();
+        $config = Roles::all();
         $dataForm = $request->except('_token');
         $date = date('Y');
+        $statuses = Status::all()->where("type", 'people');
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people.index', compact('peoples', 'dataForm', 'config', 'date'));
+        return view('people.index', compact('peoples', 'dataForm', 'config', 'date', 'statuses'));
     }
 
     public function criar($user_id, $accout_id): array

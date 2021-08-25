@@ -31,8 +31,7 @@
                                             <td>{{ $pessoasgrupo->usuario->mobile }}</td>
                                             <td>{{ $pessoasgrupo->registered }}</td>
                                             <td width="1%">
-                                                <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"
-                                                    class="btn btn-primary-outline"><i
+                                                <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"><i
                                                         class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                         @if ($pessoasgrupo->usuario->id == $responsavel->id)
                                                         <td></td>
@@ -42,9 +41,9 @@
                                                     method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button class="btn btn-primary-outline show_confirm"
+                                                    <a class="show_confirm"
                                                         data-toggle="tooltip" title='Delete'><i
-                                                            class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                                            class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                 </form>
                                             </td>
                                             @endif

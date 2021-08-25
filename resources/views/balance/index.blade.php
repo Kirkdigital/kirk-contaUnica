@@ -35,13 +35,6 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
-                <!-- /.col-->
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-sm-auto">
-                    <div class="card">
                         <div class="container">
                             <div class="box-body">
                                 <table class="table table-responsive-sm table-striped">

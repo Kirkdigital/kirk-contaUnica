@@ -75,8 +75,8 @@ class People extends Model
     public function search(Array $data, $totalPagesPaginate)
     {
         return $this->where(function ($query) use ($data){
-            if (isset($data['status']))
-                $query->where('status', $data['status']);
+            if (isset($data['statuses']))
+                $query->where('status_id', $data['statuses']);
 
             if (isset($data['name']))
                 $query->where('name',  'LIKE','%' . $data['name']. '%');

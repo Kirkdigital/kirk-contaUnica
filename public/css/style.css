@@ -3505,7 +3505,7 @@ html:not([dir="rtl"]) .c-callout-dark {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 0.8rem;
+  padding: 1rem;
 }
 
 .card-title {
@@ -5183,7 +5183,10 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: -0.5rem;
+  margin-bottom: 0.8rem;
+}
+.form-groups {
+  margin-bottom: 0rem;
 }
 
 .form-text {

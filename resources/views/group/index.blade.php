@@ -6,21 +6,26 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="container">
-                            <div class="card-header"><h5>Grupos</h5></div>
+                            <div class="card-header">
+                            <div class="form-groups row">
+                                <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
+                                 <h5>Grupos</h5>
+                                 </div>
+                                 <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
+                                     @if ($config->first()->add_people == true)
+                                         <div class="row">
+                                             <a href="{{ route('group.create') }}"
+                                                 class="btn btn-primary">{{ __('Adicionar') }}</a>
+                                         </div>
+                                     @endif
+                                 </div>
+                               </div>
+                             </div>
                             <form action="{{ route('group.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">
                                     <div class="form-group row">
-
-                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-8">
-                                            @if ($config->add_group == true)
-                                                <div class="row">
-                                                    <a href="{{ route('group.create') }}"
-                                                        class="btn btn-primary m-2">{{ __('Add Group') }}</a>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                        <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
                                             <div class="inner">
                                                 <input type="text" id='name' name="name" class="form-control"
                                                     placeholder="Nome">
@@ -72,14 +77,12 @@
                                                     </span>
                                                 </td>
                                                 <td width="1%">
-                                                    <a href="{{ route('group.show', $group->id ) }}"
-                                                        class="btn btn-primary-outline"><i
+                                                    <a href="{{ route('group.show', $group->id ) }}"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 </td>
                                                 @if ($config->edit_group == true)
                                                     <td width="1%">
-                                                        <a href="{{ route('group.edit', $group->id ) }}"
-                                                            class="btn btn-primary-outline"><i
+                                                        <a href="{{ route('group.edit', $group->id ) }}"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                                     </td>
                                                 @endif
@@ -89,9 +92,9 @@
                                                             method="POST">
                                                             @method('DELETE')
                                                             @csrf
-                                                            <button class="btn btn-primary-outline show_confirm"
+                                                            <a class="show_confirm"
                                                                 data-toggle="tooltip" title='Delete'><i
-                                                                    class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                                                    class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                         </form>
                                                 @endif
                                             </tr>

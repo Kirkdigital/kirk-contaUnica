@@ -171,7 +171,7 @@ class GroupsController extends Controller
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
-            $config = Config_system::orderBy('id', 'desc')->first();
+            $config = Roles::orderBy('id', 'desc')->first();
             $dataForm = $request->except('_token');
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
 

@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="container">
                             <div class="card-header">
-                              <div class="form-group row">
+                              <div class="form-groups row">
                                <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
                                 <h5>Pessoas</h5>
                                 </div>
@@ -15,7 +15,7 @@
                                     @if ($config->first()->add_people == true)
                                         <div class="row">
                                             <a href="{{ route('people.create') }}"
-                                                class="btn btn-primary">{{ __('Add People') }}</a>
+                                                class="btn btn-primary">{{ __('Adicionar') }}</a>
                                         </div>
                                     @endif
                                 </div>
@@ -25,7 +25,7 @@
                                 {!! csrf_field() !!}
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <div class="col-sm-12 col-md-2 col-lg-2 col-xl-4">
+                                        <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
                                             <div class="inner">
                                                 <input type="text" id='name' name="name" class="form-control"
                                                     placeholder="Nome">
@@ -33,7 +33,8 @@
                                         </div>
                                         <div class="col-sm-8 col-md-2 col-lg-2 col-xl-2">
                                             <div class="inner">
-                                                <select class="form-control" id="status" name="status">
+                                                <select class="form-control" id="statuses" name="statuses">
+                                                    <option value="">Status</option>
                                                     @foreach ($statuses as $statuses)
                                                         <option value="{{ $statuses->id }}">{{ $statuses->name }}
                                                         </option>
@@ -95,7 +96,7 @@
                                                 @if ($config->first()->edit_people == true)
                                                     <td width="1%">
                                                         <a href="{{ route('people.edit', $people->id) }}"
-                                                            class="btn btn-primary-outline"><i
+                                                            ><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                                     </td>
                                                 @endif
@@ -107,9 +108,9 @@
                                                                 method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn btn-primary-outline show_confirm"
+                                                                <a class="show_confirm"
                                                                     data-toggle="tooltip" title='Delete'><i
-                                                                        class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                                                        class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                             </form>
                                                         @elseif ($people->user_id == null)
                                                             <form
@@ -117,9 +118,9 @@
                                                                 method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn btn-primary-outline show_confirm"
+                                                                <a class="show_confirm"
                                                                     data-toggle="tooltip" title='Delete'><i
-                                                                        class="c-icon c-icon-sm cil-trash text-danger"></i></button>
+                                                                        class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                             </form>
                                                         @endif
                                                 @endif
