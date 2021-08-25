@@ -41,7 +41,8 @@ class PeoplesController extends Controller
 
         $peoples = People::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
         $config = Roles::all();
-        return view('people.index', compact('peoples', 'config'));
+        $statuses = Status::all()->where("type", 'people');
+        return view('people.index', compact('peoples', 'config', 'statuses'));
     }
 
     /**

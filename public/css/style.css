@@ -3505,7 +3505,7 @@ html:not([dir="rtl"]) .c-callout-dark {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1rem;
+  padding: 0.8rem;
 }
 
 .card-title {
@@ -5183,7 +5183,7 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: -0.5rem;
 }
 
 .form-text {
@@ -5549,7 +5549,6 @@ html:not([dir="rtl"]) .was-validated .custom-select:invalid, html:not([dir="rtl"
   }
   .form-inline .form-control {
     display: inline-block;
-    width: auto;
     vertical-align: middle;
   }
   .form-inline .form-control-plaintext {
