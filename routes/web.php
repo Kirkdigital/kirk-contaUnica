@@ -137,7 +137,7 @@ Route::group(['middleware' => ['get.menu']], function () {
                 return view('dashboard.notifications.modals');
             });
         });
-        Route::resource('notes', 'NotesController');
+        Route::resource('message', 'NotesController');
 
         // account e tenant
         Route::post('/tenant/{id}', 'InstitutionsController@tenant')->name('tenant');

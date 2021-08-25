@@ -46,8 +46,25 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label for="name">Titulo</label>
-                            
+                            <table class="table">
+                                <thead>
+                               <tr>
+                                 <th>{{ __('Titulo') }}</th>
+                                 <th>{{ __('Start') }}</th>
+                                 <th>{{ __('End') }}</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               @foreach($eventos as $eventos)
+                               <tr>
+                                 <td>{{ $eventos->title }}</td>
+                                 <td>{{ $eventos->start }}</td>
+                                 <td>{{ $eventos->end }}</td>
+                                 </td>
+                               </tr>
+                               @endforeach
+                             </tbody>
+                           </table>                            
                           </div>
                         </div>
                       </div>

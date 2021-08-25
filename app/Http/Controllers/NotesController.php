@@ -33,7 +33,7 @@ class NotesController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
 
         $notes = Notes::with('user')->with('status')->paginate(20);
-        return view('dashboard.notes.notesList', ['notes' => $notes]);
+        return view('message.notesList', ['notes' => $notes]);
     }
 
     /**
@@ -46,7 +46,7 @@ class NotesController extends Controller
         //pegar schema
         $this->pegar_tenant();
         $statuses = Status::all();
-        return view('dashboard.notes.create', ['statuses' => $statuses]);
+        return view('message.create', ['statuses' => $statuses]);
     }
 
     /**
@@ -77,7 +77,7 @@ class NotesController extends Controller
         $note->save();
         $this->adicionar_log('3', 'C', $note);
         $request->session()->flash('message', 'Successfully created note');
-        return redirect()->route('notes.index');
+        return redirect()->route('message.index');
     }
 
     /**
@@ -91,7 +91,7 @@ class NotesController extends Controller
         //pegar schema
         $this->pegar_tenant();
         $note = Notes::with('user')->with('status')->find($id);
-        return view('dashboard.notes.noteShow', ['note' => $note]);
+        return view('message.noteShow', ['note' => $note]);
     }
 
     /**
@@ -106,7 +106,7 @@ class NotesController extends Controller
         $this->pegar_tenant();
         $note = Notes::find($id);
         $statuses = Status::all();
-        return view('dashboard.notes.edit', ['statuses' => $statuses, 'note' => $note]);
+        return view('message.edit', ['statuses' => $statuses, 'note' => $note]);
     }
 
     /**
@@ -137,7 +137,7 @@ class NotesController extends Controller
         $note->save();
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');
-        return redirect()->route('notes.index');
+        return redirect()->route('message.index');
     }
 
     /**
@@ -155,6 +155,6 @@ class NotesController extends Controller
             $note->delete();
         }
         $this->adicionar_log('3', 'D', $note);
-        return redirect()->route('notes.index');
+        return redirect()->route('message.index');
     }
 }

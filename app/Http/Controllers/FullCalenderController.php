@@ -28,8 +28,10 @@ class FullCalenderController extends Controller
  
             return response()->json($data);
        }
+
+       $eventos = Event::all();
  
-       return view('calender.fullcalender');
+       return view('calender.fullcalender', compact('eventos'));
    }
 
    /**
