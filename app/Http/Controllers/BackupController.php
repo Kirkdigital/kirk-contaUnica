@@ -41,7 +41,7 @@ class BackupController extends Controller
         $people = People::all()->count(); 
         //pegar a data
         $ldate = date('Y-m');
-        return view('dashboard.backup.index', compact('config', 'people'));
+        return view('settings.backup', compact('config', 'people'));
     }
 
     public function backup()
