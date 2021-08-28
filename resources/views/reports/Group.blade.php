@@ -11,14 +11,6 @@
                                 <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
                                  <h5>Grupos</h5>
                                  </div>
-                                 <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                     @if ($config->first()->add_people == true)
-                                         <div class="row">
-                                             <a href="{{ route('group.create') }}"
-                                                 class="btn btn-primary">{{ __('Adicionar') }}</a>
-                                         </div>
-                                     @endif
-                                 </div>
                                </div>
                              </div>
                             <form action="{{ route('group.search') }}" method="POST" class="form form-inline">
@@ -49,9 +41,8 @@
                                             <th>Type</th>
                                             <th>Pessoas</th>
                                             <th>Status</th>
-                                            <th colspan="3">
-                                                <Center>{{ __('account.action') }}</Center>
-                                            </th>
+                                            <th>Note</th>
+                                            <th>Dt Created</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,42 +57,20 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $group->type }}</td>
-                                                <td>{{ $group->count }}
-
-                                                </td>
+                                                <td>{{ $group->count }}</td>
                                                 <td>
                                                     <span class="{{ $group->status->class }}">
                                                         {{ $group->status->name }}
                                                     </span>
                                                 </td>
-                                                <td width="1%">
-                                                    <a href="{{ route('group.show', $group->id ) }}"><i
-                                                            class="c-icon c-icon-sm cil-notes text-primary"></i></a>
-                                                </td>
-                                                @if ($config->edit_group == true)
-                                                    <td width="1%">
-                                                        <a href="{{ route('group.edit', $group->id ) }}"><i
-                                                                class="c-icon c-icon-sm cil-pencil text-success"></i></a>
-                                                    </td>
-                                                @endif
-                                                @if ($config->delete_group == true)
-                                                    <td width="1%">
-                                                        <form action="{{ route('group.destroy', $group->id ) }}"
-                                                            method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <a class="show_confirm"
-                                                                data-toggle="tooltip" title='Delete'><i
-                                                                    class="c-icon c-icon-sm cil-trash text-danger"></i></a>
-                                                        </form>
-                                                @endif
+                                                <td>{{ $group->note }}</td>
+                                                <td>{{ $group->created_at }}</td>
                                             </tr>
                                             </tr>
                                         @empty
                                         @endforelse
                                     </tbody>
                                 </table>
-
                                 @if (isset($dataForm))
                                     {!! $groups->appends($dataForm)->links() !!}
                                 @else

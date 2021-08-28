@@ -64,7 +64,7 @@ class Historic extends Model
         // filtro por usuário ->where('user_id', auth()->user()->id)
         ->with(['userSender'])
         ->orderby('id','desc')
-        ->paginate(50);
+        ->paginate($totalPagesPaginate);
     }
     public function status()
     {

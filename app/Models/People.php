@@ -78,9 +78,32 @@ class People extends Model
             if (isset($data['statuses']))
                 $query->where('status_id', $data['statuses']);
 
+            if (isset($data['is_responsible']))
+                $query->where('is_responsible', $data['is_responsible']);
+
+            if (isset($data['is_visitor']))
+                $query->where('is_visitor', $data['is_visitor']);
+
+            if (isset($data['is_baptism']))
+                $query->where('is_baptism', $data['is_baptism']);
+
+            if (isset($data['is_transferred']))
+                $query->where('is_transferred', $data['is_transferred']);
+
+            if (isset($data['is_conversion']))
+                $query->where('is_conversion', $data['is_conversion']);
+
+            if (isset($data['sex']))
+                $query->where('sex', $data['sex']);
+
             if (isset($data['name']))
                 $query->where('name',  'LIKE','%' . $data['name']. '%');
-       
+
+            if (isset($data['address']))
+                $query->where('address',  'LIKE','%' . $data['address']. '%');
+
+            if (isset($data['datefrom'], $data['dateto']))
+                $query->whereBetween('created_at', [$data['datefrom'], $data['dateto']]); 
         })
         ->paginate($totalPagesPaginate);
     }

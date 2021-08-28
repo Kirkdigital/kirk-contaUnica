@@ -7,28 +7,25 @@
                 <div class="card">
                     <div class="container">
 
-                      <div class="card-header"><h5>Pessoas</h5></div>
+                      <div class="card-header"><h5>Pré-cadastro</h5></div>
                             <form action="{{ route('peopleList.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                          <div class="card-body">
                             <div class="form-group row">
-
-                              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-6">
-                            </div>
-                            <div class="col-md-2">
-                              <div class="inner">
-                                  <select class="form-control" id="status" name="status">
-                                      <option value="">Status</option>
-                                      @foreach($status as $status)
-                                      <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                      @endforeach
-                                  </select>
-                              </div>
-                          </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
                                     <div class="inner">
                                         <input type="text" id='name' name="name" class="form-control" placeholder="Nome">
                                     </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="inner">
+                                      <select class="form-control" id="status" name="status">
+                                          <option value="">Status</option>
+                                          @foreach($status as $status)
+                                          <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                          @endforeach
+                                      </select>
+                                  </div>
                                 </div>
                                 <div class="col-sm-8 col-md-2 col-lg-2 col-xl-2">
                                     <div class="box-header">

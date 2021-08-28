@@ -23,7 +23,7 @@ class BalanceController extends Controller
         $this->pegar_tenant();
         $historics = Historic::with('status')->with('statuspag') 
                     ->orderby('id','desc')
-                    ->paginate(7);   
+                    ->paginate(9);   
                     
         $types = $historic->type();  
         $conta = session()->get('key');
@@ -106,6 +106,7 @@ class BalanceController extends Controller
         $this->pegar_tenant();
         $historics = Historic::with('status')->with('statuspag')
                     ->orderby('id','desc')
+                    //->whereBetween('date', [date('Y/m/d'), date('Y/m/d')])
                     ->paginate($this->totalPagesPaginate);   
                     
         $types = $historic->type();            

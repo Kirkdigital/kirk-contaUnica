@@ -1,14 +1,13 @@
 @extends('dashboard.base')
 @section('content')
+
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="container">
-
                             <div class="card-header">
-
                                 <form action="{{ route('historic.search') }}" method="POST" class="form form-inline">
                                     {!! csrf_field() !!}
                                     <div class="card-body">
@@ -21,19 +20,37 @@
                                                 </div>
                                             </div>
                                             De:
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                                 <div class="inner">
                                                     <input type="date" name="datefrom" class="form-control" required>
                                                 </div>
                                             </div>
                                             Até:
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                                 <div class="inner">
                                                     <input type="date" name="dateto" class="form-control" required>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                <div class="box-header">
+                                                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                <div class="box-header">
+                                                    <a href="{{ url('historic') }}"
+                                                    class="btn btn-danger">{{ __('Limpar') }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                <div class="box-header">
+                                                    <a href="{{ url('financial') }}"
+                                                    class="btn btn-dark">{{ __('Voltar') }}</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p>
+                                    </div>
+                                    <!--
                                         <div class="form-group row">
                                             <div class="col-md-1">
                                             <strong>Tipo</strong> 
@@ -41,7 +58,7 @@
                                             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                                 <div class="inner">
                                                     <select name="type" class="form-control">
-                                                        <option value="">Movimentação</option>
+                                                        <option value="">Selecionar</option>
                                                         @foreach ($types as $key => $type)
                                                             <option value="{{ $key }}">{{ $type }}</option>
                                                         @endforeach
@@ -52,7 +69,7 @@
                                             <div class="col-md-2">
                                                 <div class="inner">
                                                     <select class="form-control" id="tipo" name="tipo">
-                                                        <option value="">Tipo</option>
+                                                        <option value="">Selecionar</option>
                                                         @foreach ($statusfinan as $statusfinan)
                                                             <option value="{{ $statusfinan->id }}">
                                                                 {{ $statusfinan->name }}</option>
@@ -64,7 +81,7 @@
                                             <div class="col-md-2">
                                                 <div class="inner">
                                                     <select class="form-control" id="pag" name="pag">
-                                                        <option value="">Pagamento</option>
+                                                        <option value="">Selecionar</option>
                                                         @foreach ($statuspag as $statuspags)
                                                             <option value="{{ $statuspags->id }}">
                                                                 {{ $statuspags->name }}</option>
@@ -72,12 +89,20 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-2">
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
                                                 <div class="box-header">
-                                                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                                    <a href="{{ url('historic') }}"
+                                                    class="btn btn-danger">{{ __('Limpar') }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                <div class="box-header">
+                                                    <a href="{{ url('financial') }}"
+                                                    class="btn btn-dark">{{ __('Voltar') }}</a>
                                                 </div>
                                             </div>
                                         </div>
+                                    -->
                                     </div>
                                 </form>
                             </div>

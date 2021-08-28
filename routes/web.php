@@ -185,16 +185,13 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::any('historic-search', 'BalanceController@searchHistoric')->name('historic.search');
         Route::get('historic', 'BalanceController@historic')->name('admin.historic');
 
-        Route::post('transfer', 'BalanceController@transferStore')->name('transfer.store');
-        Route::post('confirm-transfer', 'BalanceController@confirmTransfer')->name('confirm.transfer');
-        Route::get('transfer', 'BalanceController@transfer')->name('balance.transfer');
-
         Route::post('withdraw', 'BalanceController@withdrawStore')->name('withdraw.store');
         Route::get('withdraw', 'BalanceController@withdraw')->name('balance.withdraw');
 
         Route::get('depositar', 'BalanceController@depositar')->name('balance.depositar');
-        Route::get('/select2-autocomplete-people', 'BalanceController@dataAjax');
         Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
+
+        Route::get('/select2-autocomplete-people', 'BalanceController@dataAjax');
         Route::get('financial', 'BalanceController@index')->name('deposit.balance');
         Route::get('financial/{id}', 'BalanceController@show')->name('financial.show');
 
@@ -240,6 +237,14 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('wizard', 'WizardController@create')->name('wizard.create');
     Route::post('wizard', 'WizardController@store')->name('wizard.store');
     Route::any('wizard-search', 'WizardController@searchAccount')->name('wizard.search');
+
+    //reports
+    Route::any('report/financial/search', 'ReportController@searchFinancial')->name('financial.search');
+    Route::get('report/financial', 'ReportController@Financial')->name('financial.Financial');
+    Route::any('report/people/search', 'ReportController@searchPeople')->name('people.search');
+    Route::get('report/people', 'ReportController@People')->name('people.Financial');
+    Route::any('report/group/search', 'ReportController@searchGroup')->name('group.search');
+    Route::get('report/group', 'ReportController@Group')->name('group.Financial');
 
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');

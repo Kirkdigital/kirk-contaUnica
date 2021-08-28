@@ -18,7 +18,7 @@ use Facade\Ignition\DumpRecorder\Dump;
 class GroupsController extends Controller
 {
 
-    private $totalPagesPaginate = 12;
+    private $totalPagesPaginate = 10;
     /**
      * Create a new controller instance.
      *

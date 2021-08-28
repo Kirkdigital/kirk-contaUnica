@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="col-sm-8 col-md-5 col-lg-5 col-xl-5">
                                         <div class="box-header">
-                                            <a href="{{ route('balance.depositar') }}" class="btn btn-primary">Entrada</a>
+                                            <a href="{{ route('balance.depositar') }}" class="btn btn-success">Entrada</a>
                                             @if ($amount > 0)
                                                 <a href="{{ route('balance.withdraw') }}"
                                                     class="btn btn-danger">Retirada</a>
@@ -33,7 +33,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="container">
                             <div class="box-body">
