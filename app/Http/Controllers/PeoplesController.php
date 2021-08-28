@@ -34,14 +34,18 @@ class PeoplesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(People $people)
-    {
+    {   
+        //validar se selecionou a conta
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        //buscar
         $peoples = People::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
+        //permissao
         $config = Roles::all();
+        //status
         $statuses = Status::all()->where("type", 'people');
+
         return view('people.index', compact('peoples', 'config', 'statuses'));
     }
 
@@ -51,9 +55,15 @@ class PeoplesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        //pegar o tenant
+        $this->pegar_tenant();
+        //status
         $statuses = Status::all()->where("type", 'people');
-        return view('people.createForm', ['statuses' => $statuses]);
+        //campos obrigatório
+        $campo = Config_system::find('1')->first();
+
+        return view('people.createForm', compact('campo'), ['statuses' => $statuses]);
     }
 
     public function store(Request $request)
@@ -67,7 +77,8 @@ class PeoplesController extends Controller
         ]);
 
         $people = new People();
-        $people->name          = $request->input('name');
+        $nome = ($request->input('name') .' '.$request->input('last_name'));
+        $people->name          = $nome;
         $people->email         = $request->input('email');
         $people->mobile        = $request->input('mobile');
         $people->birth_at      = $request->input('birth_at');
@@ -142,10 +153,15 @@ class PeoplesController extends Controller
      */
     public function edit($id)
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
+        //pegar tenant
+        $this->pegar_tenant();
+        //buscar pessoa
         $people = People::with('acesso')->find($id);
+        //campo obrigatoria
+        $campo = Config_system::find('1')->first();
+        //status
         $statuses = Status::all()->where("type", 'people');
-        return view('people.EditForm', ['statuses' => $statuses, 'people' => $people]);
+        return view('people.EditForm', compact('campo'),['statuses' => $statuses, 'people' => $people]);
     }
 
     /**

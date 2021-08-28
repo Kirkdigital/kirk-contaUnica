@@ -26,9 +26,9 @@
                                     <div class="card-body">
                                         {!! csrf_field() !!}
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="name">Nome</label>
+                                                    <label for="name">Nome *</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
@@ -38,7 +38,28 @@
                                                                 </svg>
                                                         </div>
                                                         <input class="form-control" id='name' name="name" type="text"
-                                                            placeholder="João Silva" required>
+                                                            placeholder="João" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="name">Sobrenome @if ($campo->obg_last_name == true)
+                                                            *
+                                                        @endif</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-face">
+                                                                    </use>
+                                                                </svg>
+                                                        </div>
+                                                        <input class="form-control" id='last_name' name="last_name"
+                                                            type="text" placeholder="Silva" @if ($campo->obg_last_name == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,7 +68,9 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="ccnumber">Email</label>
+                                                    <label for="ccnumber">Email @if ($campo->obg_email == true)
+                                                            *
+                                                        @endif</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
@@ -58,7 +81,10 @@
                                                         </div>
                                                         <input class="form-control" name="email" type="email"
                                                             placeholder="joao@live.com" autocomplete="joao@live.com"
-                                                            required>
+                                                            @if ($campo->obg_email == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +94,9 @@
                                         <div class="row">
                                             <div class="form-group col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="ccnumber">Celular</label>
+                                                    <label for="ccnumber">Celular @if ($campo->obg_mobile == true)
+                                                            *
+                                                        @endif</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
@@ -78,14 +106,19 @@
                                                                 </svg>
                                                         </div>
                                                         <input class="form-control" name="mobile" type="tel"
-                                                            placeholder="11 99999-9999"
-                                                            pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" required>
+                                                            placeholder="11 999999999"
+                                                            pattern="[0-9]{2} [0-9]{5}[0-9]{4}" @if ($campo->obg_mobile == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="ccnumber">Data de Nascimento</label>
+                                                    <label for="ccnumber">Data de Nascimento @if ($campo->obg_birth == true)
+                                                            *
+                                                        @endif</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
@@ -95,15 +128,24 @@
                                                                 </svg>
                                                         </div>
                                                         <input class="form-control" name="birth_at" type="date"
-                                                            placeholder="date">
+                                                            placeholder="date" @if ($campo->obg_birth == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-sm-3">
-                                                <label class="col-md-3 col-form-label">Sexo</label>
+                                            <div class="form-group col-sm-4">
+                                                <label class="col-md-3 col-form-label">Sexo @if ($campo->obg_sex == true)
+                                                        *
+                                                    @endif</label>
                                                 <div class="col-md-12 col-form-label">
                                                     <div class="form-check form-check-inline mr-1">
-                                                        <input class="form-check-input" type="radio" value="m" name="sex">
+                                                        <input class="form-check-input" type="radio" value="m" name="sex"
+                                                            @if ($campo->sex == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                         <svg class="c-icon">
                                                             <use
                                                                 xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user">
@@ -112,7 +154,11 @@
                                                         <label class="form-check-label" for="m">Masculino</label>
                                                     </div>
                                                     <div class="form-check form-check-inline mr-1">
-                                                        <input class="form-check-input" type="radio" value="f" name="sex">
+                                                        <input class="form-check-input" type="radio" value="f" name="sex"
+                                                            @if ($campo->sex == true)
+                                                        required
+                                                        @endif
+                                                        >
                                                         <svg class="c-icon">
                                                             <use
                                                                 xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-user-female">
@@ -124,8 +170,8 @@
                                             </div>
                                         </div>
                                         <div class="form-check checkbox">
-                                            <input class="form-check-input" id="criar_acesso"
-                                                name="criar_acesso" type="checkbox">
+                                            <input class="form-check-input" id="criar_acesso" name="criar_acesso"
+                                                type="checkbox">
                                             <label class="form-check-label" for="check1">Criar acesso</label>
                                         </div>
                                     </div>
@@ -148,7 +194,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-5">
-                                                <label for="city">City</label>
+                                                <label for="city">City @if ($campo->obg_city == true)
+                                                        *
+                                                    @endif</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
                                                             <svg class="c-icon">
@@ -158,11 +206,16 @@
                                                             </svg>
                                                     </div>
                                                     <input class="form-control" name="city" type="text"
-                                                        placeholder="Enter your city">
+                                                        placeholder="Enter your city" @if ($campo->obg_city == true)
+                                                    required
+                                                    @endif
+                                                    >
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label for="country">State</label>
+                                                <label for="country">State @if ($campo->obg_state == true)
+                                                        *
+                                                    @endif</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
                                                             <svg class="c-icon">
@@ -172,7 +225,10 @@
                                                             </svg>
                                                     </div>
                                                     <input class="form-control" name="state" type="text" placeholder="State"
-                                                        placeholder="SP">
+                                                        placeholder="SP" @if ($campo->obg_state == true)
+                                                    required
+                                                    @endif
+                                                    >
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
@@ -245,10 +301,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3 col-form-label" for="textarea-input">Anotações</label>
+                                            <label class="col-md-3 col-form-label" for="textarea-input">Anotações
+                                                @if ($campo->obg_note == true)
+                                                    *
+                                                @endif</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control" name="note" rows="9"
-                                                    placeholder="Content.."></textarea>
+                                                <textarea class="form-control" name="note" rows="9" placeholder="Content.."
+                                                    @if ($campo->obg_note == true)
+                                                            required
+                                                            @endif
+                                                            ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +318,7 @@
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a class="btn btn-dark" href="{{ route('people.index') }}">Return</a>
                             </div>
-                        </div>
+                    </div>
                     </form>
                 </div>
                 <!-- /.row-->
@@ -267,6 +329,12 @@
     </div>
     <script>
         $("#name").on("input", function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#last_name").on("input", function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#state").on("input", function() {
             $(this).val($(this).val().toUpperCase());
         });
     </script>

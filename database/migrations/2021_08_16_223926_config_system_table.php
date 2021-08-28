@@ -26,13 +26,13 @@ class ConfigSystemTable extends Migration
 			$table->string('currency')->nullable();
 
             $table->boolean('obg_last_name')->nullable()->default(1);
-            $table->boolean('obg_email')->nullable()->default(1);
-            $table->boolean('obg_mobile')->nullable()->default(1);
-            $table->boolean('obg_birth')->nullable()->default(1);
-            $table->boolean('obg_sex')->nullable()->default(1);
-            $table->boolean('obg_city')->nullable()->default(1);
-            $table->boolean('obg_state')->nullable()->default(1);
-            $table->boolean('obg_note')->nullable()->default(1);
+            $table->boolean('obg_email')->nullable()->default(0);
+            $table->boolean('obg_mobile')->nullable()->default(0);
+            $table->boolean('obg_birth')->nullable()->default(0);
+            $table->boolean('obg_sex')->nullable()->default(0);
+            $table->boolean('obg_city')->nullable()->default(0);
+            $table->boolean('obg_state')->nullable()->default(0);
+            $table->boolean('obg_note')->nullable()->default(0);
 			$table->timestamps(10);
 		});
     }
