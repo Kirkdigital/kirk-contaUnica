@@ -91,8 +91,16 @@ class ConfigSystemController extends Controller
         $settings->timezone       = $request->input('timezone');
         $settings->default_language       = $request->input('language');
         $settings->currency       = $request->input('currency');
-                $settings->save();
-        $this->adicionar_log('7', 'U', $settings);
+        $settings->obg_last_name       = $request->has('obg_last_name') ? 1 : 0;
+        $settings->obg_email       = $request->has('obg_email') ? 1 : 0;
+        $settings->obg_mobile       = $request->has('obg_mobile') ? 1 : 0;
+        $settings->obg_birth       = $request->has('obg_birth') ? 1 : 0;
+        $settings->obg_sex       = $request->has('obg_sex') ? 1 : 0;
+        $settings->obg_city       = $request->has('obg_city') ? 1 : 0;
+        $settings->obg_state       = $request->has('obg_state') ? 1 : 0;
+        $settings->obg_note       = $request->has('obg_note') ? 1 : 0;
+        $settings->save();
+
         $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->back();
