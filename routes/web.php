@@ -241,11 +241,11 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::post('/tenantWizard/{id}', 'WizardController@tenantWizard')->name('tenantWizard');
 
     //reports
-    Route::any('report/financial/search', 'ReportController@searchFinancial')->name('financial.search');
+    Route::any('report/financial/search', 'ReportController@searchFinancial')->name('financialrep.search');
     Route::get('report/financial', 'ReportController@Financial')->name('financial.Financial');
-    Route::any('report/people/search', 'ReportController@searchPeople')->name('people.search');
+    Route::any('report/people/search', 'ReportController@searchPeople')->name('peoplerep.search');
     Route::get('report/people', 'ReportController@People')->name('people.Financial');
-    Route::any('report/group/search', 'ReportController@searchGroup')->name('group.search');
+    Route::any('report/group/search', 'ReportController@searchGroup')->name('grouprep.search');
     Route::get('report/group', 'ReportController@Group')->name('group.Financial');
 
     //logs

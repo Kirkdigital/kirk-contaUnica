@@ -13,7 +13,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ route('people.search') }}" method="POST" class="form form-inline">
+                            <form action="{{ route('peoplerep.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">
                                     <div class="form-group row">

@@ -14,7 +14,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ route('financial.search') }}" method="POST" class="form form-inline">
+                            <form action="{{ route('financialrep.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">
                                     <div class="form-group row">

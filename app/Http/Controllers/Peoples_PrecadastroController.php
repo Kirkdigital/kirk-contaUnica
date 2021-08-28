@@ -48,8 +48,10 @@ class Peoples_PrecadastroController extends Controller
     {
         $this->pegar_tenant();
         $people = People_Precadastro::with('acesso')->find($id);
+        //campo obrigatoria
+        $campo = Config_system::find('1')->first();
         $statuses = Status::all()->where("type", 'precadastro');
-        return view('people_precadastro.EditForm', ['statuses' => $statuses, 'people' => $people]);
+        return view('people_precadastro.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people]);
     }
 
     public function update(Request $request, $id)
