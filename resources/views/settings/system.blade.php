@@ -41,18 +41,69 @@
                                     <a href="http://php.net/manual/en/timezones.php" target="_blank">Timezone</a>
                                 </div>
                                 <!--
-                                    <div class="form-group">
-                                        <label class="control-label">Linguagem padrão</label>
-                                        <select name="language" class="form-control">
-                                            <option value="1">Portuguese-BR</option>
-                                            <option value="2">English</option>
-                                        </select>
-                                    </div>
-                                    -->
+                                        <div class="form-group">
+                                            <label class="control-label">Linguagem padrão</label>
+                                            <select name="language" class="form-control">
+                                                <option value="1">Portuguese-BR</option>
+                                                <option value="2">English</option>
+                                            </select>
+                                        </div>
+                                        -->
                                 <div class="form-group">
                                     <label class="control-label">Moeda</label>
                                     <input type="text" class="form-control" name="currency" placeholder="currency"
                                         value="{{ $settings->currency }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"><strong>Meus dados - Pessoas </strong></label>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_last_name == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Sobrenome obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_email == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Email obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_mobile == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Celular obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_birth == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Aniversário obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_sex == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Sexo obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_city == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Cidade obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_state == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Estado obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="is_responsible" type="checkbox" {{ $settings->obg_note == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Observação obrigatório</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.row-->
                                 <button class="btn btn-primary" type="submit">Save</button>
