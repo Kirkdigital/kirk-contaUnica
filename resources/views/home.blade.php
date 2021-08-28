@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="fade-in">
             <h6 class="card-title">Bem vindo a {{ $a }}</h6>
-            @if ($precadastro >= 1 && Auth::user()->isAdmin() === true)
+            @if ($precadastro >= 1 and $roles->roleslocal->edit_precadastro == true)
                 <div class="card card-accent-success mb-12" style="max-width: 18rem;">
                     <div class="card-body text-success">
                         <h6 class="card-title">Há cadastros a serem aprovados</h6>

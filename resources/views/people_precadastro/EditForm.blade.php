@@ -281,8 +281,11 @@
                                         </div>
                                     </div>
                                 </form>
-                                @if ($people->status_id == '21')
-                                <div class="row">
+                                
+                           </div>
+                           <div class="row">
+
+                                @if ($people->status_id == '21' and $roles->roleslocal->edit_precadastro == true)
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <button class="btn btn-primary" type="submit">Aprovar</button>
@@ -297,9 +300,12 @@
                                               </form>
                                         </div>
                                     </div>                            
-                                </div>
+                               
                                 @endif
-                           </div>
+                                <div class="col-sm-2">
+                                <a class="btn btn-dark" href="{{ route('peopleList.index') }}">Return</a>
+                                </div>
+                            </div>
                     </div>
                     <!-- /.col-->
                 </div>

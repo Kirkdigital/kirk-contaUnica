@@ -34,24 +34,29 @@ class Peoples_PrecadastroController extends Controller
      */
     public function index(People_Precadastro $people_Precadastro)
     {
+        $you = auth()->user();
         session()->forget('aprovada-id');
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $peoples = People_Precadastro::orderBy('id', 'desc')->with('status')->paginate($this->totalPagesPaginate);
-        $status = Status::all()->where("type",'precadastro');
-        $config = Roles::all();
-        return view('people_precadastro.index', compact('peoples', 'config','status'));
+        $status = Status::all()->where("type", 'precadastro');
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        return view('people_precadastro.index', compact('peoples', 'roles', 'status'));
     }
     public function edit($id)
     {
+        $you = auth()->user();
         $this->pegar_tenant();
         $people = People_Precadastro::with('acesso')->find($id);
         //campo obrigatoria
         $campo = Config_system::find('1')->first();
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $statuses = Status::all()->where("type", 'precadastro');
-        return view('people_precadastro.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people]);
+        return view('people_precadastro.EditForm', compact('campo', 'roles'), ['statuses' => $statuses, 'people' => $people]);
     }
 
     public function update(Request $request, $id)
@@ -62,7 +67,7 @@ class Peoples_PrecadastroController extends Controller
             'email'           => 'required',
             'mobile'         => 'required',
         ]);
-        
+
         $people_pre = People_Precadastro::find($id);
         $people_pre->name          = $request->input('name');
         $people_pre->email         = $request->input('email');
@@ -109,7 +114,7 @@ class Peoples_PrecadastroController extends Controller
         return redirect()
             ->back()
             ->with('error', $response['message']);
-        
+
         $request->session()->flash("success", "Successfully created people");
         return redirect()->route('people_precadastro.index');
     }
@@ -130,7 +135,6 @@ class Peoples_PrecadastroController extends Controller
                 'success' => true,
                 'message' => 'Criado o acesso!',
             ];
-
         } else {
 
             DB::rollback();
@@ -139,10 +143,9 @@ class Peoples_PrecadastroController extends Controller
                 'success' => false,
                 'message' => 'Ocorreu um erro!',
             ];
-
         }
     }
-    
+
     public function reprovar($id)
     {
         $this->pegar_tenant();
@@ -161,12 +164,12 @@ class Peoples_PrecadastroController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        
-        $status = Status::all()->where("type",'precadastro');
+
+        $status = Status::all()->where("type", 'precadastro');
         $config = Roles::all();
         $dataForm = $request->except('_token');
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people_precadastro.index', compact('peoples', 'dataForm', 'status','config'));
+        return view('people_precadastro.index', compact('peoples', 'dataForm', 'status', 'config'));
     }
 }

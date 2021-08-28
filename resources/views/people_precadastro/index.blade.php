@@ -45,7 +45,8 @@
                                       <th>Mobile</th>
                                       <th>Localization</th>
                                       <th>Status</th>
-                                      <th colspan="3"><Center>{{ __('account.action') }}</Center></th>
+                                      <th>Created At</th>
+                                      <th>{{ __('account.action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,11 +74,12 @@
                                           {{ $people->status->name }}
                                         </span>
                                       </td>
-                                      @if( $config->first()->edit_people == true)
+                                      <td>{{ $people->created_at }}</td>
                                       <td width="1%">
-                                       <a href="{{ route('peopleList.edit', $people->id) }}" class="btn btn-primary-outline"><i class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i></a>
-                                      </td>
+                                      @if ($roles->roleslocal->view_precadastro == true)
+                                       <a href="{{ route('peopleList.edit', $people->id) }}"><i class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i></a>
                                       @endif
+                                    </td>
                                     </tr>
                                     </tr>
                                     @empty
