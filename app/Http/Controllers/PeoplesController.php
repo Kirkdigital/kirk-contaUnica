@@ -35,6 +35,7 @@ class PeoplesController extends Controller
      */
     public function index(People $people)
     {   
+        $you = auth()->user();
         //validar se selecionou a conta
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
@@ -42,11 +43,11 @@ class PeoplesController extends Controller
         //buscar
         $peoples = People::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
         //permissao
-        $config = Roles::all();
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         //status
         $statuses = Status::all()->where("type", 'people');
 
-        return view('people.index', compact('peoples', 'config', 'statuses'));
+        return view('people.index', compact('peoples', 'roles', 'statuses'));
     }
 
     /**
@@ -295,14 +296,15 @@ class PeoplesController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
-        $config = Roles::all();
+        $you = auth()->user();
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $dataForm = $request->except('_token');
         $date = date('Y');
         $statuses = Status::all()->where("type", 'people');
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people.index', compact('peoples', 'dataForm', 'config', 'date', 'statuses'));
+        return view('people.index', compact('peoples', 'dataForm', 'roles', 'date', 'statuses'));
     }
 
     public function criar($user_id, $accout_id): array

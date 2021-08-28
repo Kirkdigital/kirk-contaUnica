@@ -14,10 +14,14 @@
                                         <h5>Recados</h5>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                        <div class="row">
-                                            <a href="{{ route('message.create') }}"
-                                                class="btn btn-primary">{{ __('Adicionar') }}</a>
-                                        </div>
+                                        @if ($roles->roleslocal->add_message == true)
+
+                                            <div class="row">
+                                                <a href="{{ route('message.create') }}"
+                                                    class="btn btn-primary">{{ __('Adicionar') }}</a>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -31,8 +35,8 @@
                                         <th>Date</th>
                                         <th>Status</th>
                                         <th colspan="3">
-                                          <Center>{{ __('account.action') }}</Center>
-                                      </th>
+                                            <Center>{{ __('account.action') }}</Center>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,16 +52,19 @@
                                                 </span>
                                             </td>
                                             <td width="1%">
-                                                <a href="{{ route('message.show', $note->id) }}"><i
-                                                        class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                @if ($roles->roleslocal->view_message == true)
+                                                    <a href="{{ route('message.show', $note->id) }}"><i
+                                                            class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                @endif
                                             </td>
-                                            
-                                                <td width="1%">
+                                            <td width="1%">
+                                                @if ($roles->roleslocal->edit_message == true)
                                                     <a href="{{ route('message.edit', $note->id) }}"><i
                                                             class="c-icon c-icon-sm cil-pencil text-success"></i></a>
-                                                </td>
-                                            
-                                                <td width="1%">
+                                                @endif
+                                            </td>
+                                            <td width="1%">
+                                                @if ($roles->roleslocal->delete_message == true)
                                                     <form action="{{ route('message.destroy', $note->id) }}"
                                                         method="POST">
                                                         @method('DELETE')
@@ -65,6 +72,8 @@
                                                         <a class="show_confirm" data-toggle="tooltip" title='Delete'><i
                                                                 class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                     </form>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -72,6 +72,10 @@ class People extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+    public function roleslocal()
+    {
+        return $this->belongsTo(Roles::class, 'role', 'id');
+    }
     public function search(Array $data, $totalPagesPaginate)
     {
         return $this->where(function ($query) use ($data){

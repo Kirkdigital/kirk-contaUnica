@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Notes;
+use App\Models\People;
 use Illuminate\Support\Facades\Config;
 use App\Models\Status;
 
@@ -31,9 +32,11 @@ class NotesController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        $you = auth()->user();
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $notes = Notes::with('user')->with('status')->paginate(20);
-        return view('message.notesList', ['notes' => $notes]);
+        return view('message.notesList', compact('roles'),['notes' => $notes]);
     }
 
     /**

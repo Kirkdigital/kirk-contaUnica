@@ -24,90 +24,94 @@
                                     </div>
                                     <div class="col-sm-8 col-md-5 col-lg-5 col-xl-5">
                                         <div class="box-header">
-                                            <a href="{{ route('balance.depositar') }}" class="btn btn-success">Entrada</a>
-                                            @if ($amount > 0)
-                                                <a href="{{ route('balance.withdraw') }}"
-                                                    class="btn btn-danger">Retirada</a>
+                                            @if ($roles->roleslocal->add_entrada_financial == true)
+                                                <a href="{{ route('balance.depositar') }}"
+                                                    class="btn btn-success">Entrada</a>
+                                            @endif
+                                            @if ($roles->roleslocal->add_retirada_financial == true)
+                                                @if ($amount > 0)
+                                                    <a href="{{ route('balance.withdraw') }}"
+                                                        class="btn btn-danger">Retirada</a>
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="box-body">
-                                <table class="table table-responsive-sm table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 35px">Recibo</th>
-                                            <th style="width: 120px">Movimentação</th>
-                                            <th>Valor</th>
-                                            <th>Tipo</th>
-                                            <th>Forma de Pagamento</th>
-                                            <th>Pessoa</th>
-                                            <th>Observação</th>
-                                            <th style="width: 80px">Data</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($historics as $historic)
+                        @if ($roles->roleslocal->view_financial == true)
+                            <div class="container">
+                                <div class="box-body">
+                                    <table class="table table-responsive-sm table-striped">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $historic->id }}</td>
-                                                <td>{{ $historic->type($historic->type) }}</td>
-                                                <td>R$ {{ number_format($historic->amount), 2, '.', ',' }}</td>
-                                                <td>
-                                                    @if ($historic->tipo)
-                                                        <span class="{{ $historic->status->class }}">
-                                                            {{ $historic->status->name }}
-                                                        </span>
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->pag)
-                                                        <span class="{{ $historic->statuspag->class }}">
-                                                            {{ $historic->statuspag->name }}
-                                                        </span>
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->user_id_transaction)
-                                                        @if ($historic->userSender !== null)
-                                                            {{ $historic->userSender->name }}
-                                                        @else
-                                                            Pessoa removida
-                                                        @endif
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->observacao)
-                                                        {{ $historic->observacao }}
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>{{ $historic->date }}</td>
+                                                <th style="width: 35px">Recibo</th>
+                                                <th style="width: 120px">Movimentação</th>
+                                                <th>Valor</th>
+                                                <th>Tipo</th>
+                                                <th>Forma de Pagamento</th>
+                                                <th>Pessoa</th>
+                                                <th>Observação</th>
+                                                <th style="width: 80px">Data</th>
                                             </tr>
-                                        @empty
-                                        @endforelse
-                                    </tbody>
-                                </table>
-
-                                @if (isset($dataForm))
-                                    {!! $historics->appends($dataForm)->links() !!}
-                                @else
-                                    <a href="{{ url('historic') }}" class="btn btn-dark">Ver Histórico</a> <br> <br>
-                                @endif
-
+                                        </thead>
+                                        <tbody>
+                                            @forelse($historics as $historic)
+                                                <tr>
+                                                    <td>{{ $historic->id }}</td>
+                                                    <td>{{ $historic->type($historic->type) }}</td>
+                                                    <td>R$ {{ number_format($historic->amount), 2, '.', ',' }}</td>
+                                                    <td>
+                                                        @if ($historic->tipo)
+                                                            <span class="{{ $historic->status->class }}">
+                                                                {{ $historic->status->name }}
+                                                            </span>
+                                                        @else
+                                                            - - -
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($historic->pag)
+                                                            <span class="{{ $historic->statuspag->class }}">
+                                                                {{ $historic->statuspag->name }}
+                                                            </span>
+                                                        @else
+                                                            - - -
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($historic->user_id_transaction)
+                                                            @if ($historic->userSender !== null)
+                                                                {{ $historic->userSender->name }}
+                                                            @else
+                                                                Pessoa removida
+                                                            @endif
+                                                        @else
+                                                            - - -
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($historic->observacao)
+                                                            {{ $historic->observacao }}
+                                                        @else
+                                                            - - -
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $historic->date }}</td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                    @if (isset($dataForm))
+                                        {!! $historics->appends($dataForm)->links() !!}
+                                    @else
+                                        <a href="{{ url('historic') }}" class="btn btn-dark">Ver Histórico</a> <br> <br>
+                                    @endif
+                                </div>
                             </div>
-
-                        </div>
-                        <!-- /.row-->
+                            <!-- /.row-->
+                        @endif
                     </div>
                     <!-- /.row-->
                 </div>

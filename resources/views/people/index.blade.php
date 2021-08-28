@@ -7,19 +7,19 @@
                     <div class="card">
                         <div class="container">
                             <div class="card-header">
-                              <div class="form-groups row">
-                               <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
-                                <h5>Pessoas</h5>
+                                <div class="form-groups row">
+                                    <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
+                                        <h5>Pessoas</h5>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
+                                        @if ($roles->roleslocal->add_people == true)
+                                            <div class="row">
+                                                <a href="{{ route('people.create') }}"
+                                                    class="btn btn-primary">{{ __('Adicionar') }}</a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                    @if ($config->first()->add_people == true)
-                                        <div class="row">
-                                            <a href="{{ route('people.create') }}"
-                                                class="btn btn-primary">{{ __('Adicionar') }}</a>
-                                        </div>
-                                    @endif
-                                </div>
-                              </div>
                             </div>
                             <form action="{{ route('people.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
@@ -43,10 +43,10 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-8 col-md-2 col-lg-2 col-xl-2">
-                                          <div class="box-header">
-                                              <button type="submit" class="btn btn-primary">Pesquisar</button>
-                                          </div>
-                                      </div>
+                                            <div class="box-header">
+                                                <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -91,25 +91,25 @@
                                                         {{ $people->status->name }}
                                                     </span>
                                                 </td>
+                                                <td width="1%">
+                                                    @if ($roles->roleslocal->edit_people == true)
 
-
-                                                @if ($config->first()->edit_people == true)
-                                                    <td width="1%">
-                                                        <a href="{{ route('people.edit', $people->id) }}"
-                                                            ><i
+                                                        <a href="{{ route('people.edit', $people->id) }}"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
-                                                    </td>
-                                                @endif
-                                                @if ($config->first()->delete_people == true)
-                                                    <td width="1%">
+
+                                                    @endif
+                                                </td>
+                                                <td width="1%">
+                                                    @if ($roles->roleslocal->delete_people == true)
+
                                                         @if ($people->user_id)
                                                             <form
                                                                 action="{{ url('people/' . $people->id . '/' . $people->user_id) }}"
                                                                 method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <a class="show_confirm"
-                                                                    data-toggle="tooltip" title='Delete'><i
+                                                                <a class="show_confirm" data-toggle="tooltip"
+                                                                    title='Delete'><i
                                                                         class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                             </form>
                                                         @elseif ($people->user_id == null)
@@ -118,13 +118,13 @@
                                                                 method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <a class="show_confirm"
-                                                                    data-toggle="tooltip" title='Delete'><i
+                                                                <a class="show_confirm" data-toggle="tooltip"
+                                                                    title='Delete'><i
                                                                         class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                             </form>
                                                         @endif
-                                                @endif
-                                            </tr>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @empty
                                         @endforelse

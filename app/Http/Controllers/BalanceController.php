@@ -20,40 +20,44 @@ class BalanceController extends Controller
 
     public function index(Historic $historic)
     {
+        $you = auth()->user();
         $this->pegar_tenant();
-        $historics = Historic::with('status')->with('statuspag') 
-                    ->orderby('id','desc')
-                    ->paginate(9);   
-                    
-        $types = $historic->type();  
+        $historics = Historic::with('status')->with('statuspag')
+            ->orderby('id', 'desc')
+            ->paginate(9);
+
+        $types = $historic->type();
         $conta = session()->get('key');
         $balance = Balance::where('account_id', $conta)->first();
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
-        return view('balance.index',compact('amount', 'historics', 'types'));
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+
+        return view('balance.index', compact('amount', 'historics', 'types', 'roles'));
     }
 
     public function depositar()
     {
         $this->pegar_tenant();
         $peoples = People::all()->sortBy('name');
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial')->where('class','entrada');
-        return view('balance.depositar', ['peoples' => $peoples, 'statusfinan' => $statusfinan],compact('statuspag'));
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial')->where('class', 'entrada');
+        return view('balance.depositar', ['peoples' => $peoples, 'statusfinan' => $statusfinan], compact('statuspag'));
     }
-    
+
     //autocompleto pessoa
     public function dataAjax(Request $request)
     {
         $this->pegar_tenant();
-        $data = People::select("id","name","email")
-        ->orderby('name', 'asc')
-        ->get();
-        if($request->has('q')){
+        $data = People::select("id", "name", "email")
+            ->orderby('name', 'asc')
+            ->get();
+        if ($request->has('q')) {
             $search = $request->q;
-            $data = People::select("id","name","email")
-                    ->where('name','LIKE',"%$search%")
-                    ->orderby('name', 'asc')
-                    ->get();
+            $data = People::select("id", "name", "email")
+                ->where('name', 'LIKE', "%$search%")
+                ->orderby('name', 'asc')
+                ->get();
         }
         return response()->json($data);
     }
@@ -79,10 +83,9 @@ class BalanceController extends Controller
     {
         $this->pegar_tenant();
         $peoples = People::all()->sortBy('name');
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial')->where('class','retira');
-        return view('balance.withdraw', ['peoples' => $peoples, 'statusfinan' => $statusfinan],compact('statuspag'));
-
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial')->where('class', 'retira');
+        return view('balance.withdraw', ['peoples' => $peoples, 'statusfinan' => $statusfinan], compact('statuspag'));
     }
 
     public function withdrawStore(ValidationMoneyFormRequest $request)
@@ -103,30 +106,36 @@ class BalanceController extends Controller
 
     public function historic(Historic $historic)
     {
+        $you = auth()->user();
         $this->pegar_tenant();
         $historics = Historic::with('status')->with('statuspag')
-                    ->orderby('id','desc')
-                    //->whereBetween('date', [date('Y/m/d'), date('Y/m/d')])
-                    ->paginate($this->totalPagesPaginate);   
-                    
-        $types = $historic->type();            
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial');
+            ->orderby('id', 'desc')
+            //->whereBetween('date', [date('Y/m/d'), date('Y/m/d')])
+            ->paginate($this->totalPagesPaginate);
 
-        return view('balance.historics', compact('historics', 'types', 'statuspag', 'statusfinan'));
+        $types = $historic->type();
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial');
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+
+        return view('balance.historics', compact('historics', 'roles', 'types', 'statuspag', 'statusfinan'));
     }
 
     public function searchHistoric(Request $request, Historic $historic)
     {
         $this->pegar_tenant();
+        $you = auth()->user();
+
         $dataForm = $request->except('_token');
         $historics =  $historic->search($dataForm, $this->totalPagesPaginate);
         $types = $historic->type();
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial');
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('balance.historics', compact('historics', 'types', 'dataForm', 'statuspag', 'statusfinan'));
+        return view('balance.historics', compact('historics', 'types','roles', 'dataForm', 'statuspag', 'statusfinan'));
     }
 
     public function show($id)
@@ -143,6 +152,6 @@ class BalanceController extends Controller
 
         $usuario = User::find($historics->user_id);
 
-        return view('balance.detail', compact( 'historics', 'account', 'people', 'statuspag', 'statusfinan', 'usuario'));
+        return view('balance.detail', compact('historics', 'account', 'people', 'statuspag', 'statusfinan', 'usuario'));
     }
 }

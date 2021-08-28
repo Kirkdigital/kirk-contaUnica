@@ -36,13 +36,14 @@ class GroupsController extends Controller
      */
     public function index(Group $group)
     {
+        $you = auth()->user();
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
-        $config = Roles::orderBy('id', 'desc')->first();
-        return view('group.index', compact('groups', 'config'));
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        return view('group.index', compact('groups', 'roles'));
     }
 
     /**
@@ -114,15 +115,15 @@ class GroupsController extends Controller
         $group->user_id        = $request->input('itemName');
         $group->status_id      = $request->input('status_id');
         $group->note       = $request->input('note');
-        
+
         //buscar o id grupo
         $group1 = Group::find($id);
         //filtrar nos grupos a pessoa
         //deletar do usuário antigo e atual
-        $validaruser = People_Groups::where('group_id',$id)->whereIn('user_id',[$group1->user_id,$request->input('itemName')]);
+        $validaruser = People_Groups::where('group_id', $id)->whereIn('user_id', [$group1->user_id, $request->input('itemName')]);
         if ($validaruser) {
             $validaruser->delete();
-            $this->adicionar_log('12', 'D', '{"group_id":"'.$id.'","user_id":"'.$group1->user_id.','.$request->input('itemName').'"}');
+            $this->adicionar_log('12', 'D', '{"group_id":"' . $id . '","user_id":"' . $group1->user_id . ',' . $request->input('itemName') . '"}');
         }
 
         $adicionarpessoa = new People_Groups();
@@ -133,7 +134,7 @@ class GroupsController extends Controller
         $this->adicionar_log('12', 'U', $adicionarpessoa);
 
         //fazer a contagem ao inserir
-        $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->count();
+        $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id', $id)->count();
         $this->adicionar_log('2', 'U', $group);
         $group->save();
 
@@ -155,10 +156,10 @@ class GroupsController extends Controller
             $group->delete();
             $this->adicionar_log('2', 'D', $group);
         }
-        $validaruser = People_Groups::where('group_id',$id);
+        $validaruser = People_Groups::where('group_id', $id);
         if ($validaruser) {
             $validaruser->delete();
-            $this->adicionar_log('12', 'D', '{"delete_peoplegroup":"'.$id.'"}');
+            $this->adicionar_log('12', 'D', '{"delete_peoplegroup":"' . $id . '"}');
         }
         session()->flash("warning", "Sucessfully deleted group");
         return redirect()->route('group.index');
@@ -171,20 +172,25 @@ class GroupsController extends Controller
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
-            $config = Roles::orderBy('id', 'desc')->first();
-            $dataForm = $request->except('_token');
+        $you = auth()->user();
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        $dataForm = $request->except('_token');
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
 
-        return view('group.index', compact('groups', 'dataForm', 'config'));
+        return view('group.index', compact('groups', 'dataForm', 'roles'));
     }
 
     public function show($id)
     {
         $this->pegar_tenant();
         $group = Group::find($id);
-        $pessoasgrupos = People_Groups::with('grupo')->with('usuario')->where('group_id',$id)->get();
+        $pessoasgrupos = People_Groups::with('grupo')->with('usuario')->where('group_id', $id)->get();
         $responsavel = People::find($group->user_id);
-        return view('group.Show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
+        $you = auth()->user();
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        return view('group.Show', compact('group', 'roles','responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
     public function storepeoplegroup(Request $request)
@@ -202,7 +208,7 @@ class GroupsController extends Controller
         $validarpessoa = People_Groups::where('user_id', $request->input('itemName'))->where('group_id', $value);
         //pegar valor para somar
         $adicionarsoma = Group::find($value);
-        $adicionarsoma->count = $adicionarsoma->count+1;
+        $adicionarsoma->count = $adicionarsoma->count + 1;
 
         //validacao para inserir um valor igual
         if ($validarpessoa->count() == 0) {
@@ -228,7 +234,7 @@ class GroupsController extends Controller
         if ($group) {
             $group->delete();
             $adicionarsoma = Group::find($value);
-            $adicionarsoma->count = $adicionarsoma->count-1;
+            $adicionarsoma->count = $adicionarsoma->count - 1;
             $adicionarsoma->save();
             $this->adicionar_log('12', 'D', $group);
         }

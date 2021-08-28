@@ -7,20 +7,20 @@
                     <div class="card">
                         <div class="container">
                             <div class="card-header">
-                            <div class="form-groups row">
-                                <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
-                                 <h5>Grupos</h5>
-                                 </div>
-                                 <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                     @if ($config->first()->add_people == true)
-                                         <div class="row">
-                                             <a href="{{ route('group.create') }}"
-                                                 class="btn btn-primary">{{ __('Adicionar') }}</a>
-                                         </div>
-                                     @endif
-                                 </div>
-                               </div>
-                             </div>
+                                <div class="form-groups row">
+                                    <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
+                                        <h5>Grupos</h5>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
+                                        @if ($roles->roleslocal->add_group == true)
+                                            <div class="row">
+                                                <a href="{{ route('group.create') }}"
+                                                    class="btn btn-primary">{{ __('Adicionar') }}</a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                             <form action="{{ route('group.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">
@@ -75,27 +75,30 @@
                                                     </span>
                                                 </td>
                                                 <td width="1%">
-                                                    <a href="{{ route('group.show', $group->id ) }}"><i
-                                                            class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                    @if ($roles->roleslocal->view_group == true)
+                                                        <a href="{{ route('group.show', $group->id) }}"><i
+                                                                class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                    @endif
                                                 </td>
-                                                @if ($config->edit_group == true)
-                                                    <td width="1%">
-                                                        <a href="{{ route('group.edit', $group->id ) }}"><i
+                                                <td width="1%">
+                                                    @if ($roles->roleslocal->edit_group == true)
+
+                                                        <a href="{{ route('group.edit', $group->id) }}"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
-                                                    </td>
-                                                @endif
-                                                @if ($config->delete_group == true)
-                                                    <td width="1%">
-                                                        <form action="{{ route('group.destroy', $group->id ) }}"
+
+                                                    @endif
+                                                </td>
+                                                <td width="1%">
+                                                    @if ($roles->roleslocal->delete_group == true)
+                                                        <form action="{{ route('group.destroy', $group->id) }}"
                                                             method="POST">
                                                             @method('DELETE')
                                                             @csrf
-                                                            <a class="show_confirm"
-                                                                data-toggle="tooltip" title='Delete'><i
+                                                            <a class="show_confirm" data-toggle="tooltip" title='Delete'><i
                                                                     class="c-icon c-icon-sm cil-trash text-danger"></i></a>
                                                         </form>
-                                                @endif
-                                            </tr>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @empty
                                         @endforelse

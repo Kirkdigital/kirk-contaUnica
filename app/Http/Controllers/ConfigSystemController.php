@@ -6,6 +6,7 @@ use App\Models\Config_email;
 use App\Models\Config_system;
 use App\Models\Config_meta;
 use App\Models\Config_social;
+use App\Models\People;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
@@ -30,17 +31,20 @@ class ConfigSystemController extends Controller
      */
     public function index()
     {
+        $you = auth()->user();
+
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
-        return view('settings.index');
+        return view('settings.index', compact('roles'));
     }
 
     public function indexSystem()
     {
         $this->pegar_tenant();
-        if (session()->get('schema') === null){
+        if (session()->get('schema') === null) {
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         }
         $settings = Config_system::find('1')->first();
@@ -49,7 +53,7 @@ class ConfigSystemController extends Controller
     public function indexMeta()
     {
         $this->pegar_tenant();
-        if (session()->get('schema') === null){
+        if (session()->get('schema') === null) {
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         }
         $settings = Config_meta::orderBy('id', 'desc')->first();
@@ -146,11 +150,11 @@ class ConfigSystemController extends Controller
         $settings = new Config_meta();
         $settings->ano       = date('Y');
         //mes
-        (int)$settings->visitante_mes       = intval($request->input('visitante_ano')/12);
-        (int)$settings->grupo_ativo_mes       = intval($request->input('grupo_ativo_ano')/12);
-        (int)$settings->batismo_mes       = intval($request->input('batismo_ano')/12);
-        (int)$settings->conversao_mes       = intval($request->input('conversao_ano')/12);
-        (int)$settings->pessoa_mes       = intval($request->input('pessoa_ano')/12);
+        (int)$settings->visitante_mes       = intval($request->input('visitante_ano') / 12);
+        (int)$settings->grupo_ativo_mes       = intval($request->input('grupo_ativo_ano') / 12);
+        (int)$settings->batismo_mes       = intval($request->input('batismo_ano') / 12);
+        (int)$settings->conversao_mes       = intval($request->input('conversao_ano') / 12);
+        (int)$settings->pessoa_mes       = intval($request->input('pessoa_ano') / 12);
         //$settings->visualizacao_mes       = $request->input('visualizacao_ano');
         //$settings->comentario_mes       = $request->input('comentario_ano');
         //$settings->publicacao_mes       = $request->input('publicacao_mes');
@@ -164,12 +168,12 @@ class ConfigSystemController extends Controller
         //$settings->visualizacao_ano       = $request->input('visualizacao_ano');
         //$settings->publicacao_ano       = $request->input('publicacao_ano');
         //$settings->comentario_ano       = $request->input('comentario_ano');
-        
+
         //financeiro
-        (int)$settings->fin_dizimo_mes       = intval($request->input('fin_dizimo_ano')/12);
-        (int)$settings->fin_oferta_mes       = intval($request->input('fin_oferta_ano')/12);
-        (int)$settings->fin_despesa_mes       = intval($request->input('fin_despesa_ano')/12);
-        (int)$settings->fin_acao_mes       = intval($request->input('fin_acao_ano')/12);
+        (int)$settings->fin_dizimo_mes       = intval($request->input('fin_dizimo_ano') / 12);
+        (int)$settings->fin_oferta_mes       = intval($request->input('fin_oferta_ano') / 12);
+        (int)$settings->fin_despesa_mes       = intval($request->input('fin_despesa_ano') / 12);
+        (int)$settings->fin_acao_mes       = intval($request->input('fin_acao_ano') / 12);
         (float)$settings->fin_dizimo_ano       = $request->input('fin_dizimo_ano');
         (float)$settings->fin_oferta_ano       = $request->input('fin_oferta_ano');
         (float)$settings->fin_despesa_ano       = $request->input('fin_despesa_ano');

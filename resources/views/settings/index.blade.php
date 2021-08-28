@@ -20,6 +20,7 @@
                                     Organize and adjust all settings about this site.
                                 </p>
                                 <div class="row">
+                                    @if ($roles->roleslocal->settings_general == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -33,6 +34,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if ($roles->roleslocal->settings_social == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -46,6 +49,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if ($roles->roleslocal->settings_email == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -59,6 +64,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if ($roles->roleslocal->settings_roles == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -72,6 +79,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if ($roles->roleslocal->settings_meta == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -85,6 +94,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">

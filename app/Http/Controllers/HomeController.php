@@ -47,33 +47,35 @@ class HomeController extends Controller
 
         //pegar informações complementares 
         $meta = Config_meta::orderBy('id', 'desc')->first();
-        $roles = Roles::orderBy('id', 'desc')->first();
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
 
         if($meta === null)
         {
             $this->pegar_tenant();
             $meta = new Config_meta();
-            $meta->id       = '1';
+            //$meta->id       = '1';
             $meta->save();
             
             $system = new Config_system();
-            $system->id       = '1';
+            //$system->id       = '1';
             $system->name       = 'DeskApps';
             $system->timezone       = 'America/Manaus';
             $system->save();
 
             $email = new Config_email();
-            $email->id       = '1';
+            //$email->id       = '1';
             $email->save();
 
             $roles = new Roles();
-            $roles->id       = '1';
-            $roles->name       = 'PADRAO';
+            //$roles->id       = '1';
+            $roles->name       = 'MEMBRO';
+            $roles->save();
+            $roles->name       = 'ADMIN';
             $roles->save();
 
             $social = new Config_social();
-            $social->id       = '1';
+            //$social->id       = '1';
             $social->save();
 
             $auditoria = new Auditoria();
@@ -82,9 +84,15 @@ class HomeController extends Controller
             $auditoria->user_id       = $you->id;
             $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
             $auditoria->save();
+
+            $people = new People();
+            $people->user_id       = $you->id;
+            $people->name       = $you->name;
+            $people->email       = $you->email;
+            $people->role       = '1';
+            $auditoria->save();
             
             $request->session()->flash("info", "É necessário configurar a conta");
-            return redirect()->route('dashboard.index');
         }
 
         //numero de pessoas ativas e no ano atual
@@ -120,10 +128,11 @@ class HomeController extends Controller
             $a = $element->name_company;
         }
 
-        $user = People::where('user_id', $you->id)->first();
+        $user = People::where('user_id', $you->id)->with('roleslocal')->first();
         if($user == null)
         {
-            $id = 0;
+            $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
+            return redirect()->route('account.index');
         }
         else
         $id = $user->id;
@@ -136,6 +145,7 @@ class HomeController extends Controller
                     'message',
                     'social',
                     'a',
+                    'you',
                     'user',
                     'roles',
                     'peopleativo',

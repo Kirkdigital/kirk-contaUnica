@@ -28,8 +28,6 @@ class DashController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        
-        
     }
 
     /**
@@ -46,8 +44,10 @@ class DashController extends Controller
 
         $you = auth()->user();
 
+        //permissao
+        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         //pegar informações complementares 
-        $roles = Roles::orderBy('id', 'desc')->first();
+
         $meta = Config_meta::orderBy('id', 'desc')->first();
 
         $anoanterior = (date('Y') - '1');
@@ -64,17 +64,17 @@ class DashController extends Controller
         $sexfemin = $people->where('sex', 'f')->count();
         $totalsex = $people->where('sex')->count();
         $porcentage_m = $this->porcentagem_nx($sexmascu, $totalsex); // 20
-        $porcentage_f = $this->porcentagem_nx($sexfemin, $totalsex); 
+        $porcentage_f = $this->porcentagem_nx($sexfemin, $totalsex);
 
         //total
         $likes = DB::table('admin.likes')
-        ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
-        ->where('posts.user_id', '11')
-        ->count();
+            ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
+            ->where('posts.user_id', '11')
+            ->count();
         //ano
         $anolikes = DB::table('admin.likes')
-        ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
-        ->whereYear('posts.created_at', date('Y'))->count();
+            ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
+            ->whereYear('posts.created_at', date('Y'))->count();
 
         //valor total ano meta
         $anovisitante = People::where('is_visitor', true)->whereYear('created_at', date('Y'))->count();
@@ -84,10 +84,10 @@ class DashController extends Controller
         $anogrupo = People_Groups::whereYear('registered', date('Y'))->count();
 
         $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->visitante_ano); // 20
-        $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->batismo_ano); 
+        $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->batismo_ano);
         $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->conversao_ano); // 20
-        $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->pessoa_ano); 
-        $porcentage_grupo = $this->porcentagem_nx($anogrupo, $meta->grupo_ativo_ano); 
+        $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->pessoa_ano);
+        $porcentage_grupo = $this->porcentagem_nx($anogrupo, $meta->grupo_ativo_ano);
 
         $anodizimo = Historic::where('tipo', '9')->whereYear('date', date('Y'))->sum('amount');
         $anooferta = Historic::where('tipo', '10')->whereYear('date', date('Y'))->sum('amount');
@@ -96,9 +96,9 @@ class DashController extends Controller
         $totalfinanceiro = ($anodizimo + $anooferta + $anodoacao + $anodespesa);
 
         $porcentage_dizimo = $this->porcentagem_nx($anodizimo, $meta->fin_dizimo_ano); // 20
-        $porcentage_oferta = $this->porcentagem_nx($anooferta, $meta->fin_oferta_ano); 
+        $porcentage_oferta = $this->porcentagem_nx($anooferta, $meta->fin_oferta_ano);
         $porcentage_doacao = $this->porcentagem_nx($anodoacao, $meta->fin_acao_ano); // 20
-        $porcentage_despesa = $this->porcentagem_nx($anodespesa, $meta->fin_despesa_ano); 
+        $porcentage_despesa = $this->porcentagem_nx($anodespesa, $meta->fin_despesa_ano);
         $totalporcentagem = ($porcentage_dizimo + $porcentage_oferta + $porcentage_doacao + $porcentage_despesa);
         $porcentage_total = $this->porcentagem_total($totalporcentagem);
 
@@ -109,7 +109,7 @@ class DashController extends Controller
 
 
         //financeiro dash
-        $metadash = ($meta->first()->fin_dizimo_ano + $meta->first()->fin_oferta_ano + $meta->first()->fin_acao_ano + $meta->first()->fin_despesa_ano)/12;
+        $metadash = ($meta->first()->fin_dizimo_ano + $meta->first()->fin_oferta_ano + $meta->first()->fin_acao_ano + $meta->first()->fin_despesa_ano) / 12;
         //grafico grande
         $fin_atual_jan = Historic::whereYear('date', date('Y'))->whereMonth('date', date('01'))->sum('amount');
         $fin_atual_fev = Historic::whereYear('date', date('Y'))->whereMonth('date', date('02'))->sum('amount');
@@ -139,105 +139,108 @@ class DashController extends Controller
 
         //financeiro recente
         $date = date('Y-m');
-        $dizimoatual = Historic::where('tipo', '9')->where('date','like', "%$date%")->sum('amount');
-        $ofertaatual = Historic::where('tipo', '10')->where('date','like',"%$date%")->sum('amount');
-        $doacaoatual = Historic::where('tipo', '11')->where('date','like', "%$date%")->sum('amount');
-        $despesaatual = Historic::where('tipo', '12')->where('date','like', "%$date%")->sum('amount');
+        $dizimoatual = Historic::where('tipo', '9')->where('date', 'like', "%$date%")->sum('amount');
+        $ofertaatual = Historic::where('tipo', '10')->where('date', 'like', "%$date%")->sum('amount');
+        $doacaoatual = Historic::where('tipo', '11')->where('date', 'like', "%$date%")->sum('amount');
+        $despesaatual = Historic::where('tipo', '12')->where('date', 'like', "%$date%")->sum('amount');
 
-        $formapag_dinheiro = Historic::where('pag', '15')->where('date','like', "%$date%")->sum('amount');
-        $formapag_cheque = Historic::where('pag', '16')->where('date','like',"%$date%")->sum('amount');
-        $formapag_credito = Historic::where('pag', '17')->where('date','like', "%$date%")->sum('amount');
-        $formapag_debito = Historic::where('pag', '18')->where('date','like', "%$date%")->sum('amount');
-        $formapag_boleto = Historic::where('pag', '19')->where('date','like', "%$date%")->sum('amount');
-        $formapag_pix = Historic::where('pag', '20')->where('date','like', "%$date%")->sum('amount');
+        $formapag_dinheiro = Historic::where('pag', '15')->where('date', 'like', "%$date%")->sum('amount');
+        $formapag_cheque = Historic::where('pag', '16')->where('date', 'like', "%$date%")->sum('amount');
+        $formapag_credito = Historic::where('pag', '17')->where('date', 'like', "%$date%")->sum('amount');
+        $formapag_debito = Historic::where('pag', '18')->where('date', 'like', "%$date%")->sum('amount');
+        $formapag_boleto = Historic::where('pag', '19')->where('date', 'like', "%$date%")->sum('amount');
+        $formapag_pix = Historic::where('pag', '20')->where('date', 'like', "%$date%")->sum('amount');
 
-        return view('dashboard.homepage', 
-            compact('roles', 
-                    'peopleativo', 
-                    'peoplevisitor', 
-                    'meta',
-                    'notes',
-                    'eventos',
-                    'totalvisitante',
-                    'sexmascu',
-                    'sexfemin',
-                    'totalsex',
-                    'porcentage_m',
-                    'porcentage_f',
-                    'anovisitante',
-                    'anobatismo',
-                    'anoconversao',
-                    'anopessoa',
-                    'formapag_dinheiro',
-                    'formapag_cheque',
-                    'formapag_credito',
-                    'formapag_debito',
-                    'formapag_boleto',
-                    'formapag_pix',
-                    'porcentage_visitante',
-                    'porcentage_batismo',
-                    'porcentage_conversao',
-                    'porcentage_pessoa',
-                    'anodizimo',
-                    'anooferta',
-                    'anodoacao',
-                    'anodespesa',
-                    'porcentage_dizimo',
-                    'porcentage_oferta',
-                    'porcentage_doacao',
-                    'porcentage_despesa',
-                    'porcentage_total',
-                    'totalfinanceiro',
-                    'likes',
-                    'anolikes',
-                    'totalbatismo',
-                    'totalconversao',
-                    'metadash',
-                    'fin_atual_jan',
-                    'fin_atual_fev',
-                    'fin_atual_mar',
-                    'fin_atual_abr',
-                    'fin_atual_mai',
-                    'fin_atual_jun',
-                    'fin_atual_jul',
-                    'fin_atual_ago',
-                    'fin_atual_set',
-                    'fin_atual_out',
-                    'fin_atual_nov',
-                    'fin_atual_dez',
-                    'fin_anterior_jan',
-                    'fin_anterior_fev',
-                    'fin_anterior_mar',
-                    'fin_anterior_abr',
-                    'fin_anterior_mai',
-                    'fin_anterior_jun',
-                    'fin_anterior_jul',
-                    'fin_anterior_ago',
-                    'fin_anterior_set',
-                    'fin_anterior_out',
-                    'fin_anterior_nov',
-                    'fin_anterior_dez',
-                    'dizimoatual',
-                    'ofertaatual',
-                    'doacaoatual',
-                    'despesaatual',
-                    'anogrupo',
-                    'porcentage_grupo',
-                    'precadastro'
-                ));
-                
+        return view(
+            'dashboard.homepage',
+            compact(
+                'roles',
+                'peopleativo',
+                'peoplevisitor',
+                'meta',
+                'notes',
+                'eventos',
+                'totalvisitante',
+                'sexmascu',
+                'sexfemin',
+                'totalsex',
+                'porcentage_m',
+                'porcentage_f',
+                'anovisitante',
+                'anobatismo',
+                'anoconversao',
+                'anopessoa',
+                'formapag_dinheiro',
+                'formapag_cheque',
+                'formapag_credito',
+                'formapag_debito',
+                'formapag_boleto',
+                'formapag_pix',
+                'porcentage_visitante',
+                'porcentage_batismo',
+                'porcentage_conversao',
+                'porcentage_pessoa',
+                'anodizimo',
+                'anooferta',
+                'anodoacao',
+                'anodespesa',
+                'porcentage_dizimo',
+                'porcentage_oferta',
+                'porcentage_doacao',
+                'porcentage_despesa',
+                'porcentage_total',
+                'totalfinanceiro',
+                'likes',
+                'anolikes',
+                'totalbatismo',
+                'totalconversao',
+                'metadash',
+                'fin_atual_jan',
+                'fin_atual_fev',
+                'fin_atual_mar',
+                'fin_atual_abr',
+                'fin_atual_mai',
+                'fin_atual_jun',
+                'fin_atual_jul',
+                'fin_atual_ago',
+                'fin_atual_set',
+                'fin_atual_out',
+                'fin_atual_nov',
+                'fin_atual_dez',
+                'fin_anterior_jan',
+                'fin_anterior_fev',
+                'fin_anterior_mar',
+                'fin_anterior_abr',
+                'fin_anterior_mai',
+                'fin_anterior_jun',
+                'fin_anterior_jul',
+                'fin_anterior_ago',
+                'fin_anterior_set',
+                'fin_anterior_out',
+                'fin_anterior_nov',
+                'fin_anterior_dez',
+                'dizimoatual',
+                'ofertaatual',
+                'doacaoatual',
+                'despesaatual',
+                'anogrupo',
+                'porcentage_grupo',
+                'precadastro'
+            )
+        );
     }
     //calcular porcentagem individual x total
-    function porcentagem_nx ( $parcial, $total ) {
-        if($total == 0) {
+    function porcentagem_nx($parcial, $total)
+    {
+        if ($total == 0) {
             $ratio = 0;
         } else {
-            return ( $parcial * 100 ) / $total;
-        } 
+            return ($parcial * 100) / $total;
+        }
     }
     //somar a porcentagem x digidir em media
-    function porcentagem_total ($parcial) {
-            return ( $parcial / 5 );
+    function porcentagem_total($parcial)
+    {
+        return ($parcial / 5);
     }
-
 }

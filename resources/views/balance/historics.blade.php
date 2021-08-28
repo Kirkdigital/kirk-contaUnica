@@ -39,155 +39,156 @@
                                             <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
                                                 <div class="box-header">
                                                     <a href="{{ url('historic') }}"
-                                                    class="btn btn-danger">{{ __('Limpar') }}</a>
+                                                        class="btn btn-danger">{{ __('Limpar') }}</a>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
                                                 <div class="box-header">
                                                     <a href="{{ url('financial') }}"
-                                                    class="btn btn-dark">{{ __('Voltar') }}</a>
+                                                        class="btn btn-dark">{{ __('Voltar') }}</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--
-                                        <div class="form-group row">
-                                            <div class="col-md-1">
-                                            <strong>Tipo</strong> 
-                                            </div>Movimentação:
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
-                                                <div class="inner">
-                                                    <select name="type" class="form-control">
-                                                        <option value="">Selecionar</option>
-                                                        @foreach ($types as $key => $type)
-                                                            <option value="{{ $key }}">{{ $type }}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="form-group row">
+                                                <div class="col-md-1">
+                                                <strong>Tipo</strong> 
+                                                </div>Movimentação:
+                                                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                                                    <div class="inner">
+                                                        <select name="type" class="form-control">
+                                                            <option value="">Selecionar</option>
+                                                            @foreach ($types as $key => $type)
+                                                                <option value="{{ $key }}">{{ $type }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                Tipo
+                                                <div class="col-md-2">
+                                                    <div class="inner">
+                                                        <select class="form-control" id="tipo" name="tipo">
+                                                            <option value="">Selecionar</option>
+                                                            @foreach ($statusfinan as $statusfinan)
+                                                                <option value="{{ $statusfinan->id }}">
+                                                                    {{ $statusfinan->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                Forma de pagamento
+                                                <div class="col-md-2">
+                                                    <div class="inner">
+                                                        <select class="form-control" id="pag" name="pag">
+                                                            <option value="">Selecionar</option>
+                                                            @foreach ($statuspag as $statuspags)
+                                                                <option value="{{ $statuspags->id }}">
+                                                                    {{ $statuspags->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                    <div class="box-header">
+                                                        <a href="{{ url('historic') }}"
+                                                        class="btn btn-danger">{{ __('Limpar') }}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
+                                                    <div class="box-header">
+                                                        <a href="{{ url('financial') }}"
+                                                        class="btn btn-dark">{{ __('Voltar') }}</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            Tipo
-                                            <div class="col-md-2">
-                                                <div class="inner">
-                                                    <select class="form-control" id="tipo" name="tipo">
-                                                        <option value="">Selecionar</option>
-                                                        @foreach ($statusfinan as $statusfinan)
-                                                            <option value="{{ $statusfinan->id }}">
-                                                                {{ $statusfinan->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            Forma de pagamento
-                                            <div class="col-md-2">
-                                                <div class="inner">
-                                                    <select class="form-control" id="pag" name="pag">
-                                                        <option value="">Selecionar</option>
-                                                        @foreach ($statuspag as $statuspags)
-                                                            <option value="{{ $statuspags->id }}">
-                                                                {{ $statuspags->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
-                                                <div class="box-header">
-                                                    <a href="{{ url('historic') }}"
-                                                    class="btn btn-danger">{{ __('Limpar') }}</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
-                                                <div class="box-header">
-                                                    <a href="{{ url('financial') }}"
-                                                    class="btn btn-dark">{{ __('Voltar') }}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    -->
-                                    </div>
-                                </form>
+                                        -->
                             </div>
-                            <div class="box-body">
-                                <table class="table table-responsive-sm table-striped">
-                                    <thead>
+                            </form>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-responsive-sm table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 35px">Recibo</th>
+                                        <th style="width: 120px">Movimentação</th>
+                                        <th>Valor</th>
+                                        <th>Tipo</th>
+                                        <th>Forma de Pagamento</th>
+                                        <th>Pessoa</th>
+                                        <th>Observação</th>
+                                        <th style="width: 80px">Data</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($historics as $historic)
                                         <tr>
-                                            <th style="width: 35px">Recibo</th>
-                                            <th style="width: 120px">Movimentação</th>
-                                            <th>Valor</th>
-                                            <th>Tipo</th>
-                                            <th>Forma de Pagamento</th>
-                                            <th>Pessoa</th>
-                                            <th>Observação</th>
-                                            <th style="width: 80px">Data</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($historics as $historic)
-                                            <tr>
-                                                <td>{{ $historic->id }}</td>
-                                                <td>{{ $historic->type($historic->type) }}</td>
-                                                <td>R$ {{ number_format($historic->amount), 2, '.', ',' }}</td>
-                                                <td>
-                                                    @if ($historic->tipo)
-                                                        <span class="{{ $historic->status->class }}">
-                                                            {{ $historic->status->name }}
-                                                        </span>
+                                            <td>{{ $historic->id }}</td>
+                                            <td>{{ $historic->type($historic->type) }}</td>
+                                            <td>R$ {{ number_format($historic->amount), 2, '.', ',' }}</td>
+                                            <td>
+                                                @if ($historic->tipo)
+                                                    <span class="{{ $historic->status->class }}">
+                                                        {{ $historic->status->name }}
+                                                    </span>
+                                                @else
+                                                    - - -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($historic->pag)
+                                                    <span class="{{ $historic->statuspag->class }}">
+                                                        {{ $historic->statuspag->name }}
+                                                    </span>
+                                                @else
+                                                    - - -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($historic->user_id_transaction)
+                                                    @if ($historic->userSender !== null)
+                                                        {{ $historic->userSender->name }}
                                                     @else
-                                                        - - -
+                                                        Pessoa removida
                                                     @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->pag)
-                                                        <span class="{{ $historic->statuspag->class }}">
-                                                            {{ $historic->statuspag->name }}
-                                                        </span>
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->user_id_transaction)
-                                                        @if ($historic->userSender !== null)
-                                                            {{ $historic->userSender->name }}
-                                                        @else
-                                                            Pessoa removida
-                                                        @endif
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($historic->observacao)
-                                                        {{ $historic->observacao }}
-                                                    @else
-                                                        - - -
-                                                    @endif
-                                                </td>
-                                                <td>{{ $historic->date }}</td>
-                                                <td width="1%">
-                                                    <a href="{{ url('/financial/' . $historic->id) }}"
-                                                        ><i
+                                                @else
+                                                    - - -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($historic->observacao)
+                                                    {{ $historic->observacao }}
+                                                @else
+                                                    - - -
+                                                @endif
+                                            </td>
+                                            <td>{{ $historic->date }}</td>
+                                            <td width="1%">
+                                                @if ($roles->roleslocal->view_financial == true)
+                                                    <a href="{{ url('/financial/' . $historic->id) }}"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                    @endforelse
+                                </tbody>
+                            </table>
 
-                                @if (isset($dataForm))
-                                    {!! $historics->appends($dataForm)->links() !!}
-                                @else
-                                    {!! $historics->links() !!}
+                            @if (isset($dataForm))
+                                {!! $historics->appends($dataForm)->links() !!}
+                            @else
+                                {!! $historics->links() !!}
 
-                                @endif
-                            </div>
+                            @endif
                         </div>
                     </div>
-                    <!-- /.row-->
                 </div>
+                <!-- /.row-->
             </div>
         </div>
+    </div>
     </div>
 
 @endsection
