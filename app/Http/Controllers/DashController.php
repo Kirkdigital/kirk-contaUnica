@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\People_Groups;
+use App\Models\People_Precadastro;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -102,6 +103,7 @@ class DashController extends Controller
         $porcentage_total = $this->porcentagem_total($totalporcentagem);
 
         $peoplevisitor = People::where('is_newvisitor', true)->whereYear('created_at', date('Y'))->count();
+        $precadastro = People_Precadastro::all()->count();;
         $eventos = Event::whereYear('created_at', date('Y'))->count();
         $notes = Notes::whereYear('created_at', date('Y'))->count();
 
@@ -220,7 +222,8 @@ class DashController extends Controller
                     'doacaoatual',
                     'despesaatual',
                     'anogrupo',
-                    'porcentage_grupo'
+                    'porcentage_grupo',
+                    'precadastro'
                 ));
                 
     }

@@ -39,12 +39,32 @@
                                         <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user-follow"></use>
                                     </svg>
                                 </div>
+                                <div class="text-value-lg">{{ $precadastro }}</div><small
+                                    class="text-muted text-uppercase font-weight-bold"> Pré-cadastros</small>
+                            </div>
+                            <div class="card-footer px-3 py-2">
+                                <a class="btn-block text-muted d-flex justify-content-between align-items-center"
+                                    href="{{ url('peopleList') }}">
+                                    <span class="small font-weight-bold">View More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-->
+                    <div class="col-sm-6 col-md-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-muted text-right mb-4">
+                                    <svg class="c-icon c-icon-2xl">
+                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-mood-good"></use>
+                                    </svg>
+                                </div>
                                 <div class="text-value-lg">{{ $peoplevisitor }}</div><small
                                     class="text-muted text-uppercase font-weight-bold"> New Visitors</small>
                             </div>
                             <div class="card-footer px-3 py-2">
                                 <a class="btn-block text-muted d-flex justify-content-between align-items-center"
-                                    href="{{ url('people') }}">
+                                    href="{{ url('notes') }}">
                                     <span class="small font-weight-bold">View More</span>
                                 </a>
                             </div>
@@ -100,27 +120,7 @@
                                     </svg>
                                 </div>
                                 <div class="text-value-lg">{{ $notes }}</div><small
-                                    class="text-muted text-uppercase font-weight-bold">Notes</small>
-                            </div>
-                            <div class="card-footer px-3 py-2">
-                                <a class="btn-block text-muted d-flex justify-content-between align-items-center"
-                                    href="{{ url('notes') }}">
-                                    <span class="small font-weight-bold">View More</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-->
-                    <div class="col-sm-6 col-md-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-muted text-right mb-4">
-                                    <svg class="c-icon c-icon-2xl">
-                                        <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-mood-good"></use>
-                                    </svg>
-                                </div>
-                                <div class="text-value-lg">{{ $anolikes }}</div><small
-                                    class="text-muted text-uppercase font-weight-bold">Likes</small>
+                                    class="text-muted text-uppercase font-weight-bold">Message</small>
                             </div>
                             <div class="card-footer px-3 py-2">
                                 <a class="btn-block text-muted d-flex justify-content-between align-items-center"
