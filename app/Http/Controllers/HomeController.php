@@ -53,35 +53,35 @@ class HomeController extends Controller
         if($meta === null)
         {
             $this->pegar_tenant();
-            $settings = new Config_meta();
-            $settings->id       = '1';
-            $settings->save();
+            $meta = new Config_meta();
+            $meta->id       = '1';
+            $meta->save();
             
-            $settings = new Config_system();
-            $settings->id       = '1';
-            $settings->name       = 'DeskApps';
-            $settings->timezone       = 'America/Manaus';
-            $settings->save();
+            $system = new Config_system();
+            $system->id       = '1';
+            $system->name       = 'DeskApps';
+            $system->timezone       = 'America/Manaus';
+            $system->save();
 
-            $settings = new Config_email();
-            $settings->id       = '1';
-            $settings->save();
+            $email = new Config_email();
+            $email->id       = '1';
+            $email->save();
 
-            $settings = new Roles();
-            $settings->id       = '1';
-            $settings->name       = 'PADRAO';
-            $settings->save();
+            $roles = new Roles();
+            $roles->id       = '1';
+            $roles->name       = 'PADRAO';
+            $roles->save();
 
-            $settings1 = new Config_social();
-            $settings1->id       = '1';
-            $settings1->save();
+            $social = new Config_social();
+            $social->id       = '1';
+            $social->save();
 
-            $settings1 = new Auditoria();
-            $settings1->activity_id       = '9';
-            $settings1->type       = 'C';
-            $settings1->user_id       = $you->id;
-            $settings1->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
-            $settings1->save();
+            $auditoria = new Auditoria();
+            $auditoria->activity_id       = '9';
+            $auditoria->type       = 'C';
+            $auditoria->user_id       = $you->id;
+            $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
+            $auditoria->save();
             
             $request->session()->flash("info", "É necessário configurar a conta");
             return redirect()->route('dashboard.index');
