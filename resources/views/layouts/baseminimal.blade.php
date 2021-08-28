@@ -84,7 +84,6 @@
         @include('dashboard.shared.flash-message')
           @yield('content') 
         </main>
-        @include('dashboard.shared.footer')
       </div>
     </div>
 
