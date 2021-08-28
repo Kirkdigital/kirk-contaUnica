@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Institution;
+use App\Models\People;
 use App\Models\Status;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -34,11 +35,10 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
 
-        $institutions = Users_Account::
-                        where('user_id', $you->id)
-                        ->with('accountlist')
-                        ->with('status')
-                        ->paginate($this->totalPagesPaginate);
+        $institutions = Users_Account::where('user_id', $you->id)
+            ->with('accountlist')
+            ->with('status')
+            ->paginate($this->totalPagesPaginate);
         //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
         return view('account.List', ['institutions' => $institutions]);
     }
@@ -56,7 +56,7 @@ class InstitutionsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="{{route(tenant,[id =>' . $row->id .']) }}" data-toggle="tooltip" data-id=" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
+                    $btn = '<a href="{{route(tenant,[id =>' . $row->id . ']) }}" data-toggle="tooltip" data-id=" class="btn btn-primary-outline edit"><i class="c-icon c-icon-sm cil-pencil text-success"></i></a>';
 
                     return $btn;
                 })
@@ -168,26 +168,38 @@ class InstitutionsController extends Controller
         $this->adicionar_log_global('11', 'C', $useraccount);
 
         //criar o esquema (gambiarra)
-        DB::select('CREATE SCHEMA '.$institution->tenant);
-       
-        $tenant = (object) array( 'host' => '127.0.0.1', 'port' => '5432', 'account_name' => 'postgres', 'password' => 'ajvv6679' );
-        
-        Config::set('database.connections.tenant.host', $tenant->host); 
-        Config::set('database.connections.tenant.port', $tenant->port); 
-        Config::set('database.connections.tenant.database', 'tenant'); 
-        Config::set('database.connections.tenant.username', $tenant->account_name); 
-        Config::set('database.connections.tenant.password', $tenant->password); 
+        DB::select('CREATE SCHEMA ' . $institution->tenant);
+
+        $tenant = (object) array('host' => '127.0.0.1', 'port' => '5432', 'account_name' => 'postgres', 'password' => 'ajvv6679');
+
+        Config::set('database.connections.tenant.host', $tenant->host);
+        Config::set('database.connections.tenant.port', $tenant->port);
+        Config::set('database.connections.tenant.database', 'tenant');
+        Config::set('database.connections.tenant.username', $tenant->account_name);
+        Config::set('database.connections.tenant.password', $tenant->password);
         Config::set('database.connections.tenant.schema',  $institution->tenant);
 
         //dump(config::get('database.connections.tenant'));
-        DB::reconnect('tenant');   
+        DB::reconnect('tenant');
 
-        $migrated = Artisan::call('migrate:fresh'); 
+        $migrated = Artisan::call('migrate:fresh --seed');
         if (!$migrated) {
-            DB::purge('tenant'); 
-            DB::reconnect('pgsql');
-            $this->adicionar_log_global('9', 'C', '{"schema":"'.$institution->tenant.'"}');
+
+            $this->adicionar_log_global('9', 'C', '{"schema":"' . $institution->tenant . '"}');
             $request->session()->flash("success", 'events.change_create');
+
+            DB::table(config::get('database.connections.tenant.schema').'.people')->insert([
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'status_id' => '14',
+                'role' => '1',
+            ]);
+
+            //finalizar a conexao
+            DB::purge('tenant');
+            //reconectar a base
+            DB::reconnect('pgsql');
             return redirect()->route('account.index');
         }
         $request->session()->flash("danger", 'Erro ao rodar migrations');
@@ -247,11 +259,10 @@ class InstitutionsController extends Controller
         $User_account = Users_Account::where('account_id', '=', $id);
         if ($User_account) {
             $User_account->delete();
-            $this->adicionar_log_global('11', 'D', '{"delete_account_list":"'.$id.'"}');
-
+            $this->adicionar_log_global('11', 'D', '{"delete_account_list":"' . $id . '"}');
         }
-       $request->session()->flash("warning", 'events.change_delete');
-       return redirect()->route('account.index');
+        $request->session()->flash("warning", 'events.change_delete');
+        return redirect()->route('account.index');
     }
 
 

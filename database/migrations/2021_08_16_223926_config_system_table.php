@@ -36,14 +36,4 @@ class ConfigSystemTable extends Migration
 			$table->timestamps(10);
 		});
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('config_system');
-    }
 }

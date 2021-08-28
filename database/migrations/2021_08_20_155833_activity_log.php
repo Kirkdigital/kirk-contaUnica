@@ -15,6 +15,7 @@ class ActivityLog extends Migration
      */
     public function up()
     {
+        
         Schema::create(config::get('database.connections.tenant.schema').'.activity_log', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
@@ -25,15 +26,5 @@ class ActivityLog extends Migration
             $table->json('request')->nullable();
 			$table->timestamps(10);
 		});
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('activity_log');
     }
 }

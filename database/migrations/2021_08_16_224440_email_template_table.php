@@ -24,16 +24,4 @@ class emailTemplateTable extends Migration {
 			$table->string('subject');
 		});
 	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('email_template');
-	}
-
 }

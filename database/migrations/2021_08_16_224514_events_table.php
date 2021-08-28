@@ -27,16 +27,4 @@ class eventsTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('events');
-	}
-
 }

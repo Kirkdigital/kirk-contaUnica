@@ -15,6 +15,7 @@ class peopleTable extends Migration {
 	 */
 	public function up()
 	{
+		
 		Schema::create(config::get('database.connections.tenant.schema').'.people', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
@@ -43,16 +44,4 @@ class peopleTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('people');
-	}
-
 }

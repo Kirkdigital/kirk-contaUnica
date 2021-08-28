@@ -24,16 +24,4 @@ class peopleGroupTable extends Migration {
 			$table->dateTime('registered')->nullable();
 		});
 	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('people_group');
-	}
-
 }

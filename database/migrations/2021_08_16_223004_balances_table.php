@@ -22,14 +22,4 @@ class BalancesTable extends Migration
 			$table->float('amount', 10, 0)->default(0);
 		});
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('balances');
-    }
 }

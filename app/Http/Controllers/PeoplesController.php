@@ -7,12 +7,11 @@ use Validator;
 use DB;
 use Hash;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use App\Models\Status;
 use App\Models\People;
 use App\Models\People_Groups;
 use App\Models\Users_Account;
-use App\Models\Roles;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class PeoplesController extends Controller
@@ -162,6 +161,9 @@ class PeoplesController extends Controller
         $campo = Config_system::find('1')->first();
         //status
         $statuses = Status::all()->where("type", 'people');
+        $this->output->write('my inline message', false);
+
+
         return view('people.EditForm', compact('campo'),['statuses' => $statuses, 'people' => $people]);
     }
 

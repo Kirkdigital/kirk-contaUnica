@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auditoria;
-use App\Models\Config_email;
-use App\Models\Config_system;
 use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Notes;
@@ -48,50 +46,16 @@ class HomeController extends Controller
         //pegar informações complementares 
         $meta = Config_meta::orderBy('id', 'desc')->first();
         $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        $auditoria = Auditoria::orderBy('id', 'desc')->first();
 
-
-        if($meta === null)
+        if($auditoria === null)
         {
-            $this->pegar_tenant();
-            $meta = new Config_meta();
-            //$meta->id       = '1';
-            $meta->save();
-            
-            $system = new Config_system();
-            //$system->id       = '1';
-            $system->name       = 'DeskApps';
-            $system->timezone       = 'America/Manaus';
-            $system->save();
-
-            $email = new Config_email();
-            //$email->id       = '1';
-            $email->save();
-
-            $roles = new Roles();
-            //$roles->id       = '1';
-            $roles->name       = 'MEMBRO';
-            $roles->save();
-            $roles->name       = 'ADMIN';
-            $roles->save();
-
-            $social = new Config_social();
-            //$social->id       = '1';
-            $social->save();
-
             $auditoria = new Auditoria();
             $auditoria->activity_id       = '9';
             $auditoria->type       = 'C';
             $auditoria->user_id       = $you->id;
             $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
-            $auditoria->save();
-
-            $people = new People();
-            $people->user_id       = $you->id;
-            $people->name       = $you->name;
-            $people->email       = $you->email;
-            $people->role       = '1';
-            $auditoria->save();
-            
+            $auditoria->save();            
             $request->session()->flash("info", "É necessário configurar a conta");
         }
 

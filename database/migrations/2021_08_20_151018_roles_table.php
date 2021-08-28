@@ -14,6 +14,7 @@ class RolesTable extends Migration
      */
 	public function up()
 	{
+        
 		Schema::create(config::get('database.connections.tenant.schema').'.roles', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
@@ -76,14 +77,5 @@ class RolesTable extends Migration
 
 			$table->timestamps(10);
 		});
-	}
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-	public function down()
-	{
-		Schema::drop('roles');
 	}
 }
