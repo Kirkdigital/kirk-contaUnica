@@ -234,9 +234,11 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::delete('group/{id}/delete', 'GroupsController@destroygroup')->name('group.destroygroup');
     
     //pre-cadastro - wizard
-    Route::get('wizard', 'WizardController@create')->name('wizard.create');
+    Route::get('wizardList', 'WizardController@index')->name('wizard.index');
+    Route::any('wizardList-search', 'WizardController@searchAccount')->name('wizard.search');
     Route::post('wizard', 'WizardController@store')->name('wizard.store');
-    Route::any('wizard-search', 'WizardController@searchAccount')->name('wizard.search');
+    Route::get('wizard', 'WizardController@create')->name('wizard.create');
+    Route::post('/tenantWizard/{id}', 'WizardController@tenantWizard')->name('tenantWizard');
 
     //reports
     Route::any('report/financial/search', 'ReportController@searchFinancial')->name('financial.search');

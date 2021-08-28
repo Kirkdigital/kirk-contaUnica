@@ -61,7 +61,7 @@
           <div class="card-body">
           Seja Bem-vindo! <br>
           Gostaria de criar um pré-cadastro a sua igreja?
-          <label for="ccmonth"><a href="{{ route('wizard.create') }}" class="btn btn-dark m-2">Associar</a><br>
+          <label for="ccmonth"><a href="{{ route('wizard.index') }}" class="btn btn-dark m-2">Associar</a><br>
 
           </div>
           @endif

@@ -31,20 +31,23 @@ class WizardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function create()
+    public function index()
     {
         $institutions = Institution::all()->where('deleted_at', '=', null);
-        return view('account.wizard', ['institutions' => $institutions]);
+        return view('account.wizardList', ['institutions' => $institutions]);
     }
     
     public function searchAccount(Request $request, Institution $institution)
     {
         $dataForm = $request->except('_token');
-        $institutions =  $institution->search($dataForm, $this->totalPagesPaginate);
-        return view('account.wizard', compact('institutions', 'dataForm'));
+        $institutions =  $institution->search($dataForm, $this->totalPagesPaginate)->where('deleted_at', '=', null);
+        return view('account.wizardList', compact('institutions', 'dataForm'));
     }
-
+    public function create()
+    {
+        $institutions = Institution::all()->where('deleted_at', '=', null);
+        return view('account.wizard', ['institutions' => $institutions]);
+    }
     public function store(Request $request)
     {
         $you = auth()->user();
@@ -81,5 +84,14 @@ class WizardController extends Controller
            session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
            return redirect()->route('account.index');
         }
+    }
+    public function tenantWizard(Request $request, $id)
+    {
+        //mater toda a sessao
+        $request->session()->forget('key-wizard');
+        //inserir o código
+        $request->session()->put('key-wizard', $id);
+        //retornar
+        return redirect()->route('wizard.create');
     }
 }
