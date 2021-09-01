@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\People;
 use App\Models\People_Groups;
+use App\Models\Roles;
 use App\Models\Users_Account;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
@@ -33,14 +34,14 @@ class PeoplesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(People $people)
-    {   
+    {
         $you = auth()->user();
         //validar se selecionou a conta
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         //buscar
-        $peoples = People::orderBy('name', 'asc')->with('status')->paginate($this->totalPagesPaginate);
+        $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->paginate($this->totalPagesPaginate);
         //permissao
         $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         //status
@@ -55,15 +56,17 @@ class PeoplesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         //pegar o tenant
         $this->pegar_tenant();
         //status
         $statuses = Status::all()->where("type", 'people');
         //campos obrigatório
         $campo = Config_system::find('1')->first();
+        //roles 
+        $roles = Roles::all();
 
-        return view('people.createForm', compact('campo'), ['statuses' => $statuses]);
+        return view('people.createForm', compact('campo'), ['statuses' => $statuses, 'roles' => $roles]);
     }
 
     public function store(Request $request)
@@ -77,7 +80,7 @@ class PeoplesController extends Controller
         ]);
 
         $people = new People();
-        $nome = ($request->input('name') .' '.$request->input('last_name'));
+        $nome = ($request->input('name') . ' ' . $request->input('last_name'));
         $people->name          = $nome;
         $people->email         = $request->input('email');
         $people->mobile        = $request->input('mobile');
@@ -87,6 +90,7 @@ class PeoplesController extends Controller
         $people->state          = $request->input('state');
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
+        $people->role       = $request->input('role');
         $people->status_id = $request->input('status_id');
         $people->is_visitor       = $request->input('is_visitor');
         $people->is_transferred       = $request->input('is_transferred');
@@ -161,10 +165,10 @@ class PeoplesController extends Controller
         $campo = Config_system::find('1')->first();
         //status
         $statuses = Status::all()->where("type", 'people');
-        $this->output->write('my inline message', false);
+        //roles 
+        $roles = Roles::all();
 
-
-        return view('people.EditForm', compact('campo'),['statuses' => $statuses, 'people' => $people]);
+        return view('people.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people, 'roles' => $roles]);
     }
 
     /**
@@ -196,6 +200,7 @@ class PeoplesController extends Controller
         $people->state          = $request->input('state');
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
+        $people->role       = $request->input('role');
         $people->status_id = $request->input('status_id');
         $people->is_verify       = 'true';
         $people->is_visitor       = $request->has('is_visitor') ? 1 : 0;
@@ -284,7 +289,7 @@ class PeoplesController extends Controller
             if ($user_id != 0) {
                 $validaracesso = Users_Account::where('user_id', $user_id)->where('account_id', session()->get('key'));
                 $validaracesso->delete();
-                $this->adicionar_log_global('11', 'D', '{"people_id":"'.$id.'","account_id":"'.session()->get('key').'","user_id":"'.$user_id.'"}');
+                $this->adicionar_log_global('11', 'D', '{"people_id":"' . $id . '","account_id":"' . session()->get('key') . '","user_id":"' . $user_id . '"}');
                 //$this->adicionar_log('11', 'D', $validaracesso->get());
             }
             session()->flash("warning", "Sucessfully deleted people");

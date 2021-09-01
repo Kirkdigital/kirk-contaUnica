@@ -148,6 +148,33 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="name">Permissão *</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-face">
+                                                                    </use>
+                                                                </svg>
+                                                        </div>
+                                                        <select class="form-control" name="role">
+                                                            @foreach ($roles as $roles)
+                                                            @if ($roles->id == $people->roles)
+                                                                <option value="{{ $roles->id }}" selected="true">
+                                                                    {{ $roles->name }}</option>
+                                                            @else
+                                                                <option value="{{ $roles->id }}">{{ $roles->name }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @if ($people->user_id == null)
                                         <div class="form-check checkbox">
                                             <input class="form-check-input" id="criar_acesso"

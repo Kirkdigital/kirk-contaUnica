@@ -106,8 +106,8 @@
                                                                 </svg>
                                                         </div>
                                                         <input class="form-control" name="mobile" type="tel"
-                                                            placeholder="11 999999999"
-                                                            pattern="[0-9]{2} [0-9]{5}[0-9]{4}" @if ($campo->obg_mobile == true)
+                                                            placeholder="11 999999999" pattern="[0-9]{2} [0-9]{5}[0-9]{4}"
+                                                            @if ($campo->obg_mobile == true)
                                                         required
                                                         @endif
                                                         >
@@ -165,6 +165,28 @@
                                                             </use>
                                                         </svg>
                                                         <label class="form-check-label" for="f">Feminino</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="name">Permissão *</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">
+                                                                <svg class="c-icon">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-face">
+                                                                    </use>
+                                                                </svg>
+                                                        </div>
+                                                        <select class="form-control" name="role">
+                                                            @foreach ($roles as $roles)
+                                                                <option value="{{ $roles->id }}">
+                                                                    {{ $roles->name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,13 +326,14 @@
                                             <label class="col-md-3 col-form-label" for="textarea-input">Anotações
                                                 @if ($campo->obg_note == true)
                                                     *
-                                                @endif</label>
+                                                @endif
+                                            </label>
                                             <div class="col-md-9">
                                                 <textarea class="form-control" name="note" rows="9" placeholder="Content.."
                                                     @if ($campo->obg_note == true)
-                                                            required
-                                                            @endif
-                                                            ></textarea>
+                                                                        required
+                                                                        @endif
+                                                                        ></textarea>
                                             </div>
                                         </div>
                                     </div>

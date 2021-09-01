@@ -33,26 +33,23 @@
                                             <td>{{ $pessoasgrupo->registered }}</td>
                                             <td width="1%">
                                                 @if ($roles->roleslocal->edit_people == true)
-                                                <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"><i
-                                                        class="c-icon c-icon-sm cil-notes text-primary"></i></a>
-                                                @if ($pessoasgrupo->usuario->id == $responsavel->id)
-                                                @endif 
+                                                    <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"><i
+                                                            class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                @endif
+
                                             </td>
-                                        @else
                                             <td width="1%">
-                                                @if ($roles->roleslocal->delete_group_people == true)
-                                                <form action="{{ url('/group/' . $pessoasgrupo->id . '/delete') }}"
-                                                    method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <a class="show_confirm" data-toggle="tooltip" title='Delete'><i
-                                                            class="c-icon c-icon-sm cil-trash text-danger"></i></a>
-                                                </form>
+                                                @if ($roles->roleslocal->delete_group_people == true and !($pessoasgrupo->usuario->id == $responsavel->id))
+                                                    <form action="{{ url('/group/' . $pessoasgrupo->id . '/delete') }}"
+                                                        method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <a class="show_confirm" data-toggle="tooltip" title='Delete'><i
+                                                                class="c-icon c-icon-sm cil-trash text-danger"></i></a>
+                                                    </form>
                                                 @endif
                                             </td>
-                                            
-                                    @endif
-                                    </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

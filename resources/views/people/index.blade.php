@@ -58,6 +58,7 @@
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Mobile</th>
+                                            <th>Permissão</th>
                                             <th>Localization</th>
                                             <th>Status</th>
                                             <th colspan="3">
@@ -75,6 +76,7 @@
                                                 </td>
                                                 <td>{{ $people->email }}</td>
                                                 <td>{{ $people->mobile }}</td>
+                                                <td>{{ $people->roleslocal->name }}</td>
                                                 <td>
                                                     @if ($people->city && $people->state != null)
                                                         {{ $people->city }} / {{ $people->state }}

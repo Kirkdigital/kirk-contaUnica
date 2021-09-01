@@ -20,6 +20,8 @@ class BaseSeeder extends Seeder
         DB::table(config::get('database.connections.tenant.schema').'.config_system')->insert([
             'name' => 'DeskApps',
             'timezone' => 'America/Manaus',
+            'c' => 'R$',
+            'obg_last_name' => '1',
         ]);
         
         DB::table(config::get('database.connections.tenant.schema').'.config_meta')->insert([
@@ -31,7 +33,7 @@ class BaseSeeder extends Seeder
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
-            'name' => 'ADMIN',
+            'name' => 'Admin',
             'add_people' => '1',
 			'edit_people' => '1',
             'view_people' => '1',
@@ -81,7 +83,7 @@ class BaseSeeder extends Seeder
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
-            'name' => 'MEMBRO',
+            'name' => 'Membro',
             'add_people' => '0',
 			'edit_people' => '0',
             'view_people' => '0',
