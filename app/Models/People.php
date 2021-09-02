@@ -27,6 +27,8 @@ class People extends Model
         'is_baptism',
         'is_newvisitor',
         'note',
+        'image',
+        'image1'
     ];
 
     /**

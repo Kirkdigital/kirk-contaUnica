@@ -12,7 +12,7 @@ class Balance extends Model
     public $timestamps = false;
     protected $connection = 'tenant';
 
-    public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people): array
+    public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people, $date, $sub_total, $total_tax, $discount): array
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
 
@@ -32,7 +32,11 @@ class Balance extends Model
             'total_before' => $totalBefore,
             'user_id_transaction' => $people,
             'total_after' => $this->amount,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'itens' => json_encode($date),
+            'sub_total' => $sub_total,
+            'total_tax' => $total_tax,
+            'discount' => $discount,
         ]);
         if ($deposit && $historic) {
             $this->adicionar_log('5', 'C', $historic);

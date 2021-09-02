@@ -56,6 +56,7 @@ class ProfileController extends Controller
         $user->email      = $request->input('email');
         $user->mobile       = $request->input('mobile');
         $user->doc       = $request->input('doc');
+        
         if ($request->has('profile_image')) {
             // Get image file
             $image = $request->file('profile_image');
@@ -71,7 +72,8 @@ class ProfileController extends Controller
             // Set user profile image path in database to filePath
             $user->profile_image = $filePath;
         }
-        $this->adicionar_log_global('8', 'U', $user);
+        $this->adicionar_log_global('8', 'U', '{"name":"' . $user->name . '","email":"' . $user->email . '","mobile":"' . $user->mobile . '","doc":"' . $user->doc . '"}');
+        
         $user->save();
         $request->session()->flash("success", 'events.change_success');
 

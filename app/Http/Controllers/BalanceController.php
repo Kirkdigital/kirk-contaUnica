@@ -68,7 +68,25 @@ class BalanceController extends Controller
         $this->pegar_tenant();
         $conta = session()->get('key');
         $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
-        $response = $balance->deposit($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
+
+        $data['item'] = $request->product_description;
+        $data['quantity'] = $request->quantity;
+        $data['price'] = $request->price;
+        $data['tax'] = $request->tax;
+        $data['total'] = $request->total;
+
+        $response = $balance->deposit(
+            $request->valor,
+            $request->pag,
+            $request->date_lancamento,
+            $request->observacao,
+            $request->tipo,
+            $request->itemName,
+            $data,
+            $request->sub_total,
+            $request->total_tax,
+            $request->discount
+        );
         if ($response['success']) {
             return redirect('financial')
                 ->with('success', $response['message']);
@@ -135,7 +153,7 @@ class BalanceController extends Controller
         $statuspag = Status::all()->where("type", 'pagamento');
         $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('balance.historics', compact('historics', 'types','roles', 'dataForm', 'statuspag', 'statusfinan'));
+        return view('balance.historics', compact('historics', 'types', 'roles', 'dataForm', 'statuspag', 'statusfinan'));
     }
 
     public function show($id)
@@ -152,6 +170,8 @@ class BalanceController extends Controller
 
         $usuario = User::find($historics->user_id);
 
-        return view('balance.detail', compact('historics', 'account', 'people', 'statuspag', 'statusfinan', 'usuario'));
+        $listar = $historics->itens;
+
+        return view('balance.detail', compact('historics', 'account', 'people', 'statuspag', 'statusfinan', 'usuario', 'listar'));
     }
 }
