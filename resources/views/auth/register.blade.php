@@ -24,7 +24,7 @@
                   </div>
                   <div class="form-group col-6">
                     <label for="last_name">Last Name</label>
-                    <input id="last_name" type="text" class="form-control" name="last_name">
+                    <input id="last_name" type="text" class="form-control" placeholder="Sobrenome" name="last_name">
                   </div>
                 </div>
 
@@ -53,7 +53,8 @@
                 <div class="row">
                   <div class="form-group col-6">
                     <label>Telefone</label>
-                    <input class="form-control" type="tel" placeholder="" name="mobile"  required autofocus>
+                    <input class="form-control" type="tel" placeholder="21 998121-1212" name="mobile"  required autofocus
+                    pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}">
                   </div>
                   <div class="form-group col-6">
                     <label>Country</label>
@@ -65,7 +66,7 @@
 
                 <div class="form-group">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                    <input type="checkbox" name="agree" class="custom-control-input" id="agree" required>
                     <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
                   </div>
                 </div>

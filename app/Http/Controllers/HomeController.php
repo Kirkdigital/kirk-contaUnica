@@ -106,9 +106,9 @@ class HomeController extends Controller
                             ->with('status')
                             ->with('statuspag')
                             ->where('type','I')
-                            ->orderBy('id', 'asc')
+                            ->orderBy('date', 'desc')
                             ->where('user_id_transaction', $id)
-                            ->get();
+                            ->paginate('12');
 
         return view('home', 
             compact(

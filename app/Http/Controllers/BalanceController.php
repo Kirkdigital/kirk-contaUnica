@@ -88,7 +88,7 @@ class BalanceController extends Controller
             $request->discount
         );
         if ($response['success']) {
-            return redirect('financial')
+            return redirect()->back()
                 ->with('success', $response['message']);
         }
 
@@ -113,7 +113,7 @@ class BalanceController extends Controller
         $balance = Balance::where('account_id', $conta)->first()->firstOrCreate([]);
         $response = $balance->withdraw($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
         if ($response['success']) {
-            return redirect('financial')
+            return redirect()->back()
                 ->with('success', $response['message']);
         }
 

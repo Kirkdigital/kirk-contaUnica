@@ -143,187 +143,203 @@
                 @endif
 
                 @if ($roles->roleslocal->home_financeiro_valores == true)
-                @if (!$dizimos->isEmpty())
+                    @if (!$dizimos->isEmpty())
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>Seus valores</h6>
+                                        <table class="table table-responsive-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Value</th>
+                                                    <th>Type</th>
+                                                    <th>Forma de pagamento</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($dizimos as $dizimo)
+                                                    <tr>
+                                                        <td>R$ {{ $dizimo->amount }}</td>
+                                                        <td>{{ $dizimo->status->name }}</td>
+                                                        <td>
+                                                        <span class="{{ $dizimo->statuspag->class }}">
+                                                            {{ $dizimo->statuspag->name }}
+                                                        </span>
+                                                        </td>
+                                                        <td>{{ $dizimo->date }}</td>
+                                                    </tr>
+                                                    </tr>
+                                                @empty
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                        {{ $dizimos->links() }}
+                                    </div>
+                                </div>
+                    @endif
+                @endif
+                @if ($roles->roleslocal->home_financeiro == true)
+                    <!-- /.row-->
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h6>Seus valores</h6>
-                                    <table class="table table-responsive-sm table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Value</th>
-                                                <th>Type</th>
-                                                <th>Forma de pagamento</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse($dizimos as $dizimo)
-                                                <tr>
-                                                    <td>R$ {{ $dizimo->amount }}</td>
-                                                    <td>{{ $dizimo->status->name }}</td>
-                                                    <td>{{ $dizimo->statuspag->name }}</td>
-                                                    <td>{{ $dizimo->date }}</td>
-                                                </tr>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                @endif
-            @endif  
-        @if ($roles->roleslocal->home_financeiro == true)
-            <!-- /.row-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Informações gerais</h6>
-                            <p>
-                            <div class="row">
-                                <div class="col-sm-6">
+                                    <h6>Informações gerais</h6>
+                                    <p>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <div class="c-callout c-callout-info"><small class="text-muted">Total de
-                                                    Visitantes</small>
-                                                <div class="text-value-lg">{{ $totalvisitante }}</div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="c-callout c-callout-info"><small
+                                                            class="text-muted">Total de
+                                                            Visitantes</small>
+                                                        <div class="text-value-lg">{{ $totalvisitante }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-->
+                                                <div class="col-6">
+                                                    <div class="c-callout c-callout-danger"><small
+                                                            class="text-muted">Total
+                                                            de Conversões</small>
+                                                        <div class="text-value-lg"> {{ $totalconversao }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-->
+                                            </div>
+                                            <!-- /.row-->
+                                            <hr class="mt-0">
+                                            Movimento finaceiro x Previsão
+                                            <div class="progress-group">
+                                                <div class="progress-group-header align-items-end">
+                                                    <svg class="c-icon progress-group-icon">
+                                                        <use
+                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                        </use>
+                                                    </svg>
+                                                    <div>Dizimos</div>
+                                                    <div class="ml-auto font-weight-bold mr-2"></div>
+                                                    <div class="text-muted small"></div>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: {{ $porcentage_dizimo }}%" aria-valuenow="56"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="progress-group">
+                                                <div class="progress-group-header align-items-end">
+                                                    <svg class="c-icon progress-group-icon">
+                                                        <use
+                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                        </use>
+                                                    </svg>
+                                                    <div>Ofertas</div>
+                                                    <div class="ml-auto font-weight-bold mr-2"></div>
+                                                    <div class="text-muted small"></div>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: {{ $porcentage_oferta }}%" aria-valuenow="15"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="progress-group">
+                                                <div class="progress-group-header align-items-end">
+                                                    <svg class="c-icon progress-group-icon">
+                                                        <use
+                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                        </use>
+                                                    </svg>
+                                                    <div>Doações</div>
+                                                    <div class="ml-auto font-weight-bold mr-2"></div>
+                                                    <div class="text-muted small"></div>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: {{ $porcentage_doacao }}%" aria-valuenow="11"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="progress-group">
+                                                <div class="progress-group-header align-items-end">
+                                                    <svg class="c-icon progress-group-icon">
+                                                        <use
+                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                        </use>
+                                                    </svg>
+                                                    <div>Despesas</div>
+                                                    <div class="ml-auto font-weight-bold mr-2"></div>
+                                                    <div class="text-muted small"></div>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width:  {{ $porcentage_despesa }}%" aria-valuenow="8"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- /.col-->
-                                        <div class="col-6">
-                                            <div class="c-callout c-callout-danger"><small class="text-muted">Total
-                                                    de Conversões</small>
-                                                <div class="text-value-lg"> {{ $totalconversao }}</div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="c-callout c-callout-warning"><small
+                                                            class="text-muted">Total
+                                                            de Batismos</small>
+                                                        <div class="text-value-lg">{{ $totalbatismo }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-->
+                                                <div class="col-6">
+                                                    <div class="c-callout c-callout-success"><small
+                                                            class="text-muted">Total
+                                                            de Pessoas</small>
+                                                        <div class="text-value-lg">{{ $peopleativo }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-->
                                             </div>
-                                        </div>
-                                        <!-- /.col-->
-                                    </div>
-                                    <!-- /.row-->
-                                    <hr class="mt-0">
-                                    Movimento finaceiro x Previsão
-                                    <div class="progress-group">
-                                        <div class="progress-group-header align-items-end">
-                                            <svg class="c-icon progress-group-icon">
-                                                <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                </use>
-                                            </svg>
-                                            <div>Dizimos</div>
-                                            <div class="ml-auto font-weight-bold mr-2"></div>
-                                            <div class="text-muted small"></div>
-                                        </div>
-                                        <div class="progress-group-bars">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: {{ $porcentage_dizimo }}%" aria-valuenow="56"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            <!-- /.row-->
+                                            <hr class="mt-0">
+                                            <div class="progress-group">
+                                                Gráfico do movimento
+                                                <div class="c-chart-wrapper">
+                                                    <canvas id="chats"></canvas>
+                                                </div>
                                             </div>
+                                            <!-- /.row-->
                                         </div>
+
                                     </div>
-                                    <div class="progress-group">
-                                        <div class="progress-group-header align-items-end">
-                                            <svg class="c-icon progress-group-icon">
-                                                <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                </use>
-                                            </svg>
-                                            <div>Ofertas</div>
-                                            <div class="ml-auto font-weight-bold mr-2"></div>
-                                            <div class="text-muted small"></div>
-                                        </div>
-                                        <div class="progress-group-bars">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: {{ $porcentage_oferta }}%" aria-valuenow="15"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-group">
-                                        <div class="progress-group-header align-items-end">
-                                            <svg class="c-icon progress-group-icon">
-                                                <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                </use>
-                                            </svg>
-                                            <div>Doações</div>
-                                            <div class="ml-auto font-weight-bold mr-2"></div>
-                                            <div class="text-muted small"></div>
-                                        </div>
-                                        <div class="progress-group-bars">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: {{ $porcentage_doacao }}%" aria-valuenow="11"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-group">
-                                        <div class="progress-group-header align-items-end">
-                                            <svg class="c-icon progress-group-icon">
-                                                <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                </use>
-                                            </svg>
-                                            <div>Despesas</div>
-                                            <div class="ml-auto font-weight-bold mr-2"></div>
-                                            <div class="text-muted small"></div>
-                                        </div>
-                                        <div class="progress-group-bars">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width:  {{ $porcentage_despesa }}%" aria-valuenow="8"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.col-->
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="c-callout c-callout-warning"><small class="text-muted">Total
-                                                    de Batismos</small>
-                                                <div class="text-value-lg">{{ $totalbatismo }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- /.col-->
-                                        <div class="col-6">
-                                            <div class="c-callout c-callout-success"><small class="text-muted">Total
-                                                    de Pessoas</small>
-                                                <div class="text-value-lg">{{ $peopleativo }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- /.col-->
-                                    </div>
-                                    <!-- /.row-->
-                                    <hr class="mt-0">
-                                    <div class="progress-group">
-                                        Gráfico do movimento
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="chats"></canvas>
-                                        </div>
-                                    </div>
-                                    <!-- /.row-->
+                                    <!-- /.col-->
                                 </div>
 
                             </div>
-                            <!-- /.col-->
                         </div>
-
                     </div>
-                </div>
+                @endif
             </div>
-        @endif
+        </div>
     </div>
-    </div>
-    </div>
+    <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
     <script type="text/javascript">
         var pieChart = new Chart(document.getElementById('chats'), {
             type: 'pie',
             data: {
                 labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
                 datasets: [{
-                    data: ['1500', '1500', '1500', '1500'],
+                    data: [{{ $dizimoatual }}, {{ $ofertaatual }}, {{ $doacaoatual }},
+                        {{ $despesaatual }}
+                    ],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c'],
                     hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c']
                 }]
@@ -331,6 +347,8 @@
             options: {
                 responsive: true
             }
+
+
         })
     </script>
 @endsection
