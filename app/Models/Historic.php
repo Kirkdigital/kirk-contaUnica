@@ -79,5 +79,9 @@ class Historic extends Model
     {
         return $this->belongsTo('App\Models\Status', 'pag');
     }
+    public function seusdizimos()
+    {
+        return $this->belongsTo('App\Models\People', 'user_id_transaction', 'id');
+    }
 
 }

@@ -142,8 +142,39 @@
                     @endif
                 @endif
 
-            </div>
-        </div>
+                @if ($roles->roleslocal->home_financeiro_valores == true)
+                @if (!$dizimos->isEmpty())
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6>Seus valores</h6>
+                                    <table class="table table-responsive-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Value</th>
+                                                <th>Type</th>
+                                                <th>Forma de pagamento</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse($dizimos as $dizimo)
+                                                <tr>
+                                                    <td>R$ {{ $dizimo->amount }}</td>
+                                                    <td>{{ $dizimo->status->name }}</td>
+                                                    <td>{{ $dizimo->statuspag->name }}</td>
+                                                    <td>{{ $dizimo->date }}</td>
+                                                </tr>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                @endif
+            @endif  
         @if ($roles->roleslocal->home_financeiro == true)
             <!-- /.row-->
             <div class="row">
@@ -186,7 +217,7 @@
                                         <div class="progress-group-bars">
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: {{ $porcentage_doacao }}%" aria-valuenow="56"
+                                                    style="width: {{ $porcentage_dizimo }}%" aria-valuenow="56"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
@@ -204,7 +235,7 @@
                                         <div class="progress-group-bars">
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: {{ $porcentage_doacao }}%" aria-valuenow="15"
+                                                    style="width: {{ $porcentage_oferta }}%" aria-valuenow="15"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>

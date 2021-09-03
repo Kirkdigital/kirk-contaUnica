@@ -100,7 +100,15 @@ class HomeController extends Controller
         }
         else
         $id = $user->id;
-        $groups = People_Groups::with('grupo')->where('user_id', $id)->get();
+        $groups = People_Groups::with('grupo')
+                            ->where('user_id', $id)->get();
+        $dizimos = Historic::with('seusdizimos')
+                            ->with('status')
+                            ->with('statuspag')
+                            ->where('type','I')
+                            ->orderBy('id', 'asc')
+                            ->where('user_id_transaction', $id)
+                            ->get();
 
         return view('home', 
             compact(
@@ -124,7 +132,7 @@ class HomeController extends Controller
                     'porcentage_oferta',
                     'porcentage_doacao',
                     'porcentage_despesa',
-                ), ['groups' => $groups]);
+                ), ['groups' => $groups, 'dizimos' => $dizimos]);
                 
     }
         //calcular porcentagem individual x total
