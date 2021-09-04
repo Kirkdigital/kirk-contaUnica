@@ -38,10 +38,8 @@ class PeoplesController extends Controller
         $you = auth()->user();
         //validar se selecionou a conta
         $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         //buscar
-        $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->paginate($this->totalPagesPaginate);
+        $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->where('is_admin',false)->paginate($this->totalPagesPaginate);
         //status
         $statuses = Status::all()->where("type", 'people');
         return view('people.index', compact('peoples', 'statuses'));

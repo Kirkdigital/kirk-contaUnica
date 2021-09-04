@@ -19,6 +19,9 @@
                                     @if($people == 0)
                                     <input type="file" name="file" class="form-control">
                                     <br>
+                                    You can download demo csv file from here: CSV File.<br>
+                                    <a class="btn btn-dark" href="{{ url('/public/backup/empty.csv') }} ">Download</a>
+                                    <br><br>
                                     <button class="btn btn-success">Import User Data</button>
                                     @endif
                                     <a class="btn btn-info" href="{{ route('export') }}">Export User Data</a>

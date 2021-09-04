@@ -32,7 +32,7 @@ class peopleTable extends Migration {
 			$table->string('city')->nullable();
             $table->string('role')->nullable()->default(1);
 			$table->string('note')->nullable();
-            $table->integer('status_id');
+            $table->integer('status_id')->default(14);
 			$table->boolean('is_verify')->nullable()->default(1);
 			$table->boolean('is_visitor')->nullable()->default(0);
 			$table->boolean('is_transferred')->nullable()->default(0);
@@ -40,7 +40,7 @@ class peopleTable extends Migration {
 			$table->boolean('is_conversion')->nullable()->default(0);
 			$table->boolean('is_baptism')->nullable()->default(0);
 			$table->boolean('is_newvisitor')->nullable()->default(0);
-			$table->boolean('is_admin')->nullable();
+			$table->boolean('is_admin')->nullable()->default(0);
             $table->timestamps(10);
 			$table->softDeletes('deleted_at')->nullable();
 		});

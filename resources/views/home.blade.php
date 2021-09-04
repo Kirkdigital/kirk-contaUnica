@@ -15,6 +15,15 @@
                     </div>
                 </div>
             @endif
+            @if ($appPermissao->view_people == true and $peopleativo == 0)
+            <div class="card card-accent-success mb-12" style="max-width: 25rem;">
+                <div class="card-body text-success">
+                    <h6 class="card-title">Gostaria de importar uma planilha com as Pessoas?</h6>
+                    <a href="{{ url('settings/backup') }}" class="btn btn-primary">Importar</a>
+                    </p>
+                </div>
+            </div>
+        @endif
             <style type="text/css">
                 .btn {
                     margin-bottom: 4px;

@@ -52,7 +52,7 @@ class DashController extends Controller
         $financeiro = Historic::all();
 
         //valor total
-        $peopleativo = $people->count();
+        $peopleativo = $people->where('is_admin',false)->count();
         $totalvisitante = $people->where('is_visitor', true)->count();
         $totalbatismo = $people->where('is_baptism', true)->count();
         $totalconversao = $people->where('is_conversion', true)->count();

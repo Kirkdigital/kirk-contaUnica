@@ -5,6 +5,8 @@ namespace App\Excel;
 use App\Models\People;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Config;
+
   
 class UsersImport implements ToModel, WithHeadingRow
 {
@@ -15,10 +17,14 @@ class UsersImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        Config::set('database.connections.tenant.schema', session()->get('conexao')); 
+
         return new People([
-            'name'     => $row['name'],
+            'name'     => ucfirst($row['name']),
             'email'    => $row['email'], 
             'mobile'    => $row['mobile'], 
+            'role' => '2',
+            'status_id' => '14',
             //'password' => Hash::make($row['password']),
         ]);
     }

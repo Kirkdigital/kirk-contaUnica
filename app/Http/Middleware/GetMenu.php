@@ -21,6 +21,7 @@ class GetMenu
      */
     public function handle($request, Closure $next)
     {
+        
         if (Auth::check()){
             $role = 'guest';
             //$role =  Auth::user()->menuroles;
@@ -53,6 +54,7 @@ class GetMenu
             $result[ $menulist->name ] = $menus->get( $role, $menulist->id );
         }
         view()->share('appMenus', $result );
+        
         return $next($request);
     }
 }

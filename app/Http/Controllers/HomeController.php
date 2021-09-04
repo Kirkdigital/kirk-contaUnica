@@ -68,7 +68,7 @@ class HomeController extends Controller
         $social = Config_social::find('1')->first();
         //dash de status
         $people = People::all();        
-        $peopleativo = $people->count();
+        $peopleativo = $people->where('is_admin',false)->count();
         $totalvisitante = $people->where('is_visitor', true)->count();
         $totalbatismo = $people->where('is_baptism', true)->count();
         $totalconversao = $people->where('is_conversion', true)->count();
@@ -96,7 +96,6 @@ class HomeController extends Controller
             $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
             return redirect()->route('account.index');
         }
-
         else
         $id = $user->id;
         $groups = People_Groups::with('grupo')

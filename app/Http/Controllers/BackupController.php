@@ -22,6 +22,7 @@ class BackupController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -38,7 +39,7 @@ class BackupController extends Controller
         $you = auth()->user();
         //pegar configurações 
         $config = Config_system::all();
-        $people = People::all()->count(); 
+        $people = People::where('is_admin',false)->count(); 
         //pegar a data
         $ldate = date('Y-m');
         return view('settings.backup', compact('config', 'people'));
