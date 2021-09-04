@@ -76,7 +76,7 @@
                                       </td>
                                       <td>{{ $people->created_at }}</td>
                                       <td width="1%">
-                                      @if ($roles->roleslocal->view_precadastro == true)
+                                      @if ($appPermissao->view_precadastro == true)
                                        <a href="{{ route('peopleList.edit', $people->id) }}"><i class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i></a>
                                       @endif
                                     </td>

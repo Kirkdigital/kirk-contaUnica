@@ -27,9 +27,6 @@ Route::group(['middleware' => ['get.menu']], function () {
 
 
     Route::group(['middleware' => ['role:user']], function () {
-        Route::get('/reports', function () {
-            return view('dashboard.reports.index');
-        });
         Route::get('/colors', function () {
             return view('dashboard.colors');
         });
@@ -173,7 +170,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::post('import',        'BackupController@import')->name('import');
 
         //calendar
-        Route::get('/calender', [FullCalenderController::class, 'index']);
+        Route::get('calender', [FullCalenderController::class, 'index']);
         Route::post('fullcalenderAjax', [FullCalenderController::class, 'ajax']);
 
         //tema para consulta
@@ -248,6 +245,8 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::any('report/group/search', 'ReportController@searchGroup')->name('grouprep.search');
     Route::get('report/group', 'ReportController@Group')->name('group.Financial');
 
+    Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
+
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
 
@@ -267,7 +266,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/thema', function () {
             return view('dashboard.buttons.them');
         });
-        Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
         Route::resource('users',        'UsersController')->except(['create', 'store']);
         Route::get('prepareSend/{id}',        'MailController@prepareSend')->name('prepareSend');

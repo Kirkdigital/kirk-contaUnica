@@ -24,11 +24,11 @@
                                     </div>
                                     <div class="col-sm-8 col-md-5 col-lg-5 col-xl-5">
                                         <div class="box-header">
-                                            @if ($roles->roleslocal->add_entrada_financial == true)
+                                            @if ($appPermissao->add_entrada_financial == true)
                                                 <a href="{{ route('balance.depositar') }}"
                                                     class="btn btn-success">Entrada</a>
                                             @endif
-                                            @if ($roles->roleslocal->add_retirada_financial == true)
+                                            @if ($appPermissao->add_retirada_financial == true)
                                                 @if ($amount > 0)
                                                     <a href="{{ route('balance.withdraw') }}"
                                                         class="btn btn-danger">Retirada</a>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($roles->roleslocal->view_financial == true)
+                        @if ($appPermissao->view_financial == true)
                             <div class="container">
                                 <div class="box-body">
                                     <table class="table table-responsive-sm table-striped">

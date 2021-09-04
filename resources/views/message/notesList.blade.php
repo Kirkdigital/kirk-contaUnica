@@ -14,7 +14,7 @@
                                         <h5>Recados</h5>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                        @if ($roles->roleslocal->add_message == true)
+                                        @if ($appPermissao->add_message == true)
 
                                             <div class="row">
                                                 <a href="{{ route('message.create') }}"
@@ -52,19 +52,19 @@
                                                 </span>
                                             </td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->view_message == true)
+                                                @if ($appPermissao->view_message == true)
                                                     <a href="{{ route('message.show', $note->id) }}"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 @endif
                                             </td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->edit_message == true)
+                                                @if ($appPermissao->edit_message == true)
                                                     <a href="{{ route('message.edit', $note->id) }}"><i
                                                             class="c-icon c-icon-sm cil-pencil text-success"></i></a>
                                                 @endif
                                             </td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->delete_message == true)
+                                                @if ($appPermissao->delete_message == true)
                                                     <form action="{{ route('message.destroy', $note->id) }}"
                                                         method="POST">
                                                         @method('DELETE')

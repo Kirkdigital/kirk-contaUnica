@@ -165,7 +165,7 @@
                                             </td>
                                             <td>{{ $historic->date }}</td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->view_financial == true)
+                                                @if ($appPermissao->view_financial == true)
                                                     <a href="{{ url('/financial/' . $historic->id) }}"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 @endif

@@ -149,8 +149,8 @@
                                             <td>
                                                 <label
                                                     class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
-                                                    <input class="c-switch-input" name="add_group_people" type="checkbox"
-                                                        {{ $role->add_group_people == true ? 'checked' : '' }}><span
+                                                    <input class="c-switch-input" name="delete_group_people" type="checkbox"
+                                                        {{ $role->delete_group_people == true ? 'checked' : '' }}><span
                                                         class="c-switch-slider" data-checked="&#x2713"
                                                         data-unchecked="&#x2715"></span>
                                                 </label>
@@ -474,7 +474,43 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
+                                    <div class="card-header"><i class="fa fa-align-justify"></i>Complemento
+                                    </div>
+                                    <table class="table table-responsive-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Relatórios</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mostrar</td>
+                                                <td>
+                                                    <label
+                                                        class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
+                                                        <input class="c-switch-input" name="settings_general"
+                                                            type="checkbox"
+                                                            {{ $role->report_view == true ? 'checked' : '' }}><span
+                                                            class="c-switch-slider" data-checked="&#x2713"
+                                                            data-unchecked="&#x2715"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a class="btn btn-dark" href="{{ route('roles.index') }}">Return</a>

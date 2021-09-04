@@ -193,6 +193,7 @@ class InstitutionsController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'status_id' => '14',
+                'is_admin' => 'true',
                 'role' => '1',
             ]);
 

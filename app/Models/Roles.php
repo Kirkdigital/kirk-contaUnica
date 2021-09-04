@@ -14,16 +14,53 @@ class Roles extends Model
     use Notifiable;
 
     protected $connection = 'tenant';
-    protected $table ='roles';
-    
+    protected $table = 'roles';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'delete_institution', 'delete_people', 'delete_note', 'delete_note', 
-        'delete_financial', 'delete_calendar', 'view_periodo', 'view_dash', 'view_detail','view_resumo_financeiro'
+        'name',
+        'add_people',
+        'edit_people',
+        'view_people',
+        'delete_people', 
+        'edit_precadastro', 
+        'view_precadastro', 
+        'add_group',
+        'add_group_people',
+        'edit_group',
+        'view_group',
+        'delete_group',
+        'delete_group_group',
+        'add_message',
+        'edit_message',
+        'view_message',
+        'delete_message',
+        'add_entrada_financial',
+        'add_retirada_financial',
+        'edit_financial',
+        'view_financial',
+        'delete_financial',
+        'add_calendar',
+        'edit_calendar',
+        'view_calendar',
+        'delete_calendar',
+        'home_financeiro',
+        'home_financeiro_valores',
+        'home_grupo',
+        'home_social',
+        'view_periodo',
+        'view_dash',
+        'view_detail',
+        'view_resumo_financeiro',
+        'settings_general',
+        'settings_email',
+        'settings_meta',
+        'settings_social',
+        'settings_roles'
     ];
 
     /**
@@ -31,9 +68,7 @@ class Roles extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'institution_fk',
-    ];
+
 
     /**
      * The attributes that should be cast to native types.
@@ -47,5 +82,4 @@ class Roles extends Model
     protected $dates = [
         'deleted_at'
     ];
-
 }

@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use App\Models\Status;
 use App\Models\Group;
-use App\Models\Config_system;
 use App\Models\People_Groups;
-use App\Http\Controllers\Input;
 use App\Models\People;
-use App\Models\Roles;
-use Facade\Ignition\DumpRecorder\Dump;
+
 
 class GroupsController extends Controller
 {
@@ -27,6 +23,7 @@ class GroupsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -42,8 +39,7 @@ class GroupsController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
-        return view('group.index', compact('groups', 'roles'));
+        return view('group.index', compact('groups'));
     }
 
     /**
@@ -174,11 +170,10 @@ class GroupsController extends Controller
 
         $you = auth()->user();
         //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $dataForm = $request->except('_token');
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
 
-        return view('group.index', compact('groups', 'dataForm', 'roles'));
+        return view('group.index', compact('groups', 'dataForm'));
     }
 
     public function show($id)
@@ -189,8 +184,7 @@ class GroupsController extends Controller
         $responsavel = People::find($group->user_id);
         $you = auth()->user();
         //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
-        return view('group.Show', compact('group', 'roles','responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
+        return view('group.Show', compact('group','responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
     public function storepeoplegroup(Request $request)

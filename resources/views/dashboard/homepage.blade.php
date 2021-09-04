@@ -5,11 +5,11 @@
 
     <div class="container-fluid">
         <div class="fade-in">
-            @if ($roles->roleslocal->view_periodo == false and $roles->roleslocal->view_dash == false and $roles->roleslocal->view_detail == false and $roles->roleslocal->view_resumo_financeiro == false)
+            @if ($appPermissao->view_periodo == false and $appPermissao->view_dash == false and $appPermissao->view_detail == false and $appPermissao->view_resumo_financeiro == false)
                 Dashboard desabilitado
             @endif
 
-            @if ($roles->roleslocal->view_dash == true)
+            @if ($appPermissao->view_dash == true)
                 <div class="row">
                     <div class="col-sm-6 col-md-2">
                         <div class="card">
@@ -133,7 +133,7 @@
                     <!-- /.col-->
                 </div>
             @endif
-            @if ($roles->roleslocal->view_periodo == true)
+            @if ($appPermissao->view_periodo == true)
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -209,7 +209,7 @@
                 </div>
                 <!-- /.card-->
             @endif
-            @if ($roles->roleslocal->view_detail == true)
+            @if ($appPermissao->view_detail == true)
                 <!-- /.row-->
                 <div class="row">
                     <div class="col-md-12">
@@ -403,7 +403,7 @@
                             </div>
                         </div>
             @endif
-            @if ($roles->roleslocal->view_resumo_financeiro == true)
+            @if ($appPermissao->view_resumo_financeiro == true)
                 <div class="card">
                     <div class="card-body">
 

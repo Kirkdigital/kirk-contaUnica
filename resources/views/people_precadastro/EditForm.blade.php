@@ -285,7 +285,7 @@
                            </div>
                            <div class="row">
 
-                                @if ($people->status_id == '21' and $roles->roleslocal->edit_precadastro == true)
+                                @if ($people->status_id == '21' and $appPermissao->edit_precadastro == true)
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <button class="btn btn-primary" type="submit">Aprovar</button>

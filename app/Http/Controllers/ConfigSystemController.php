@@ -22,6 +22,7 @@ class ConfigSystemController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -36,9 +37,8 @@ class ConfigSystemController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
-        return view('settings.index', compact('roles'));
+        return view('settings.index');
     }
 
     public function indexSystem()

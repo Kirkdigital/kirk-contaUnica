@@ -12,7 +12,6 @@ use App\Models\People;
 use App\Models\People_Groups;
 use App\Models\Roles;
 use App\Models\Users_Account;
-use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class PeoplesController extends Controller
@@ -26,6 +25,7 @@ class PeoplesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -42,12 +42,9 @@ class PeoplesController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         //buscar
         $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->paginate($this->totalPagesPaginate);
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         //status
         $statuses = Status::all()->where("type", 'people');
-
-        return view('people.index', compact('peoples', 'roles', 'statuses'));
+        return view('people.index', compact('peoples', 'statuses'));
     }
 
     /**
@@ -294,7 +291,6 @@ class PeoplesController extends Controller
             }
             session()->flash("warning", "Sucessfully deleted people");
             return redirect()->route('people.index');
-            return redirect()->back();
         }
     }
 

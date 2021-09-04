@@ -13,6 +13,12 @@ class FullCalenderController extends Controller
     *
     * @return response()
     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission');
+    }
+    
    public function index(Request $request)
    {
     $this->pegar_tenant();

@@ -35,7 +35,7 @@ class RolesTable extends Migration
             $table->boolean('edit_group')->nullable()->default(0);
             $table->boolean('view_group')->nullable()->default(0);
             $table->boolean('delete_group')->nullable()->default(0);
-            $table->boolean('delete_group_group')->nullable()->default(0);
+            $table->boolean('delete_group_people')->nullable()->default(0);
 
             //recado
 			$table->boolean('add_message')->nullable()->default(0);
@@ -57,10 +57,10 @@ class RolesTable extends Migration
 			$table->boolean('delete_calendar')->nullable()->default(0);
 
             //home
-            $table->boolean('home_financeiro')->nullable()->default(1);
-            $table->boolean('home_financeiro_valores')->nullable()->default(1);
-            $table->boolean('home_grupo')->nullable()->default(1);
-            $table->boolean('home_social')->nullable()->default(1);
+            $table->boolean('home_financeiro')->nullable()->default(0);
+            $table->boolean('home_financeiro_valores')->nullable()->default(0);
+            $table->boolean('home_grupo')->nullable()->default(0);
+            $table->boolean('home_social')->nullable()->default(0);
 
             //dash
             $table->boolean('view_periodo')->nullable()->default(0);
@@ -74,6 +74,8 @@ class RolesTable extends Migration
 			$table->boolean('settings_meta')->nullable()->default(0);
 			$table->boolean('settings_social')->nullable()->default(0);
             $table->boolean('settings_roles')->nullable()->default(0);
+            //relatorio
+            $table->boolean('report_view')->nullable()->default(0);
 
 			$table->timestamps(10);
 		});

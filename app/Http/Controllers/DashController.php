@@ -10,11 +10,8 @@ use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
-use App\Models\Roles;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
-use Doctrine\DBAL\Events;
 
 class DashController extends Controller
 {
@@ -28,6 +25,7 @@ class DashController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -44,8 +42,6 @@ class DashController extends Controller
 
         $you = auth()->user();
 
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         //pegar informações complementares 
 
         $meta = Config_meta::orderBy('id', 'desc')->first();
@@ -154,7 +150,6 @@ class DashController extends Controller
         return view(
             'dashboard.homepage',
             compact(
-                'roles',
                 'peopleativo',
                 'peoplevisitor',
                 'meta',

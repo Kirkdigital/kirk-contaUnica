@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="fade-in">
             <h6 class="card-title">Bem vindo a {{ $a }}</h6>
-            @if ($precadastro >= 1 and $roles->roleslocal->edit_precadastro == true)
+            @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)
                 <div class="card card-accent-success mb-12" style="max-width: 18rem;">
                     <div class="card-body text-success">
                         <h6 class="card-title">Há cadastros a serem aprovados</h6>
@@ -22,7 +22,7 @@
 
             </style>
             <div class="fade-in">
-                @if ($roles->roleslocal->home_social == true)
+                @if ($appPermissao->home_social == true)
                     @if (($social->facebook_link !== null) | ($social->twitter_link !== null) | ($social->linkedin_link !== null) | ($social->youtube_link !== null) | ($social->instagram_link !== null) | ($social->vk_link !== null) | ($social->site_link !== null) | ($social->telegram_link !== null) | ($social->whatsapp_link !== null))
                         <div class="row">
                             <div class="col-12">
@@ -110,7 +110,7 @@
                                 </div>
                     @endif
                 @endif
-                @if ($roles->roleslocal->home_grupo == true)
+                @if ($appPermissao->home_grupo == true)
                     @if (!$groups->isEmpty())
                         <div class="row">
                             <div class="col-12">
@@ -142,7 +142,7 @@
                     @endif
                 @endif
 
-                @if ($roles->roleslocal->home_financeiro_valores == true)
+                @if ($appPermissao->home_financeiro_valores == true)
                     @if (!$dizimos->isEmpty())
                         <div class="row">
                             <div class="col-12">
@@ -180,7 +180,7 @@
                                 </div>
                     @endif
                 @endif
-                @if ($roles->roleslocal->home_financeiro == true)
+                @if ($appPermissao->home_financeiro == true)
                     <!-- /.row-->
                     <div class="row">
                         <div class="col-md-12">

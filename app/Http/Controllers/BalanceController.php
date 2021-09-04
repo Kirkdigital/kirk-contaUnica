@@ -18,6 +18,12 @@ class BalanceController extends Controller
 
     private $totalPagesPaginate = 12;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission');
+    }
+
     public function index(Historic $historic)
     {
         $you = auth()->user();
@@ -30,10 +36,8 @@ class BalanceController extends Controller
         $conta = session()->get('key');
         $balance = Balance::where('account_id', $conta)->first();
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
-        return view('balance.index', compact('amount', 'historics', 'types', 'roles'));
+        return view('balance.index', compact('amount', 'historics', 'types'));
     }
 
     public function depositar()
@@ -134,10 +138,8 @@ class BalanceController extends Controller
         $types = $historic->type();
         $statuspag = Status::all()->where("type", 'pagamento');
         $statusfinan = Status::all()->where("type", 'financial');
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
-        return view('balance.historics', compact('historics', 'roles', 'types', 'statuspag', 'statusfinan'));
+        return view('balance.historics', compact('historics','types', 'statuspag', 'statusfinan'));
     }
 
     public function searchHistoric(Request $request, Historic $historic)
@@ -148,12 +150,11 @@ class BalanceController extends Controller
         $dataForm = $request->except('_token');
         $historics =  $historic->search($dataForm, $this->totalPagesPaginate);
         $types = $historic->type();
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
 
         $statuspag = Status::all()->where("type", 'pagamento');
         $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('balance.historics', compact('historics', 'types', 'roles', 'dataForm', 'statuspag', 'statusfinan'));
+        return view('balance.historics', compact('historics', 'types', 'dataForm', 'statuspag', 'statusfinan'));
     }
 
     public function show($id)

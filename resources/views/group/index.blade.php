@@ -12,7 +12,7 @@
                                         <h5>Grupos</h5>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                        @if ($roles->roleslocal->add_group == true)
+                                        @if ($appPermissao->add_group == true)
                                             <div class="row">
                                                 <a href="{{ route('group.create') }}"
                                                     class="btn btn-primary">{{ __('Adicionar') }}</a>
@@ -75,13 +75,13 @@
                                                     </span>
                                                 </td>
                                                 <td width="1%">
-                                                    @if ($roles->roleslocal->view_group == true)
+                                                    @if ($appPermissao->view_group == true)
                                                         <a href="{{ route('group.show', $group->id) }}"><i
                                                                 class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                     @endif
                                                 </td>
                                                 <td width="1%">
-                                                    @if ($roles->roleslocal->edit_group == true)
+                                                    @if ($appPermissao->edit_group == true)
 
                                                         <a href="{{ route('group.edit', $group->id) }}"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
@@ -89,7 +89,7 @@
                                                     @endif
                                                 </td>
                                                 <td width="1%">
-                                                    @if ($roles->roleslocal->delete_group == true)
+                                                    @if ($appPermissao->delete_group == true)
                                                         <form action="{{ route('group.destroy', $group->id) }}"
                                                             method="POST">
                                                             @method('DELETE')

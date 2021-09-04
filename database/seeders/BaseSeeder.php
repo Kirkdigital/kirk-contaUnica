@@ -20,7 +20,7 @@ class BaseSeeder extends Seeder
         DB::table(config::get('database.connections.tenant.schema').'.config_system')->insert([
             'name' => 'DeskApps',
             'timezone' => 'America/Manaus',
-            'c' => 'R$',
+            'currency' => 'R$',
             'obg_last_name' => '1',
         ]);
         
@@ -80,56 +80,17 @@ class BaseSeeder extends Seeder
 			'settings_meta' => '1',
 			'settings_social' => '1',
             'settings_roles' => '1',
+            //report
+            'report_view' => '1',
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
             'name' => 'Membro',
-            'add_people' => '0',
-			'edit_people' => '0',
-            'view_people' => '0',
-            'delete_people' => '0',
-            //precadastro
-            'edit_precadastro' => '0',
-            'view_precadastro' => '0',
-            //grupo
-			'add_group' => '0',
-            'add_group_people' => '0',
-            'edit_group' => '0',
-            'view_group' => '0',
-            'delete_group' => '0',
-            'delete_group_group' => '0',
-            //recado
-			'add_message' => '0',
-            'edit_message' => '0',
-            'view_message' => '0',
-            'delete_message' => '0',
-            //financeiro
-			'add_entrada_financial' => '0',
-            'add_retirada_financial' => '0',
-            'edit_financial' => '0',
-            'view_financial' => '0',
-            'delete_financial' => '0',
-            //calendar
-            'add_calendar' => '0',
-            'edit_calendar' => '0',
-            'view_calendar' => '0',
-			'delete_calendar' => '0',
             //home
             'home_financeiro' => '1',
             'home_financeiro_valores' => '1',
             'home_grupo' => '1',
             'home_social' => '1',
-            //dash
-            'view_periodo' => '0',
-			'view_dash' => '0',
-			'view_detail' => '0',
-			'view_resumo_financeiro' => '0',
-            //settings
-            'settings_general' => '0',
-			'settings_email' => '0',
-			'settings_meta' => '0',
-			'settings_social' => '0',
-            'settings_roles' => '0',
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.config_social')->insert([

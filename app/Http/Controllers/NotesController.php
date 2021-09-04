@@ -20,6 +20,7 @@ class NotesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -32,11 +33,9 @@ class NotesController extends Controller
         $this->pegar_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-        $you = auth()->user();
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+
         $notes = Notes::with('user')->with('status')->paginate(20);
-        return view('message.notesList', compact('roles'),['notes' => $notes]);
+        return view('message.notesList',['notes' => $notes]);
     }
 
     /**

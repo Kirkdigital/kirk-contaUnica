@@ -20,7 +20,7 @@
                                     Organize and adjust all settings about this site.
                                 </p>
                                 <div class="row">
-                                    @if ($roles->roleslocal->settings_general == true)
+                                    @if ($appPermissao->settings_general == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($roles->roleslocal->settings_social == true)
+                                    @if ($appPermissao->settings_social == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($roles->roleslocal->settings_email == true)
+                                    @if ($appPermissao->settings_email == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($roles->roleslocal->settings_roles == true)
+                                    @if ($appPermissao->settings_roles == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($roles->roleslocal->settings_meta == true)
+                                    @if ($appPermissao->settings_meta == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">

@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use App\Models\Status;
 use App\Models\People_Precadastro;
 use App\Models\Config_system;
-use App\Models\Institution;
 use App\Models\People;
-use App\Models\Roles;
 use App\Models\Users_Account;
 
 class Peoples_PrecadastroController extends Controller
@@ -25,6 +22,7 @@ class Peoples_PrecadastroController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission');
     }
 
     /**
@@ -42,9 +40,8 @@ class Peoples_PrecadastroController extends Controller
 
         $peoples = People_Precadastro::orderBy('id', 'desc')->with('status')->paginate($this->totalPagesPaginate);
         $status = Status::all()->where("type", 'precadastro');
-        //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
-        return view('people_precadastro.index', compact('peoples', 'roles', 'status'));
+        
+        return view('people_precadastro.index', compact('peoples', 'status'));
     }
     public function edit($id)
     {
@@ -54,9 +51,8 @@ class Peoples_PrecadastroController extends Controller
         //campo obrigatoria
         $campo = Config_system::find('1')->first();
         //permissao
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $statuses = Status::all()->where("type", 'precadastro');
-        return view('people_precadastro.EditForm', compact('campo', 'roles'), ['statuses' => $statuses, 'people' => $people]);
+        return view('people_precadastro.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people]);
     }
 
     public function update(Request $request, $id)
@@ -166,10 +162,9 @@ class Peoples_PrecadastroController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $status = Status::all()->where("type", 'precadastro');
-        $config = Roles::all();
         $dataForm = $request->except('_token');
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people_precadastro.index', compact('peoples', 'dataForm', 'status', 'config'));
+        return view('people_precadastro.index', compact('peoples', 'dataForm', 'status'));
     }
 }

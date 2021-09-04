@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auditoria;
-use Validator;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-use App\Models\Status;
-use App\Models\People;
 use App\Models\Roles;
 
 
@@ -36,8 +31,7 @@ class LogsController extends Controller
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         $peoples = Auditoria::orderBy('id', 'desc')->with('status_log')->with('user')->paginate($this->totalPagesPaginate);
-        $config = Roles::all();
         $types = $auditoria->type();  
-        return view('logs.index', compact('peoples', 'config', 'types'));
+        return view('logs.index', compact('peoples', 'types'));
     }
 }

@@ -40,6 +40,7 @@ class peopleTable extends Migration {
 			$table->boolean('is_conversion')->nullable()->default(0);
 			$table->boolean('is_baptism')->nullable()->default(0);
 			$table->boolean('is_newvisitor')->nullable()->default(0);
+			$table->boolean('is_admin')->nullable();
             $table->timestamps(10);
 			$table->softDeletes('deleted_at')->nullable();
 		});

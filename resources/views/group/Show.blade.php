@@ -32,14 +32,14 @@
                                             <td>{{ $pessoasgrupo->usuario->mobile }}</td>
                                             <td>{{ $pessoasgrupo->registered }}</td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->edit_people == true)
+                                                @if ($appPermissao->edit_people == true)
                                                     <a href="{{ route('people.edit', $pessoasgrupo->usuario->id) }}"><i
                                                             class="c-icon c-icon-sm cil-notes text-primary"></i></a>
                                                 @endif
 
                                             </td>
                                             <td width="1%">
-                                                @if ($roles->roleslocal->delete_group_people == true and !($pessoasgrupo->usuario->id == $responsavel->id))
+                                                @if ($appPermissao->delete_group_people == true and !($pessoasgrupo->usuario->id == $responsavel->id))
                                                     <form action="{{ url('/group/' . $pessoasgrupo->id . '/delete') }}"
                                                         method="POST">
                                                         @method('DELETE')
@@ -58,7 +58,7 @@
                     <!-- /.row-->
                 </div>
                 {{ session(['group' => $group->id]) }}
-                @if ($roles->roleslocal->add_group_people == true)
+                @if ($appPermissao->add_group_people == true)
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-header"><strong>Buscar Pessoa</strong></div>

@@ -12,7 +12,6 @@ use App\Models\Config_meta;
 use App\Models\Config_social;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
-use App\Models\Roles;
 use Overtrue\LaravelLike\Traits\Likeable;
 
 class HomeController extends Controller
@@ -27,7 +26,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-           
+        $this->middleware('permission');
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +44,6 @@ class HomeController extends Controller
 
         //pegar informações complementares 
         $meta = Config_meta::orderBy('id', 'desc')->first();
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
         $auditoria = Auditoria::orderBy('id', 'desc')->first();
 
         if($auditoria === null)
@@ -98,6 +96,7 @@ class HomeController extends Controller
             $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
             return redirect()->route('account.index');
         }
+
         else
         $id = $user->id;
         $groups = People_Groups::with('grupo')
@@ -119,7 +118,6 @@ class HomeController extends Controller
                     'a',
                     'you',
                     'user',
-                    'roles',
                     'peopleativo',
                     'totalvisitante',
                     'totalbatismo',

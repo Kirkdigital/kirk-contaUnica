@@ -12,7 +12,7 @@
                                         <h5>Pessoas</h5>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
-                                        @if ($roles->roleslocal->add_people == true)
+                                        @if ($appPermissao->add_people == true)
                                             <div class="row">
                                                 <a href="{{ route('people.create') }}"
                                                     class="btn btn-primary">{{ __('Adicionar') }}</a>
@@ -50,7 +50,6 @@
                                     </div>
                                 </div>
                             </form>
-
                             <div class="box-body">
                                 <table class="table table-responsive-sm table-striped">
                                     <thead>
@@ -94,7 +93,7 @@
                                                     </span>
                                                 </td>
                                                 <td width="1%">
-                                                    @if ($roles->roleslocal->edit_people == true)
+                                                    @if ($appPermissao->edit_people == true)
 
                                                         <a href="{{ route('people.edit', $people->id) }}"><i
                                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
@@ -102,7 +101,7 @@
                                                     @endif
                                                 </td>
                                                 <td width="1%">
-                                                    @if ($roles->roleslocal->delete_people == true)
+                                                    @if ($appPermissao->delete_people == true)
 
                                                         @if ($people->user_id)
                                                             <form
