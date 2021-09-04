@@ -20,7 +20,7 @@ class UsersImport implements ToModel, WithHeadingRow
         Config::set('database.connections.tenant.schema', session()->get('conexao')); 
 
         return new People([
-            'name'     => ucfirst($row['name']),
+            'name'     => strtoupper($row['name']),
             'email'    => $row['email'], 
             'mobile'    => $row['mobile'], 
             'role' => '2',
