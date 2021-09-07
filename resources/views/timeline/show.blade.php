@@ -5,17 +5,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="p-5 card">
-
-                    <h1>{{ $post->title }}</h1>
-
+                    <div class="post-thumb-gallery">
+                        <figure class="post-thumb img-popup">
+                            <a href="{{ $post->image }}">
+                                <img src="{{ $post->image }}" alt="post image">
+                            </a>
+                        </figure>
+                    </div>
                     <div>{{ $post->body }}</div>
 
-                    <reactions-component
-                        :summary='@json($post->reactionSummary())'
-                        @auth
-                        :reacted='@json($post->reacted())'
-                        @endauth
-                    />
+                    {{ $comments }}
                 </div>
             </div>
         </div>

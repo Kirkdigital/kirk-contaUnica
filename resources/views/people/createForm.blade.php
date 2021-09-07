@@ -12,8 +12,9 @@
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#dados" role="tab"
                                     aria-controls="dados">
                                     <i class="c-icon c-icon-sm cil-contact text-dark"></i> Dados Pessoais</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#endereco" role="tab"
-                                    aria-controls="endereco"><i class="c-icon c-icon-sm cil-location-pin text-dark"></i>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#endereco"
+                                    role="tab" aria-controls="endereco"><i
+                                        class="c-icon c-icon-sm cil-location-pin text-dark"></i>
                                     Endereço</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#membro" role="tab"
                                     aria-controls="membro"><i class="c-icon c-icon-sm cil-book text-dark"></i> Membresia</a>
@@ -246,8 +247,8 @@
                                                                 </use>
                                                             </svg>
                                                     </div>
-                                                    <input class="form-control" name="state" type="text" placeholder="State"
-                                                        placeholder="SP" @if ($campo->obg_state == true)
+                                                    <input class="form-control" name="state" type="text"
+                                                        placeholder="State" placeholder="SP" @if ($campo->obg_state == true)
                                                     required
                                                     @endif
                                                     >
@@ -329,16 +330,16 @@
                                                 @endif
                                             </label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control" name="note" rows="9" placeholder="Content.."
-                                                    @if ($campo->obg_note == true)
-                                                                        required
-                                                                        @endif
-                                                                        ></textarea>
+                                                <textarea class="form-control" name="note" rows="9"
+                                                    placeholder="Content.." @if ($campo->obg_note == true)
+                                                                                required
+                                                                                @endif
+                                                                                ></textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary" type="submit" id="botao" disabled>Save</button>
                                 <a class="btn btn-dark" href="{{ route('people.index') }}">Return</a>
                             </div>
                     </div>
@@ -359,6 +360,10 @@
         });
         $("#state").on("input", function() {
             $(this).val($(this).val().toUpperCase());
+        });
+
+        $("#name").on("input", function() {
+            $("#botao").prop('disabled', $(this).val().length < 3);
         });
     </script>
 @endsection

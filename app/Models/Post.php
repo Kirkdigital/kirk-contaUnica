@@ -10,17 +10,35 @@ use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Overtrue\LaravelLike\Traits\Likeable;
 
 
-class Post extends Model implements ReactableInterface
+class Post extends Model
 {
-    use Likeable;
-    use HasFactory, Reactable;
+    use HasFactory;
 
     protected $connection = 'adminaccount';
 
-    protected $fillable = ['title'];
+    
+    protected $fillable = [
+        'body',
+        'user_id',
+        'image'
+    ];
 
     public function getDescriptionAttribute()
     {
         return Str::limit($this->body, 200, '...');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

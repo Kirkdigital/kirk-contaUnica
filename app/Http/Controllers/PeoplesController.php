@@ -125,7 +125,7 @@ class PeoplesController extends Controller
                 $this->criar($validaruser->first()->id, session()->get('key'));
 
                 $request->session()->flash("success", "Successfully created people");
-                return redirect()->route('people.index');
+                return redirect()->back();
             } else {
                 //associar ao usuario
                 $associar = People::where('email', $people->email)->first();
@@ -134,13 +134,13 @@ class PeoplesController extends Controller
 
                 $this->criar($validaruser->first()->id, session()->get('key'));
                 $request->session()->flash("success", "Successfully created people");
-                return redirect()->route('people.index');
+                return redirect()->back();
             }
         } else {
             //se estiver desmarcado o criar conta, apenas adiciona a pessoa
             $this->adicionar_log('1', 'C', $people);
             $request->session()->flash("success", "Successfully created people");
-            return redirect()->route('people.index');
+            return redirect()->back();
         }
     }
 
