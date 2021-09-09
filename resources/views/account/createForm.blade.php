@@ -86,19 +86,6 @@
                                     <input class="form-control" name="address" type="text" placeholder="Enter street name"
                                         maxlength="200">
                                 </div>
-                                <div class="form-group">
-                                    <label for="street">Address2</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">
-                                                <svg class="c-icon">
-                                                    <use
-                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
-                                                    </use>
-                                                </svg></span></div>
-                                        <input class="form-control" name="address2" type="text"
-                                            placeholder="Enter street name" maxlength="200">
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-5">
@@ -110,7 +97,7 @@
                                                     </use>
                                                 </svg></span></div>
                                         <input class="form-control" name="city" type="text" placeholder="Enter your city"
-                                            maxlength="15">
+                                            >
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
@@ -134,10 +121,25 @@
                                                         xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
                                                     </use>
                                                 </svg></span></div>
-                                        <input class="form-control" name="cep" type="number" placeholder="Postal Code"
+                                        <input class="form-control" name="cep" type="number" placeholder="69059-627"
                                             maxlength="9" pattern="[0-9]{5}-[0-9]{3}">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="city">Latitude</label>
+                                        <div class="input-group-prepend">
+                                        <input class="form-control" name="lat" type="text"
+                                            maxlength="15"  placeholder="-27.5859412">
+                                    
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="city">Longitude</label>
+                                        <input class="form-control" name="lng" type="text"
+                                            maxlength="15" placeholder="-48.6003264">
+                                    </div>
                             </div>
                             <!-- /.row-->
                             <div class="form-group">

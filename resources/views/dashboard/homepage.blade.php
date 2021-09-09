@@ -218,6 +218,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">
+                                        <!--
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="c-callout c-callout-info"><small class="text-muted">Total de
@@ -225,17 +226,16 @@
                                                     <div class="text-value-lg">{{ $totalvisitante }}</div>
                                                 </div>
                                             </div>
-                                            <!-- /.col-->
                                             <div class="col-6">
                                                 <div class="c-callout c-callout-danger"><small class="text-muted">Total de
                                                         Conversões</small>
                                                     <div class="text-value-lg"> {{ $totalconversao }}</div>
                                                 </div>
                                             </div>
-                                            <!-- /.col-->
                                         </div>
-                                        <!-- /.row-->
                                         <hr class="mt-0">
+                                        /.row-->
+
                                         Meta Anual
 
                                         <div class="progress-group">
@@ -337,8 +337,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /.col-->
+                                    <!-- /.col -->
                                     <div class="col-sm-6">
+                                        <!--
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="c-callout c-callout-warning"><small class="text-muted">Total de
@@ -346,17 +347,17 @@
                                                     <div class="text-value-lg">{{ $totalbatismo }}</div>
                                                 </div>
                                             </div>
-                                            <!-- /.col-->
+                                            
                                             <div class="col-6">
                                                 <div class="c-callout c-callout-success"><small class="text-muted">Total de
                                                         Likes</small>
-                                                    <div class="text-value-lg">{{ $likes }}</div>
+                                                    <div class="text-value-lg"></div>
                                                 </div>
                                             </div>
-                                            <!-- /.col-->
                                         </div>
-                                        <!-- /.row-->
                                         <hr class="mt-0">
+                                                                                 /.row-->
+
                                         <div class="progress-group">
                                             <div class="progress-group-header">
                                                 <svg class="c-icon progress-group-icon">

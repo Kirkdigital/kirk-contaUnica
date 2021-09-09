@@ -360,10 +360,11 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>Meus Grupos</th>
+                                                <th>Grupos</th>
                                                 <th>Finaceiro Mensal</th>
                                                 <th>Redes Sociais</th>
-                                                <th>Minhas Ofertas</th>
+                                                <th>Ofertas</th>
+                                                <th>Localização</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -402,6 +403,16 @@
                                                         <input class="c-switch-input" name="home_financeiro_valores"
                                                             type="checkbox"
                                                             {{ $role->home_financeiro_valores == true ? 'checked' : '' }}><span
+                                                            class="c-switch-slider" data-checked="&#x2713"
+                                                            data-unchecked="&#x2715"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label
+                                                        class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
+                                                        <input class="c-switch-input" name="home_location"
+                                                            type="checkbox"
+                                                            {{ $role->home_location == true ? 'checked' : '' }}><span
                                                             class="c-switch-slider" data-checked="&#x2713"
                                                             data-unchecked="&#x2715"></span>
                                                     </label>
@@ -493,7 +504,7 @@
                                                 <td>
                                                     <label
                                                         class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
-                                                        <input class="c-switch-input" name="settings_general"
+                                                        <input class="c-switch-input" name="report_view"
                                                             type="checkbox"
                                                             {{ $role->report_view == true ? 'checked' : '' }}><span
                                                             class="c-switch-slider" data-checked="&#x2713"

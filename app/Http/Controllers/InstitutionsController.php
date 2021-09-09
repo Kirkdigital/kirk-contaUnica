@@ -156,6 +156,8 @@ class InstitutionsController extends Controller
         $institution->city       = $request->input('city');
         $institution->state       = $request->input('state');
         $institution->cep       = $request->input('cep');
+        $institution->lat       = $request->input('lat');
+        $institution->lng       = $request->input('lng');
         $institution->status_id = '5';
         $institution->country       = $request->input('country');
         $institution->integrador = $user->id;
@@ -227,12 +229,15 @@ class InstitutionsController extends Controller
         ]);
 
         $institution = Institution::find($id);
+        $institution->name_company      = $request->input('name_company');
         $institution->email      = $request->input('email');
         $institution->mobile      = $request->input('mobile');
         $institution->address1       = $request->input('address1');
         $institution->address2       = $request->input('address2');
         $institution->city       = $request->input('city');
         $institution->state       = $request->input('state');
+        $institution->lat       = $request->input('lat');
+        $institution->lng       = $request->input('lng');
         $institution->cep       = $request->input('cep');
         $this->adicionar_log_global('9', 'U', $institution);
         $institution->save();

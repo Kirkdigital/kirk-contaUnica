@@ -10,30 +10,29 @@
                             <div class="card-header">
                                 <form action="{{ route('historic.search') }}" method="POST" class="form form-inline">
                                     {!! csrf_field() !!}
+                                    
+                                        <strong>Recibo</strong>
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            Recibo
-                                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2">
+                                            <div class="col-sm-5 col-md-3 col-lg-3 col-xl-3">
                                                 <div class="inner">
                                                     <input type="number" name="id" class="form-control"
-                                                        placeholder="Recibo">
+                                                        placeholder="1000">
                                                 </div>
                                             </div>
-                                            De:
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                                            <div class="col-sm-5 col-md-3 col-lg-3 col-xl-3">
                                                 <div class="inner">
                                                     <input type="date" name="datefrom" class="form-control" required>
                                                 </div>
                                             </div>
-                                            Até:
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                                            <div class="col-sm-5 col-md-3 col-lg-3 col-xl-3">
                                                 <div class="inner">
                                                     <input type="date" name="dateto" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">
                                                 <div class="box-header">
-                                                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                                    <button type="submit" class="btn btn-primary">Buscar</button>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-4 col-lg-4 col-xl-1">

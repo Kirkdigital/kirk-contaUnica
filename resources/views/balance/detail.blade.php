@@ -136,13 +136,13 @@
 
 
                                     </div>
-                                    <div class="row mt-4">
-                                        <div class="col-lg-8">
+                                    <div class="row mt-6">
+                                        <div class="col-lg-6">
                                             <div class="section-title">Payment Note</div>
                                             <p class="section-lead">{{ $historics->observacao }}</p>
 
                                         </div>
-                                        <div class="col-lg-4 text-right">
+                                        <div class="col-lg-6 text-right">
                                             <hr class="mt-2 mb-2">
                                             <div class="invoice-detail-item">
                                                 <div class="row">
@@ -151,7 +151,7 @@
                                                             <table class="table">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th style="width:50%">Subtotal:</th>
+                                                                        <th>Subtotal:</th>
                                                                         <td>{{ $historics->sub_total }}</td>
                                                                     </tr>
                                                                     <tr>

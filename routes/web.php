@@ -193,8 +193,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('financial/{id}', 'BalanceController@show')->name('financial.show');
 
         //post e timeline em testes
-        Route::get('posts', 'PostController@posts')->name('posts');
-        Route::post('ajaxRequest', 'PostController@ajaxRequest')->name('ajaxRequest');
         Route::get('timeline/', 'TimelineController@index')->name('timeline.index');
         Route::get('timeline/{post}', [TimelineController::class, 'show'])->name('timeline.show');
         Route::post('timeline/{post}/reaction', [ReactionsController::class, 'toggle'])->middleware('auth');

@@ -72,6 +72,7 @@ class WizardController extends Controller
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
         $people->status_id = '21';
+        $people->role = '2';
         $people->sex       = $request->input('sex');
         $people->user_id = $you->id;
         $people->save();

@@ -4,13 +4,12 @@
 
     <div class="container-fluid">
         <div class="fade-in">
-            <div class="row">
-                <div class="col-sm-12 col-sm-auto">
-                    <div class="card">
-                        <div class="container">
-                            <div class="card-header">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-groups row">
+                        <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
                                 <h5>Balance</h5>
-                            </div>
+                            
                             <div class="card-body">
                                 <div class="form-group row">
 
@@ -40,8 +39,7 @@
                             </div>
                         </div>
                         @if ($appPermissao->view_financial == true)
-                            <div class="container">
-                                <div class="box-body">
+
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>
                                             <tr>
@@ -106,10 +104,13 @@
                                     @if (isset($dataForm))
                                         {!! $historics->appends($dataForm)->links() !!}
                                     @else
-                                        <a href="{{ url('historic') }}" class="btn btn-dark">Ver Histórico</a> <br> <br>
+                                    <div class="col-sm-8 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="box-header">
+                                            <a href="{{ url('historic') }}"
+                                                class="btn btn-dark">Ver Histórico</a>
+                                        </div>
+                                    </div>
                                     @endif
-                                </div>
-                            </div>
                             <!-- /.row-->
                         @endif
                     </div>

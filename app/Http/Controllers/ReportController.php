@@ -19,6 +19,11 @@ class ReportController extends Controller
 
     private $totalPagesPaginate = 9999;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission');
+    }
 
     public function Financial(Historic $historic)
     {

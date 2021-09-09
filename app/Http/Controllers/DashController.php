@@ -62,16 +62,6 @@ class DashController extends Controller
         $porcentage_m = $this->porcentagem_nx($sexmascu, $totalsex); // 20
         $porcentage_f = $this->porcentagem_nx($sexfemin, $totalsex);
 
-        //total
-        $likes = DB::table('admin.likes')
-            ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
-            ->where('posts.user_id', '11')
-            ->count();
-        //ano
-        $anolikes = DB::table('admin.likes')
-            ->leftJoin('admin.posts', 'likes.likeable_id', '=', 'posts.id')
-            ->whereYear('posts.created_at', date('Y'))->count();
-
         //valor total ano meta
         $anovisitante = People::where('is_visitor', true)->whereYear('created_at', date('Y'))->count();
         $anobatismo = People::where('is_baptism', true)->whereYear('created_at', date('Y'))->count();
@@ -185,8 +175,6 @@ class DashController extends Controller
                 'porcentage_despesa',
                 'porcentage_total',
                 'totalfinanceiro',
-                'likes',
-                'anolikes',
                 'totalbatismo',
                 'totalconversao',
                 'metadash',

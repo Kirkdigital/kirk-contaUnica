@@ -30,7 +30,7 @@ class peopleTable extends Migration {
 			$table->string('country')->nullable();
 			$table->string('state')->nullable();
 			$table->string('city')->nullable();
-            $table->string('role')->nullable()->default(1);
+            $table->string('role')->nullable()->default(2);
 			$table->string('note')->nullable();
             $table->integer('status_id')->default(14);
 			$table->boolean('is_verify')->nullable()->default(1);

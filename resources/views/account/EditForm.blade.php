@@ -24,8 +24,8 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="{{ __('Name') }}" name="name"
-                                        value="{{ $institution->name_company }}" required disabled>
+                                    <input class="form-control" type="text" placeholder="{{ __('Name') }}" name="name_company"
+                                        value="{{ $institution->name_company }}" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -79,19 +79,7 @@
                                     <input class="form-control" name="address1" type="text" placeholder="Enter street name"
                                         value="{{ $institution->address1 }}" maxlength="200" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="street">Address1</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">
-                                                <svg class="c-icon">
-                                                    <use
-                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
-                                                    </use>
-                                                </svg></span></div>
-                                        <input class="form-control" name="address2" type="text"
-                                            placeholder="Enter street name" maxlength="15" value="{{ $institution->address2 }}">
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="form-group col-sm-5">
                                         <label for="city">City</label>
@@ -103,7 +91,7 @@
                                                         </use>
                                                     </svg></span></div>
                                             <input class="form-control" name="city" type="text"
-                                                placeholder="Enter your city" value="{{ $institution->city }}" maxlength="2"  placeholder="SP" required>
+                                                placeholder="Enter your city" value="{{ $institution->city }}" placeholder="SP" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
@@ -116,8 +104,8 @@
                                                         </use>
                                                     </svg></span></div>
                                             <input class="form-control" name="state" type="text"
-                                                placeholder="Enter your state" value="{{ $institution->state }}"
-                                                maxlength="8" required>
+                                                value="{{ $institution->state }}"
+                                                maxlength="2" placeholder="SP" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4">
@@ -129,9 +117,26 @@
                                                             xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-home">
                                                         </use>
                                                     </svg></span></div>
-                                            <input class="form-control" name="cep" type="text" placeholder="Postal Code"
+                                            <input class="form-control" name="cep" type="text" placeholder="69059-627"
                                             pattern="[0-9]{5}-[0-9]{3}" maxlength="9"
                                                 value="{{ $institution->cep }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="city">Latitude</label>
+                                            <div class="input-group-prepend">
+                                            <input class="form-control" name="lat" type="text"
+                                                placeholder="Enter your city" value="{{ $institution->lat }}" maxlength="15"  placeholder="-27.5859412">
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="city">Longitude</label>
+                                            <input class="form-control" name="lng" type="text"
+                                                placeholder="Enter your state" value="{{ $institution->lng }}"
+                                                maxlength="15" placeholder="-48.6003264">
                                         </div>
                                     </div>
                                 </div>

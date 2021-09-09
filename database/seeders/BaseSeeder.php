@@ -69,6 +69,7 @@ class BaseSeeder extends Seeder
             'home_financeiro_valores' => '1',
             'home_grupo' => '1',
             'home_social' => '1',
+            'home_location' => '1',
             //dash
             'view_periodo' => '1',
 			'view_dash' => '1',
@@ -88,9 +89,50 @@ class BaseSeeder extends Seeder
             'name' => 'Membro',
             //home
             'home_financeiro' => '1',
-            'home_financeiro_valores' => '1',
             'home_grupo' => '1',
             'home_social' => '1',
+            'home_location' => '1',
+
+        ]);
+        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
+            'name' => 'Financeiro',
+            //home
+            'home_financeiro' => '1',
+             //financeiro
+			'add_entrada_financial' => '1',
+            'add_retirada_financial' => '1',
+            'edit_financial' => '1',
+            'view_financial' => '1',
+            'delete_financial' => '1',
+        ]);
+        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
+            'name' => 'Secretaria',
+            'add_people' => '1',
+			'edit_people' => '1',
+            'view_people' => '1',
+            'delete_people' => '1',
+            //precadastro
+            'edit_precadastro' => '1',
+            'view_precadastro' => '1',
+            //grupo
+			'add_group' => '1',
+            'add_group_people' => '1',
+            'edit_group' => '1',
+            'view_group' => '1',
+            'delete_group' => '1',
+            'delete_group_group' => '1',
+            //recado
+			'add_message' => '1',
+            'edit_message' => '1',
+            'view_message' => '1',
+            'delete_message' => '1',
+            //home
+            'home_financeiro' => '1',
+            //dash
+            'view_periodo' => '1',
+			'view_dash' => '1',
+			'view_detail' => '1',
+			'view_resumo_financeiro' => '1',
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.config_social')->insert([

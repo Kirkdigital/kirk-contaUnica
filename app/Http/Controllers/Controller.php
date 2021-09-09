@@ -27,6 +27,7 @@ class Controller extends BaseController
     {
         Config::set('database.connections.tenant.schema', session()->get('conexao')); 
     }
+    
     public function adicionar_log($status, $type, $json)
     {
         $auditoria = Auditoria::firstOrCreate([]);

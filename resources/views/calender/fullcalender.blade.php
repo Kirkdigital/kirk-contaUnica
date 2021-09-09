@@ -8,9 +8,9 @@
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> <h5>Calender</h5>
+                       <h5>Calender</h5>                    </div>
+
                             <div id='calendar'></div>
-                    </div>
                 </div>
             </div>
              

@@ -10,6 +10,8 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\Config_social;
+use App\Models\Config_system;
+use App\Models\Institution;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
 use Overtrue\LaravelLike\Traits\Likeable;
@@ -108,9 +110,12 @@ class HomeController extends Controller
                             ->where('user_id_transaction', $id)
                             ->paginate('12');
 
+        $locations = Institution::find(session()->get('key'))->first();
+
         return view('home', 
             compact(
                     'precadastro',
+                    'locations',
                     'eventos',
                     'message',
                     'social',

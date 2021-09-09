@@ -75,6 +75,7 @@ class Peoples_PrecadastroController extends Controller
         $people_pre->cep           = $request->input('cep');
         $people_pre->country       = $request->input('country');
         $people_pre->status_id = '22'; //aprovado
+        $people_pre->role = '2';
         $people_pre->is_verify       = 'true';
         $people_pre->sex       = $request->input('sex');
 
@@ -90,6 +91,7 @@ class Peoples_PrecadastroController extends Controller
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
         $people->status_id = '14'; //ativado
+        $people->role = '2'; //membro 
         $people->is_visitor       = $request->input('is_visitor');
         $people->is_transferred       = $request->input('is_transferred');
         $people->is_responsible       = $request->input('is_responsible');

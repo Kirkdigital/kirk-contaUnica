@@ -4,13 +4,10 @@
 
     <div class="container-fluid">
         <div class="fade-in">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="container">
-                            <div class="card-header">
-                                <div class="form-groups row">
-                                    <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-groups row">
+                        <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
                                         <h5>Recados</h5>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">

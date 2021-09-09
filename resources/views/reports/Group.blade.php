@@ -1,18 +1,17 @@
 @extends('dashboard.base')
 @section('content')
-    <div class="container-fluid">
-        <div class="fade-in">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="container">
-                            <div class="card-header">
-                            <div class="form-groups row">
-                                <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
-                                 <h5>Grupos</h5>
-                                 </div>
-                               </div>
-                             </div>
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-groups row">
+                    <div class="col-10">
+                        <h5>Grupos</h5>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+            </div>
                             <form action="{{ route('grouprep.search') }}" method="POST" class="form form-inline">
                                 {!! csrf_field() !!}
                                 <div class="card-body">

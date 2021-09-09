@@ -5,7 +5,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="container">
                             <div class="card-header">
                                 <div class="form-groups row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">

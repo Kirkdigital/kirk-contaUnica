@@ -7,9 +7,8 @@
                   <div class="card">
                     <div class="card-header">
                       @if(!$institutions->isEmpty())
-                      <i class="fa fa-align-justify"></i><h6><strong>{{ __('account.select') }}</strong></h6></div>
-                    <div class="card-body">
-                      <table class="table table-responsive-sm table-striped">
+                     <h6><strong>{{ __('account.select') }}</strong></h6></div>
+                      <table class="table table-striped">
                      <thead>
                     <tr>
                       <th>ID</th>
@@ -21,8 +20,8 @@
                   <tbody>
                     @foreach($institutions as $institution)
                     <tr>
-                      <td>{{ $institution->AccountList->id }}</td>
-                      <td width="60%">{{ $institution->AccountList->name_company }}</td>
+                      <td width="10%">{{ $institution->AccountList->id }}</td>
+                      <td width="40%">{{ $institution->AccountList->name_company }}</td>
                       <td>
                         <span class="{{ $institution->AccountList->status->class }}">
                           {{ $institution->AccountList->status->name }}
