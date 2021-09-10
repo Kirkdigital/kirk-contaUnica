@@ -130,12 +130,12 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('report/people', 'ReportController@People')->name('people.Financial');
     Route::any('report/group/search', 'ReportController@searchGroup')->name('grouprep.search');
     Route::get('report/group', 'ReportController@Group')->name('group.Financial');
+    Route::get('report/peoplelocation', 'ReportController@Location')->name('location.index');
 
     Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
 
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
-
 
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([

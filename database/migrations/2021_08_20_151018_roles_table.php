@@ -62,6 +62,7 @@ class RolesTable extends Migration
             $table->boolean('home_grupo')->nullable()->default(0);
             $table->boolean('home_social')->nullable()->default(0);
             $table->boolean('home_location')->nullable()->default(0);
+            $table->boolean('home_message')->nullable()->default(0);
 
             //dash
             $table->boolean('view_periodo')->nullable()->default(0);

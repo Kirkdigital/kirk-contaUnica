@@ -33,7 +33,7 @@
                                     </tbody>
                                 </table>
                                 <div class="col-lg-12">
-                                    <div class="card-header"><i class="fa fa-align-justify"></i>Permissões gerais</div>
+                                    <div class="card-header"><strong>Permissões gerais</strong></div>
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>
                                             <tr>
@@ -300,7 +300,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="card-header"><i class="fa fa-align-justify"></i>Permissões do Dashboard
+                                    <div class="card-header"><strong> Permissões do Dashboard </strong>
                                     </div>
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>
@@ -355,11 +355,12 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="card-header"><i class="fa fa-align-justify"></i>Permissões da Home</div>
+                                    <div class="card-header"><strong>Permissões da Home</strong></div>
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>
                                             <tr>
                                                 <th></th>
+                                                <th>Recados</th>
                                                 <th>Grupos</th>
                                                 <th>Finaceiro Mensal</th>
                                                 <th>Redes Sociais</th>
@@ -370,6 +371,15 @@
                                         <tbody>
                                             <tr>
                                                 <td>Mostrar</td>
+                                                <td>
+                                                    <label
+                                                        class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
+                                                        <input class="c-switch-input" name="home_message" type="checkbox"
+                                                            {{ $role->home_message == true ? 'checked' : '' }}><span
+                                                            class="c-switch-slider" data-checked="&#x2713"
+                                                            data-unchecked="&#x2715"></span>
+                                                    </label>
+                                                </td>
                                                 <td>
                                                     <label
                                                         class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-sm">
@@ -420,7 +430,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="card-header"><i class="fa fa-align-justify"></i>Permissões das Configurações
+                                    <div class="card-header"><strong>Permissões das Configurações </strong>
                                     </div>
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>
@@ -485,7 +495,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="card-header"><i class="fa fa-align-justify"></i>Complemento
+                                    <div class="card-header"><strong>Complemento</strong>
                                     </div>
                                     <table class="table table-responsive-sm table-striped">
                                         <thead>

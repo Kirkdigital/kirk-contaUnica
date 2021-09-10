@@ -7,12 +7,9 @@
 
 @section('content')
 
-<div class="container-fluid">
-  <div class="fade-in">
-      <div class="row">
+
+
           <div class="col-sm-12">
-              <div class="card">
-                  <div class="container">
                         <div class="card-body">
                             <div class="section-body">
                                 <h5 class="section-title">Settings</h5>

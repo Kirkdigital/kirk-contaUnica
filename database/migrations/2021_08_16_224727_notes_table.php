@@ -21,6 +21,7 @@ class notesTable extends Migration {
 			$table->text('content');
 			$table->string('note_type');
 			$table->date('applies_to_date');
+			$table->string('image');
 			$table->integer('users_id');
 			$table->integer('status_id');
             $table->timestamps(10);

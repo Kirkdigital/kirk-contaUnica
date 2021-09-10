@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Notes;
-use App\Models\People;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 use App\Models\Status;
+use Illuminate\Support\Facades\URL;
+use App\Traits\UploadTrait;
 
 class NotesController extends Controller
 {
 
+    use UploadTrait;
     /**
      * Create a new controller instance.
      *
@@ -76,9 +77,30 @@ class NotesController extends Controller
         $note->note_type = $request->input('note_type');
         $note->applies_to_date = $request->input('applies_to_date');
         $note->users_id = $user->id;
+
+        if ($request->has('image')) {
+            // Get image file
+            $image = $request->file('image');
+            // Make a image name based on user name and current timestamp
+
+            $name = Str::slug($request->input('name')).'_'.time();
+            // Define folder path
+            $folder = '';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            // Upload image
+            $this->uploadOne($image, $folder, 'messages', $name);
+            // Set user profile image path in database to filePath
+            $note->image = URL::to('/').'/storage/messages/'.$filePath;
+            $note->save();
+            $this->adicionar_log('3', 'U', $note);
+            $request->session()->flash('message', 'Successfully edited note');
+            return redirect()->route('message.index');
+        }
+        else
         $note->save();
-        $this->adicionar_log('3', 'C', $note);
-        $request->session()->flash('message', 'Successfully created note');
+        $this->adicionar_log('3', 'U', $note);
+        $request->session()->flash('message', 'Successfully edited note');
         return redirect()->route('message.index');
     }
 
@@ -136,6 +158,26 @@ class NotesController extends Controller
         $note->status_id = $request->input('status_id');
         $note->note_type = $request->input('note_type');
         $note->applies_to_date = $request->input('applies_to_date');
+        if ($request->has('image')) {
+            // Get image file
+            $image = $request->file('image');
+            // Make a image name based on user name and current timestamp
+
+            $name = Str::slug($request->input('name')).'_'.time();
+            // Define folder path
+            $folder = '';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            // Upload image
+            $this->uploadOne($image, $folder, 'messages', $name);
+            // Set user profile image path in database to filePath
+            $note->image = URL::to('/').'/storage/messages/'.$filePath;
+            $note->save();
+            $this->adicionar_log('3', 'U', $note);
+            $request->session()->flash('message', 'Successfully edited note');
+            return redirect()->route('message.index');
+        }
+        else
         $note->save();
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');

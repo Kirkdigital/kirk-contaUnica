@@ -9,7 +9,8 @@
                     <div class="card">
                         <div class="card-header"><strong>Dados do Recado</strong></div>
                         <div class="card-body">
-                            <form method="POST" action="/message/{{ $note->id }}">
+                            <form method="POST" action="/message/{{ $note->id }}" role="form"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -59,13 +60,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-sm-3">
+                                            <div class="form-group col-sm-2">
                                                 <div class="form-group">
                                                     <label for="ccnumber">Type</label>
                                                     <div class="input-group">
                                                         <input class="form-control" type="text"
                                                             placeholder="{{ __('Note type') }}" name="note_type" value="{{ $note->note_type }}" required>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <div class="form-group">
+                                                <label for="image" class="col-md-4 col-form-label text-md-right">
+                                                    Image</label>
+                                                <div class="form-group col-sm-6">
+                                                    <input id="image" type="file" class="form-control" name="image">
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

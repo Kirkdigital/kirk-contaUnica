@@ -23,7 +23,7 @@
 
                     @if (!empty(Auth::user()->image))
                         <div class="c-avatar"><img class="c-avatar-img"
-                                src="{{ url('/public/' . auth()->user()->image) }}"></div>
+                                src="{{ auth()->user()->image }}" style="width: 40px;height: 40px"></div>
                     @endif
 
                 </a>

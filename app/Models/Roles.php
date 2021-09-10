@@ -52,6 +52,7 @@ class Roles extends Model
         'home_financeiro_valores',
         'home_grupo',
         'home_social',
+        'home_message',
         'view_periodo',
         'view_dash',
         'view_detail',

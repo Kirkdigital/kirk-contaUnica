@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller
@@ -61,16 +62,16 @@ class ProfileController extends Controller
             // Get image file
             $image = $request->file('profile_image');
             // Make a image name based on user name and current timestamp
-            
+
             $name = Str::slug($request->input('name')).'_'.time();
             // Define folder path
-            $folder = '/uploads/images/';
+            $folder = '';
             // Make a file path where image will be stored [ folder path + file name + file extension]
             $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
             // Upload image
-            $this->uploadOne($image, $folder, 'public', $name);
+            $this->uploadOne($image, $folder, 'profiles', $name);
             // Set user profile image path in database to filePath
-            $user->profile_image = $filePath;
+            $user->profile_image = URL::to('/').'/storage/profiles/'.$filePath;
         }
         $this->adicionar_log_global('8', 'U', '{"name":"' . $user->name . '","email":"' . $user->email . '","mobile":"' . $user->mobile . '","doc":"' . $user->doc . '"}');
         

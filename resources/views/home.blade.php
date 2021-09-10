@@ -5,186 +5,229 @@
 
     <div class="container-fluid">
         <div class="fade-in">
-            <h6 class="card-title">Bem vindo a {{ $a }}</h6>
-            @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)
-                <div class="card card-accent-success mb-12" style="max-width: 18rem;">
-                    <div class="card-body text-success">
-                        <h6 class="card-title">Há cadastros a serem aprovados</h6>
-                        <a href="{{ route('peopleList.index') }}" class="btn btn-primary">Pré-cadastro</a>
-                        </p>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="hero text-white hero-bg-image">
+                        <div class="hero-inner">
+                            <h2>Welcome, {{ auth()->user()->name }}!</h2>
+                            <p class="lead">This page is a place to view posts, their groups, and more.</p>
+                        </div>
                     </div>
                 </div>
-            @endif
-            @if ($appPermissao->view_people == true and $peopleativo == 0)
-                <div class="card card-accent-success mb-12" style="max-width: 25rem;">
-                    <div class="card-body text-success">
-                        <h6 class="card-title">Gostaria de importar uma planilha com as Pessoas?</h6>
-                        <a href="{{ url('settings/backup') }}" class="btn btn-primary">Importar</a>
-                        </p>
-                    </div>
-                </div>
-            @endif
-            <style type="text/css">
-                .btn {
-                    margin-bottom: 4px;
-                }
+            </div>
+        </div>
 
-            </style>
-            <div class="fade-in">
-                @if ($appPermissao->home_social == true)
-                    @if (($social->facebook_link !== null) | ($social->twitter_link !== null) | ($social->linkedin_link !== null) | ($social->youtube_link !== null) | ($social->instagram_link !== null) | ($social->vk_link !== null) | ($social->site_link !== null) | ($social->telegram_link !== null) | ($social->whatsapp_link !== null))
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6>Rede Sociais</h6>
-                                        <p>
-                                            @if ($social->facebook_link !== null)
-                                                <a class="btn btn-sm btn-facebook" type="button"
-                                                    href="{{ $social->facebook_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-facebook-f"></use>
-                                                    </svg><span>Facebook</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->twitter_link !== null)
-                                                <a class="btn btn-sm btn-twitter" type="button"
-                                                    href="{{ $social->twitter_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-twitter"></use>
-                                                    </svg><span>Twitter</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->linkedin_link !== null)
-                                                <a class="btn btn-sm btn-linkedin" type="button"
-                                                    href="{{ $social->linkedin_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-linkedin"></use>
-                                                    </svg><span>LinkedIn</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->youtube_link !== null)
-                                                <a class="btn btn-sm btn-youtube" type="button"
-                                                    href="{{ $social->youtube_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-youtube"></use>
-                                                    </svg><span>YouTube</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->instagram_link !== null)
-                                                <a class="btn btn-sm btn-instagram" type="button"
-                                                    href="{{ $social->instagram_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-instagram"></use>
-                                                    </svg><span>Instagram</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->vk_link !== null)
-                                                <a class="btn btn-sm btn-vk" type="button" href="{{ $social->vk_link }}"
-                                                    target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-vk"></use>
-                                                    </svg><span>VK</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->site_link !== null)
-                                                <a class="btn btn-sm btn-yahoo" type="button"
-                                                    href="{{ $social->site_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use
-                                                            xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                        </use>
-                                                    </svg><span>Website</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->telegram_link !== null)
-                                                <a class="btn btn-sm btn-yahoo" type="button"
-                                                    href="https://t.me/{{ $social->telegram_link }}" target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-telegram"></use>
-                                                    </svg><span>Telegram</span>
-                                                </a>
-                                            @endif
-                                            @if ($social->whatsapp_link !== null)
-                                                <a class="btn btn-sm btn-vimeo" type="button"
-                                                    href="https://api.whatsapp.com/send?phone={{ $social->whatsapp_link }}"
-                                                    target="_blank">
-                                                    <svg class="c-icon mr-2">
-                                                        <use xlink:href="/icons/sprites/brand.svg#cib-whatsapp"></use>
-                                                    </svg><span>Whatsapp</span>
-                                                </a>
-                                            @endif
-                                        </p>
-                                    </div>
+        @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)
+            <div class="card card-accent-success mb-12" style="max-width: 18rem;">
+                <div class="card-body text-success">
+                    <h6 class="card-title">Há cadastros a serem aprovados</h6>
+                    <a href="{{ route('peopleList.index') }}" class="btn btn-primary">Pré-cadastro</a>
+                    </p>
+                </div>
+            </div>
+        @endif
+        @if ($appPermissao->view_people == true and $peopleativo == 0)
+            <div class="card card-accent-success mb-12" style="max-width: 25rem;">
+                <div class="card-body text-success">
+                    <h6 class="card-title">Gostaria de importar uma planilha com as Pessoas?</h6>
+                    <a href="{{ url('settings/backup') }}" class="btn btn-primary">Importar</a>
+                    </p>
+                </div>
+            </div>
+        @endif
+        <style type="text/css">
+            .btn {
+                margin-bottom: 4px;
+            }
+
+        </style>
+        <div class="fade-in">
+            @if ($appPermissao->home_social == true)
+                @if (($social->facebook_link !== null) | ($social->twitter_link !== null) | ($social->linkedin_link !== null) | ($social->youtube_link !== null) | ($social->instagram_link !== null) | ($social->vk_link !== null) | ($social->site_link !== null) | ($social->telegram_link !== null) | ($social->whatsapp_link !== null))
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6>Rede Sociais</h6>
+                                    <p>
+                                        @if ($social->facebook_link !== null)
+                                            <a class="btn btn-sm btn-facebook" type="button"
+                                                href="{{ $social->facebook_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-facebook-f">
+                                                    </use>
+                                                </svg><span>Facebook</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->twitter_link !== null)
+                                            <a class="btn btn-sm btn-twitter" type="button"
+                                                href="{{ $social->twitter_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-twitter">
+                                                    </use>
+                                                </svg><span>Twitter</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->linkedin_link !== null)
+                                            <a class="btn btn-sm btn-linkedin" type="button"
+                                                href="{{ $social->linkedin_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-linkedin">
+                                                    </use>
+                                                </svg><span>LinkedIn</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->youtube_link !== null)
+                                            <a class="btn btn-sm btn-youtube" type="button"
+                                                href="{{ $social->youtube_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-youtube">
+                                                    </use>
+                                                </svg><span>YouTube</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->instagram_link !== null)
+                                            <a class="btn btn-sm btn-instagram" type="button"
+                                                href="{{ $social->instagram_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-instagram">
+                                                    </use>
+                                                </svg><span>Instagram</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->vk_link !== null)
+                                            <a class="btn btn-sm btn-vk" type="button" href="{{ $social->vk_link }}"
+                                                target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-vk"></use>
+                                                </svg><span>VK</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->site_link !== null)
+                                            <a class="btn btn-sm btn-yahoo" type="button" href="{{ $social->site_link }}"
+                                                target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use
+                                                        xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                    </use>
+                                                </svg><span>Website</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->telegram_link !== null)
+                                            <a class="btn btn-sm btn-yahoo" type="button"
+                                                href="https://t.me/{{ $social->telegram_link }}" target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-telegram">
+                                                    </use>
+                                                </svg><span>Telegram</span>
+                                            </a>
+                                        @endif
+                                        @if ($social->whatsapp_link !== null)
+                                            <a class="btn btn-sm btn-vimeo" type="button"
+                                                href="https://api.whatsapp.com/send?phone={{ $social->whatsapp_link }}"
+                                                target="_blank">
+                                                <svg class="c-icon mr-2">
+                                                    <use xlink:href="/icons/sprites/brand.svg#cib-whatsapp">
+                                                    </use>
+                                                </svg><span>Whatsapp</span>
+                                            </a>
+                                        @endif
+                                    </p>
                                 </div>
-                    @endif
-                @endif
-                @if ($appPermissao->home_grupo == true)
-                    @if (!$groups->isEmpty())
-                        <div class="card">
-                            <div class="card-header">
-                                <h6><strong>Meus grupos</strong></h6>
                             </div>
-                            <table class="table table-responsive-sm table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Pessoas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($groups as $group)
-                                        <tr>
-                                            <td><strong>{{ $group->grupo->name_group }}</strong></td>
-                                            <td>{{ $group->grupo->type }}</td>
-                                            <td>{{ $group->grupo->count }}</td>
-                                        </tr>
-                                        </tr>
-                                    @empty
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
                 @endif
-
-                @if ($appPermissao->home_financeiro_valores == true)
-                    @if (!$dizimos->isEmpty())
-                        <div class="card">
-                            <div class="card-header">
-                                <h6><strong>Seus valores</strong></h6>
-                            </div>
-
-                            <table class="table table-responsive-sm table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Value</th>
-                                        <th>Type</th>
-                                        <th>Forma de pagamento</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($dizimos as $dizimo)
-                                        <tr>
-                                            <td>R$ {{ $dizimo->amount }}</td>
-                                            <td>{{ $dizimo->status->name }}</td>
-                                            <td>
-                                                <span class="{{ $dizimo->statuspag->class }}">
-                                                    {{ $dizimo->statuspag->name }}
-                                                </span>
-                                            </td>
-                                            <td>{{ $dizimo->date }}</td>
-                                        </tr>
-                                        </tr>
-                                    @empty
-                                    @endforelse
-                                </tbody>
-                            </table>
-                            {{ $dizimos->links() }}
-                        </div>
             @endif
+            @if ($appPermissao->home_message == true)
+            <h3 class="section-title">Recados</h3>
+            <div class="row">
+                @foreach ($notes as $note)
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <article class="article article-style-b">
+                        <div class="article-header">
+                            <div class="article-image"><img src="{{ $note->image }}" width="400px" height="400px">
+                            </div>
+                            <!--<div class="article-badge">
+                                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
+                                    Trending</div>
+                            </div> -->
+                        </div>
+                        <div class="article-details">
+                            <div class="article-title">
+                                <h2><a href="message/{{ $note->id }}">{{  mb_strimwidth($note->title, 0, 45, "...") }}</a></h2>
+                            </div>
+                            <p>{{  mb_strimwidth($note->content, 0, 130, "...") }}</p>
+                        </div>
+                    </article>
+                </div>
+                @endforeach
+            </div>
+            @endif
+            @if ($appPermissao->home_grupo == true)
+                @if (!$groups->isEmpty())
+                    <div class="card">
+                        <div class="card-header">
+                            <h6><strong>Meus grupos</strong></h6>
+                        </div>
+                        <table class="table table-responsive-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Pessoas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($groups as $group)
+                                    <tr>
+                                        <td><strong>{{ $group->grupo->name_group }}</strong></td>
+                                        <td>{{ $group->grupo->type }}</td>
+                                        <td>{{ $group->grupo->count }}</td>
+                                    </tr>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            @endif
+
+            @if ($appPermissao->home_financeiro_valores == true)
+                @if (!$dizimos->isEmpty())
+                    <div class="card">
+                        <div class="card-header">
+                            <h6><strong>Seus valores</strong></h6>
+                        </div>
+
+                        <table class="table table-responsive-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Value</th>
+                                    <th>Type</th>
+                                    <th>Forma de pagamento</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($dizimos as $dizimo)
+                                    <tr>
+                                        <td>R$ {{ $dizimo->amount }}</td>
+                                        <td>{{ $dizimo->status->name }}</td>
+                                        <td>
+                                            <span class="{{ $dizimo->statuspag->class }}">
+                                                {{ $dizimo->statuspag->name }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $dizimo->date }}</td>
+                                    </tr>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{ $dizimos->links() }}
+                    </div>
+                @endif
             @endif
             @if ($appPermissao->home_financeiro == true)
                 <!-- /.row-->
@@ -287,7 +330,8 @@
                                                 <div class="progress progress-xs">
                                                     <div class="progress-bar bg-success" role="progressbar"
                                                         style="width:  {{ $porcentage_despesa }}%" aria-valuenow="8"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                        aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -296,14 +340,16 @@
                                     <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col-6">
-                                                <div class="c-callout c-callout-warning"><small class="text-muted">Total
+                                                <div class="c-callout c-callout-warning"><small
+                                                        class="text-muted">Total
                                                         de Batismos</small>
                                                     <div class="text-value-lg">{{ $totalbatismo }}</div>
                                                 </div>
                                             </div>
                                             <!-- /.col-->
                                             <div class="col-6">
-                                                <div class="c-callout c-callout-success"><small class="text-muted">Total
+                                                <div class="c-callout c-callout-success"><small
+                                                        class="text-muted">Total
                                                         de Pessoas</small>
                                                     <div class="text-value-lg">{{ $peopleativo }}</div>
                                                 </div>
@@ -346,31 +392,36 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <script>
+            function initMap() {
+                var myLatLng = {
+                    lat: {{ $locations->lat }},
+                    lng: {{ $locations->lng }}
+                };
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    zoom: 13
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Local!',
+                    draggable: false
+                });
+            }
+        </script>
+        <style type="text/css">
+            #map {
+                width: 100%;
+                height: 400px;
+            }
+
+        </style>
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
     @endif
-    </div>
-
-    <script>
-        function initMap() {
-            var myLatLng = {
-                lat: {{ $locations->lat }},
-                lng: {{ $locations->lng }}
-            };
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: myLatLng,
-                zoom: 13
-            });
-
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Local!',
-                draggable: false
-            });
-        }
-    </script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
 
     <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
 
@@ -394,14 +445,6 @@
 
         })
     </script>
-
-    <style type="text/css">
-        #map {
-            width: 100%;
-            height: 400px;
-        }
-
-    </style>
 @endsection
 
 @section('javascript')

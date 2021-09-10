@@ -95,6 +95,7 @@ class ConfigSystemController extends Controller
         $settings->timezone       = $request->input('timezone');
         $settings->default_language       = $request->input('language');
         $settings->currency       = $request->input('currency');
+        $settings->geolocation       = $request->has('geolocation') ? 1 : 0;
         $settings->obg_last_name       = $request->has('obg_last_name') ? 1 : 0;
         $settings->obg_email       = $request->has('obg_email') ? 1 : 0;
         $settings->obg_mobile       = $request->has('obg_mobile') ? 1 : 0;

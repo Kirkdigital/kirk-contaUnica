@@ -11,6 +11,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 
 class Controller extends BaseController
@@ -37,5 +39,21 @@ class Controller extends BaseController
     {
         $auditoria = Auditoria_global::firstOrCreate([]);
         $auditoria->log_global($status, $type, $json);
+    }
+
+    public function saveImage($image, $path = 'public')
+    {
+        if(!$image)
+        {
+            return null;
+        }
+
+        $filename = time().'.png';
+        // save image
+        Storage::disk($path)->put($filename, base64_decode($image));
+
+        //return the path
+        // Url is the base url exp: localhost:8000
+        return URL::to('/').'/storage/'.$path.'/'.$filename;
     }
 }

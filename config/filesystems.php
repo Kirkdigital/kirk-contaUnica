@@ -50,8 +50,28 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => public_path('public'),
-            'url' => env('APP_URL').'/public',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'profiles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/profiles'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'posts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/posts'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'messages' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/messages'),
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 

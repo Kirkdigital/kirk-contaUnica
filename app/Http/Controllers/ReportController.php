@@ -103,4 +103,10 @@ class ReportController extends Controller
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
         return view('reports.Group', compact('groups', 'dataForm'));
     }
+    public function Location(People $historic)
+    {
+        $this->pegar_tenant();
+        $peoples = People::whereNotNull('lat')->get();
+        return view('reports.PeopleLoc', compact('peoples'));
+    }
 }

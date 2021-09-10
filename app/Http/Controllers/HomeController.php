@@ -111,10 +111,12 @@ class HomeController extends Controller
                             ->paginate('12');
 
         $locations = Institution::find(session()->get('key'))->first();
+        $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->where('status_id','1')->get();
 
         return view('home', 
             compact(
                     'precadastro',
+                    'notes',
                     'locations',
                     'eventos',
                     'message',

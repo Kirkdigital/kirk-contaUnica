@@ -15,7 +15,7 @@
                                 <center>
                                     @if (!empty(Auth::user()->image))
                                         <img class="image rounded-circle"
-                                            src="{{ url('/public/' . auth()->user()->image) }}" alt="profile_image"
+                                            src="{{ auth()->user()->image }}" alt="profile_image"
                                             style="width: 160px;height: 160px; padding: 10px; margin: 0px; ">
                                     @endif
                                 </center>
