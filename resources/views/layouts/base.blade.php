@@ -63,7 +63,6 @@
 </head>
 
 <!-- retirar minimized fica minimizado c-sidebar-minimized-->
-
 <body class="c-app">
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
         @include('layouts.shared.nav-builder')

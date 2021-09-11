@@ -189,7 +189,6 @@ class PeoplesController extends Controller
     {
         $validatedData = $request->validate([
             'name'             => 'required|min:1|max:255',
-            'email'           => 'required',
             'status_id'         => 'required',
         ]);
         $this->pegar_tenant();
