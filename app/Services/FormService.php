@@ -8,7 +8,6 @@ namespace App\Services;
 
 use App\Models\FormField;
 use App\Models\Form;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -17,6 +16,7 @@ class FormService{
     public function __construct(){
 
     }
+
 
     public function saveSingleFormData($slug, $request, $formId){
 

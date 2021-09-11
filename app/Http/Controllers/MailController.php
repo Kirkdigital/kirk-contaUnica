@@ -15,9 +15,8 @@ class MailController extends Controller
      */
     public function index()
     {
-        $this->pegar_tenant();
         $emailTemplates = EmailTemplate::paginate( 20 );
-        return view('settings.email.index', ['emailTemplates' => $emailTemplates]);
+        return view('admin.email.index', ['emailTemplates' => $emailTemplates]);
     }
 
     /**
@@ -27,7 +26,7 @@ class MailController extends Controller
      */
     public function create()
     {
-        return view('settings.email.create');
+        return view('admin.email.create');
     }
 
     /**
@@ -63,7 +62,7 @@ class MailController extends Controller
     {
         $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('settings.email.show', [ 'template' => $template ]);
+        return view('admin.email.show', [ 'template' => $template ]);
     }
 
     /**
@@ -76,7 +75,7 @@ class MailController extends Controller
     {
         $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('settings.email.edit', [ 'template' => $template ]);
+        return view('admin.email.edit', [ 'template' => $template ]);
     }
 
     /**
@@ -117,13 +116,13 @@ class MailController extends Controller
             $template->delete();
         }
         $request->session()->flash('message', 'Successfully deleted Email Template');
-        return redirect()->route('mail.index');
+        return redirect()->route('emails.index');
     }
 
     public function prepareSend($id){
         $this->pegar_tenant();
         $template = EmailTemplate::find($id);
-        return view('settings.email.send', [ 'template' => $template ]);
+        return view('admin.email.send', [ 'template' => $template ]);
     }
 
     public function send($id, Request $request){

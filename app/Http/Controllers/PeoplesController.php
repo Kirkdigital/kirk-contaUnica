@@ -213,8 +213,10 @@ class PeoplesController extends Controller
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
-        $people->lat = $request->input('lat-span');
-        $people->lng = $request->input('lon-span');
+        if(($request->input('lat-span') and $request->input('lon-span')) == !null){
+            $people->lat = $request->input('lat-span');
+            $people->lng = $request->input('lon-span');
+        }
         $people->save();
 
         //consulta para criar o acesso a conta

@@ -34,7 +34,7 @@ class ProfileController extends Controller
         $you = auth()->user();
         $countinstlist = Institution::where('integrador', $you->id)->get();
         $countinst = $countinstlist->count();
-        return view('dashboard.admin.profileEditForm', compact('countinst'));
+        return view('admin.profileEditForm', compact('countinst'));
     }
 
     /**

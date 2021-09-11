@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Institution;
-use App\Models\People;
 use App\Models\Status;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;

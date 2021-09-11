@@ -66,11 +66,4 @@ class User extends Authenticatable implements ReactsInterface
     public function isAdmin() {
         return $this->master  === true;
     }
-    public function getSender($sender)
-    {
-        return $this->where('name', 'LIKE', "%$sender%")
-                    ->orWhere('email', $sender)
-                    ->get()
-                    ->first();    
-    }
 }

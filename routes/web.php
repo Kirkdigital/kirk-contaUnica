@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\TimelineController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +18,6 @@ use App\Http\Controllers\TimelineController;
 
 Route::group(['middleware' => ['get.menu']], function () {
     Route::get('/', 'WelcomeController@welcome')->name('welcome');
-    Route::get('/demo', function () {
-        return view('demo.homepage');
-    });
     Route::get('/contact', function () {
         return view('contato');
     });
@@ -25,7 +25,8 @@ Route::group(['middleware' => ['get.menu']], function () {
         return view('updates');
     });
 
-
+    Auth::routes();
+    
     Route::group(['middleware' => ['role:user']], function () {
         Route::resource('message', 'NotesController');
 
@@ -86,8 +87,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::post('timeline/{post}/reaction', [ReactionsController::class, 'toggle'])->middleware('auth');
     });
 
-    Auth::routes();
-
     //pessoas
     Route::get('people', 'PeoplesController@index')->name('people.index');
     Route::get('people/create', 'PeoplesController@create')->name('people.create');
@@ -134,26 +133,10 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
 
-    //logs
-    Route::get('logs', 'LogsController@index')->name('logs.index');
-
-
-    Route::resource('resource/{table}/resource', 'ResourceController')->names([
-        'index'     => 'resource.index',
-        'create'    => 'resource.create',
-        'store'     => 'resource.store',
-        'show'      => 'resource.show',
-        'edit'      => 'resource.edit',
-        'update'    => 'resource.update',
-        'destroy'   => 'resource.destroy'
-    ]);
-
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('/thema', function () {
-            return view('dashboard.buttons.them');
-        });
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
         Route::resource('users',        'UsersController')->except(['create', 'store']);
+        Route::resource('mail',        'MailController');
         Route::get('prepareSend/{id}',        'MailController@prepareSend')->name('prepareSend');
         Route::post('mailSend/{id}',        'MailController@send')->name('mailSend');
         Route::get('/roles/move/move-up',      'RolesController@moveUp')->name('roles.up');
@@ -194,8 +177,17 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::post('/file/cropp',      'MediaController@cropp');
             Route::get('/file/copy',        'MediaController@fileCopy')->name('media.file.copy');
         });
-    });
-    Route::group(['middleware' =>  ['role:admin']], function () {
+        Route::resource('resource/{table}/resource', 'ResourceController')->names([
+            'index'     => 'resource.index',
+            'create'    => 'resource.create',
+            'store'     => 'resource.store',
+            'show'      => 'resource.show',
+            'edit'      => 'resource.edit',
+            'update'    => 'resource.update',
+            'destroy'   => 'resource.destroy'
+        ]);
+        //logs
+        Route::get('logs', 'LogsController@index')->name('logs.index');
         Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     });
 });

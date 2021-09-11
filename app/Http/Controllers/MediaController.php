@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
+use Illuminate\Support\Facades\DB;
+
 use App\Services\RemoveFolderService;
 
 class MediaController extends Controller
@@ -13,14 +15,14 @@ class MediaController extends Controller
         if($request->has('id')){
             $thisFolder = Folder::where('id', '=', $request->input('id'))->first();
             if($thisFolder->folder_id == null){
-                $result = view('dashboard.media.index', array(
+                $result = view('admin.media.index', array(
                     'medias' => $thisFolder->getMedia(),
                     'mediaFolders' =>  Folder::where('folder_id', '=', $thisFolder->id)->get(),
                     'thisFolder' => $thisFolder->id,
                     'parentFolder' => 'disable'
                 ));
             }else{
-                $result = view('dashboard.media.index', array(
+                $result = view('admin.media.index', array(
                     'medias' => $thisFolder->getMedia(),
                     'mediaFolders' =>  Folder::where('folder_id', '=', $request->input('id'))->get(),
                     'thisFolder' => $request->input('id'),
@@ -29,7 +31,7 @@ class MediaController extends Controller
             }
         }else{
             $rootFolder = Folder::whereNull('folder_id')->first();
-            $result = view('dashboard.media.index', array(
+            $result = view('admin.media.index', array(
                 'medias' => $rootFolder->getMedia(),
                 'mediaFolders' =>  Folder::where('folder_id', '=', $rootFolder->id)->get(),
                 'thisFolder' => $rootFolder->id,

@@ -1,4 +1,5 @@
-@extends('dashboard.base')
+@extends('layouts.baseminimal')
+
 
 @section('content')
 
@@ -7,8 +8,9 @@
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
-                    <div class="card-header">
-                      <i class="fa fa-align-justify"></i>Emails Templates</div>
+                  <div class="card-header">
+                    <h4>Edit Template</h4>
+                </div>
                     <div class="card-body">
                         @if(Session::has('message'))
                             <div class="row">
