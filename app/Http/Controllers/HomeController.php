@@ -10,7 +10,6 @@ use App\Models\Event;
 use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\Config_social;
-use App\Models\Config_system;
 use App\Models\Institution;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
@@ -110,7 +109,7 @@ class HomeController extends Controller
                             ->where('user_id_transaction', $id)
                             ->paginate('12');
 
-        $locations = Institution::find(session()->get('key'))->first();
+        $locations = Institution::find(session()->get('key'));
         $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->where('status_id','1')->get();
 
         return view('home', 

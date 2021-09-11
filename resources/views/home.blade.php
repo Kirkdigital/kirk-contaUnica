@@ -1,7 +1,5 @@
-@extends('dashboard.base')
-
+@extends('layouts.base')
 @section('content')
-
 
     <div class="container-fluid">
         <div class="fade-in">
@@ -135,32 +133,39 @@
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 @endif
             @endif
             @if ($appPermissao->home_message == true)
+            @if (!$notes->isEmpty())
             <h3 class="section-title">Recados</h3>
             <div class="row">
-                @foreach ($notes as $note)
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <article class="article article-style-b">
-                        <div class="article-header">
-                            <div class="article-image"><img src="{{ $note->image }}" width="400px" height="400px">
-                            </div>
-                            <!--<div class="article-badge">
-                                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
-                                    Trending</div>
-                            </div> -->
-                        </div>
-                        <div class="article-details">
-                            <div class="article-title">
-                                <h2><a href="message/{{ $note->id }}">{{  mb_strimwidth($note->title, 0, 45, "...") }}</a></h2>
-                            </div>
-                            <p>{{  mb_strimwidth($note->content, 0, 130, "...") }}</p>
-                        </div>
-                    </article>
+                    @foreach ($notes as $note)
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <article class="article article-style-b">
+                                <div class="article-header">
+                                    <div class="article-image"><img src="{{ $note->image }}" width="400px"
+                                            height="400px">
+                                    </div>
+                                    <!--<div class="article-badge">
+                                    <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
+                                        Trending</div>
+                                </div> -->
+                                </div>
+                                <div class="article-details">
+                                    <div class="article-title">
+                                        <h2><a
+                                                href="message/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
+                                        </h2>
+                                    </div>
+                                    <p>{{ mb_strimwidth($note->content, 0, 130, '...') }}</p>
+                                </div>
+                            </article>
+                        </div>        
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+                @endif
             @endif
             @if ($appPermissao->home_grupo == true)
                 @if (!$groups->isEmpty())
@@ -375,8 +380,7 @@
                     </div>
                 </div>
             @endif
-        </div>
-    </div>
+
     @if ($appPermissao->home_location == true)
         <div class="row">
             <div class="col-md-12">
@@ -445,6 +449,7 @@
 
         })
     </script>
+        </div>
 @endsection
 
 @section('javascript')

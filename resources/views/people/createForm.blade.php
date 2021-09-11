@@ -1,12 +1,9 @@
 @extends('dashboard.base')
-
 @section('content')
-
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
                 <div class="col-md-12 mb-4">
-
                     <div class="nav-tabs-boxed">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#dados" role="tab"
@@ -136,7 +133,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-sm-3">
                                                 <label class="col-md-3 col-form-label">Sexo @if ($campo->obg_sex == true)
                                                         *
                                                     @endif</label>
@@ -169,8 +166,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="name">Permissão *</label>
@@ -201,6 +196,30 @@
                                 </div>
                                 <div class="tab-pane" id="endereco" role="tabpanel">
                                     <div class="card-body">
+                                        @if ($campo->geolocation == true)       
+                                        <div id="map"></div>
+                                        <ul id="geoData">
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label for="city">Latitude</label>
+                                                    <div class="input-group-prepend">
+                                                        <span name="lat-span" id="lat-span"></span>
+                                                    </div>
+                                                    <input class="form-control" name="lat-span" type="text"
+                                                    >
+                                                </div>                                       
+                                                <div class="form-group col-sm-6">
+                                                    <label for="city">Longitude</label>
+                                                    <div class="input-group-prepend">
+                                                    <span name="lon-span" id="lon-span"></span>
+                                                    </div>
+                                                    <input class="form-control" name="lon-span" type="text"
+                                                    >
+                                                </div>
+                                                Por favor copiar valores nos campos acima ao selecionar o local no mapa
+                                            </div>
+                                        </ul>   
+                                        @else
                                         <div class="form-group">
                                             <label for="street">Street</label>
                                             <div class="input-group">
@@ -284,20 +303,11 @@
                                                     placeholder="Country name" value="Brazil" required>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="membro" role="tabpanel">
                                     <div class="card-body">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 col-form-label" for="disabled-input">Ativo</label>
-                                            <div class="col-md-9">
-                                                <select class="form-control" name="status_id">
-                                                    @foreach ($statuses as $status)
-                                                        <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label">Status</label>
                                             <div class="col-md-9 col-form-label">
@@ -332,9 +342,9 @@
                                             <div class="col-md-9">
                                                 <textarea class="form-control" name="note" rows="9"
                                                     placeholder="Content.." @if ($campo->obg_note == true)
-                                                                                required
-                                                                                @endif
-                                                                                ></textarea>
+                                                                                    required
+                                                                                    @endif
+                                                                                    ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -366,6 +376,44 @@
             $("#botao").prop('disabled', $(this).val().length < 3);
         });
     </script>
+    @if ($campo->geolocation == true)  
+    <style type="text/css">
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+
+    </style>
+    <script>
+        function initMap() {
+            var myLatLng = {
+                
+                                                
+                lat: @if ($locations->lat) {{$locations->lat}} @endif,
+                lng: @if ($locations->lng) {{$locations->lng}} @endif
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 13
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Ponto',
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(marker) {
+                var latLng = marker.latLng;
+                document.getElementById('lat-span').innerHTML = latLng.lat();
+                document.getElementById('lon-span').innerHTML = latLng.lng();
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+    @endif
 @endsection
 
 @section('javascript')

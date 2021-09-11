@@ -222,6 +222,7 @@ class InstitutionsController extends Controller
         $validatedData = $request->validate([
             'email'           => 'required',
             'mobile'         => 'required',
+            'doc'         => 'required',
             'address1'         => 'required',
             'city'         => 'required',
             'state'         => 'required',
@@ -230,6 +231,7 @@ class InstitutionsController extends Controller
 
         $institution = Institution::find($id);
         $institution->name_company      = $request->input('name_company');
+        $institution->doc      = $request->input('doc');
         $institution->email      = $request->input('email');
         $institution->mobile      = $request->input('mobile');
         $institution->address1       = $request->input('address1');
@@ -276,6 +278,8 @@ class InstitutionsController extends Controller
     {
         //mater toda a sessao
         $request->session()->forget('schema');
+        $request->session()->forget('key');
+        $request->session()->forget('conexao');
 
         $results = DB::select('select * from admin.accounts where id = ?', [$id]);
 

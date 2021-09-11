@@ -18,7 +18,7 @@ class BaseSeeder extends Seeder
     {
         //
         DB::table(config::get('database.connections.tenant.schema').'.config_system')->insert([
-            'name' => 'DeskApps',
+            'name' => 'This page is a place to view posts, their groups, and more.',
             'timezone' => 'America/Manaus',
             'currency' => 'R$',
             'obg_last_name' => '1',
@@ -47,7 +47,7 @@ class BaseSeeder extends Seeder
             'edit_group' => '1',
             'view_group' => '1',
             'delete_group' => '1',
-            'delete_group_group' => '1',
+            'delete_group_people' => '1',
             //recado
 			'add_message' => '1',
             'edit_message' => '1',
@@ -70,6 +70,7 @@ class BaseSeeder extends Seeder
             'home_grupo' => '1',
             'home_social' => '1',
             'home_location' => '1',
+            'home_message' => '1',
             //dash
             'view_periodo' => '1',
 			'view_dash' => '1',
@@ -88,16 +89,17 @@ class BaseSeeder extends Seeder
         DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
             'name' => 'Membro',
             //home
-            'home_financeiro' => '1',
+            'home_financeiro_valores' => '1',
             'home_grupo' => '1',
             'home_social' => '1',
             'home_location' => '1',
-
+            'home_message' => '1',
         ]);
         DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
             'name' => 'Financeiro',
             //home
             'home_financeiro' => '1',
+            'home_message' => '1',
              //financeiro
 			'add_entrada_financial' => '1',
             'add_retirada_financial' => '1',
@@ -120,7 +122,7 @@ class BaseSeeder extends Seeder
             'edit_group' => '1',
             'view_group' => '1',
             'delete_group' => '1',
-            'delete_group_group' => '1',
+            'delete_group_people' => '1',
             //recado
 			'add_message' => '1',
             'edit_message' => '1',
@@ -128,6 +130,7 @@ class BaseSeeder extends Seeder
             'delete_message' => '1',
             //home
             'home_financeiro' => '1',
+            'home_message' => '1',
             //dash
             'view_periodo' => '1',
 			'view_dash' => '1',

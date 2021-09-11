@@ -2,13 +2,12 @@
 
 @section('content')
 
-    <div class="container-fluid">
-        <div class="fade-in">
-            <div class="row">
-                <div class="col-md-12 mb-4">
-                    <div class="card">
-                        <div class="nav-tabs-boxed">
-                            <ul class="nav nav-tabs" role="tablist">
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="nav-tabs-boxed">
+                    <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#dados"
                                         role="tab" aria-controls="dados"><i
                                             class="c-icon c-icon-sm cil-contact text-dark"></i> Dados
@@ -91,7 +90,7 @@
                                                                         </use>
                                                                     </svg> </div>
                                                             <input class="form-control" id="mobile" name="mobile"
-                                                                type="tel" pattern="[0-9]{2} [0-9]{5}[0-9]{4}"
+                                                            placeholder="11 999999999" type="tel" pattern="[0-9]{2} [0-9]{5}[0-9]{4}"
                                                                 value="{{ $people->mobile }}" @if ($campo->obg_mobile == true)
                                                             required
                                                             @endif
@@ -154,7 +153,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label for="name">Permissão *</label>
@@ -191,91 +189,120 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="tab-pane" id="endereco" role="tabpanel">
                                         <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="street">Street</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text">
-                                                            <svg class="c-icon">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
-                                                                </use>
-                                                            </svg> </div>
-                                                    <input class="form-control" id="address" name="address" type="text"
-                                                        placeholder="Enter street name" value="{{ $people->address }}">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-5">
-                                                    <label for="city">City @if ($campo->obg_city == true)
-                                                            *
-                                                        @endif</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend"><span class="input-group-text">
-                                                                <svg class="c-icon">
-                                                                    <use
-                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
-                                                                    </use>
-                                                                </svg> </div>
-                                                        <input class="form-control" id="city" name="city" type="text"
-                                                            placeholder="Enter your city" value="{{ $people->city }}"
-                                                            @if ($campo->obg_city == true)
-                                                        required
-                                                        @endif
+                                            @if ($campo->geolocation == true)       
+                                            <div id="map"></div>
+                                            <ul id="geoData">
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="city">Latitude</label>
+                                                        <div class="input-group-prepend">
+                                                            <span name="lat-span" id="lat-span"></span>
+                                                        </div>
+                                                        <input class="form-control" name="lat-span" type="text"
+                                                        >
+                                                    </div>                                       
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="city">Longitude</label>
+                                                        <div class="input-group-prepend">
+                                                        <span name="lon-span" id="lon-span"></span>
+                                                        </div>
+                                                        <input class="form-control" name="lon-span" type="text"
                                                         >
                                                     </div>
+                                                    Por favor copiar valores nos campos acima ao selecionar o local no mapa
                                                 </div>
-                                                <div class="form-group col-sm-3">
-                                                    <label for="country">State @if ($campo->obg_state == true)
-                                                            *
-                                                        @endif</label>
+                                            </ul>   
+                                            @else
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="street">Street</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
                                                                     <use
-                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-home">
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-address-book">
                                                                     </use>
                                                                 </svg> </div>
-                                                        <input class="form-control" id="state" name="state" type="text"
-                                                            placeholder="State" placeholder="SP"
-                                                            value="{{ $people->state }}" @if ($campo->obg_state == true)
-                                                        required
-                                                        @endif
-                                                        >
+                                                        <input class="form-control" id="address" name="address" type="text"
+                                                            placeholder="Enter street name" value="{{ $people->address }}">
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="postal-code">Postal Code</label>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-5">
+                                                        <label for="city">City @if ($campo->obg_city == true)
+                                                                *
+                                                            @endif</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text">
+                                                                    <svg class="c-icon">
+                                                                        <use
+                                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
+                                                                        </use>
+                                                                    </svg> </div>
+                                                            <input class="form-control" id="city" name="city" type="text"
+                                                                placeholder="Enter your city" value="{{ $people->city }}"
+                                                                @if ($campo->obg_city == true)
+                                                            required
+                                                            @endif
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-3">
+                                                        <label for="country">State @if ($campo->obg_state == true)
+                                                                *
+                                                            @endif</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text">
+                                                                    <svg class="c-icon">
+                                                                        <use
+                                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-home">
+                                                                        </use>
+                                                                    </svg> </div>
+                                                            <input class="form-control" id="state" name="state" type="text"
+                                                                placeholder="State" placeholder="SP"
+                                                                value="{{ $people->state }}" @if ($campo->obg_state == true)
+                                                            required
+                                                            @endif
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="postal-code">Postal Code</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text">
+                                                                    <svg class="c-icon">
+                                                                        <use
+                                                                            xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                                        </use>
+                                                                    </svg> </div>
+                                                            <input class="form-control" id="cep" name="cep" type="text"
+                                                                placeholder="Postal Code" value="{{ $people->cep }}"
+                                                                pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.row-->
+                                                <div class="form-group">
+                                                    <label for="country">Country</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">
                                                                 <svg class="c-icon">
                                                                     <use
-                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
                                                                     </use>
                                                                 </svg> </div>
-                                                        <input class="form-control" id="cep" name="cep" type="text"
-                                                            placeholder="Postal Code" value="{{ $people->cep }}"
-                                                            pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
+                                                        <input class="form-control" id="country" type="text" name="country"
+                                                            placeholder="Country name" value="{{ $people->country }}">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /.row-->
-                                            <div class="form-group">
-                                                <label for="country">Country</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text">
-                                                            <svg class="c-icon">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                                </use>
-                                                            </svg> </div>
-                                                    <input class="form-control" id="country" type="text" name="country"
-                                                        placeholder="Country name" value="{{ $people->country }}">
-                                                </div>
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
+
                                     <div class="tab-pane" id="membro" role="tabpanel">
                                         <div class="card-body">
                                             <div class="form-group row">
@@ -378,6 +405,44 @@
             $(this).val($(this).val().toUpperCase());
         });
     </script>
+    @if ($campo->geolocation == true)  
+    <style type="text/css">
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+
+    </style>
+    <script>
+        function initMap() {
+            var myLatLng = {
+                
+                                                
+                lat: @if ($people->lat) {{$people->lat}} @else {{$locations->lat}} @endif,
+                lng: @if ($people->lng) {{$people->lng}} @else {{$locations->lng}} @endif
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 13
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Ponto',
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(marker) {
+                var latLng = marker.latLng;
+                document.getElementById('lat-span').innerHTML = latLng.lat();
+                document.getElementById('lon-span').innerHTML = latLng.lng();
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+    @endif
 @endsection
 
 @section('javascript')

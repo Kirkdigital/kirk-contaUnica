@@ -24,8 +24,7 @@ class ConfigSystemTable extends Migration
 			$table->string('timezone');
 			$table->integer('default_language')->nullable();
 			$table->string('currency')->nullable();
-            $table->string('geolocation')->nullable()->default(0);
-
+            $table->boolean('geolocation')->nullable()->default(0);
             $table->boolean('obg_last_name')->nullable()->default(1);
             $table->boolean('obg_email')->nullable()->default(0);
             $table->boolean('obg_mobile')->nullable()->default(0);

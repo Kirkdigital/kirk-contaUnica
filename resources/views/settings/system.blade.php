@@ -88,6 +88,13 @@
                                     </div>
                                     <div class="inner">
                                         <div class="form-check form-check-inline mr-1">
+                                            <input class="form-check-input" name="obg_note" type="checkbox" {{ $settings->obg_note == true ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="check1">Observação obrigatório</label>
+                                        </div>
+                                    </div>
+                                    <label class="control-label"><strong>Localização</strong></label>
+                                    <div class="inner">
+                                        <div class="form-check form-check-inline mr-1">
                                             <input class="form-check-input" name="obg_city" type="checkbox" {{ $settings->obg_city == true ? 'checked' : '' }}>
                                             <label class="form-check-label" for="check1">Cidade obrigatório</label>
                                         </div>
@@ -98,10 +105,11 @@
                                             <label class="form-check-label" for="check1">Estado obrigatório</label>
                                         </div>
                                     </div>
+
                                     <div class="inner">
                                         <div class="form-check form-check-inline mr-1">
-                                            <input class="form-check-input" name="obg_note" type="checkbox" {{ $settings->obg_note == true ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="check1">Observação obrigatório</label>
+                                            <input class="form-check-input" name="geolocation" type="checkbox" {{ $settings->geolocation == true ? 'checked' : '' }}>
+                                            <label title="Caso ative a opção de localização, os campos de endereço nas pessoas ficam ocultos até a desativação dessa opção" class="form-check-label" for="check1">Utilizar geolocalização <span class="badge badge-info">Beta</span></label>
                                         </div>
                                     </div>
                                 </div>

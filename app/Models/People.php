@@ -28,7 +28,8 @@ class People extends Model
         'is_newvisitor',
         'note',
         'image',
-        'image1'
+        'lat',
+        'lng'
     ];
 
     /**

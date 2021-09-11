@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Config_system;
+use App\Models\Institution;
 use Validator;
 use DB;
 use Hash;
@@ -60,18 +61,20 @@ class PeoplesController extends Controller
         $campo = Config_system::find('1')->first();
         //roles 
         $roles = Roles::all();
+        //localicazao da conta
 
-        return view('people.createForm', compact('campo'), ['statuses' => $statuses, 'roles' => $roles]);
+        $locations = Institution::find(session()->get('key'));
+        if($locations->lng == null)
+        {
+            session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+        }
+        return view('people.createForm', compact('campo','locations'), ['statuses' => $statuses, 'roles' => $roles]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->all([
             'name'             => 'required|min:1|max:255',
-            'email'           => 'required',
-            'mobile'         => 'required',
-            'country'         => 'required',
-            'status_id'         => 'required'
         ]);
 
         $people = new People();
@@ -86,7 +89,7 @@ class PeoplesController extends Controller
         $people->cep           = $request->input('cep');
         $people->country       = $request->input('country');
         $people->role       = $request->input('role');
-        $people->status_id = $request->input('status_id');
+        $people->status_id = '14';
         $people->is_visitor       = $request->input('is_visitor');
         $people->is_transferred       = $request->input('is_transferred');
         $people->is_responsible       = $request->input('is_responsible');
@@ -96,6 +99,8 @@ class PeoplesController extends Controller
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
+        $people->lat = $request->input('lat-span');
+        $people->lng = $request->input('lon-span');
         $this->pegar_tenant();
         $people->save();
         //consulta para criar o acesso a conta
@@ -162,8 +167,14 @@ class PeoplesController extends Controller
         $statuses = Status::all()->where("type", 'people');
         //roles 
         $roles = Roles::all();
+        
+        $locations = Institution::find(session()->get('key'));
+        if($locations->lng == null)
+        {
+            session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+        }
 
-        return view('people.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people, 'roles' => $roles]);
+        return view('people.EditForm', compact('campo', 'locations'), ['statuses' => $statuses, 'people' => $people, 'roles' => $roles]);
     }
 
     /**
@@ -179,10 +190,7 @@ class PeoplesController extends Controller
         $validatedData = $request->validate([
             'name'             => 'required|min:1|max:255',
             'email'           => 'required',
-            'mobile'         => 'required',
             'status_id'         => 'required',
-            'country'         => 'required'
-
         ]);
         $this->pegar_tenant();
         $people = People::find($id);
@@ -206,6 +214,8 @@ class PeoplesController extends Controller
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
         $people->is_newvisitor = 'false';
+        $people->lat = $request->input('lat-span');
+        $people->lng = $request->input('lon-span');
         $people->save();
 
         //consulta para criar o acesso a conta

@@ -153,7 +153,7 @@
                                                                             xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
                                                                         </use>
                                                                     </svg></span></div>
-                                                            <input class="form-control" name="cep" type="number"
+                                                            <input class="form-control" name="cep" type="text"
                                                                 placeholder="69059-627" maxlength="9"
                                                                 pattern="[0-9]{5}-[0-9]{3}">
                                                         </div>
@@ -185,7 +185,7 @@
                                                                     </use>
                                                                 </svg></span></div>
                                                         <input class="form-control" name="country" type="text"
-                                                            placeholder="Country name" value="BRAZIL">
+                                                            placeholder="Country name" value="Brazil">
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,7 +195,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2">
                                         <a href="{{ route('account.index') }}"
                                             class="btn btn-block btn-primary">{{ __('Return') }}</a>
-                                        <button class="btn btn-block btn-success" data-toggle="modal" data-target=".cd-load"
+                                        <button class="btn btn-block btn-success"
                                             type="submit">{{ __('Save') }}</button>
                         </form>
                     </div>

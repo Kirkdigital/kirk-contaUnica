@@ -10,10 +10,10 @@
 
     <div class="container-fluid">
                   <div class="card">
-                    
-                    <div class="card-header">
-                <i class="fa fa-align-justify"></i>{{ __('account.information') }}
-              </div>
+
+              <div class="card-header">
+                <h4>{{ __('account.information') }}</h4>
+            </div>
 
              
                 <div class="row">

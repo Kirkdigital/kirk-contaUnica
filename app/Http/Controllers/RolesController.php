@@ -102,9 +102,7 @@ class RolesController extends Controller
         $role->home_social       = $request->has('home_social') ? 1 : 0;
         $role->home_financeiro_valores       = $request->has('home_financeiro_valores') ? 1 : 0;
         $role->home_location       = $request->has('home_location') ? 1 : 0;
-        $role->home_location       = $request->has('home_message') ? 1 : 0;
-
-
+        $role->home_message       = $request->has('home_message') ? 1 : 0;
         //relatorio
         $role->report_view       = $request->has('report_view') ? 1 : 0;
 
@@ -205,7 +203,7 @@ class RolesController extends Controller
         $role->home_social       = $request->has('home_social') ? 1 : 0;
         $role->home_financeiro_valores       = $request->has('home_financeiro_valores') ? 1 : 0;
         $role->home_location       = $request->has('home_location') ? 1 : 0;
-        $role->home_location       = $request->has('home_message') ? 1 : 0;
+        $role->home_message       = $request->has('home_message') ? 1 : 0;
         //relatorio
         $role->report_view       = $request->has('report_view') ? 1 : 0;
         $role->save();
