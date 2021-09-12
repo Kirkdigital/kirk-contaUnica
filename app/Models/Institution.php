@@ -22,6 +22,8 @@ class Institution extends Model
         'name_company', 'integrador', 'email', 'mobile', 'address1', 'address2', 'tenant', 'type', 'doc', 'cep', 'state', 'city', 'country',
     ];
 
+    protected $primaryKey = 'id';
+    protected $secundaryKey = 'unique_id';
     /**
      * The attributes that should be hidden for arrays.
      *

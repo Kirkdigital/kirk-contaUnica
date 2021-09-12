@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <base href="./">
     <meta charset="utf-8">
@@ -47,7 +46,6 @@
     <link href="{{ asset('css/style.css?v=1') }}" rel="stylesheet">
 
     <!-- Layout-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link href="{{ asset('css/style1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/components.css') }}" rel="stylesheet">

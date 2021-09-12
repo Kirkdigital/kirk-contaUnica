@@ -35,7 +35,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resources([
             'account' => InstitutionsController::class,
         ]);
-
         //profile
         Route::get('/profile', 'ProfileController@index')->name('profile');
         Route::get('profile/change', 'ProfileController@change')->name('changeLang');
@@ -132,6 +131,15 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('report/peoplelocation', 'ReportController@Location')->name('location.index');
 
     Route::get('/license', 'InstitutionsController@license_index')->name('license_index');
+
+    Route::get('email-test', function(){
+  
+        $details['email'] = 'contato@deskapps.net';
+      
+        dispatch(new App\Jobs\SendEmailJob($details));
+      
+        dd('done');
+    });
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('bread',  'BreadController');   //create BREAD (resource)

@@ -75,7 +75,6 @@ class InstitutionsController extends Controller
         return view('account.License', ['institutions' => $institution], compact('countinst'));
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,8 +83,13 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
+        $you = auth()->user();
         $institution = Institution::find($id);
-        return view('account.EditForm', compact('institution'));
+        if ($institution->integrador == $you->id) {
+            return view('account.EditForm', compact('institution'));
+        };
+        session()->flash("error", 'Error interno');
+        return redirect('account');
     }
 
     /**
@@ -125,8 +129,7 @@ class InstitutionsController extends Controller
             'email'           => 'required',
             //'status_id'         => 'required',
             'doc'   => 'required',
-            'mobile'         => 'required',
-            'country'         => 'required'
+            'mobile'         => 'required'
         ]);
 
         //tratamento no nome para criar o esquema

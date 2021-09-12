@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Institution;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Ramsey\Uuid\Uuid;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,6 +29,8 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+        //funcionamento do uuid futuro
+        //Route::pattern('account', '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$');
     }
 
     /**

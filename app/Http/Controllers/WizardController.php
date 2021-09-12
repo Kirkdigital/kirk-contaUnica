@@ -33,6 +33,10 @@ class WizardController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->isAdmin() == true) {
+            session()->flash("error", 'Wizard não habilitado para admin');
+            return redirect('account');
+        };
         $institutions = Institution::all()->where('deleted_at', '=', null);
         return view('account.wizardList', ['institutions' => $institutions]);
     }
@@ -45,6 +49,13 @@ class WizardController extends Controller
     }
     public function create()
     {
+        if (auth()->user()->isAdmin() == true) {
+            session()->flash("error", 'Wizard não habilitado para admin');
+            return redirect('account');
+        };
+        if (session()->get('key-wizard') == null) {
+            return redirect('wizardList');
+        };
         $institutions = Institution::all()->where('deleted_at', '=', null);
         return view('account.wizard', ['institutions' => $institutions]);
     }
