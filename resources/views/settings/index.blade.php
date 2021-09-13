@@ -3,7 +3,7 @@
           <div class="col-sm-12">
                         <div class="card-body">
                             <div class="section-body">
-                                <h5 class="section-title">Settings</h5>
+                                <h4 class="section-title">Settings</h4>
                                 <p class="section-lead">
                                     Organize and adjust all settings about this site.
                                 </p>

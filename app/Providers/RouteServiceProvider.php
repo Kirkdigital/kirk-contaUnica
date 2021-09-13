@@ -29,8 +29,6 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
-        //funcionamento do uuid futuro
-        //Route::pattern('account', '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$');
     }
 
     /**

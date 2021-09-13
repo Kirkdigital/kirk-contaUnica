@@ -31,65 +31,65 @@
                                                 aria-labelledby="home-tab4">
                                                 <label for="city">Nome da Conta</label>
                                                 <div class="input-group">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <svg class="c-icon c-icon-sm">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-contact">
-                                                                </use>
-                                                            </svg>
-                                                        </span>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <svg class="c-icon c-icon-sm">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-contact">
+                                                                    </use>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                        <input class="form-control" type="text"
+                                                            placeholder="{{ __('Name') }}" name="name_company" required>
                                                     </div>
-                                                    <input class="form-control" type="text"
-                                                        placeholder="{{ __('Name') }}" name="name_company" required>
-                                                </div>
                                                 </div>
                                                 <label for="city">CNPJ</label>
                                                 <div class="input-group">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <svg class="c-icon c-icon-sm">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-featured-playlist">
-                                                                </use>
-                                                            </svg>
-                                                        </span>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <svg class="c-icon c-icon-sm">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-featured-playlist">
+                                                                    </use>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                        <input class="form-control" type="text"
+                                                            placeholder="01.452.25/0001-19"
+                                                            pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}"
+                                                            name="doc" required>
                                                     </div>
-                                                    <input class="form-control" type="text"
-                                                        placeholder="01.452.25/0001-19"
-                                                        pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" name="doc"
-                                                        required>
                                                 </div>
-                                            </div>
-                                            <label for="city">E-mail</label>
-                                            <div class="input-group">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">@</span>
+                                                <label for="city">E-mail</label>
+                                                <div class="input-group">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">@</span>
+                                                        </div>
+                                                        <input class="form-control" type="email"
+                                                            placeholder="{{ __('E-Mail Address') }}" name="email">
                                                     </div>
-                                                    <input class="form-control" type="email"
-                                                        placeholder="{{ __('E-Mail Address') }}" name="email">
                                                 </div>
-                                            </div>
-                                        <label for="city">Telefone</label>
-                                        <div class="input-group">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <svg class="c-icon c-icon-sm">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-phone">
-                                                                </use>
-                                                            </svg>
-                                                        </span>
+                                                <label for="city">Telefone</label>
+                                                <div class="input-group">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <svg class="c-icon c-icon-sm">
+                                                                    <use
+                                                                        xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-phone">
+                                                                    </use>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                        <input class="form-control" name="mobile" type="tel"
+                                                            placeholder="11 99999-9999"
+                                                            pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" required>
                                                     </div>
-                                                    <input class="form-control" name="mobile" type="tel"
-                                                        placeholder="11 99999-9999" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}"
-                                                        required>
                                                 </div>
-                                        </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group row">
                                                         <label>Type</label>
@@ -191,16 +191,22 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2">
                                         <a href="{{ route('account.index') }}"
                                             class="btn btn-block btn-primary">{{ __('Return') }}</a>
-                                        <button class="btn btn-block btn-success"
-                                            type="submit">{{ __('Save') }}</button>
+                                        <button class="btn btn-block btn-success" type="submit"
+                                            onclick="dasabilitaBotao(this)" data-toggle="modal"
+                                            data-target=".cd-load">{{ __('Save') }}</button>
                         </form>
                     </div>
                 </div>
             </div>
+
+            <script>
+                function desabilitaBotao(element) {
+                    $(element).prop('disabled', true)
+                }
+            </script>
 
         @endsection
 

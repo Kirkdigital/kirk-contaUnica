@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="card">
-                        <div class="card-header"><strong>Configurações de Redes Sociais</strong></div>
+                        <div class="card-header"><h4>Configurações de Redes Sociais</h4></div>
                         <div class="card-body">
                             <form action="{{ route('settings.updateSocial') }}" method="POST">
                                 @csrf

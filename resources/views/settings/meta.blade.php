@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="card">
-                        <div class="card-header"><strong>Configuração de Metas</strong></div>
+                        <div class="card-header"><h4>Configuração de Metas</h4></div>
                         <div class="card-body">
                             <form action="{{ route('settings.updateMeta') }}" method="POST">
                                 @csrf

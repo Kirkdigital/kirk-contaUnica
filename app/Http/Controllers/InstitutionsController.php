@@ -85,7 +85,7 @@ class InstitutionsController extends Controller
     {
         $you = auth()->user();
         $institution = Institution::find($id);
-        if ($institution->integrador == $you->id) {
+        if ($institution->integrador == $you->id and $institution->deleted_at == null) {
             return view('account.EditForm', compact('institution'));
         };
         session()->flash("error", 'Error interno');
@@ -225,10 +225,7 @@ class InstitutionsController extends Controller
             'email'           => 'required',
             'mobile'         => 'required',
             'doc'         => 'required',
-            'address1'         => 'required',
-            'city'         => 'required',
-            'state'         => 'required',
-            'cep'         => 'required'
+            'name_company'         => 'required',
         ]);
 
         $institution = Institution::find($id);

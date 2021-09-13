@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     @if (!$institutions->isEmpty())
-                        <h6><strong>{{ __('account.select') }}</strong></h6>
+                        <h4><strong>{{ __('account.select') }}</strong></h4>
                 </div>
                 <table class="table table-striped">
                     <thead>

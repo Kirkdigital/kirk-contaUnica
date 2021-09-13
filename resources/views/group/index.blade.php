@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <div class="form-groups row">
                        <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
-                                        <h5>Grupos</h5>
+                                        <h4>Grupos</h4>
                                     </div>
                                     <div class="col-sm-2 col-md-2 col-lg-4 col-xl-2">
                                         @if ($appPermissao->add_group == true)

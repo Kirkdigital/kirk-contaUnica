@@ -214,7 +214,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">Informações gerais</div>
+                            <h4 class="card-title mb-0">Informações gerais</h4>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">

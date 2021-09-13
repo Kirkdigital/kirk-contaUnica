@@ -10,7 +10,7 @@
                         <div class="container">
 
                             <div class="card-header">
-                                <h5>Backup</h5>
+                                <h4>Backup</h4>
                             </div>
 
                             <div class="card-body">

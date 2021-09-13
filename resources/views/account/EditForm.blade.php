@@ -88,8 +88,8 @@
                                                     </span>
                                                 </div>
                                                 <input class="form-control" name="mobile" type="tel"
-                                                    placeholder="11 99999-9999" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}"
-                                                    required>
+                                                placeholder="11 99999-9999" value="{{ $institution->mobile }}"
+                                                pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" required>
                                             </div>
                                     </div>
 
@@ -106,7 +106,7 @@
                                                                 </use>
                                                             </svg></span></div>
                                                             <input class="form-control" name="address1" type="text" placeholder="Enter street name"
-                                                            value="{{ $institution->address1 }}" maxlength="200" required>
+                                                            value="{{ $institution->address1 }}" maxlength="200">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -120,7 +120,7 @@
                                                                     </use>
                                                                 </svg></span></div>
                                                           <input class="form-control" name="city" type="text"
-                                                                value="{{ $institution->city }}" placeholder="São Paulo" required>
+                                                                value="{{ $institution->city }}" placeholder="São Paulo">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-3">
@@ -134,7 +134,7 @@
                                                                 </svg></span></div>
                                                                 <input class="form-control" name="state" type="text"
                                                                 value="{{ $institution->state }}"
-                                                                maxlength="2" placeholder="SP" required>
+                                                                maxlength="2" placeholder="SP">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-4">
@@ -148,7 +148,7 @@
                                                                 </svg></span></div>
                                                                 <input class="form-control" name="cep" type="text" placeholder="69059-627"
                                                                 pattern="[0-9]{5}-[0-9]{3}" maxlength="9"
-                                                                    value="{{ $institution->cep }}" required>
+                                                                    value="{{ $institution->cep }}">
                                                     </div>
                                                 </div>
                                             </div>

@@ -8,7 +8,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Calender</h5>
+                            <h4>Calender</h4>
                         </div>
 
                         <div id='calendar'></div>

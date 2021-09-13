@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="form-groups row">
                         <div class="col-sm-2 col-md-2 col-lg-4 col-xl-10">
-                                <h5>Balance</h5>
+                                <h4>Balance</h4>
                             
                             <div class="card-body">
                                 <div class="form-group row">
