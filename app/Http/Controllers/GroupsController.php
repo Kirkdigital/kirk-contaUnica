@@ -34,9 +34,7 @@ class GroupsController extends Controller
     public function index(Group $group)
     {
         $you = auth()->user();
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
+        $this->get_tenant();
 
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
         return view('group.index', compact('groups'));

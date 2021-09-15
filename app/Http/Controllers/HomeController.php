@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auditoria;
+use App\Models\Balance;
 use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Notes;
@@ -37,10 +38,8 @@ class HomeController extends Controller
     public function index(Historic $historic, Request $request)
     {
         //pegar schema
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        $this->get_tenant();
+        //dados do usuario
         $you = auth()->user();
 
         //pegar informações complementares 
@@ -49,6 +48,7 @@ class HomeController extends Controller
 
         if($auditoria === null)
         {
+            //primeiro acesso auditoria
             $auditoria = new Auditoria();
             $auditoria->activity_id       = '9';
             $auditoria->type       = 'C';
@@ -56,6 +56,12 @@ class HomeController extends Controller
             $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
             $auditoria->save();            
             $request->session()->flash("info", "É necessário configurar a conta");
+
+            //inserir valor do financeiro
+            $balance = new Balance();
+            $balance->account_id = session()->get('key');
+            $balance->amount = '0';
+            $balance->save();
         }
 
         //numero de pessoas ativas e no ano atual

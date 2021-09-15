@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Config_system;
 use Illuminate\Http\Request;
 use App\Excel\UsersExport;
 use App\Excel\UsersImport;
 use App\Models\People;
 use Maatwebsite\Excel\Facades\Excel;
-
-
 
 class BackupController extends Controller
 {
@@ -25,50 +22,38 @@ class BackupController extends Controller
         $this->middleware('permission');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //index
     public function index()
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-        
-        $you = auth()->user();
+        //validar se selecionou a conta
+        $this->get_tenant();
         //pegar configurações 
-        $config = Config_system::all();
-        $people = People::where('is_admin',false)->count(); 
-        //pegar a data
-        $ldate = date('Y-m');
-        return view('settings.backup', compact('config', 'people'));
+        $people = People::where('is_admin', false)->count();
+        //pagina
+        return view('settings.backup', compact('people'));
     }
 
+    //importar planilha
     public function backup()
     {
-       return view('import');
+        return view('import');
     }
-     
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function export(Request $request) 
-    {        
-        
+
+    //exportar planilha
+    public function export(Request $request)
+    {
+        //exportar somente os dados de pessoas, todos os campos por enquanto
         return Excel::download(new UsersExport, 'backup.xlsx');
         $request->session()->flash("success", "Successfully export");
         return back();
     }
-     
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function import(Request $request) 
+
+
+    public function import(Request $request)
     {
-        Excel::import(new UsersImport,request()->file('file'));
-        if(request()->file('file') === null)
-        {
+        //importar os campos de nome(maiusculo), email e mobile
+        Excel::import(new UsersImport, request()->file('file'));
+        if (request()->file('file') === null) {
             $request->session()->flash("info", "Erro import");
         }
         $request->session()->flash("success", "Successfully import");

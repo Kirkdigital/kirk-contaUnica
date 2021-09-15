@@ -34,7 +34,7 @@ class ConfigSystemController extends Controller
     {
         $you = auth()->user();
 
-        $this->pegar_tenant();
+        $this->get_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
@@ -43,7 +43,7 @@ class ConfigSystemController extends Controller
 
     public function indexSystem()
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         if (session()->get('schema') === null) {
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         }
@@ -52,7 +52,7 @@ class ConfigSystemController extends Controller
     }
     public function indexMeta()
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         if (session()->get('schema') === null) {
             return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
         }
@@ -61,7 +61,7 @@ class ConfigSystemController extends Controller
     }
     public function indexSocial()
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
 
@@ -70,7 +70,7 @@ class ConfigSystemController extends Controller
     }
     public function indexEmail()
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         if ((session()->get('schema')) === null)
             return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
 
@@ -87,7 +87,7 @@ class ConfigSystemController extends Controller
      */
     public function updateSystem(Request $request)
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         $settings = Config_system::find('1');
         $settings->logo       = $request->input('logo');
         $settings->favicon       = $request->input('favicon');
@@ -113,7 +113,7 @@ class ConfigSystemController extends Controller
 
     public function updateEmail(Request $request)
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         $settings = Config_email::find('1');
         $settings->email_from       = $request->input('email_from');
         $settings->smtp_host       = $request->input('smtp_host');
@@ -128,7 +128,7 @@ class ConfigSystemController extends Controller
 
     public function updateSocial(Request $request)
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         $settings = Config_social::find('1');
         $settings->facebook_link       = $request->input('facebook_link');
         $settings->twitter_link       = $request->input('twitter_link');
@@ -147,7 +147,7 @@ class ConfigSystemController extends Controller
     }
     public function updateMeta(Request $request)
     {
-        $this->pegar_tenant();
+        $this->get_tenant();
         $settings = new Config_meta();
         $settings->ano       = date('Y');
         //mes

@@ -14,8 +14,7 @@ class Balance extends Model
 
     public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people, $date, $sub_total, $total_tax, $discount): array
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
-
+    
         DB::beginTransaction();
         //dd($valor)
         $totalBefore = $this->amount ? $this->amount : 0;

@@ -25,11 +25,11 @@ class Controller extends BaseController
 
     }
     //global tenant set
-    public function pegar_tenant()
+    public function get_tenant()
     {
-        Config::set('database.connections.tenant.schema', session()->get('conexao')); 
+        Config::get('database.connections.tenant'); 
     }
-    
+
     public function adicionar_log($status, $type, $json)
     {
         $auditoria = Auditoria::firstOrCreate([]);

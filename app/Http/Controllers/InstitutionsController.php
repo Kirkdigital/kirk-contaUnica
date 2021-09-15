@@ -33,6 +33,10 @@ class InstitutionsController extends Controller
     public function index()
     {
         $you = auth()->user();
+        //mater toda a sessao
+        session()->forget('schema');
+        session()->forget('key');
+        session()->forget('conexao');
 
         $institutions = Users_Account::where('user_id', $you->id)
             ->with('accountlist')
@@ -192,7 +196,7 @@ class InstitutionsController extends Controller
             $this->adicionar_log_global('9', 'C', '{"schema":"' . $institution->tenant . '"}');
             $request->session()->flash("success", 'events.change_create');
 
-            DB::table(config::get('database.connections.tenant.schema').'.people')->insert([
+            DB::table(config::get('database.connections.tenant.schema') . '.people')->insert([
                 'user_id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
