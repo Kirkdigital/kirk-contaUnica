@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i><strong>Pessoas nesse grupo</strong>
+                        <div class="card-header"><h4>Pessoas nesse grupo</h4>
                         </div>
                         <div class="card-body">
                             <table class="table table-responsive-sm table-striped table-sm">

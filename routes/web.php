@@ -31,7 +31,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resource('message', 'NotesController');
 
         // account e tenant
-        Route::post('/tenant/{id}', 'InstitutionsController@tenant')->name('tenant');
+        Route::post('/tenant/{id}', 'TenantController@tenant')->name('tenant');
         Route::resources([
             'account' => InstitutionsController::class,
         ]);

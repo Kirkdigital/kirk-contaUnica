@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\DB;
 use App\Models\Menurole;
 use App\Models\RoleHierarchy;
 use App\Models\Roles;
@@ -25,13 +23,13 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $this->pegar_tenant();
+        //pegar o tenant
+        $this->get_tenant();
         $roles = Roles::all();
         return view('settings.roles.index', array(
             'roles' => $roles,
         ));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -50,7 +48,8 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $role = new Roles();
         $role->name       = $request->input('name');
         //pessoa
@@ -105,8 +104,8 @@ class RolesController extends Controller
         $role->home_message       = $request->has('home_message') ? 1 : 0;
         //relatorio
         $role->report_view       = $request->has('report_view') ? 1 : 0;
-
         $role->save();
+        //adicionar log
         $this->adicionar_log('13', 'C', $role);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->route('roles.index');
@@ -120,7 +119,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $role = Roles::find($id);
         return view('settings.roles.show', array(
             'role' => $role
@@ -135,7 +135,8 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $role = Roles::find($id);
         return view('settings.roles.edit', array(
             'role' => $role
@@ -151,7 +152,8 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $role = Roles::find($id);
         $role->name       = $request->input('name');
         //pessoa
@@ -207,6 +209,7 @@ class RolesController extends Controller
         //relatorio
         $role->report_view       = $request->has('report_view') ? 1 : 0;
         $role->save();
+        //adicionar log
         $this->adicionar_log('13', 'U', $role);
         $request->session()->flash("success", "Successfully updated");
         return redirect()->route('roles.edit', $id);
@@ -220,7 +223,15 @@ class RolesController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+
+
+        ////
+        //// precisa criar filtro para não escluir os padroes
+        ////
+
+
         $role = Role::where('id', '=', $id)->first();
         $roleHierarchy = RoleHierarchy::where('role_id', '=', $id)->first();
         $menuRole = Menurole::where('role_name', '=', $role->name)->first();

@@ -14,12 +14,10 @@ use App\Models\Config_social;
 use App\Models\Institution;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
-use Overtrue\LaravelLike\Traits\Likeable;
 
 class HomeController extends Controller
 {
 
-    use Likeable;
     /**
      * Create a new controller instance.
      *
@@ -42,19 +40,27 @@ class HomeController extends Controller
         //dados do usuario
         $you = auth()->user();
 
+        //consultar dados do usuario local
+        $user = People::where('user_id', $you->id)->with('roleslocal')->first();
+        if ($user == null) {
+            //caso não possua acesso associado e grupo vinculado, retorna para selecionar a conta
+            $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
+            return redirect()->route('account.index');
+        } else
+
         //pegar informações complementares 
         $meta = Config_meta::orderBy('id', 'desc')->first();
         $auditoria = Auditoria::orderBy('id', 'desc')->first();
 
-        if($auditoria === null)
-        {
+        //se for o primeiro acesso da conta, vai inserir no log o primeiro acesso e adicionar a conta no financeiro
+        if ($auditoria === null) {
             //primeiro acesso auditoria
             $auditoria = new Auditoria();
             $auditoria->activity_id       = '9';
             $auditoria->type       = 'C';
             $auditoria->user_id       = $you->id;
-            $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"'.$you->id.'"}';
-            $auditoria->save();            
+            $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"' . $you->id . '"}';
+            $auditoria->save();
             $request->session()->flash("info", "É necessário configurar a conta");
 
             //inserir valor do financeiro
@@ -73,83 +79,79 @@ class HomeController extends Controller
         $message = Notes::whereYear('created_at', date('Y'))->count();
         //links das redes sociais
         $social = Config_social::find('1')->first();
-        //dash de status
-        $people = People::all();        
-        $peopleativo = $people->where('is_admin',false)->count();
+
+        //dash de status das pessoas
+        $people = People::all();
+        $peopleativo = $people->where('is_admin', false)->count();
         $totalvisitante = $people->where('is_visitor', true)->count();
         $totalbatismo = $people->where('is_baptism', true)->count();
         $totalconversao = $people->where('is_conversion', true)->count();
 
-        //financeiro recente
+        //consulta para a meta do mÊs atual do grafico
         $date = date('Y-m');
-        $dizimoatual = Historic::where('tipo', '9')->where('date','like', "%$date%")->sum('amount');
-        $ofertaatual = Historic::where('tipo', '10')->where('date','like',"%$date%")->sum('amount');
-        $doacaoatual = Historic::where('tipo', '11')->where('date','like', "%$date%")->sum('amount');
-        $despesaatual = Historic::where('tipo', '12')->where('date','like', "%$date%")->sum('amount');
+        $dizimoatual = Historic::where('tipo', '9')->where('date', 'like', "%$date%")->sum('amount');
+        $ofertaatual = Historic::where('tipo', '10')->where('date', 'like', "%$date%")->sum('amount');
+        $doacaoatual = Historic::where('tipo', '11')->where('date', 'like', "%$date%")->sum('amount');
+        $despesaatual = Historic::where('tipo', '12')->where('date', 'like', "%$date%")->sum('amount');
 
+        //porcentagem no grafico do mês atual + porcentagem da meta mes
         $porcentage_dizimo = $this->porcentagem_nx($dizimoatual, $meta->fin_dizimo_mes); // 20
-        $porcentage_oferta = $this->porcentagem_nx($ofertaatual, $meta->fin_oferta_mes); 
+        $porcentage_oferta = $this->porcentagem_nx($ofertaatual, $meta->fin_oferta_mes);
         $porcentage_doacao = $this->porcentagem_nx($doacaoatual, $meta->fin_acao_mes); // 20
-        $porcentage_despesa = $this->porcentagem_nx($despesaatual, $meta->fin_despesa_mes); 
+        $porcentage_despesa = $this->porcentagem_nx($despesaatual, $meta->fin_despesa_mes);
 
-        $tenant = $request->session()->get('schema');
-        foreach ($tenant as $element) {
-            $a = $element->name_company;
-        }
-
-        $user = People::where('user_id', $you->id)->with('roleslocal')->first();
-        if($user == null)
-        {
-            $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
-            return redirect()->route('account.index');
-        }
-        else
-        $id = $user->id;
+        //carregar os meus grupos vinculados
         $groups = People_Groups::with('grupo')
-                            ->where('user_id', $id)->get();
+            ->where('user_id', $user->id)->get();
+        //carregar os meus dizimos
         $dizimos = Historic::with('seusdizimos')
-                            ->with('status')
-                            ->with('statuspag')
-                            ->where('type','I')
-                            ->orderBy('date', 'desc')
-                            ->where('user_id_transaction', $id)
-                            ->paginate('12');
+            ->with('status')
+            ->with('statuspag')
+            ->where('type', 'I')
+            ->orderBy('date', 'desc')
+            ->where('user_id_transaction', $user->id)
+            ->paginate('12');
 
+        //carregar dados de localização da conta
         $locations = Institution::find(session()->get('key'));
-        $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->where('status_id','1')->get();
 
-        return view('home', 
+        //carregamento as message com os dados do usuário que publicou + filtrado para o somente status "public"  
+        $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->where('status_id', '1')->get();
+
+        return view(
+            'home',
             compact(
-                    'precadastro',
-                    'notes',
-                    'locations',
-                    'eventos',
-                    'message',
-                    'social',
-                    'a',
-                    'you',
-                    'user',
-                    'peopleativo',
-                    'totalvisitante',
-                    'totalbatismo',
-                    'totalconversao',
-                    'dizimoatual',
-                    'ofertaatual',
-                    'doacaoatual',
-                    'despesaatual',
-                    'porcentage_dizimo',
-                    'porcentage_oferta',
-                    'porcentage_doacao',
-                    'porcentage_despesa',
-                ), ['groups' => $groups, 'dizimos' => $dizimos]);
-                
+                'precadastro',
+                'notes',
+                'locations',
+                'eventos',
+                'message',
+                'social',
+                'you',
+                'user',
+                'peopleativo',
+                'totalvisitante',
+                'totalbatismo',
+                'totalconversao',
+                'dizimoatual',
+                'ofertaatual',
+                'doacaoatual',
+                'despesaatual',
+                'porcentage_dizimo',
+                'porcentage_oferta',
+                'porcentage_doacao',
+                'porcentage_despesa',
+            ),
+            ['groups' => $groups, 'dizimos' => $dizimos]
+        );
     }
-        //calcular porcentagem individual x total
-        function porcentagem_nx ( $parcial, $total ) {
-            if($total == 0) {
-                $ratio = 0;
-            } else {
-                return ( $parcial * 100 ) / $total;
-            } 
+    //calcular porcentagem individual x total
+    function porcentagem_nx($parcial, $total)
+    {
+        if ($total == 0) {
+            $ratio = 0;
+        } else {
+            return ($parcial * 100) / $total;
         }
+    }
 }

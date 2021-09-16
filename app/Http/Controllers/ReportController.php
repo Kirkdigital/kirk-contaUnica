@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidationMoneyFormRequest;
-use App\Models\Balance;
 use App\Models\Group;
 use App\Models\Status;
 use App\Models\People;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use App\Models\Historic;
-use App\Models\Institution;
-use App\Models\User;
 
 class ReportController extends Controller
 {
@@ -27,58 +22,72 @@ class ReportController extends Controller
 
     public function Financial(Historic $historic)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //carregar historico
         $historics = Historic::with('status')->with('statuspag')
-                    ->orderby('id','desc')
-                    ->whereBetween('date', [date('Y/m/d'), date('Y/m/d')])
-                    ->paginate($this->totalPagesPaginate);   
-                    
-        $types = $historic->type();      
-        
+            ->orderby('id', 'desc')
+            ->whereBetween('date', [date('Y/m/d'), date('Y/m/d')])
+            ->paginate($this->totalPagesPaginate);
+        //pegar os tupos
+        $types = $historic->type();
+
+        //valores de somatoria da consulta
         $total_preco = $historics->sum('amount');
         $total_entrada = $historics->where('type', 'I')->sum('amount');
         $total_saida = $historics->where('type', 'O')->sum('amount');
 
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial');
+        //carregar status
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('reports.Financial', compact('historics', 'types', 'statuspag', 'statusfinan','total_preco', 'total_entrada', 'total_saida'));
+        return view('reports.Financial', compact('historics', 'types', 'statuspag', 'statusfinan', 'total_preco', 'total_entrada', 'total_saida'));
     }
 
     public function searchFinancial(Request $request, Historic $historic)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $dataForm = $request->except('_token');
+        //consulta da pesquisa
         $historics =  $historic->search($dataForm, $this->totalPagesPaginate);
+        //carregar tipos
         $types = $historic->type();
 
+        //valores de somatoria da consulta
         $total_preco = $historics->sum('amount');
         $total_entrada = $historics->where('type', 'I')->sum('amount');
         $total_saida = $historics->where('type', 'O')->sum('amount');
 
-        $statuspag = Status::all()->where("type",'pagamento');
-        $statusfinan = Status::all()->where("type",'financial');
+        //carregar status
+        $statuspag = Status::all()->where("type", 'pagamento');
+        $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('reports.Financial', compact('historics', 'types', 'dataForm', 'statuspag', 'statusfinan', 'total_preco','total_entrada', 'total_saida'));
+        return view('reports.Financial', compact('historics', 'types', 'dataForm', 'statuspag', 'statusfinan', 'total_preco', 'total_entrada', 'total_saida'));
     }
 
     public function People(People $historic)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //consulta
         $peoples = People::orderBy('name', 'asc')
             ->with('status')
             ->whereBetween('created_at', [date('Y/m/d'), date('Y/m/d')])
             ->paginate($this->totalPagesPaginate);
+        //carregar status
         $statuses = Status::all()->where("type", 'people');
         return view('reports.People', compact('peoples', 'statuses'));
     }
 
     public function searchPeople(Request $request, People $peoples)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $dataForm = $request->except('_token');
-        $date = date('Y');
+        //carregar status
         $statuses = Status::all()->where("type", 'people');
+        //consulta da pesquisa
         $peoples =  $peoples->search($dataForm, $this->totalPagesPaginate);
 
         return view('reports.People', compact('peoples', 'dataForm', 'date', 'statuses'));
@@ -86,26 +95,28 @@ class ReportController extends Controller
 
     public function Group(Group $group)
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        //pegar tenant
+        $this->get_tenant();
+        //consulta + status + responsavel + vinculos das pessoas
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
         return view('reports.Group', compact('groups'));
     }
+
     public function searchHistoric(Request $request, Group $group)
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        //pegar tenant
+        $this->get_tenant();
         $dataForm = $request->except('_token');
+        //carregar pesquisa
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
         return view('reports.Group', compact('groups', 'dataForm'));
     }
+
     public function Location(People $historic)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //consultar map das pessoas informadas e carregar no google maps
         $peoples = People::whereNotNull('lat')->get();
         return view('reports.PeopleLoc', compact('peoples'));
     }

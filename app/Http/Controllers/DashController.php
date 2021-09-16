@@ -10,13 +10,10 @@ use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
-use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelLike\Traits\Likeable;
 
 class DashController extends Controller
 {
-
-    use Likeable;
     /**
      * Create a new controller instance.
      *
@@ -33,25 +30,27 @@ class DashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Historic $historic, Request $request)
+    public function index(Request $request)
     {
         //pegar schema
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        $this->get_tenant();
+        //user data
         $you = auth()->user();
 
         //pegar informações complementares 
 
+        //carregar a última meta inserida
         $meta = Config_meta::orderBy('id', 'desc')->first();
 
+        //valor do ano interior par calculo
         $anoanterior = (date('Y') - '1');
-        //numero de pessoas ativas e no ano atual
+
+        //consulta de pessoas
         $people = People::all();
+        //consulta de financeiro
         $financeiro = Historic::all();
 
-        //valor total
+        //contagem total de pessoas por status para uso do gráfico
         $peopleativo = $people->where('is_admin',false)->count();
         $totalvisitante = $people->where('is_visitor', true)->count();
         $totalbatismo = $people->where('is_baptism', true)->count();
@@ -59,44 +58,55 @@ class DashController extends Controller
         $sexmascu = $people->where('sex', 'm')->count();
         $sexfemin = $people->where('sex', 'f')->count();
         $totalsex = $people->where('sex')->count();
-        $porcentage_m = $this->porcentagem_nx($sexmascu, $totalsex); // 20
+        //porcentagem pelo sexo de pessoas
+        $porcentage_m = $this->porcentagem_nx($sexmascu, $totalsex);
         $porcentage_f = $this->porcentagem_nx($sexfemin, $totalsex);
 
-        //valor total ano meta
+        //contagem total da meta de pessoas do ano atual
         $anovisitante = People::where('is_visitor', true)->whereYear('created_at', date('Y'))->count();
         $anobatismo = People::where('is_baptism', true)->whereYear('created_at', date('Y'))->count();
         $anoconversao = People::where('is_conversion', true)->whereYear('created_at', date('Y'))->count();
         $anopessoa = People::whereYear('created_at', date('Y'))->count();
         $anogrupo = People_Groups::whereYear('registered', date('Y'))->count();
 
-        $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->visitante_ano); // 20
+        //porcentagem por pessoas com status x meta anual
+        $porcentage_visitante = $this->porcentagem_nx($anovisitante, $meta->visitante_ano);
         $porcentage_batismo = $this->porcentagem_nx($anobatismo, $meta->batismo_ano);
-        $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->conversao_ano); // 20
+        $porcentage_conversao = $this->porcentagem_nx($anoconversao, $meta->conversao_ano);
         $porcentage_pessoa = $this->porcentagem_nx($anopessoa, $meta->pessoa_ano);
         $porcentage_grupo = $this->porcentagem_nx($anogrupo, $meta->grupo_ativo_ano);
 
+        //soma de financeiro por tipo de movimento anual
         $anodizimo = Historic::where('tipo', '9')->whereYear('date', date('Y'))->sum('amount');
         $anooferta = Historic::where('tipo', '10')->whereYear('date', date('Y'))->sum('amount');
         $anodoacao = Historic::where('tipo', '11')->whereYear('date', date('Y'))->sum('amount');
         $anodespesa = Historic::where('tipo', '12')->whereYear('date', date('Y'))->sum('amount');
+        //soma dos valores do financeiro
         $totalfinanceiro = ($anodizimo + $anooferta + $anodoacao + $anodespesa);
 
+        //porcentagem do tipo de movimento x meta anual
         $porcentage_dizimo = $this->porcentagem_nx($anodizimo, $meta->fin_dizimo_ano); // 20
         $porcentage_oferta = $this->porcentagem_nx($anooferta, $meta->fin_oferta_ano);
         $porcentage_doacao = $this->porcentagem_nx($anodoacao, $meta->fin_acao_ano); // 20
         $porcentage_despesa = $this->porcentagem_nx($anodespesa, $meta->fin_despesa_ano);
+        //porcentagem total da soma
         $totalporcentagem = ($porcentage_dizimo + $porcentage_oferta + $porcentage_doacao + $porcentage_despesa);
+        //soma total
         $porcentage_total = $this->porcentagem_total($totalporcentagem);
 
+        //contatem de novo visitante do ano
         $peoplevisitor = People::where('is_newvisitor', true)->whereYear('created_at', date('Y'))->count();
+        //contatem do precadastro
         $precadastro = People_Precadastro::all()->count();;
+        //contagem de calendarios do ano
         $eventos = Event::whereYear('created_at', date('Y'))->count();
+        //contagem de message do ano
         $notes = Notes::whereYear('created_at', date('Y'))->count();
 
 
-        //financeiro dash
+        //soma das metas anual /12
         $metadash = ($meta->first()->fin_dizimo_ano + $meta->first()->fin_oferta_ano + $meta->first()->fin_acao_ano + $meta->first()->fin_despesa_ano) / 12;
-        //grafico grande
+        //grafico grande do ano atual
         $fin_atual_jan = Historic::whereYear('date', date('Y'))->whereMonth('date', date('01'))->sum('amount');
         $fin_atual_fev = Historic::whereYear('date', date('Y'))->whereMonth('date', date('02'))->sum('amount');
         $fin_atual_mar = Historic::whereYear('date', date('Y'))->whereMonth('date', date('03'))->sum('amount');
@@ -109,7 +119,7 @@ class DashController extends Controller
         $fin_atual_out = Historic::whereYear('date', date('Y'))->whereMonth('date', date('10'))->sum('amount');
         $fin_atual_nov = Historic::whereYear('date', date('Y'))->whereMonth('date', date('11'))->sum('amount');
         $fin_atual_dez = Historic::whereYear('date', date('Y'))->whereMonth('date', date('12'))->sum('amount');
-
+        //grafico grande do ano anterior
         $fin_anterior_jan = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('01'))->sum('amount');
         $fin_anterior_fev = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('02'))->sum('amount');
         $fin_anterior_mar = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('03'))->sum('amount');
@@ -123,13 +133,14 @@ class DashController extends Controller
         $fin_anterior_nov = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('11'))->sum('amount');
         $fin_anterior_dez = Historic::whereYear('date', date($anoanterior))->whereMonth('date', date('12'))->sum('amount');
 
-        //financeiro recente
+        //grafico financeiro do tipo de movimento do mês atual
         $date = date('Y-m');
         $dizimoatual = Historic::where('tipo', '9')->where('date', 'like', "%$date%")->sum('amount');
         $ofertaatual = Historic::where('tipo', '10')->where('date', 'like', "%$date%")->sum('amount');
         $doacaoatual = Historic::where('tipo', '11')->where('date', 'like', "%$date%")->sum('amount');
         $despesaatual = Historic::where('tipo', '12')->where('date', 'like', "%$date%")->sum('amount');
 
+        //grafico financeiro da forma de pagamento do mês atual
         $formapag_dinheiro = Historic::where('pag', '15')->where('date', 'like', "%$date%")->sum('amount');
         $formapag_cheque = Historic::where('pag', '16')->where('date', 'like', "%$date%")->sum('amount');
         $formapag_credito = Historic::where('pag', '17')->where('date', 'like', "%$date%")->sum('amount');

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auditoria;
-use App\Models\Roles;
-
 
 class LogsController extends Controller
 {
@@ -27,11 +25,10 @@ class LogsController extends Controller
      */
     public function index(Auditoria $auditoria)
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        $this->get_tenant();
+        //consulta da auditoria
         $peoples = Auditoria::orderBy('id', 'desc')->with('status_log')->with('user')->paginate($this->totalPagesPaginate);
+        //carregar os tipos da auditoria
         $types = $auditoria->type();  
         return view('logs.index', compact('peoples', 'types'));
     }

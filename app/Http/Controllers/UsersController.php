@@ -76,10 +76,6 @@ class UsersController extends Controller
         $user->license       = $request->input('license');
         $user->save();
         $request->session()->flash("success", "Successfully updated user");
-        $request->session()->flash("warning", "This is warning message");
-        $request->session()->flash("info", "This is information message");
-        $request->session()->flash("error", "This is error message");
-
         return redirect()->route('users.index');
     }
 

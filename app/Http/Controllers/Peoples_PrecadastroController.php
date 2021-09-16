@@ -32,38 +32,44 @@ class Peoples_PrecadastroController extends Controller
      */
     public function index(People_Precadastro $people_Precadastro)
     {
+        //user data
         $you = auth()->user();
+        //matar a session da acao
         session()->forget('aprovada-id');
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        $this->get_tenant();
+        //consulta
         $peoples = People_Precadastro::orderBy('id', 'desc')->with('status')->paginate($this->totalPagesPaginate);
+        //carregar status
         $status = Status::all()->where("type", 'precadastro');
         
         return view('people_precadastro.index', compact('peoples', 'status'));
     }
+
     public function edit($id)
     {
+        //user data
         $you = auth()->user();
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //carregar precadastro
         $people = People_Precadastro::with('acesso')->find($id);
-        //campo obrigatoria
+        //carregar o campo obrigatoria
         $campo = Config_system::find('1')->first();
-        //permissao
+        //carregar o status
         $statuses = Status::all()->where("type", 'precadastro');
         return view('people_precadastro.EditForm', compact('campo'), ['statuses' => $statuses, 'people' => $people]);
     }
 
     public function update(Request $request, $id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $validatedData = $request->all([
             'name'             => 'required|min:1|max:255',
             'email'           => 'required',
             'mobile'         => 'required',
         ]);
-
+        //atualizar precadastro
         $people_pre = People_Precadastro::find($id);
         $people_pre->name          = $request->input('name');
         $people_pre->email         = $request->input('email');
@@ -75,10 +81,10 @@ class Peoples_PrecadastroController extends Controller
         $people_pre->cep           = $request->input('cep');
         $people_pre->country       = $request->input('country');
         $people_pre->status_id = '22'; //aprovado
-        $people_pre->role = '2';
+        $people_pre->role = '2';    //grupo membro
         $people_pre->is_verify       = 'true';
         $people_pre->sex       = $request->input('sex');
-
+        //adicionar pessoa
         $people = new People();
         $people->user_id          = session()->get('aprovada-id');
         $people->name          = $request->input('name');
@@ -100,10 +106,13 @@ class Peoples_PrecadastroController extends Controller
         $people->is_verify       = 'true';
         $people->sex       = $request->input('sex');
         $people->note       = $request->input('note');
+
+        //criar o acesso vinculado a conta se for aprovado
         $response = $this->criar(session()->get('aprovada-id'), session()->get('key'));
         if ($response['success']) {
             $people_pre->save();
             $people->save();
+            //adicionar log
             $this->adicionar_log('6', 'C', $people_pre);
             $this->adicionar_log('1', 'C', $people);
             return redirect('peopleList')
@@ -119,6 +128,7 @@ class Peoples_PrecadastroController extends Controller
 
     public function criar($user_id, $accout_id): array
     {
+        //recebar os dados o vinculo da conta
         DB::beginTransaction();
         $useraccount = new Users_Account();
         $useraccount->user_id = $user_id;
@@ -126,6 +136,7 @@ class Peoples_PrecadastroController extends Controller
         $useraccount->save();
 
         if ($useraccount) {
+            //adicionar log
             $this->adicionar_log_global('11', 'C', $useraccount);
             DB::commit();
 
@@ -146,25 +157,29 @@ class Peoples_PrecadastroController extends Controller
 
     public function reprovar($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //reprovar o precadastro alterando o status
         $people = People_Precadastro::find($id);
         if ($people) {
-            $people->delete();
+            //adicionar o status
             $people->status_id = '23';
+            //adicionar log
             $this->adicionar_log('6', 'D', $people);
             $people->save();
             session()->flash("info", "Reprovado com sucesso");
             return redirect()->route('peopleList.index');
         }
     }
+
     public function searchHistoric(Request $request, People_Precadastro $people)
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
+        //pegar tenant
+        $this->get_tenant();
+        //carregar status
         $status = Status::all()->where("type", 'precadastro');
         $dataForm = $request->except('_token');
+        //carregar pesquisa
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
         return view('people_precadastro.index', compact('peoples', 'dataForm', 'status'));

@@ -31,10 +31,9 @@ class NotesController extends Controller
      */
     public function index()
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        //pegar tenant
+        $this->get_tenant();
+        //consulta da message
         $notes = Notes::with('user')->with('status')->paginate(20);
         return view('message.notesList',['notes' => $notes]);
     }
@@ -46,8 +45,7 @@ class NotesController extends Controller
      */
     public function create()
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //carregar status
         $statuses = Status::all();
         return view('message.create', ['statuses' => $statuses]);
     }
@@ -60,8 +58,8 @@ class NotesController extends Controller
      */
     public function store(Request $request)
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $validatedData = $request->validate([
             'title'             => 'required|min:1|max:64',
             'content'           => 'required',
@@ -69,6 +67,7 @@ class NotesController extends Controller
             'applies_to_date'   => 'required|date_format:Y-m-d',
             'note_type'         => 'required'
         ]);
+        //user data
         $user = auth()->user();
         $note = new Notes();
         $note->title     = $request->input('title');
@@ -78,6 +77,7 @@ class NotesController extends Controller
         $note->applies_to_date = $request->input('applies_to_date');
         $note->users_id = $user->id;
 
+        //tratamento da imagem se tiver
         if ($request->has('image')) {
             // Get image file
             $image = $request->file('image');
@@ -93,12 +93,15 @@ class NotesController extends Controller
             // Set user profile image path in database to filePath
             $note->image = URL::to('/').'/storage/messages/'.$filePath;
             $note->save();
+            //adicionar log
             $this->adicionar_log('3', 'U', $note);
             $request->session()->flash('message', 'Successfully edited note');
             return redirect()->route('message.index');
         }
         else
+        //salva sem o tratamento da imagem
         $note->save();
+        //adicionar log
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');
         return redirect()->route('message.index');
@@ -112,8 +115,9 @@ class NotesController extends Controller
      */
     public function show($id)
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
+        //consulta
         $note = Notes::with('user')->with('status')->find($id);
         return view('message.noteShow', ['note' => $note]);
     }
@@ -126,9 +130,10 @@ class NotesController extends Controller
      */
     public function edit($id)
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $note = Notes::find($id);
+        //carregar status
         $statuses = Status::all();
         return view('message.edit', ['statuses' => $statuses, 'note' => $note]);
     }
@@ -142,8 +147,8 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         //die();
         $validatedData = $request->validate([
             'title'             => 'required|min:1|max:64',
@@ -152,17 +157,18 @@ class NotesController extends Controller
             'applies_to_date'   => 'required|date_format:Y-m-d',
             'note_type'         => 'required'
         ]);
+
         $note = Notes::find($id);
         $note->title     = $request->input('title');
         $note->content   = $request->input('content');
         $note->status_id = $request->input('status_id');
         $note->note_type = $request->input('note_type');
         $note->applies_to_date = $request->input('applies_to_date');
+        //tratamento na imagem
         if ($request->has('image')) {
             // Get image file
             $image = $request->file('image');
             // Make a image name based on user name and current timestamp
-
             $name = Str::slug($request->input('name')).'_'.time();
             // Define folder path
             $folder = '';
@@ -173,12 +179,15 @@ class NotesController extends Controller
             // Set user profile image path in database to filePath
             $note->image = URL::to('/').'/storage/messages/'.$filePath;
             $note->save();
+            //adicionar log
             $this->adicionar_log('3', 'U', $note);
             $request->session()->flash('message', 'Successfully edited note');
             return redirect()->route('message.index');
         }
         else
+        //se nao tiver imagem, salva novamente
         $note->save();
+        //adicionar log
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');
         return redirect()->route('message.index');
@@ -192,12 +201,13 @@ class NotesController extends Controller
      */
     public function destroy($id)
     {
-        //pegar schema
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $note = Notes::find($id);
         if ($note) {
             $note->delete();
         }
+        //adicionar
         $this->adicionar_log('3', 'D', $note);
         return redirect()->route('message.index');
     }

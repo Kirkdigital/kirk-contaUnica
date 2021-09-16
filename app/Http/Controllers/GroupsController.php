@@ -33,9 +33,9 @@ class GroupsController extends Controller
      */
     public function index(Group $group)
     {
-        $you = auth()->user();
+        //pegar tenant
         $this->get_tenant();
-
+        //consulta dos grupos + status + responsavel + vinculo pessoa
         $groups = Group::orderBy('name_group', 'asc')->with('status')->with('responsavel')->with('grouplist')->paginate($this->totalPagesPaginate);
         return view('group.index', compact('groups'));
     }
@@ -47,18 +47,20 @@ class GroupsController extends Controller
      */
     public function create()
     {
+        //carregar status
         $statuses = Status::all()->where("type", 'people');
         return view('group.createForm', ['statuses' => $statuses]);
     }
 
     public function store(Request $request)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $validatedData = $request->all([
             'name_group'             => 'required|min:1|max:255',
             'tipo'           => 'required',
         ]);
-
+        //adicionar novo grupo
         $group = new Group();
         $group->name_group          = $request->input('name_group');
         $group->type         = $request->input('tipo');
@@ -67,14 +69,17 @@ class GroupsController extends Controller
         $group->count      = '1';
         $group->note       = $request->input('note');
         $group->save();
+        //adicionar log
         $this->adicionar_log('2', 'C', $group);
-
+        //pegar o ultimo id criado no grupo
         $contador = Group::latest('id')->get()->first()->id;
+        //adicionar responavel no grupo
         $adicionarpessoa = new People_Groups();
         $adicionarpessoa->group_id          = $contador;
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $adicionarpessoa->save();
+        //adicionar log
         $this->adicionar_log('12', 'C', $adicionarpessoa);
 
         $request->session()->flash("success", "Successfully created group");
@@ -89,20 +94,23 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $group = Group::find($id);
+        //carregar status de pessoa
         $statuses = Status::all()->where("type", 'people');
         return view('group.EditForm', ['statuses' => $statuses, 'group' => $group]);
     }
 
     public function update(Request $request, $id)
     {
+        //pegar tenant
+        $this->get_tenant();
         $validatedData = $request->validate([
             'name_group'             => 'required|min:1|max:255',
             'tipo'           => 'required',
 
         ]);
-        $this->pegar_tenant();
         $group = Group::find($id);
         $group->name_group          = $request->input('name_group');
         $group->type         = $request->input('tipo');
@@ -112,23 +120,26 @@ class GroupsController extends Controller
 
         //buscar o id grupo
         $group1 = Group::find($id);
-        //filtrar nos grupos a pessoa
-        //deletar do usuário antigo e atual
+        //filtrar nos grupos o responsavel
         $validaruser = People_Groups::where('group_id', $id)->whereIn('user_id', [$group1->user_id, $request->input('itemName')]);
         if ($validaruser) {
+            //deletar do usuário antigo e atual vinculados ao grupo
             $validaruser->delete();
+            //adicionar log
             $this->adicionar_log('12', 'D', '{"group_id":"' . $id . '","user_id":"' . $group1->user_id . ',' . $request->input('itemName') . '"}');
         }
-
+        //adicionar novamente o novo responsavel
         $adicionarpessoa = new People_Groups();
         $adicionarpessoa->group_id          =  $id;
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
         $adicionarpessoa->save();
+        //adicioanr log
         $this->adicionar_log('12', 'U', $adicionarpessoa);
 
-        //fazer a contagem ao inserir
+        //fazer a contagem do numero de pessoas novamente
         $group->count = People_Groups::with('grupo')->with('usuario')->where('group_id', $id)->count();
+        //adicionar log
         $this->adicionar_log('2', 'U', $group);
         $group->save();
 
@@ -144,15 +155,21 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $group = Group::find($id);
         if ($group) {
+            //deletar grupo
             $group->delete();
+            //adicionar log
             $this->adicionar_log('2', 'D', $group);
         }
+        //validar pessoas vinculadas ao grupo
         $validaruser = People_Groups::where('group_id', $id);
         if ($validaruser) {
+            //desvincular todas as pessoas do grupo ao excluir
             $validaruser->delete();
+            //adicionar log
             $this->adicionar_log('12', 'D', '{"delete_peoplegroup":"' . $id . '"}');
         }
         session()->flash("warning", "Sucessfully deleted group");
@@ -162,13 +179,11 @@ class GroupsController extends Controller
 
     public function searchHistoric(Request $request, Group $group)
     {
-        $this->pegar_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-
-        $you = auth()->user();
+        //pegar tenant
+        $this->get_tenant();
         //permissao
         $dataForm = $request->except('_token');
+        //nova consulta
         $groups =  $group->search($dataForm, $this->totalPagesPaginate);
 
         return view('group.index', compact('groups', 'dataForm'));
@@ -176,58 +191,70 @@ class GroupsController extends Controller
 
     public function show($id)
     {
-        $this->pegar_tenant();
+        //pegar tenant
+        $this->get_tenant();
         $group = Group::find($id);
+        //pesquisar pessoas associada ao grupo
         $pessoasgrupos = People_Groups::with('grupo')->with('usuario')->where('group_id', $id)->get();
+        //consultar o responsavel do grupo
         $responsavel = People::find($group->user_id);
-        $you = auth()->user();
-        //permissao
-        return view('group.Show', compact('group','responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
+        
+        return view('group.Show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
+    //adicionar nova pessoa ao grupo
     public function storepeoplegroup(Request $request)
-    {
+    {   
+        //pegar tenant
+        $this->get_tenant();
+        //pegar valor do grupo
         $value = $request->session()->get('group');
         $validatedData = $request->all([
             'itemName'             => 'required',
         ]);
-
+        //adicionar pessoa
         $adicionarpessoa = new People_Groups();
         $adicionarpessoa->group_id          = $value;
         $adicionarpessoa->user_id        = $request->input('itemName');
         $adicionarpessoa->registered = date('Y-m-d H:m:s');
-        $this->pegar_tenant();
+        //validar se possuiu vinculo
         $validarpessoa = People_Groups::where('user_id', $request->input('itemName'))->where('group_id', $value);
         //pegar valor para somar
         $adicionarsoma = Group::find($value);
+        //valor atual do grupo
         $adicionarsoma->count = $adicionarsoma->count + 1;
 
         //validacao para inserir um valor igual
         if ($validarpessoa->count() == 0) {
-            DB::commit();
-
-            //salvar todos os dados
+            //salvar todos os dados se nao tiver vinculo com o grupo
             $adicionarsoma->save();
             $adicionarpessoa->save();
+            //adicionar log
             $this->adicionar_log('12', 'C', $adicionarpessoa);
             $request->session()->flash("success", "Adicionado com sucesso");
             return redirect()->back();
         }
+        //se possui vinculo nao salva nada e pedi para selecionar outra pessoa
         $request->session()->flash("info", "Pessoa já adicionada");
         return redirect()->back();
     }
 
     public function destroygroup(Request $request, $id)
     {
+        //pegar tenant
+        $this->get_tenant();
+        //id do grupo
         $value = $request->session()->get('group');
-
-        $this->pegar_tenant();
+        //consultar vinculos com pessoas
         $group = People_Groups::find($id);
         if ($group) {
+            //deletar
             $group->delete();
+            //consultar a somatoria do grupo novamente
             $adicionarsoma = Group::find($value);
             $adicionarsoma->count = $adicionarsoma->count - 1;
             $adicionarsoma->save();
+            //adicionar log
             $this->adicionar_log('12', 'D', $group);
         }
         session()->flash("warning", "Deletada a pessoa do grupo");

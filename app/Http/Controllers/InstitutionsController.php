@@ -32,29 +32,32 @@ class InstitutionsController extends Controller
      */
     public function index()
     {
+        //user data
         $you = auth()->user();
-        //mater toda a sessao
+        //mater toda a sessao da conta
         session()->forget('schema');
         session()->forget('key');
         session()->forget('conexao');
 
+        //consultar contas associada ao usuario
         $institutions = Users_Account::where('user_id', $you->id)
             ->with('accountlist')
             ->with('status')
             ->paginate($this->totalPagesPaginate);
-        //$institution = Institution::orderBy('name_company', 'asc')->with('status')->with('AccountList')->paginate(10);
+
         return view('account.List', ['institutions' => $institutions]);
     }
 
     public function license_index(Request $request)
     {
+        //user data
         $you = auth()->user();
-        $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->whereNull('deleted_at')->count();
+        //consulta de contas ativas
+        $countinst = Institution::where('integrador', $you->id)->whereNull('deleted_at')->count();
 
         if ($request->ajax()) {
-
-            $data = Institution::select('*')->where('integrador', $you->id);
+            //consulta de contas ativas
+            $data = Institution::select('*')->where('integrador', $you->id)->whereNull('deleted_at');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -69,16 +72,6 @@ class InstitutionsController extends Controller
 
         return view('account.License', compact('countinst'));
     }
-
-    public function license_index1()
-    {
-        $you = auth()->user();
-        $institution = Institution::orderBy('name_company', 'desc')->where('integrador', $you->id)->with('status')->paginate(100);
-        $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->whereNull('deleted_at')->count();
-        return view('account.License', ['institutions' => $institution], compact('countinst'));
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -87,11 +80,15 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
+        //user data
         $you = auth()->user();
+        //buscar a conta
         $institution = Institution::find($id);
+        //se o usuario for integrador ele abre a edição da conta
         if ($institution->integrador == $you->id and $institution->deleted_at == null) {
             return view('account.EditForm', compact('institution'));
         };
+        //se não for, retorna um erro generico
         session()->flash("error", 'Error interno');
         return redirect('account');
     }
@@ -103,16 +100,18 @@ class InstitutionsController extends Controller
      */
     public function create(Request $request)
     {
+        //user data
         $you = auth()->user();
-        $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->whereNull('deleted_at')->count();
+        //consultar contas ativas do integrador
+        $countinst = Institution::where('integrador', $you->id)->whereNull('deleted_at')->count();
 
-        $statuses = Status::all()->where("type", 'system');
-
+        //se tiver licença indisponivel, retorna com erro
         if ($countinst >= $you->license) {
             $request->session()->flash("error", 'events.error_license');
             return redirect('account');
         };
+        //carregar status
+        $statuses = Status::all()->where("type", 'system');
 
         return view('account.createForm', ['statuses' => $statuses]);
     }
@@ -120,18 +119,10 @@ class InstitutionsController extends Controller
 
     public function store(Request $request)
     {
-        $you = auth()->user();
-        $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->whereNull('deleted_at')->count();
-        if ($countinst >= $you->license) {
-            $request->session()->flash("error", 'events.error_license');
-            return redirect('account');
-        };
-
+        //valida se tem os dados essencial 
         $validatedData = $request->validate([
-            'name_company'             => 'required|min:1|max:64',
+            'name_company'             => 'required|min:1|max:150',
             'email'           => 'required',
-            //'status_id'         => 'required',
             'doc'   => 'required',
             'mobile'         => 'required'
         ]);
@@ -147,9 +138,12 @@ class InstitutionsController extends Controller
                 "aaaaeeiooouuncAAAAEEIOOOUUNC-"
             )
         ));
+        //pegar o ultimo id e usar como referencia
         $contador = Institution::latest('id')->get()->first()->id;
+        //somar a contagem com +1
         $tenant1 = ($string_novo) . '_' . strval($contador + 1);
 
+        //user data
         $user = auth()->user();
         $institution = new Institution();
         $institution->name_company      = $request->input('name_company');
@@ -168,12 +162,12 @@ class InstitutionsController extends Controller
         $institution->country       = $request->input('country');
         $institution->integrador = $user->id;
         $institution->save();
+        //adicionar log
         $this->adicionar_log_global('9', 'C', $institution);
+        //adicionar vinculo com a conta
         $useraccount = new Users_Account();
         $useraccount->user_id = $user->id;
         $useraccount->account_id = Institution::latest('id')->get()->first()->id;
-        $useraccount->save();
-        $this->adicionar_log_global('11', 'C', $useraccount);
 
         //criar o esquema (gambiarra)
         DB::select('CREATE SCHEMA ' . $institution->tenant);
@@ -192,10 +186,15 @@ class InstitutionsController extends Controller
 
         $migrated = Artisan::call('migrate:fresh --seed');
         if (!$migrated) {
-
-            $this->adicionar_log_global('9', 'C', '{"schema":"' . $institution->tenant . '"}');
+            //salvar vinculo com a conta se ocorrer tudo bem
+            $useraccount->save();
+            //adicionar log
+            $this->adicionar_log_global('11', 'C', $useraccount);
             $request->session()->flash("success", 'events.change_create');
+            //adicionar log
+            $this->adicionar_log_global('9', 'C', '{"schema":"' . $institution->tenant . '"}');
 
+            //adicionar pessoa na conta como admin e assim acessar sem erro de vinculo
             DB::table(config::get('database.connections.tenant.schema') . '.people')->insert([
                 'user_id' => $user->id,
                 'name' => $user->name,
@@ -205,12 +204,13 @@ class InstitutionsController extends Controller
                 'role' => '1',
             ]);
 
-            //finalizar a conexao
+            //finalizar a conexao do tenant
             DB::purge('tenant');
             //reconectar a base
             DB::reconnect('pgsql');
             return redirect()->route('account.index');
         }
+        //retornar com mensagem de erro
         $request->session()->flash("danger", 'Erro ao rodar migrations');
         return redirect()->route('account.index');
     }
@@ -231,7 +231,6 @@ class InstitutionsController extends Controller
             'doc'         => 'required',
             'name_company'         => 'required',
         ]);
-
         $institution = Institution::find($id);
         $institution->name_company      = $request->input('name_company');
         $institution->doc      = $request->input('doc');
@@ -244,6 +243,7 @@ class InstitutionsController extends Controller
         $institution->lat       = $request->input('lat');
         $institution->lng       = $request->input('lng');
         $institution->cep       = $request->input('cep');
+        //adicionar log
         $this->adicionar_log_global('9', 'U', $institution);
         $institution->save();
         $request->session()->flash("success", 'events.change_update');
@@ -260,59 +260,21 @@ class InstitutionsController extends Controller
     {
         $institution = Institution::find($id);
         if ($institution) {
-            //$institution->delete();
             $institution = Institution::find($id);
+            //inativar a conta
             $institution->deleted_at          = date('Y-m-d H:m:s');
+            //adicionar log
             $this->adicionar_log_global('9', 'D', $institution);
             $institution->save();
         }
-
+        //consultar pessoas vinculadas
         $User_account = Users_Account::where('account_id', '=', $id);
         if ($User_account) {
+            //deletar vinculos de todas as pessoas
             $User_account->delete();
             $this->adicionar_log_global('11', 'D', '{"delete_account_list":"' . $id . '"}');
         }
         $request->session()->flash("warning", 'events.change_delete');
         return redirect()->route('account.index');
-    }
-
-
-    public function tenant(Request $request, $id)
-    {
-        //mater toda a sessao
-        $request->session()->forget('schema');
-        $request->session()->forget('key');
-        $request->session()->forget('conexao');
-
-        $results = DB::select('select * from admin.accounts where id = ?', [$id]);
-
-        //inserir na array dos dados
-        $request->session()->put('schema', $results);
-
-        //inserir o código
-        $request->session()->put('key', $id);
-
-        //pegar valor na sesscion
-        $tenant = $request->session()->get('schema');
-
-        foreach ($tenant as $element) {
-            $a = $element->tenant;
-        }
-
-        // Make sure to use the database name we want to establish a connection.
-        // Setando os dados da nova conexão.
-        Config::set('database.connections.tenant.schema', $a);
-
-        //inserir o nome da conexão
-        $request->session()->put('conexao', $a);
-        // Conecta no banco
-        //DB::reconnect('tenant');
-
-        // Testa a nova conexão
-        //Schema::connection('tenant')->getConnection()->reconnect();
-        //ver os dados de conexão.
-        //dump(Schema::connection('tenant')->getConnection());
-
-        return redirect()->route('home.index');
     }
 }

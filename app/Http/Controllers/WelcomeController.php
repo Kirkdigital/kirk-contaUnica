@@ -14,13 +14,15 @@ class WelcomeController extends Controller
      */
     public function welcome(Request $request)
     {
-        if($this->middleware('admin')){
+        if($this->middleware('user')){
+            //se nao selecionou a conta retornar para a selecao da conta
             if (($request->session()->get('schema')) === null)
             return redirect()->route('account.index');
             else
+            //se tiver, volta para a tela anterior
             return redirect()->back();
         }
+        //se não carregar o login
         return view('login');
-        
     }
 }

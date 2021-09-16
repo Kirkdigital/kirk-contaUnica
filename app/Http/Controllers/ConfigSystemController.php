@@ -32,62 +32,53 @@ class ConfigSystemController extends Controller
      */
     public function index()
     {
+        //user data
         $you = auth()->user();
-
+        //pegar tenant
         $this->get_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
 
         return view('settings.index');
     }
 
     public function indexSystem()
     {
+        //pegar tenant
         $this->get_tenant();
-        if (session()->get('schema') === null) {
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        }
+        //consulta do system, somente um ID
         $settings = Config_system::find('1')->first();
         return view('settings.system', compact('settings'));
     }
     public function indexMeta()
     {
+        //pegar tenant
         $this->get_tenant();
-        if (session()->get('schema') === null) {
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        }
+        //consulta da meta, pegar o último
         $settings = Config_meta::orderBy('id', 'desc')->first();
         return view('settings.meta', compact('settings'));
     }
     public function indexSocial()
     {
+        //pegar tenant
         $this->get_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        //consulta do social, somente um ID
         $settings = Config_social::find('1')->first();
         return view('settings.social', compact('settings'));
     }
     public function indexEmail()
     {
+        //pegar tenant
         $this->get_tenant();
-        if ((session()->get('schema')) === null)
-            return redirect()->route('account.index')->withErrors(['error' => __('events.select_account')]);
-
+        //consula do email, somente um ID
         $settings = Config_email::find('1')->first();
         return view('settings.email', compact('settings'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //atualizar system
     public function updateSystem(Request $request)
     {
+        //pegar tenant
         $this->get_tenant();
+        //pegar os dados e salvar
         $settings = Config_system::find('1');
         $settings->logo       = $request->input('logo');
         $settings->favicon       = $request->input('favicon');
@@ -105,15 +96,18 @@ class ConfigSystemController extends Controller
         $settings->obg_state       = $request->has('obg_state') ? 1 : 0;
         $settings->obg_note       = $request->has('obg_note') ? 1 : 0;
         $settings->save();
-
+        //adicionar log
         $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
+        //reload do index
         return redirect()->back();
     }
 
     public function updateEmail(Request $request)
-    {
+    {   
+        //pegar tenant
         $this->get_tenant();
+        //pegar os dados e salvar
         $settings = Config_email::find('1');
         $settings->email_from       = $request->input('email_from');
         $settings->smtp_host       = $request->input('smtp_host');
@@ -121,13 +115,16 @@ class ConfigSystemController extends Controller
         $settings->smtp_user       = $request->input('smtp_user');
         $settings->smtp_pass       = $request->input('smtp_pass');
         $settings->save();
+        //adicionar log 
         $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
+        //reload do index
         return redirect()->back();
     }
 
     public function updateSocial(Request $request)
     {
+        //pegar tenant
         $this->get_tenant();
         $settings = Config_social::find('1');
         $settings->facebook_link       = $request->input('facebook_link');
@@ -141,16 +138,21 @@ class ConfigSystemController extends Controller
         $settings->whatsapp_link       = $request->input('whatsapp_link');
         $settings->telegram_link       = $request->input('telegram_link');
         $settings->save();
+        //adicionar log 
         $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
+        //reload do index
         return redirect()->back();
     }
     public function updateMeta(Request $request)
     {
+        //pegar tenant
         $this->get_tenant();
+        //pegar os dados e salvar em um novo ID
         $settings = new Config_meta();
+        //data
         $settings->ano       = date('Y');
-        //mes
+        //valores do ano dividido por meses em valor inteiro
         (int)$settings->visitante_mes       = intval($request->input('visitante_ano') / 12);
         (int)$settings->grupo_ativo_mes       = intval($request->input('grupo_ativo_ano') / 12);
         (int)$settings->batismo_mes       = intval($request->input('batismo_ano') / 12);
@@ -170,18 +172,21 @@ class ConfigSystemController extends Controller
         //$settings->publicacao_ano       = $request->input('publicacao_ano');
         //$settings->comentario_ano       = $request->input('comentario_ano');
 
-        //financeiro
+        //valores do ano dividido por meses em valor inteiro /financeiro
         (int)$settings->fin_dizimo_mes       = intval($request->input('fin_dizimo_ano') / 12);
         (int)$settings->fin_oferta_mes       = intval($request->input('fin_oferta_ano') / 12);
         (int)$settings->fin_despesa_mes       = intval($request->input('fin_despesa_ano') / 12);
         (int)$settings->fin_acao_mes       = intval($request->input('fin_acao_ano') / 12);
+        //financeiro anual
         (float)$settings->fin_dizimo_ano       = $request->input('fin_dizimo_ano');
         (float)$settings->fin_oferta_ano       = $request->input('fin_oferta_ano');
         (float)$settings->fin_despesa_ano       = $request->input('fin_despesa_ano');
         (float)$settings->fin_acao_ano       = $request->input('fin_acao_ano');
         $settings->save();
+        //adicionar log 
         $this->adicionar_log('7', 'U', $settings);
         $request->session()->flash("success", "Successfully updated");
+        //reload do index
         return redirect()->back();
     }
 }

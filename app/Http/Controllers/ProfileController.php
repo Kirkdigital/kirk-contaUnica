@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Institution;
-use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\UploadTrait;
@@ -31,10 +29,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $you = auth()->user();
-        $countinstlist = Institution::where('integrador', $you->id)->get();
-        $countinst = $countinstlist->count();
-        return view('admin.profileEditForm', compact('countinst'));
+        return view('admin.profileEditForm');
     }
 
     /**
@@ -57,7 +52,7 @@ class ProfileController extends Controller
         $user->email      = $request->input('email');
         $user->mobile       = $request->input('mobile');
         $user->doc       = $request->input('doc');
-        
+        //tratamento na imagem
         if ($request->has('profile_image')) {
             // Get image file
             $image = $request->file('profile_image');
@@ -73,20 +68,10 @@ class ProfileController extends Controller
             // Set user profile image path in database to filePath
             $user->profile_image = URL::to('/').'/storage/profiles/'.$filePath;
         }
+        //adicionar log
         $this->adicionar_log_global('8', 'U', '{"name":"' . $user->name . '","email":"' . $user->email . '","mobile":"' . $user->mobile . '","doc":"' . $user->doc . '"}');
-        
         $user->save();
         $request->session()->flash("success", 'events.change_success');
-
         return redirect()->back();
     }
-    public function change(Request $request)
-    {
-        App::setLocale($request->lang);
-        session()->put('locale', $request->lang);
-        $request->session()->flash("success", 'events.locale_change_success');
-
-        return redirect()->back();
-    }
-    
 }
