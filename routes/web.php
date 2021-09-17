@@ -24,6 +24,8 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('/updates', function () {
         return view('updates');
     });
+    Route::get('/error', function () {        return view('errors.404'); });
+
 
     Auth::routes();
     

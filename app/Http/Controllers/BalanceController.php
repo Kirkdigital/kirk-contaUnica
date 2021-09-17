@@ -128,14 +128,7 @@ class BalanceController extends Controller
         $statuspag = Status::all()->where("type", 'pagamento');
         //status do tipo de movimento
         $statusfinan = Status::all()->where("type", 'financial')->where('class', 'retira');
-
-        //se o saldo estiver vazio ele vai retornar para o index
-        if(Balance::where('account_id')->first() == null){
-            session()->flash("info", "Necessário inserir um valor na entrada primeiramente");
-            return redirect()
-            ->back();
-        }
-        
+                
         return view('balance.withdraw', compact('statuspag', 'statusfinan'));
     }
 

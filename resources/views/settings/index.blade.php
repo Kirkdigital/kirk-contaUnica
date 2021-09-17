@@ -1,3 +1,4 @@
+@if (($appPermissao->settings_general or $appPermissao->settings_email or $appPermissao->settings_meta or $appPermissao->settings_social or $appPermissao->settings_roles or $appPermissao->add_people) == true)
 @extends('layouts.base')
 @section('content')
           <div class="col-sm-12">
@@ -83,6 +84,7 @@
                                         </div>
                                     </div>
                                     @endif
+                                    @if ($appPermissao->add_people == true)
                                     <div class="col-lg-6">
                                         <div class="card card-large-icons">
                                             <div class="card-icon bg-primary text-white">
@@ -96,6 +98,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -109,3 +112,7 @@
             @section('javascript')
 
             @endsection
+            @else
+            @include('errors.redirecionar')
+            @endif
+    

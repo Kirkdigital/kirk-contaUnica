@@ -104,7 +104,7 @@
                                                                 </svg>
                                                         </div>
                                                         <input class="form-control" name="mobile" type="tel"
-                                                            placeholder="11 999999999" pattern="[0-9]{2} [0-9]{5}[0-9]{4}"
+                                                            placeholder="11 99999-9999" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}"
                                                             @if ($campo->obg_mobile == true)
                                                         required
                                                         @endif

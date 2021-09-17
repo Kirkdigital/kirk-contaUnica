@@ -28,7 +28,7 @@
                                                     class="btn btn-success">Entrada</a>
                                             @endif
                                             @if ($appPermissao->add_retirada_financial == true)
-                                                @if ($amount > 0)
+                                                @if ($amount > 1)
                                                     <a href="{{ route('balance.withdraw') }}"
                                                         class="btn btn-danger">Retirada</a>
                                                 @endif

@@ -47,6 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if (Auth::user()->isAdmin() == true)
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="name">CNPJ/CPF</label>
@@ -65,6 +66,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -76,7 +78,7 @@
                                                 </div>
                                                 <input class="form-control" name="email" type="email"
                                                     placeholder="joao@live.com" autocomplete="joao@live.com"
-                                                    value="{{ Auth::user()->email }}">
+                                                    value="{{ Auth::user()->email }}" disabled>
                                             </div>
                                         </div>
                                     </div>

@@ -8,7 +8,7 @@
                         <div class="card-header">
                             <h4>Create new Account</h4>
                         </div>
-                        <form method="POST" action="{{ route('account.store') }}">
+                        <form method="POST" action="{{ route('account.store') }}" onsubmit="this.enviar.value='Enviando...'; this.enviar.disabled=true;">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -194,19 +194,11 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2">
                                         <a href="{{ route('account.index') }}"
                                             class="btn btn-block btn-primary">{{ __('Return') }}</a>
-                                        <button class="btn btn-block btn-success" type="submit"
-                                            onclick="dasabilitaBotao(this)" data-toggle="modal"
-                                            data-target=".cd-load">{{ __('Save') }}</button>
+                                        <button class="btn btn-block btn-success" type="submit" name="enviar" value="Enviar">{{ __('Save') }}</button>
                         </form>
                     </div>
                 </div>
             </div>
-
-            <script>
-                function desabilitaBotao(element) {
-                    $(element).prop('disabled', true)
-                }
-            </script>
 
         @endsection
 

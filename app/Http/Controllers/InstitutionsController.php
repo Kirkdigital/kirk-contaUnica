@@ -23,6 +23,7 @@ class InstitutionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('throttle:1,0.001');
     }
 
     /**
@@ -119,6 +120,16 @@ class InstitutionsController extends Controller
 
     public function store(Request $request)
     {
+        //user data
+        $user = auth()->user();
+        //consultar contas ativas do integrador
+        $countinst = Institution::where('integrador', $user->id)->whereNull('deleted_at')->count();
+
+        //se tiver licença indisponivel, retorna com erro
+        if ($countinst >= $user->license) {
+            $request->session()->flash("error", 'events.error_license');
+            return redirect('account');
+        };
         //valida se tem os dados essencial 
         $validatedData = $request->validate([
             'name_company'             => 'required|min:1|max:150',
@@ -143,8 +154,6 @@ class InstitutionsController extends Controller
         //somar a contagem com +1
         $tenant1 = ($string_novo) . '_' . strval($contador + 1);
 
-        //user data
-        $user = auth()->user();
         $institution = new Institution();
         $institution->name_company      = $request->input('name_company');
         $institution->email      = $request->input('email');

@@ -1,6 +1,6 @@
+@if ($appPermissao->settings_meta == true)
 @extends('layouts.base')
 @section('content')
-
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
@@ -159,10 +159,12 @@
                     <!-- /.row-->
                 </div>
             </div>
-
-
         @endsection
 
         @section('javascript')
 
         @endsection
+
+        @else
+        @include('errors.redirecionar')
+        @endif
