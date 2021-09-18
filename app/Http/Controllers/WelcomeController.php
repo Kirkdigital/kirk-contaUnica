@@ -19,8 +19,8 @@ class WelcomeController extends Controller
             if (($request->session()->get('schema')) === null)
             return redirect()->route('account.index');
             else
-            //se tiver, volta para a tela anterior
-            return redirect()->back();
+            //se tiver, volta para a tela do home
+            return redirect()->route('home.index');
         }
         //se não carregar o login
         return view('login');

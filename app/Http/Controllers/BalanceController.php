@@ -66,11 +66,13 @@ class BalanceController extends Controller
         //consultar pessoas
         $data = People::select("id", "name", "email")
             ->orderby('name', 'asc')
+            ->where('is_admin', false)
             ->get();
         if ($request->has('q')) {
             $search = $request->q;
             $data = People::select("id", "name", "email")
                 ->where('name', 'LIKE', "%$search%")
+                ->where('is_admin', false)
                 ->orderby('name', 'asc')
                 ->get();
         }

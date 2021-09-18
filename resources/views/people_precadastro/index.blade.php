@@ -1,3 +1,4 @@
+@if ($appPermissao->view_precadastro == true)
 @extends('layouts.base')
 @section('content')
 <div class="container-fluid">
@@ -76,7 +77,7 @@
                                       </td>
                                       <td>{{ $people->created_at }}</td>
                                       <td width="1%">
-                                      @if ($appPermissao->view_precadastro == true)
+                                      @if ($appPermissao->edit_precadastro == true)
                                        <a href="{{ route('peopleList.edit', $people->id) }}"><i class="c-icon c-icon-sm cil-arrow-thick-right text-dark"></i></a>
                                       @endif
                                     </td>
@@ -111,3 +112,7 @@
 @section('javascript')
 
 @endsection
+
+@else
+@include('errors.redirecionar')
+@endif

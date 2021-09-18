@@ -1,13 +1,13 @@
+@if ($appPermissao->view_message == true)
 @extends('layouts.base')
 @section('content')
-
         <div class="container-fluid">
           <div class="animated fadeIn">
             <div class="row">
               <div class="col-sm-12 col-md-10 col-lg-8 col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                      <i class="fa fa-align-justify"></i> Note: {{ $note->title }}</div>
+                      <h4>Note: {{ $note->title }}</h4></div>
                     <div class="card-body">
                         <br>
                         <h4>Author:</h4>
@@ -40,3 +40,6 @@
 @section('javascript')
 
 @endsection
+@else
+@include('errors.redirecionar')
+@endif

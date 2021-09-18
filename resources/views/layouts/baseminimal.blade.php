@@ -76,9 +76,8 @@
       @include('layouts.shared.loading')
 
       <div class="c-body">
-
         <main class="c-main">
-        @include('dashboard.shared.flash-message')
+          @include('layouts.shared.flash-message')
           @yield('content') 
         </main>
       </div>

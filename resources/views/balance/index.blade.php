@@ -1,7 +1,6 @@
+@if ($appPermissao->view_financial == true)
 @extends('layouts.base')
-
 @section('content')
-
     <div class="container-fluid">
         <div class="fade-in">
             <div class="card">
@@ -38,9 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($appPermissao->view_financial == true)
-
-                                    <table class="table table-responsive-sm table-striped">
+                            <table class="table table-responsive-sm table-striped">
                                         <thead>
                                             <tr>
                                                 <th style="width: 35px">Recibo</th>
@@ -112,9 +109,11 @@
                                     </div>
                                     @endif
                             <!-- /.row-->
-                        @endif
                     </div>
                     <!-- /.row-->
                 </div>
             </div>
         @stop
+        @else
+        @include('errors.redirecionar')
+        @endif

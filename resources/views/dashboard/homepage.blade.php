@@ -1,14 +1,8 @@
+@if(($appPermissao->view_periodo or $appPermissao->view_dash or $appPermissao->view_detail or $appPermissao->view_resumo_financeiro) == true)
 @extends('layouts.base')
-
 @section('content')
-
-
     <div class="container-fluid">
         <div class="fade-in">
-            @if ($appPermissao->view_periodo == false and $appPermissao->view_dash == false and $appPermissao->view_detail == false and $appPermissao->view_resumo_financeiro == false)
-                Dashboard desabilitado
-            @endif
-
             @if ($appPermissao->view_dash == true)
                 <div class="row">
                     <div class="col-sm-6 col-md-2">
@@ -596,3 +590,6 @@
     </script>
 
 @endsection
+@else
+@include('errors.redirecionar')
+@endif

@@ -46,7 +46,7 @@ class NotesController extends Controller
     public function create()
     {
         //carregar status
-        $statuses = Status::all();
+        $statuses = Status::all()->where("type", 'status');
         return view('message.create', ['statuses' => $statuses]);
     }
 
@@ -134,7 +134,7 @@ class NotesController extends Controller
         $this->get_tenant();
         $note = Notes::find($id);
         //carregar status
-        $statuses = Status::all();
+        $statuses = Status::all()->where("type", 'status');
         return view('message.edit', ['statuses' => $statuses, 'note' => $note]);
     }
 

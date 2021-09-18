@@ -1,7 +1,6 @@
+@if ($appPermissao->view_message == true)
 @extends('layouts.base')
-
 @section('content')
-
     <div class="container-fluid">
         <div class="fade-in">
             <div class="card">
@@ -85,7 +84,10 @@
 
 @endsection
 
-
 @section('javascript')
 
 @endsection
+
+@else
+@include('errors.redirecionar')
+@endif

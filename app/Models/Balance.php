@@ -77,6 +77,7 @@ class Balance extends Model
         $historic = Historic::create([
             'type' => 'O',
             'amount' => $valor,
+            'sub_total' => $valor,
             'total_before' => $totalBefore,
             'total_after' => $this->amount,
             'date' => date($date_lancamento),
@@ -84,7 +85,9 @@ class Balance extends Model
             'observacao' => $observacao,
             'pag' => $pag,
             'total_before' => $totalBefore,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'total_tax' => '0',
+            'discount' => '0'
         ]);
 
         if ($withdraw && $historic) {

@@ -19,9 +19,9 @@ class notesTable extends Migration {
 			$table->bigInteger('id', true);
 			$table->string('title');
 			$table->text('content');
-			$table->string('note_type');
+			$table->string('note_type')->nullable();
 			$table->date('applies_to_date');
-			$table->string('image');
+			$table->string('image')->nullable();
 			$table->integer('users_id');
 			$table->integer('status_id');
             $table->timestamps(10);

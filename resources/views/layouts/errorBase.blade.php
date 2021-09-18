@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description"
-        content="Tenha na palma de sua mão as informações da membresia de sua igreja, gestão de grupos ou células, lançamento das receitas do financeiro, desespesas e muito mais">
-    <meta name="author" content="deskapps.net">
-    <meta name="keyword" content="deskapps,igreja">
-    <title>{{ __('general.logo') }} - Auth</title>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description"
+      content="Tenha na palma de sua mão as informações da membresia de sua igreja, gestão de grupos ou células, lançamento das receitas do financeiro, desespesas e muito mais">
+  <meta name="author" content="deskapps.net">
+  <meta name="keyword" content="deskapps,igreja">
+    <title>{{ __('general.logo') }} - Error</title>
     <!--favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/favicon/apple-icon-60x60.png') }}">
@@ -56,17 +57,14 @@
 </head>
 
 <body>
+  <body class="c-app flex-row align-items-center">
+    <br><br><br><br><br><br><br>
+    @yield('content') 
 
-    @yield('content')
-    @include('layouts.shared.flash-message')
-    @include('layouts.shared.loading')
     <!-- CoreUI and necessary plugins-->
-    <script src="{{ asset('js/coreui.bundle.min.js?v=1') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+
     @yield('javascript')
 
-</body>
-
+  </body>
 </html>

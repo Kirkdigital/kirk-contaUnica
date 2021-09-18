@@ -1,7 +1,6 @@
+@if ($appPermissao->view_group == true)
 @extends('layouts.base')
-
 @section('content')
-
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
@@ -111,3 +110,6 @@
 @section('javascript')
 
 @endsection
+@else
+@include('errors.redirecionar')
+@endif

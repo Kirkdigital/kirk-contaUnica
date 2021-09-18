@@ -1,14 +1,13 @@
+@if ($appPermissao->add_retirada_financial == true)
 @extends('layouts.base')
-
 @section('content')
-
 <div class="container-fluid">
           <div class="animated fadeIn">
             <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                      <i class="fa fa-align-justify"></i>Saida financeira</div>
+                      <h4>Saida financeira</h4></div>
                     <div class="card-body">
                         <br>  
             <form action="{{ route('withdraw.store') }}" method="post">
@@ -97,3 +96,7 @@ cache: true
 @section('javascript')
 
 @endsection
+
+@else
+@include('errors.redirecionar')
+@endif

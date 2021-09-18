@@ -1,7 +1,6 @@
+@if ($appPermissao->view_calendar == true)
 @extends('layouts.base')
-
 @section('content')
-
     <div class="container-fluid">
         <div class="animated fadeIn">
             <div class="row">
@@ -14,7 +13,6 @@
                         <div id='calendar'></div>
                     </div>
                 </div>
-
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <!--<div class="card">
                         <div class="card-header"><strong>Adicionar agendamento</strong> <small>detalhado</small></div>
@@ -38,7 +36,6 @@
                                   <input class="form-control" name="birth_at" type="date" placeholder="date">
                             </div>
                           </div>
-                           
                         </div>
                       </div>/.row-->
                     <div class="card">
@@ -181,3 +178,6 @@
         @section('javascript')
 
         @endsection
+        @else
+        @include('errors.redirecionar')
+        @endif
