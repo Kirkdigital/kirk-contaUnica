@@ -16,20 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['get.menu']], function () {
+
     Route::get('/', 'WelcomeController@welcome')->name('welcome');
     Route::get('/contact', function () {
         return view('contato');
     });
-    Route::get('/updates', function () {
-        return view('updates');
-    });
-    Route::get('/error', function () {        return view('errors.404'); });
 
 
     Auth::routes();
     
     Route::group(['middleware' => ['role:user']], function () {
+        Route::get('/error', function () {        return view('errors.404'); });
+        Route::get('/updates', function () {
+            return view('updates');
+        });
         Route::resource('message', 'NotesController');
 
         // account e tenant
@@ -200,4 +200,4 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('logs', 'LogsController@index')->name('logs.index');
         Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     });
-});
+

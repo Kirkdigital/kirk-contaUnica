@@ -138,12 +138,6 @@
                 </div>
             </div>
         </div>
-    @else
-        <script>
-            window.location = "/error";
-        </script>
-    @endif
-
 @endsection
 
 @section('javascript')

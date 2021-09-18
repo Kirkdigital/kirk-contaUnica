@@ -135,7 +135,7 @@
                                 <h4 class="card-title mb-0">Perido</h4>
                                 <div class="small text-muted">Anual</div>
                             </div>
-                            <!-- /.col-->
+                            <!--
                             <div class="col-sm-7 d-none d-md-block">
                                 <button class="btn btn-primary float-right" type="button">
                                     <svg class="c-icon">
@@ -145,7 +145,7 @@
                                 <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
                                 </div>
                             </div>
-                            <!-- /.col-->
+                             /.col-->
                         </div>
                         <!-- /.row-->
                         <div class="c-chart-wrapper" style="height:300px;margin-top:40px;">

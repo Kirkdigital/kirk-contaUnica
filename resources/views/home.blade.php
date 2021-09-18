@@ -138,33 +138,40 @@
                 @endif
             @endif
             @if ($appPermissao->home_message == true)
-            @if (!$notes->isEmpty())
-            <h3 class="section-title">Recados</h3>
-            <div class="row">
-                    @foreach ($notes as $note)
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                            <article class="article article-style-b">
-                                <div class="article-header">
-                                    <div class="article-image"><img src="{{ $note->image }}" width="400px"
-                                            height="400px">
+                @if (!$notes->isEmpty())
+                    <h3 class="section-title">Recados</h3>
+                    <div class="row">
+                        @foreach ($notes as $note)
+                       
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                <article class="article article-style-b">
+                                    <div class="article-header">
+                                        <div class="article-image">
+                                            @if (!empty($note->image))
+                                            <img src="{{ $note->image }}" width="100%" height="100%">
+                                            @else
+                                            <img src="assets/img/img0{{ $loop->iteration }}.jpg" width="100%" height="100%">
+                                            @endif
+                                        </div>
+                                        @if ($note->status_id == 2)
+                                            <div class="article-badge">
+                                                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
+                                                    Trending</div>
+                                            </div>
+                                        @endif
                                     </div>
-                                    <!--<div class="article-badge">
-                                    <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
-                                        Trending</div>
-                                </div> -->
-                                </div>
-                                <div class="article-details">
-                                    <div class="article-title">
-                                        <h2><a
-                                                href="message/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
-                                        </h2>
+                                    <div class="article-details">
+                                        <div class="article-title">
+                                            <h2><a
+                                                    href="message/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
+                                            </h2>
+                                        </div>
+                                        <p>{{ mb_strimwidth($note->content, 0, 130, '...') }}</p>
                                     </div>
-                                    <p>{{ mb_strimwidth($note->content, 0, 130, '...') }}</p>
-                                </div>
-                            </article>
-                        </div>        
-                    @endforeach
-                </div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             @endif
             @if ($appPermissao->home_grupo == true)
@@ -381,78 +388,78 @@
                 </div>
             @endif
 
-    @if ($appPermissao->home_location == true)
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h6>Nossa localização</h6>
-                        <p>
-                        <div class="row">
-                            <div id="map"></div>
-                            <ul id="geoData">
-                            </ul>
+            @if ($appPermissao->home_location == true and ($locations->lat and $locations->lng == !null))
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>Nossa localização</h6>
+                                <p>
+                                <div class="row">
+                                    <div id="map"></div>
+                                    <ul id="geoData">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <script>
+                    function initMap() {
+                        var myLatLng = {
+                            lat: {{ $locations->lat }},
+                            lng: {{ $locations->lng }}
+                        };
+
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: myLatLng,
+                            zoom: 17
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: 'Local!',
+                            draggable: false
+                        });
+                    }
+                </script>
+                <style type="text/css">
+                    #map {
+                        width: 100%;
+                        height: 400px;
+                    }
+
+                </style>
+                <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+            @endif
+
+            <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
+
+            <script type="text/javascript">
+                var pieChart = new Chart(document.getElementById('chats'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
+                        datasets: [{
+                            data: [{{ $dizimoatual }}, {{ $ofertaatual }}, {{ $doacaoatual }},
+                                {{ $despesaatual }}
+                            ],
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c'],
+                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+
+
+                })
+            </script>
         </div>
-        <script>
-            function initMap() {
-                var myLatLng = {
-                    lat: {{ $locations->lat }},
-                    lng: {{ $locations->lng }}
-                };
+    @endsection
 
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    center: myLatLng,
-                    zoom: 17
-                });
-
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'Local!',
-                    draggable: false
-                });
-            }
-        </script>
-        <style type="text/css">
-            #map {
-                width: 100%;
-                height: 400px;
-            }
-
-        </style>
-        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
-    @endif
-
-    <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
-
-    <script type="text/javascript">
-        var pieChart = new Chart(document.getElementById('chats'), {
-            type: 'pie',
-            data: {
-                labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
-                datasets: [{
-                    data: [{{ $dizimoatual }}, {{ $ofertaatual }}, {{ $doacaoatual }},
-                        {{ $despesaatual }}
-                    ],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c'],
-                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c']
-                }]
-            },
-            options: {
-                responsive: true
-            }
+    @section('javascript')
 
 
-        })
-    </script>
-        </div>
-@endsection
-
-@section('javascript')
-
-
-@endsection
+    @endsection

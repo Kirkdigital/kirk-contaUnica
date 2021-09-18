@@ -116,7 +116,7 @@ class HomeController extends Controller
         $locations = Institution::find(session()->get('key'));
 
         //carregamento as message com os dados do usuário que publicou + filtrado para o somente status "public"  
-        $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->where('status_id', '1')->get();
+        $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->whereIn('status_id', [1,2])->get();
 
         return view(
             'home',

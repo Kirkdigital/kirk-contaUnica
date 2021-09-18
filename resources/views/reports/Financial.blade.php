@@ -1,3 +1,4 @@
+@if ($appPermissao->report_view and $appPermissao->view_financial == true)
 @extends('layouts.base')
 @section('content')
 
@@ -181,3 +182,6 @@
         @section('javascript')
 
         @endsection
+        @else
+        @include('errors.redirecionar')
+        @endif

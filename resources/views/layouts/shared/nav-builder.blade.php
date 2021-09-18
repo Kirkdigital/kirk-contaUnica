@@ -91,18 +91,29 @@ if (!function_exists('renderDropdown')) {
         <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#"><i
                     class="c-icon cil-chart c-sidebar-nav-icon"></i>Relatórios</a>
             <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                        href="{{ route('people.Financial') }}"><span class="c-sidebar-nav-icon"></span>Listagem
-                        das
-                        Pessoas</a></li>
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                        href="{{ route('location.index') }}"><span class="c-sidebar-nav-icon"></span>Localizações</a></li>
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                        href="{{ route('group.Financial') }}"><span class="c-sidebar-nav-icon"></span>Listagem de
-                        Grupos</a></li>
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                        href="{{ route('financial.Financial') }}"><span class="c-sidebar-nav-icon"></span>Histórico
-                        Financeiro</a></li>
+                @if ($appPermissao->view_people == true)
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                            href="{{ route('people.Financial') }}"><span class="c-sidebar-nav-icon"></span>Listagem
+                            das
+                            Pessoas</a></li>
+                @endif
+                @if ($appPermissao->view_people == true)
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                            href="{{ route('location.index') }}"><span
+                                class="c-sidebar-nav-icon"></span>Localizações</a>
+                    </li>
+                @endif
+                @if ($appPermissao->view_group == true)
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                            href="{{ route('group.Financial') }}"><span class="c-sidebar-nav-icon"></span>Listagem de
+                            Grupos</a></li>
+                @endif
+                @if ($appPermissao->view_financial == true)
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                            href="{{ route('financial.Financial') }}"><span
+                                class="c-sidebar-nav-icon"></span>Histórico
+                            Financeiro</a></li>
+                @endif
             </ul>
         </li>
     @endif

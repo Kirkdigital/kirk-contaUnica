@@ -1,3 +1,4 @@
+@if ($appPermissao->report_view and $appPermissao->view_people == true)
 @extends('layouts.base')
 @section('content')
     <div class="container-fluid">
@@ -201,3 +202,6 @@
 @section('javascript')
 
 @endsection
+@else
+@include('errors.redirecionar')
+@endif

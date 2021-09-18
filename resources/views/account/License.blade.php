@@ -42,7 +42,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
-                <th width="60px">Expired</th>
                 <th>City</th>
                 <th>Country</th>
             </tr>
@@ -65,7 +64,6 @@
             {data: 'name_company', name: 'name_company'},
             {data: 'email', name: 'email'},
             {data: 'mobile', name: 'mobile'},
-            {data: 'expired', name: 'expired'},
             {data: 'city', name: 'city'},
             {data: 'country', name: 'country'},
         ]
