@@ -9,13 +9,8 @@ use Response;
 use Redirect;
 use App\Models\{Country, State, City};
 
-class DropdownController extends Controller
+class LocalidadeController extends Controller
 {
-    public function index()
-    {
-        $data['countries'] = Country::get(["name", "id"]);
-        return view('welcome', $data);
-    }
 
     public function fetchState(Request $request)
     {

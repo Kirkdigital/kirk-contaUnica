@@ -36,8 +36,8 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::resource('message', 'NotesController');
 
     //para pegar a localizacao via ajax
-    Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
-    Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
+    Route::post('api/fetch-states', [LocalidadeController::class, 'fetchState']);
+    Route::post('api/fetch-cities', [LocalidadeController::class, 'fetchCity']);
 
     // account e tenant
     Route::post('/tenant/{id}', 'TenantController@tenant')->name('tenant');
