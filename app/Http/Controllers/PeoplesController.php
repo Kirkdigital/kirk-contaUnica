@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Config_system;
+use App\Models\Country;
 use App\Models\Institution;
 use DB;
 use Hash;
@@ -11,6 +13,7 @@ use App\Models\Status;
 use App\Models\People;
 use App\Models\People_Groups;
 use App\Models\Roles;
+use App\Models\State;
 use App\Models\Users_Account;
 use App\Models\User;
 
@@ -43,6 +46,7 @@ class PeoplesController extends Controller
         $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->where('is_admin', false)->paginate($this->totalPagesPaginate);
         //status
         $statuses = Status::all()->where("type", 'people');
+
         return view('people.index', compact('peoples', 'statuses'));
     }
 
@@ -64,16 +68,20 @@ class PeoplesController extends Controller
         //localicazao da conta
         $locations = Institution::find(session()->get('key'));
         //se tiver vazio, retornar para validar, mas vai carregar a tela de criação de pessoa
-        if ($locations->lng == null) {
+        if ($locations->lng == null or $locations->lat == null and $campo->geolocation == true) {
             session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
         }
-        return view('people.createForm', compact('campo', 'locations'), ['statuses' => $statuses, 'roles' => $roles]);
+        //localidade normal
+        $countries = Country::get(["name", "id"]);
+
+        return view('people.createForm', compact('campo', 'locations'), ['statuses' => $statuses, 'roles' => $roles, 'countries' => $countries]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->all([
             'name'             => 'required|min:1|max:255',
+            'country-dd'             => 'required|min:1|max:255',
         ]);
 
         $people = new People();
@@ -83,10 +91,10 @@ class PeoplesController extends Controller
         $people->mobile        = $request->input('mobile');
         $people->birth_at      = $request->input('birth_at');
         $people->address       = $request->input('address');
-        $people->city          = $request->input('city');
-        $people->state          = $request->input('state');
+        $people->city          = $request->input('city-dd');
+        $people->state          = $request->input('state-dd');
         $people->cep           = $request->input('cep');
-        $people->country       = $request->input('country');
+        $people->country       = $request->input('country-dd');
         $people->role       = $request->input('role');
         $people->status_id = '14'; //ativo
         $people->is_visitor       = $request->input('is_visitor');
@@ -169,6 +177,11 @@ class PeoplesController extends Controller
         $this->get_tenant();
         //buscar pessoa
         $people = People::with('acesso')->find($id);
+        //validar o id se existe ou se é admin
+        if ($people == null or $people->is_admin == true) {
+            session()->flash("danger", "Erro interno");
+            return redirect()->route('people.index');
+        }
         //campo obrigatoria
         $campo = Config_system::find('1')->first();
         //status
@@ -178,13 +191,16 @@ class PeoplesController extends Controller
         //carregar localização
         $locations = Institution::find(session()->get('key'));
         //se estiver vazio, mostrar aviso, mas continuar a edicao da pessoa
-        if ($locations->lng == null) {
+        if ($locations->lng == null or $locations->lat == null and $campo->geolocation == true) {
             session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
         }
+        //localidade normal
+        $countries = Country::get(["name", "id"]);
+        $state = State::get(["name", "id"]);
+        $city = City::get(["name", "id"]);
 
-        return view('people.EditForm', compact('campo', 'locations'), ['statuses' => $statuses, 'people' => $people, 'roles' => $roles]);
+        return view('people.EditForm', compact('campo', 'locations'), ['statuses' => $statuses, 'people' => $people, 'roles' => $roles, 'countries' => $countries, 'state' => $state, 'city' => $city]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -192,7 +208,6 @@ class PeoplesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -207,10 +222,10 @@ class PeoplesController extends Controller
         $people->mobile        = $request->input('mobile');
         $people->birth_at      = $request->input('birth_at');
         $people->address       = $request->input('address');
-        $people->city          = $request->input('city');
-        $people->state          = $request->input('state');
+        $people->city          = $request->input('city-dd');
+        $people->state          = $request->input('state-dd');
         $people->cep           = $request->input('cep');
-        $people->country       = $request->input('country');
+        $people->country       = $request->input('country-dd');
         $people->role       = $request->input('role');
         $people->status_id = $request->input('status_id');
         $people->is_verify       = 'true';
@@ -228,7 +243,6 @@ class PeoplesController extends Controller
             $people->lng = $request->input('lon-span');
         }
         $people->save();
-
         //consulta antes para criar o acesso a conta
         $validaruser = User::where('email', $people->email)->get();
         //flag de criar o acesso

@@ -42,7 +42,7 @@ class BalanceController extends Controller
         $balance = Balance::where('account_id', $conta)->first();
         //converter para apresentacao no index
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
-    
+
         return view('balance.index', compact('amount', 'historics', 'types'));
     }
 
@@ -60,7 +60,7 @@ class BalanceController extends Controller
 
     //autocompletar pessoa em ajax
     public function dataAjax(Request $request)
-    {   
+    {
         //pegar tenant
         $this->get_tenant();
         //consultar pessoas
@@ -130,12 +130,12 @@ class BalanceController extends Controller
         $statuspag = Status::all()->where("type", 'pagamento');
         //status do tipo de movimento
         $statusfinan = Status::all()->where("type", 'financial')->where('class', 'retira');
-                
+
         return view('balance.withdraw', compact('statuspag', 'statusfinan'));
     }
 
     public function withdrawStore(ValidationMoneyFormRequest $request)
-    {   
+    {
         //pegar tenant
         $this->get_tenant();
         //código da conta
@@ -147,7 +147,7 @@ class BalanceController extends Controller
         if ($response['success']) {
             return redirect()->back()
                 ->with('success', $response['message']);
-        }  
+        }
         //retorno se estiver algo errado
         return redirect()
             ->back()
@@ -172,7 +172,7 @@ class BalanceController extends Controller
         //status do tipo de movimento dizimo...
         $statusfinan = Status::all()->where("type", 'financial');
 
-        return view('balance.historics', compact('historics','types', 'statuspag', 'statusfinan'));
+        return view('balance.historics', compact('historics', 'types', 'statuspag', 'statusfinan'));
     }
 
     //busca do historico
@@ -205,6 +205,11 @@ class BalanceController extends Controller
         $codigo = session()->get('key');
         //consulta do invoce individual
         $historics = Historic::find($id);
+        //validar o id se existe
+        if ($historics == null) {
+            session()->flash("danger", "Erro interno");
+            return redirect()->route('group.index');
+        }
         //dados da conta
         $account = Institution::find($codigo);
         //dados da pessoa se estiver associada a movimentação

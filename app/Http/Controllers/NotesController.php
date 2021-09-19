@@ -35,7 +35,7 @@ class NotesController extends Controller
         $this->get_tenant();
         //consulta da message
         $notes = Notes::with('user')->with('status')->paginate(20);
-        return view('message.notesList',['notes' => $notes]);
+        return view('message.notesList', ['notes' => $notes]);
     }
 
     /**
@@ -83,24 +83,23 @@ class NotesController extends Controller
             $image = $request->file('image');
             // Make a image name based on user name and current timestamp
 
-            $name = Str::slug($request->input('name')).'_'.time();
+            $name = Str::slug($request->input('name')) . '_' . time();
             // Define folder path
             $folder = '';
             // Make a file path where image will be stored [ folder path + file name + file extension]
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
             // Upload image
             $this->uploadOne($image, $folder, 'messages', $name);
             // Set user profile image path in database to filePath
-            $note->image = URL::to('/').'/storage/messages/'.$filePath;
+            $note->image = URL::to('/') . '/storage/messages/' . $filePath;
             $note->save();
             //adicionar log
             $this->adicionar_log('3', 'U', $note);
             $request->session()->flash('message', 'Successfully edited note');
             return redirect()->route('message.index');
-        }
-        else
-        //salva sem o tratamento da imagem
-        $note->save();
+        } else
+            //salva sem o tratamento da imagem
+            $note->save();
         //adicionar log
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');
@@ -133,6 +132,11 @@ class NotesController extends Controller
         //pegar tenant
         $this->get_tenant();
         $note = Notes::find($id);
+        //validar o id se existe
+        if ($note == null) {
+            session()->flash("danger", "Erro interno");
+            return redirect()->route('group.index');
+        }
         //carregar status
         $statuses = Status::all()->where("type", 'status');
         return view('message.edit', ['statuses' => $statuses, 'note' => $note]);
@@ -169,24 +173,23 @@ class NotesController extends Controller
             // Get image file
             $image = $request->file('image');
             // Make a image name based on user name and current timestamp
-            $name = Str::slug($request->input('name')).'_'.time();
+            $name = Str::slug($request->input('name')) . '_' . time();
             // Define folder path
             $folder = '';
             // Make a file path where image will be stored [ folder path + file name + file extension]
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
             // Upload image
             $this->uploadOne($image, $folder, 'messages', $name);
             // Set user profile image path in database to filePath
-            $note->image = URL::to('/').'/storage/messages/'.$filePath;
+            $note->image = URL::to('/') . '/storage/messages/' . $filePath;
             $note->save();
             //adicionar log
             $this->adicionar_log('3', 'U', $note);
             $request->session()->flash('message', 'Successfully edited note');
             return redirect()->route('message.index');
-        }
-        else
-        //se nao tiver imagem, salva novamente
-        $note->save();
+        } else
+            //se nao tiver imagem, salva novamente
+            $note->save();
         //adicionar log
         $this->adicionar_log('3', 'U', $note);
         $request->session()->flash('message', 'Successfully edited note');

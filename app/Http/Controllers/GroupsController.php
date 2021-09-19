@@ -97,6 +97,11 @@ class GroupsController extends Controller
         //pegar tenant
         $this->get_tenant();
         $group = Group::find($id);
+        //validar o id se existe
+        if ($group == null) {
+            session()->flash("danger", "Erro interno");
+            return redirect()->route('group.index');
+        }
         //carregar status de pessoa
         $statuses = Status::all()->where("type", 'people');
         return view('group.EditForm', ['statuses' => $statuses, 'group' => $group]);
@@ -198,13 +203,13 @@ class GroupsController extends Controller
         $pessoasgrupos = People_Groups::with('grupo')->with('usuario')->where('group_id', $id)->get();
         //consultar o responsavel do grupo
         $responsavel = People::find($group->user_id);
-        
+
         return view('group.Show', compact('group', 'responsavel'), ['pessoasgrupos' => $pessoasgrupos]);
     }
 
     //adicionar nova pessoa ao grupo
     public function storepeoplegroup(Request $request)
-    {   
+    {
         //pegar tenant
         $this->get_tenant();
         //pegar valor do grupo

@@ -55,7 +55,6 @@
                                 <th>E-mail</th>
                                 <th>Mobile</th>
                                 <th>Permissão</th>
-                                <th>Localization</th>
                                 <th>Status</th>
                                 <th colspan="3">
                                     <Center>{{ __('account.action') }}</Center>
@@ -73,17 +72,6 @@
                                     <td>{{ $people->email }}</td>
                                     <td>{{ $people->mobile }}</td>
                                     <td>{{ $people->roleslocal->name }}</td>
-                                    <td>
-                                        @if ($people->city && $people->state != null)
-                                            {{ $people->city }} / {{ $people->state }}
-                                        @elseif($people->city != null)
-                                            {{ $people->city }}
-                                        @elseif($people->state != null)
-                                            {{ $people->state }}
-                                        @elseif($people->country != null)
-                                            {{ $people->country }}
-                                        @endif
-                                    </td>
                                     <td>
                                         <span class="{{ $people->status->class }}">
                                             {{ $people->status->name }}

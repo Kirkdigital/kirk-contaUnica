@@ -1,82 +1,64 @@
 @extends('layouts.baseminimal')
-<!-- Styles -->
-<link href="{{ asset('css/style-custom.css') }}" rel="stylesheet">
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
 
-                @foreach ($posts as $post)
-                    <!-- post status start -->
-                    <div class="card">
-                        <!-- post title start -->
-                        <div class="post-title d-flex align-items-center">
-                            <!-- profile picture end -->
-                            <div class="profile-thumb">
-                                <a href="#">
-                                    <figure class="profile-thumb-middle">
-                                        @if (empty($post->user->image))
-                                            <div class="c-avatar"><img class="c-avatar-img"
-                                                    src="{{ url('/public/uploads/images/user.png?v=1') }}"
-                                                    alt="profile picture"></div>
-                                        @endif
+    <div class="container mt-5" style="max-width: 550px">
+        <div id="data-wrapper">
+            <!-- Results -->
+        </div>
 
-                                        @if (!empty($post->user->image))
-                                            <div class="c-avatar"><img class="c-avatar-img" src=" {{ $post->user->image }}"
-                                                    alt="profile picture"></div>
-                                        @endif
-                                    </figure>
-                                </a>
-                            </div>
-                            <!-- profile picture end -->
-
-                            <div class="posted-author">
-                                <h6 class="author"><a href="profile.html">{{ $post->user->name }}</a></h6>
-                                <span class="post-time"> {{$post->created_at}}</span>
-                            </div>
-                        </div>
-                        <!-- post title start -->
-                        <div class="post-content">
-                            <p class="post-desc">
-                                {{ $post->body }}
-                            </p>
-                            @if (!empty($post->image))
-                            <div class="post-thumb-gallery">
-                                <figure class="post-thumb img-popup">
-                                        <img src="{{ $post->image }}" alt="post image">
-                                </figure>
-                            </div>
-                            @endif
-                            <div class="post-meta">
-                                <a class="post-meta-like">
-                                    <i class="c-icon c-icon-sm cil-cat"></i>
-                                    <span>Like
-                                        &nbsp;&nbsp;
-                                        {{ $post->likes->count() }}</span>
-                                </a>
-                                <ul class="comment-share-meta">
-                                    <li>
-                                        <a href="{{ route('timeline.show', $post) }}" class="post-comment ">
-                                            <i class="c-icon c-icon-sm cil-comment-bubble"></i>
-                                            <span>Comentários</span>&nbsp;&nbsp;
-                                            <strong>{{ $post->comments->count() }}</strong>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="post-share">
-                                            <i class="c-icon c-icon-sm cil-share-alt"></i>
-                                            <span>Share</span>&nbsp;&nbsp;
-                                            <strong>{{ $post->comments->count() }}</strong>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+        <!-- Data Loader -->
+        <div class="auto-load text-center">
+            <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                <path fill="#000"
+                    d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                        from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                </path>
+            </svg>
         </div>
     </div>
-</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var ENDPOINT = "{{ url('/') }}";
+        var page = 1;
+        infinteLoadMore(page);
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                page++;
+                infinteLoadMore(page);
+            }
+        });
+
+        function infinteLoadMore(page) {
+            $.ajax({
+                    url: ENDPOINT + "/timeline?page=" + page,
+                    datatype: "html",
+                    type: "get",
+                    beforeSend: function () {
+                        $('.auto-load').show();
+                    }
+                })
+                .done(function (response) {
+                    if (response.length == 0) {
+                        $('.auto-load').html("We don't have more data to display :(");
+                        return;
+                    }
+                    $('.auto-load').hide();
+                    $("#data-wrapper").append(response);
+                })
+                .fail(function (jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        }
+
+    </script>
+@endsection
+
+@section('javascript')
+
 @endsection

@@ -221,7 +221,8 @@
                                             </div>
                                         </ul>   
                                         @else
-                                        <div class="form-group">
+                                        <div class="row">
+                                            <div class="form-group col-sm-8">
                                             <label for="street">Street</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text">
@@ -235,27 +236,45 @@
                                                     placeholder="Enter street name">
                                             </div>
                                         </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="postal-code">Postal Code</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                            </use>
+                                                        </svg>
+                                                </div>
+                                                <input class="form-control" name="cep" type="text"
+                                                    placeholder="Postal Code" pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
+                                            </div>
+                                        </div>
+                                        </div>
                                         <div class="row">
-                                            <div class="form-group col-sm-5">
-                                                <label for="city">City @if ($campo->obg_city == true)
+                                            <div class="form-group col-sm-4">
+                                                <label for="city">Country @if ($campo->obg_city == true)
                                                         *
                                                     @endif</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
-                                                            <svg class="c-icon">
-                                                                <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
-                                                                </use>
-                                                            </svg>
+                                                        <svg class="c-icon">
+                                                            <use
+                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
+                                                            </use>
+                                                        </svg>
                                                     </div>
-                                                    <input class="form-control" name="city" type="text"
-                                                        placeholder="Enter your city" @if ($campo->obg_city == true)
-                                                    required
-                                                    @endif
-                                                    >
+                                                    <select id="country-dd" name="country-dd" class="form-control">
+                                                        <option value="">Select Country</option>
+                                                        @foreach ($countries as $data)
+                                                        <option value="{{$data->id}}">
+                                                            {{$data->name}}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-sm-3">
+                                            <div class="form-group col-sm-4">
                                                 <label for="country">State @if ($campo->obg_state == true)
                                                         *
                                                     @endif</label>
@@ -267,41 +286,31 @@
                                                                 </use>
                                                             </svg>
                                                     </div>
-                                                    <input class="form-control" name="state" type="text"
-                                                        placeholder="State" placeholder="SP" @if ($campo->obg_state == true)
+                                                    <select name="state-dd" id="state-dd" class="form-control">
+                                                    </select @if ($campo->obg_state == true)
                                                     required
                                                     @endif
                                                     >
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <label for="postal-code">Postal Code</label>
+                                                <label for="city">City @if ($campo->obg_city == true)
+                                                        *
+                                                    @endif</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text">
                                                             <svg class="c-icon">
                                                                 <use
-                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-newspaper">
+                                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-house">
                                                                 </use>
                                                             </svg>
                                                     </div>
-                                                    <input class="form-control" name="cep" type="text"
-                                                        placeholder="Postal Code" pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
+                                                    <select id="city-dd" name="city-dd" class="form-control">
+                                                    </select @if ($campo->obg_city == true)
+                                                    required
+                                                    @endif
+                                                    >
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.row-->
-                                        <div class="form-group">
-                                            <label for="country">Country</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text">
-                                                        <svg class="c-icon">
-                                                            <use
-                                                                xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                            </use>
-                                                        </svg>
-                                                </div>
-                                                <input class="form-control" name="country" type="text"
-                                                    placeholder="Country name" value="Brazil" required>
                                             </div>
                                         </div>
                                         @endif
@@ -415,6 +424,54 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
     @endif
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#country-dd').on('change', function () {
+                var idCountry = this.value;
+                $("#state-dd").html('');
+                $.ajax({
+                    url: "{{url('api/fetch-states')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#state-dd').html('<option value="">Select State</option>');
+                        $.each(result.states, function (key, value) {
+                            $("#state-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                        $('#city-dd').html('<option value="">Select City</option>');
+                    }
+                });
+            });
+            $('#state-dd').on('change', function () {
+                var idState = this.value;
+                $("#city-dd").html('');
+                $.ajax({
+                    url: "{{url('api/fetch-cities')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#city-dd').html('<option value="">Select City</option>');
+                        $.each(res.cities, function (key, value) {
+                            $("#city-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
 @endsection
 
 @section('javascript')
