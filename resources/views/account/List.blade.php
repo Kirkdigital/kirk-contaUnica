@@ -54,7 +54,7 @@
                                         @method('POST')
                                         @csrf
                                         <button class="btn btn-primary-outline" data-toggle="modal"
-                                            data-target=".cd-deskapps"><i
+                                            data-target=".cd-load"><i
                                                 class="c-icon c-icon-sm cil-room text-dark"></i></button>
                                     </form>
                                 </td>

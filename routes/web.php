@@ -5,7 +5,7 @@ use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DropdownController;
-
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +65,10 @@ Route::group(['middleware' => ['role:user']], function () {
     //dash
     Route::resource('dashboard',        'DashController');
     Route::resource('home',        'HomeController');
+    Route::get('dados/meus-dizimos', 'HomeController@indexDizimos')->name('indexDizimos');
+    Route::get('dados/meus-grupos', 'HomeController@indexGrupos')->name('indexGrupos');
+
+
 
     //importar e exportar pessoas
     Route::resource('settings/backup', 'BackupController');
@@ -98,7 +102,8 @@ Route::group(['middleware' => ['role:user']], function () {
 //pessoas
 Route::get('people', 'PeoplesController@index')->name('people.index');
 Route::get('people/create', 'PeoplesController@create')->name('people.create');
-Route::post('peoples', 'PeoplesController@store')->name('people.store');
+Route::post('people', 'PeoplesController@store')->name('people.store');
+Route::get('people/{id}', 'PeoplesController@show')->name('people.show');
 Route::get('people/{id}/edit', 'PeoplesController@edit')->name('people.edit');
 Route::put('people/{id}', 'PeoplesController@update')->name('people.update');
 Route::any('people-search', 'PeoplesController@searchHistoric')->name('people.search');
@@ -206,4 +211,10 @@ Route::group(['middleware' => ['role:admin']], function () {
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
     Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+    //cache teste
+    Route::get('/clear-cache-all', function() {
+        Artisan::call('cache:clear');
+        dd("Cache Clear All");
+    });
 });

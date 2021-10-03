@@ -296,7 +296,25 @@ class PeoplesController extends Controller
             return redirect()->route('people.index');
         }
     }
+    public function show($id)
+    {
+        //consulta
+        $people = new People();
+        $people->setConnection('tenant');
+        $people = $people::with('acesso')->find($id);
 
+        //localidade normal
+        $countries = Country::get(["name", "id"]);
+        $state = State::get(["name", "id"]);
+        $city = City::get(["name", "id"]);
+
+        return view('people.view', [
+            'people' => $people, 
+            'countries' => $countries,
+            'state' => $state,
+            'city' => $city
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *

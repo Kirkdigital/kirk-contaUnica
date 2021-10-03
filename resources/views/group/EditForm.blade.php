@@ -8,7 +8,7 @@
                   <div class="card">
                     <div class="card-header"><strong>Dados do grupo</strong> <small>Pessoa responsável</small></div>
                     <div class="card-body">
-                        <form method="POST" action="/group/{{ $group->id }}">
+                        <form method="POST" action="{{ route('group.edit',$group->id) }}">
                             @csrf
                             @method('PUT')
                             {!! csrf_field() !!}

@@ -66,8 +66,6 @@ class BaseSeeder extends Seeder
 			'delete_calendar' => '1',
             //home
             'home_financeiro' => '1',
-            'home_financeiro_valores' => '1',
-            'home_grupo' => '1',
             'home_social' => '1',
             'home_location' => '1',
             'home_message' => '1',

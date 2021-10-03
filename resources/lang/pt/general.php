@@ -12,7 +12,7 @@ return [
     */
 
     //logo
-    'logo' => 'DeskApps',
+    'logo' => 'Kirk',
     'sublogo' => 'Gestão de Igrejas',
 
     //menu

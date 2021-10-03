@@ -25,7 +25,7 @@
                                         Acesso</a></li>
 
                             </ul>
-                            <form method="POST" action="/people/{{ $people->id }}">
+                            <form method="POST" action="{{ route('people.update', $people->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="tab-content">
@@ -290,11 +290,11 @@
                     </svg> </div>
             <select id="city-dd" name="city-dd" class="form-control">
                 @foreach ($city as $data)
-                @if ($data->id == $people->city)
-                    <option value="{{ $data->id }}" selected="true">
-                        {{ $data->name }}</option>
-                @endif
-            @endforeach
+                    @if ($data->id == $people->city)
+                        <option value="{{ $data->id }}" selected="true">
+                            {{ $data->name }}</option>
+                    @endif
+                @endforeach
             </select @if ($campo->obg_city == true)
             required
             @endif
@@ -365,9 +365,9 @@
                 <div class="col-md-9">
                     <textarea class="form-control" name="note" rows="9" placeholder="Content.." {{ $people->note }}
                         @if ($campo->obg_note == true)
-                                                                                        required
-                                                                                        @endif
-                                                                                        ></textarea>
+                                                                                            required
+                                                                                            @endif
+                                                                                            ></textarea>
                 </div>
             </div>
         </div>

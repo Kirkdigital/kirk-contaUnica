@@ -10,7 +10,7 @@
                     <div class="card-header">
                         <h4>Create new Account</h4>
                     </div>
-                    <form method="POST" action="/account/{{ $institution->id }}">
+                    <form method="POST" action="{{ route('account.update',$institution->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

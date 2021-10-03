@@ -45,6 +45,20 @@ if (!function_exists('renderDropdown')) {
             <i class="c-icon cil-house c-sidebar-nav-icon"></i>
             Home</a>
     </li>
+    @if ($appPermissao->home_financeiro_valores == true)
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('indexDizimos') }}">
+                <i class="c-icon cil-cash c-sidebar-nav-icon"></i>
+                Meus Dizimos</a>
+        </li>
+    @endif
+    @if ($appPermissao->home_grupo == true)
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('indexGrupos') }}">
+                <i class="c-icon cil-chat-bubble c-sidebar-nav-icon"></i>
+                Meus Grupos</a>
+        </li>
+    @endif
     @if (($appPermissao->view_periodo or $appPermissao->view_dash or $appPermissao->view_detail or $appPermissao->view_resumo_financeiro) == true)
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('dashboard.index') }}">
@@ -124,13 +138,10 @@ if (!function_exists('renderDropdown')) {
                 Configurações</a>
         </li>
     @endif
-    <li class="c-sidebar-nav-title">Select in account</li>
-
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="{{ route('account.index') }}">
-            <i class="c-icon cil-building c-sidebar-nav-icon"></i>
+</ul>
+<ul class="c-sidebar-minimizer">
+        <a class="c-sidebar-nav-link"  href="{{ route('account.index') }}">
             List Accounts</a>
-    </li>
 </ul>
 <!-- remover o minimized do menu principal
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>

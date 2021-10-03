@@ -9935,7 +9935,7 @@ html:not([dir="rtl"]) .c-sidebar-close {
   flex: 1;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1.0rem 1rem;
+  padding: 0.75rem 1rem;
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.3s, color 0.3s;

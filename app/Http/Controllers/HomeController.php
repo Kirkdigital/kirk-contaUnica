@@ -100,18 +100,6 @@ class HomeController extends Controller
         $porcentage_doacao = $this->porcentagem_nx($doacaoatual, $meta->fin_acao_mes); // 20
         $porcentage_despesa = $this->porcentagem_nx($despesaatual, $meta->fin_despesa_mes);
 
-        //carregar os meus grupos vinculados
-        $groups = People_Groups::with('grupo')
-            ->where('user_id', $user->id)->get();
-        //carregar os meus dizimos
-        $dizimos = Historic::with('seusdizimos')
-            ->with('status')
-            ->with('statuspag')
-            ->where('type', 'I')
-            ->orderBy('date', 'desc')
-            ->where('user_id_transaction', $user->id)
-            ->paginate('12');
-
         //carregar dados de localização da conta
         $locations = Institution::find(session()->get('key'));
 
@@ -141,8 +129,7 @@ class HomeController extends Controller
                 'porcentage_oferta',
                 'porcentage_doacao',
                 'porcentage_despesa',
-            ),
-            ['groups' => $groups, 'dizimos' => $dizimos]
+            )
         );
     }
     //calcular porcentagem individual x total
@@ -153,5 +140,56 @@ class HomeController extends Controller
         } else {
             return ($parcial * 100) / $total;
         }
+    }
+
+    public function indexGrupos()
+    {
+        //pegar schema
+        $this->get_tenant();
+        //dados do usuario
+        $you = auth()->user();
+        //consultar dados do usuario local
+        $user = People::where('user_id', $you->id)->with('roleslocal')->first();
+        //carregar os meus grupos vinculados
+        $groups = People_Groups::with('grupo')
+            ->where('user_id', $user->id)->get();
+
+            return view(
+            'grupos',
+            compact(
+                'you',
+                'user',
+            ),
+            ['groups' => $groups]
+        );
+    }
+
+    public function indexDizimos()
+    {
+        //pegar schema
+        $this->get_tenant();
+        //dados do usuario
+        $you = auth()->user();
+
+        //consultar dados do usuario local
+        $user = People::where('user_id', $you->id)->with('roleslocal')->first();
+
+        //carregar os meus dizimos
+        $dizimos = Historic::with('seusdizimos')
+            ->with('status')
+            ->with('statuspag')
+            ->where('type', 'I')
+            ->orderBy('date', 'desc')
+            ->where('user_id_transaction', $user->id)
+            ->paginate('10');
+
+            return view(
+            'ofertas',
+            compact(
+                'you',
+                'user',
+            ),
+            ['dizimos' => $dizimos]
+        );
     }
 }
