@@ -43,13 +43,13 @@ class ProfileController extends Controller
     {
         $validatedData = $request->validate([
             'name'       => 'required|min:1|max:256',
-            'email'      => 'required|email|max:256',
+        //    'email'      => 'required|email|max:256',
             'profile_image'     =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         
         $user = User::findOrFail(auth()->user()->id);
         $user->name       = $request->input('name');
-        $user->email      = $request->input('email');
+       // $user->email      = $request->input('email');
         $user->mobile       = $request->input('mobile');
         $user->doc       = $request->input('doc');
         //tratamento na imagem

@@ -1,8 +1,8 @@
+@if ($appPermissao->home_financeiro_valores == true)
 @extends('layouts.base')
 @section('content')
 
     <div class="container-fluid">
-            @if ($appPermissao->home_financeiro_valores == true)
                 @if (!$dizimos->isEmpty())
                     <div class="card">
                         <div class="card-header">
@@ -37,11 +37,20 @@
                         </table>
                         {{ $dizimos->links() }}
                     </div>
-                @endif
-            @endif
+                    @else
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                        Você ainda não possui dizimos informados ao seu usuário!
+                        </div>
+                    </div>
+                    @endif
         </div>
     @endsection
 
     @section('javascript')
 
     @endsection
+    @else
+    @include('errors.redirecionar')
+    @endif
+    

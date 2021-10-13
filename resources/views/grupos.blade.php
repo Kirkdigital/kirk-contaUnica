@@ -1,8 +1,8 @@
+@if ($appPermissao->home_grupo == true)
 @extends('layouts.base')
 @section('content')
 
     <div class="container-fluid">
-            @if ($appPermissao->home_grupo == true)
                 @if (!$groups->isEmpty())
                     <div class="card">
                         <div class="card-header">
@@ -29,13 +29,20 @@
                             </tbody>
                         </table>
                     </div>
-                @endif
-            @endif
-            <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
+                    @else
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                        Não possuiu vinculo com grupos, fale com o administrador da conta
+                        </div>
+                    </div>
+                    @endif
         </div>
     @endsection
 
     @section('javascript')
 
-
     @endsection
+    @else
+    @include('errors.redirecionar')
+    @endif
+    

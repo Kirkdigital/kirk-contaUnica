@@ -30,13 +30,15 @@
                                         {{ $institution->AccountList->status->name }}
                                     </span>
                                 </td>
-                                @if (Auth::user()->isAdmin())
-                                    <td width="1%">
+                                <td width="1%">
+                                    @if (Auth::user()->isAdmin() and $you->id == $institution->AccountList->integrador)
                                         <a href="{{ route('account.edit', $institution->AccountList->id) }}"
                                             class="btn btn-primary-outline"><i
                                                 class="c-icon c-icon-sm cil-pencil text-success"></i></a>
-                                    </td>
+                                @endif
+                                </td>
                                     <td width="1%">
+                                        @if (Auth::user()->isAdmin() and $you->id == $institution->AccountList->integrador)
                                         <form action="{{ route('account.destroy', $institution->AccountList->id) }}"
                                             method="POST">
                                             @method('DELETE')
@@ -45,8 +47,8 @@
                                                 title='Delete'><i
                                                     class="c-icon c-icon-sm cil-trash text-danger"></i></button>
                                         </form>
-                                @endif
-
+                                
+                                        @endif
                                 </td>
                                 <td width="1%">
                                     <form method="post"

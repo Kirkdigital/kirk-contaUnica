@@ -121,6 +121,14 @@ class NotesController extends Controller
         return view('message.noteShow', ['note' => $note]);
     }
 
+    public function showUser($id)
+    {
+        //pegar tenant
+        $this->get_tenant();
+        //consulta
+        $note = Notes::with('user')->with('status')->find($id);
+        return view('message.noteShowUser', ['note' => $note]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -1,3 +1,4 @@
+@if (Auth::user()->isAdmin() == true)
 @extends('layouts.baseminimal')
 
 @section('content')
@@ -76,3 +77,6 @@
 @section('javascript')
 
 @endsection
+@else
+@include('errors.redirecionar')
+@endif

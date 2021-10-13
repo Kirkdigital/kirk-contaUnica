@@ -46,7 +46,7 @@ class InstitutionsController extends Controller
             ->with('status')
             ->paginate($this->totalPagesPaginate);
 
-        return view('account.List', ['institutions' => $institutions]);
+        return view('account.List', compact('you', $you), ['institutions' => $institutions]);
     }
 
     public function license_index(Request $request)

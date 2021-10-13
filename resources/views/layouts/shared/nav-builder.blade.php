@@ -140,7 +140,9 @@ if (!function_exists('renderDropdown')) {
     @endif
 </ul>
 <ul class="c-sidebar-minimizer">
+               
         <a class="c-sidebar-nav-link"  href="{{ route('account.index') }}">
+         <i class="c-icon cil-building c-sidebar-nav-icon"></i>
             List Accounts</a>
 </ul>
 <!-- remover o minimized do menu principal

@@ -163,7 +163,7 @@
                                     <div class="article-details">
                                         <div class="article-title">
                                             <h2><a
-                                                    href="message/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
+                                                    href="recado/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
                                             </h2>
                                         </div>
                                         <p>{{ mb_strimwidth($note->content, 0, 130, '...') }}</p>

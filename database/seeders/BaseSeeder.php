@@ -129,11 +129,6 @@ class BaseSeeder extends Seeder
             //home
             'home_financeiro' => '1',
             'home_message' => '1',
-            //dash
-            'view_periodo' => '1',
-			'view_dash' => '1',
-			'view_detail' => '1',
-			'view_resumo_financeiro' => '1',
         ]);
 
         DB::table(config::get('database.connections.tenant.schema').'.config_social')->insert([

@@ -68,8 +68,10 @@ class PeoplesController extends Controller
         //localicazao da conta
         $locations = Institution::find(session()->get('key'));
         //se tiver vazio, retornar para validar, mas vai carregar a tela de criação de pessoa
-        if ($locations->lng == null or $locations->lat == null and $campo->geolocation == true) {
-            session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+        if ($campo->geolocation == true) {
+            if ($locations->lng == null or $locations->lat == null) {
+                session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+            }
         }
         //localidade normal
         $countries = Country::get(["name", "id"]);
@@ -190,9 +192,11 @@ class PeoplesController extends Controller
         $roles = Roles::all();
         //carregar localização
         $locations = Institution::find(session()->get('key'));
-        //se estiver vazio, mostrar aviso, mas continuar a edicao da pessoa
-        if ($locations->lng == null or $locations->lat == null and $campo->geolocation == true) {
-            session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+        //se tiver vazio, retornar para validar, mas vai carregar a tela de criação de pessoa
+        if ($campo->geolocation == true) {
+            if ($locations->lng == null or $locations->lat == null) {
+                session()->flash("info", "Necessário informar a localização na conta para exibição correta do mapa");
+            }
         }
         //localidade normal
         $countries = Country::get(["name", "id"]);
@@ -309,7 +313,7 @@ class PeoplesController extends Controller
         $city = City::get(["name", "id"]);
 
         return view('people.view', [
-            'people' => $people, 
+            'people' => $people,
             'countries' => $countries,
             'state' => $state,
             'city' => $city
@@ -368,7 +372,7 @@ class PeoplesController extends Controller
         //carregar pesquisa
         $peoples =  $people->search($dataForm, $this->totalPagesPaginate);
 
-        return view('people.index', compact('peoples', 'dataForm', 'roles', 'date', 'statuses'));
+        return view('people.index', compact('peoples', 'dataForm', 'roles', 'statuses'));
     }
 
     public function criar($user_id, $accout_id): array
