@@ -4,7 +4,7 @@ use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\LocalidadeController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
