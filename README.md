@@ -41,15 +41,14 @@ Baseado no CoreUI com  Bootstrap 4
 
 Processo:
  1. Clonar o repositório
- 2. Restaurar o banco de dados pelo o PgAdmin
- 3. Na pasta, mandar o comando "composer update" para atualizar as dependências.
+ 2. Na pasta, mandar o comando "composer update" para atualizar as dependências.
 
 ``` bash
 # clone the repo
-$ git clone https://github.com/coreui/coreui-free-laravel-admin-template.git my-project
+$ git clone https://github.com/julianopimentel/laravel-deskapps.git laravel-deskapps
 
 # go into app's directory
-$ cd my-project
+$ cd laravel-deskapps
 
 # install app's dependencies
 $ composer update
@@ -59,7 +58,9 @@ php artisan key:generate
 
 
 ```
-Se tudo estiver certo, pode utilizar o comando " php artisan migrate:refresh --seed" e deixar instalar toda a parte do banco.
+ 3. Se tudo estiver certo, pode utilizar o comando " php artisan migrate:refresh --seed" e deixar instalar toda a parte do banco.
+ 4. Acessar http://localhost:8000/
+ 5. Login e senha logo abaixo.
 
 
 ### If you choice to use PostgreSQL
