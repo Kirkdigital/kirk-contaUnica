@@ -22,7 +22,7 @@ class User extends Authenticatable implements ReactsInterface
     use HasFactory;
 
     
-    protected $table = 'admin.users';
+    protected $table = 'users';
 
 
     /**

@@ -15,11 +15,15 @@ class BalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config::get('database.connections.tenant.schema').'.balances', function(Blueprint $table)
+        Schema::create('balances', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->integer('account_id');
 			$table->float('amount', 10, 0)->default(0);
 		});
+    }
+    public function down()
+    {
+        Schema::dropIfExists('balances');
     }
 }

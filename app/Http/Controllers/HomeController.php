@@ -42,11 +42,6 @@ class HomeController extends Controller
 
         //consultar dados do usuario local
         $user = People::where('user_id', $you->id)->with('roleslocal')->first();
-        if ($user == null) {
-            //caso não possua acesso associado e grupo vinculado, retorna para selecionar a conta
-            $request->session()->flash("info", "Você não possuiu permissão, por favor contactar administrador da conta");
-            return redirect()->route('account.index');
-        } else
 
         //pegar informações complementares 
         $meta = Config_meta::orderBy('id', 'desc')->first();
@@ -65,7 +60,7 @@ class HomeController extends Controller
 
             //inserir valor do financeiro
             $balance = new Balance();
-            $balance->account_id = session()->get('key');
+            $balance->account_id = '1';
             $balance->amount = '0';
             $balance->save();
         }
@@ -101,7 +96,7 @@ class HomeController extends Controller
         $porcentage_despesa = $this->porcentagem_nx($despesaatual, $meta->fin_despesa_mes);
 
         //carregar dados de localização da conta
-        $locations = Institution::find(session()->get('key'));
+        $locations = Institution::find('1');
 
         //carregamento as message com os dados do usuário que publicou + filtrado para o somente status "public"  
         $notes = Notes::with('user:name,profile_image')->with('status:name')->take(4)->orderby('applies_to_date', 'desc')->whereIn('status_id', [1,2])->get();

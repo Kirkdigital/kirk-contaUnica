@@ -9,7 +9,6 @@ class People_Groups extends Model
 {
     use HasFactory;
 
-    protected $connection = 'tenant';
     protected $table = 'people_group';
     public $timestamps = false;
     /**

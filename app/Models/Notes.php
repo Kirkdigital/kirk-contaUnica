@@ -10,7 +10,6 @@ class Notes extends Model
 
     use HasFactory;
     
-    protected $connection = 'tenant';
     protected $table = 'message';
 
     /**

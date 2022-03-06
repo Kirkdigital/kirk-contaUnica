@@ -14,7 +14,7 @@ class notesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.message', function(Blueprint $table)
+		Schema::create('message', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('title');
@@ -28,4 +28,8 @@ class notesTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('message');
+    }
 }

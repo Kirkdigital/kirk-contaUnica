@@ -13,7 +13,6 @@ class Config_social extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $connection = 'tenant';
     protected $table ='config_social';
     
     /**

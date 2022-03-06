@@ -1,3 +1,4 @@
+
 # Gestão de Igrejas - DeskApps
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -6,18 +7,14 @@
 ![Login](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/login.png)
 ![Financeiro](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/financeiro.png)
 
-CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of redundant components, so the app is light enough to offer ultimate user experience. This means mobile devices also, where the navigation is just as easy and intuitive as on a desktop or laptop. The CoreUI Layout API lets you customize your project for almost any device – be it Mobile, Web or WebApp – CoreUI covers them all!
+Plataforma de Gestão de Membros para a sua Igreja - Open Source
 
-Aplicações
-Laravel - 8
-componser -
-PHP - 8
-nodejs 10
-Postgres -10
+Aplicações: 
 
+ - Laravel 8
+ - PHP 8
+ - Postgres -10
 
-Processo:
-Instalar o componser + php 
 ## Retaurar backup do postgres
 
 ![plano](https://github.com/julianopimentel/laravel-deskapps/blob/6806fb267477c5560e1de8df20d770780de0744d/screenshot/schema.png)
@@ -36,13 +33,16 @@ Validar em projetos Laravel o andamento do projeto
 
 ## Versions
 
-CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
-
-* [CoreUI Free Angular Admin Template](https://github.com/coreui/coreui-free-angular-admin-template)
+Baseado no CoreUI com  Bootstrap 4
 * [CoreUI Free Vue.js + Laravel Admin Template](https://github.com/coreui/coreui-free-vue-laravel-admin-template)
 
 
 ## Installation
+
+Processo:
+ 1. Clonar o repositório
+ 2. Restaurar o banco de dados pelo o PgAdmin
+ 3. Na pasta, mandar o comando "composer update" para atualizar as dependências.
 
 ``` bash
 # clone the repo
@@ -52,12 +52,15 @@ $ git clone https://github.com/coreui/coreui-free-laravel-admin-template.git my-
 $ cd my-project
 
 # install app's dependencies
-$ composer install
+$ composer update
 
-# install app's dependencies
-$ npm install
+# necessário gerar, fazer isso depois do banco ficar ativo
+php artisan key:generate
+
 
 ```
+Se tudo estiver certo, pode utilizar o comando " php artisan migrate:refresh --seed" e deixar instalar toda a parte do banco.
+
 
 ### If you choice to use PostgreSQL
 
@@ -66,7 +69,7 @@ $ npm install
 2. Create user
 ``` bash
 $ sudo -u postgres createuser --interactive
-enter name of role to add: laravel
+enter name of role to add: deskapps
 shall the new role be a superuser (y/n) n
 shall the new role be allowed to create database (y/n) n
 shall the new role be allowed to create more new roles (y/n) n
@@ -74,12 +77,12 @@ shall the new role be allowed to create more new roles (y/n) n
 3. Set user password
 ``` bash
 $ sudo -u postgres psql
-postgres= ALTER USER laravel WITH ENCRYPTED PASSWORD 'password';
+postgres= ALTER USER deskappsWITH ENCRYPTED PASSWORD 'deskapps@123';
 postgres= \q
 ```
 4. Create database
 ``` bash
-$ sudo -u postgres createdb laravel
+$ sudo -u postgres createdb tenant
 ```
 5. Copy file ".env.example", and change its name to ".env".
 Then in file ".env" replace this database configuration:
@@ -90,6 +93,7 @@ Then in file ".env" replace this database configuration:
 * DB_DATABASE=tenant
 * DB_USERNAME=deskapps
 * DB_PASSWORD=deskapps@123
+
 
 ## banco
 Na pasta backup encontra o arquivo para restaurar no pgadmin, sempre irei atualizar quando fizer qualquer modificação
@@ -109,6 +113,7 @@ To make it look like this:
 
 
 ### Next step
+Não é necessário realizar a geração por enquanto, precisa restaurar o banco até completar o migrate.
 
 ``` bash
 # in your app directory
@@ -288,21 +293,11 @@ It is an example of managing e-mail templates. Allows you to create, edit and de
 
 ## Creators
 
-**Łukasz Holeczek**
+**Juliano Pimentel**
 
-* <https://twitter.com/lukaszholeczek>
-* <https://github.com/mrholek>
+* <https://github.com/julianopimentel>
 
-**Andrzej Kopański**
+**Elton Santos**
 
-* <https://github.com/xidedix>
+* <https://github.com/EltonSA>
 
-**Marcin Michałek**
-
-* <https://github.com/rakieta2015>
-
-
-## Copyright and license
-
-copyright 2020 creativeLabs Łukasz Holeczek. Code released under [the MIT license](https://github.com/coreui/coreui-free-laravel-admin-template/blob/master/LICENSE).
-There is only one limitation you can't can’t re-distribute the CoreUI as stock. You can’t do this if you modify the CoreUI. In past we faced some problems with persons who tried to sell CoreUI based templates.

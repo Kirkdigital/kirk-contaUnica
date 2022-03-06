@@ -10,7 +10,6 @@ class People extends Model
 
     use HasFactory;
 
-    protected $connection = 'tenant';
     protected $table = 'people';
 
     /**

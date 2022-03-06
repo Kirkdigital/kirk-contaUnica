@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
-    protected $table = 'admin.countries';
+    protected $table = 'countries';
 
 }

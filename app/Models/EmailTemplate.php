@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmailTemplate extends Model
 {
-    public $table = 'admin.email_template';
+    public $table = 'email_template';
     
 }

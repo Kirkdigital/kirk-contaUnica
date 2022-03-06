@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menus extends Model
 {
-    protected $table = 'admin.menus';
+    protected $table = 'menus';
     public $timestamps = false; 
 }

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Config;
 class Balance extends Model
 {
     public $timestamps = false;
-    protected $connection = 'tenant';
 
     public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people, $date, $sub_total, $total_tax, $discount): array
     {

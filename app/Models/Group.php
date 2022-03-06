@@ -10,7 +10,6 @@ class Group extends Model
 {
     use HasFactory;
 
-    protected $connection = 'tenant';
     protected $table = 'groups';
 
     /**

@@ -14,7 +14,7 @@ class ConfigSocial extends Migration
      */
     public function up()
     {
-        Schema::create(config::get('database.connections.tenant.schema').'.config_social', function(Blueprint $table)
+        Schema::create('config_social', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('facebook_link')->nullable();
@@ -29,5 +29,9 @@ class ConfigSocial extends Migration
             $table->string('telegram_link')->nullable();
 			$table->timestamps(10);
 		});
+    }
+    public function down()
+    {
+        Schema::dropIfExists('config_social');
     }
 }

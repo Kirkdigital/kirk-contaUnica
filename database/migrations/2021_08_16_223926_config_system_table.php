@@ -15,14 +15,14 @@ class ConfigSystemTable extends Migration
      */
     public function up()
     {
-        Schema::create(config::get('database.connections.tenant.schema').'.config_system', function(Blueprint $table)
+        Schema::create('config_system', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('logo')->nullable();
 			$table->string('favicon')->nullable();
-			$table->string('name');
+			$table->string('name')->nullable();
 			$table->string('timezone');
-			$table->integer('default_language')->nullable();
+			$table->string('default_language')->nullable();
 			$table->string('currency')->nullable();
             $table->boolean('geolocation')->nullable()->default(0);
             $table->boolean('obg_last_name')->nullable()->default(1);
@@ -35,5 +35,9 @@ class ConfigSystemTable extends Migration
             $table->boolean('obg_note')->nullable()->default(0);
 			$table->timestamps(10);
 		});
+    }
+    public function down()
+    {
+        Schema::dropIfExists('config_system');
     }
 }

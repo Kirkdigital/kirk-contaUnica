@@ -10,7 +10,7 @@ class Folder extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $table = 'admin.folder';
+    protected $table = 'folder';
     
     /**
      * Get the comments for the blog post.

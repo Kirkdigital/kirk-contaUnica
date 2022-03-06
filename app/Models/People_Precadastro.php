@@ -11,7 +11,6 @@ class People_Precadastro extends Model
 
     use HasFactory;
 
-    protected $connection = 'tenant';
     protected $table = 'people_precadastro';
 
     /**

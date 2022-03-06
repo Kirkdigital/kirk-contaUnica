@@ -14,7 +14,7 @@ class ConfigMetaTable extends Migration
      */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.config_meta', function(Blueprint $table)
+		Schema::create('config_meta', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
             $table->string('ano')->nullable();
@@ -47,5 +47,10 @@ class ConfigMetaTable extends Migration
 			$table->integer('publicacao_ano')->nullable()->default(0);
 			$table->timestamps(10);
 		});
+		
 	}
+	public function down()
+    {
+        Schema::dropIfExists('config_meta');
+    }
 }

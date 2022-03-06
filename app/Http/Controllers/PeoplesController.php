@@ -40,8 +40,6 @@ class PeoplesController extends Controller
     {
         //user data
         $you = auth()->user();
-        //validar se selecionou a conta
-        $this->get_tenant();
         //buscar
         $peoples = People::orderBy('name', 'asc')->with('status')->with('roleslocal')->where('is_admin', false)->paginate($this->totalPagesPaginate);
         //status

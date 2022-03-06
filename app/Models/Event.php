@@ -9,7 +9,6 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $connection = 'tenant';
 
     protected $fillable = [
         'title', 'start', 'end'

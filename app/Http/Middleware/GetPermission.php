@@ -21,12 +21,6 @@ class GetPermission
         //dados de usuario
         $you = auth()->user();
         //validar o tenant, se nao tive retornar para o inicio
-        if ((session()->get('schema')) === null){
-            return redirect()->route('account.index')->withErrors(['error' => __('Please select an account to continue')]);
-        }
-
-        //setar tenant
-        Config::set('database.connections.tenant.schema', session()->get('conexao'));
 
         //pegar permissao do grupo
         $roles = People::where('user_id', $you->id)->with('roleslocal')->first();

@@ -15,7 +15,7 @@ class historicsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.historics', function(Blueprint $table)
+		Schema::create('historics', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->integer('user_id');
@@ -36,4 +36,8 @@ class historicsTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('historics');
+    }
 }

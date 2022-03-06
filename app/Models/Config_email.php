@@ -13,7 +13,6 @@ class Config_email extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $connection = 'tenant';
     protected $table ='config_email';
     
     /**

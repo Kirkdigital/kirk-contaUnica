@@ -16,9 +16,6 @@ class WelcomeController extends Controller
     {
         if($this->middleware('user')){
             //se nao selecionou a conta retornar para a selecao da conta
-            if (($request->session()->get('schema')) === null)
-            return redirect()->route('account.index');
-            else
             //se tiver, volta para a tela do home
             return redirect()->route('home.index');
         }

@@ -16,7 +16,7 @@ class groupsTable extends Migration {
 	public function up()
 	{
 		
-		Schema::create(config::get('database.connections.tenant.schema').'.groups', function(Blueprint $table)
+		Schema::create('groups', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('name_group');
@@ -29,4 +29,8 @@ class groupsTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('groups');
+    }
 }

@@ -13,8 +13,7 @@ class Roles extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $connection = 'tenant';
-    protected $table = 'roles';
+    protected $table = 'roles_local';
 
     /**
      * The attributes that are mass assignable.

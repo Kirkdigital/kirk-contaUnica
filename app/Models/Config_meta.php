@@ -13,7 +13,6 @@ class Config_meta extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $connection = 'tenant';
 
     protected $table ='config_meta';
     

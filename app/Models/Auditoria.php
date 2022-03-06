@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Config;
 class Auditoria extends Model
 {
     public $timestamps = false;
-    protected $connection = 'tenant';
     protected $table = 'activity_log';
 
     protected $fillable = ['type', 'activity_id', 'user_id', 'manipulations', 'created_at'];

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class FormField extends Model
 {
     
-    protected $table = 'admin.form_field';
+    protected $table = 'form_field';
 
 }

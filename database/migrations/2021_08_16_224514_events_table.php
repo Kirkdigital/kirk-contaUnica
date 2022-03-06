@@ -14,7 +14,7 @@ class eventsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.events', function(Blueprint $table)
+		Schema::create('events', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->string('title');
@@ -27,4 +27,8 @@ class eventsTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('events');
+    }
 }

@@ -11,7 +11,7 @@ class Institution extends Model
 
     use HasFactory;
      
-    protected $table = 'admin.accounts';
+    protected $table = 'accounts';
 
     /**
      * The attributes that are mass assignable.

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
-    protected $table = 'admin.form';
+    protected $table = 'form';
 
     /**
      * Get the model that owns the Form.

@@ -10,7 +10,6 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $connection = 'adminaccount';
     
     protected $fillable = [
         'comment',

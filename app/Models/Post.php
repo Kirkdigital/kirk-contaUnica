@@ -14,8 +14,6 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $connection = 'adminaccount';
-
     
     protected $fillable = [
         'body',

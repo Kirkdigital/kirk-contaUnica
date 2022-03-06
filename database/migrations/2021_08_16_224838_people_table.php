@@ -16,7 +16,7 @@ class peopleTable extends Migration {
 	public function up()
 	{
 		
-		Schema::create(config::get('database.connections.tenant.schema').'.people', function(Blueprint $table)
+		Schema::create('people', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->integer('user_id')->nullable();
@@ -48,4 +48,8 @@ class peopleTable extends Migration {
 			$table->softDeletes('deleted_at')->nullable();
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('people');
+    }
 }

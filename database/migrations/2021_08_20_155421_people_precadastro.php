@@ -14,7 +14,7 @@ class PeoplePrecadastro extends Migration
      */
 	public function up()
 	{
-		Schema::create(config::get('database.connections.tenant.schema').'.people_precadastro', function(Blueprint $table)
+		Schema::create('people_precadastro', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true);
 			$table->integer('user_id')->nullable();
@@ -35,4 +35,8 @@ class PeoplePrecadastro extends Migration
             $table->timestamps(10);
 		});
 	}
+	public function down()
+    {
+        Schema::dropIfExists('people_precadastro');
+    }
 }

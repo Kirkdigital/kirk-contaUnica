@@ -15,9 +15,9 @@ class RolesTable extends Migration
 	public function up()
 	{
         
-		Schema::create(config::get('database.connections.tenant.schema').'.roles', function(Blueprint $table)
+		Schema::create('roles_local', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true);
+            $table->bigInteger('id', true);
 			$table->string('name');
             //pessoa
 			$table->boolean('add_people')->nullable()->default(0);
@@ -43,6 +43,12 @@ class RolesTable extends Migration
             $table->boolean('view_message')->nullable()->default(0);
             $table->boolean('delete_message')->nullable()->default(0);
 
+            //pedidodeoracao
+			$table->boolean('add_prayer')->nullable()->default(0);
+            $table->boolean('edit_prayer')->nullable()->default(0);
+            $table->boolean('view_prayer')->nullable()->default(0);
+            $table->boolean('delete_prayer')->nullable()->default(0);
+
             //financeiro
 			$table->boolean('add_entrada_financial')->nullable()->default(0);
             $table->boolean('add_retirada_financial')->nullable()->default(0);
@@ -56,6 +62,18 @@ class RolesTable extends Migration
             $table->boolean('view_calendar')->nullable()->default(0);
 			$table->boolean('delete_calendar')->nullable()->default(0);
 
+            //media
+            $table->boolean('add_media')->nullable()->default(0);
+            $table->boolean('edit_media')->nullable()->default(0);
+            $table->boolean('view_media')->nullable()->default(0);
+            $table->boolean('delete_media')->nullable()->default(0);
+
+            //sermons
+            $table->boolean('add_sermons')->nullable()->default(0);
+            $table->boolean('edit_sermons')->nullable()->default(0);
+            $table->boolean('view_sermons')->nullable()->default(0);
+            $table->boolean('delete_sermons')->nullable()->default(0);
+
             //home
             $table->boolean('home_financeiro')->nullable()->default(0);
             $table->boolean('home_financeiro_valores')->nullable()->default(0);
@@ -63,6 +81,11 @@ class RolesTable extends Migration
             $table->boolean('home_social')->nullable()->default(0);
             $table->boolean('home_location')->nullable()->default(0);
             $table->boolean('home_message')->nullable()->default(0);
+            $table->boolean('home_dados')->nullable()->default(0);
+            $table->boolean('home_oracao')->nullable()->default(0);
+            $table->boolean('home_eventos')->nullable()->default(0);
+            $table->boolean('home_timeline')->nullable()->default(0);
+
 
             //dash
             $table->boolean('view_periodo')->nullable()->default(0);
@@ -82,4 +105,8 @@ class RolesTable extends Migration
 			$table->timestamps(10);
 		});
 	}
+    public function down()
+    {
+        Schema::dropIfExists('roles_local');
+    }
 }

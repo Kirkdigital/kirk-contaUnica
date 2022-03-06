@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class BaseSeeder extends Seeder
 {
-    /**
+        /**
      * Run the database seeds.
      *
      * @return void
@@ -17,44 +17,46 @@ class BaseSeeder extends Seeder
     public function run()
     {
         //
-        DB::table(config::get('database.connections.tenant.schema').'.config_system')->insert([
-            'name' => 'This page is a place to view posts, their groups, and more.',
-            'timezone' => 'America/Manaus',
+        error_log('Configurando system');
+        DB::table('config_system')->insert([
+            'timezone' => 'America/Sao_Paulo',
             'currency' => 'R$',
             'obg_last_name' => '1',
+            'default_language' => 'pt',
         ]);
-        
-        DB::table(config::get('database.connections.tenant.schema').'.config_meta')->insert([
+
+        DB::table('config_meta')->insert([
             'ano' => date('Y'),
         ]);
 
-        DB::table(config::get('database.connections.tenant.schema').'.config_email')->insert([
+        DB::table('config_email')->insert([
             'created_at' => date('Y/m/d'),
         ]);
 
-        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
-            'name' => 'Admin',
+        error_log('Configurando regras');
+        DB::table('roles_local')->insert([
+            'name' => 'Administrador',
             'add_people' => '1',
-			'edit_people' => '1',
+            'edit_people' => '1',
             'view_people' => '1',
             'delete_people' => '1',
             //precadastro
             'edit_precadastro' => '1',
             'view_precadastro' => '1',
             //grupo
-			'add_group' => '1',
+            'add_group' => '1',
             'add_group_people' => '1',
             'edit_group' => '1',
             'view_group' => '1',
             'delete_group' => '1',
             'delete_group_people' => '1',
             //recado
-			'add_message' => '1',
+            'add_message' => '1',
             'edit_message' => '1',
             'view_message' => '1',
             'delete_message' => '1',
             //financeiro
-			'add_entrada_financial' => '1',
+            'add_entrada_financial' => '1',
             'add_retirada_financial' => '1',
             'edit_financial' => '1',
             'view_financial' => '1',
@@ -63,28 +65,44 @@ class BaseSeeder extends Seeder
             'add_calendar' => '1',
             'edit_calendar' => '1',
             'view_calendar' => '1',
-			'delete_calendar' => '1',
+            'delete_calendar' => '1',
+            //oracao
+            'add_prayer' => '1',
+            'edit_prayer' => '1',
+            'view_prayer' => '1',
+            'delete_prayer' => '1',
+            //media
+            'add_media' => '1',
+            'edit_media' => '1',
+            'view_media' => '1',
+            'delete_media' => '1',
+            //palavra
+            'add_sermons' => '1',
+            'edit_sermons' => '1',
+            'view_sermons' => '1',
+            'delete_sermons' => '1',
             //home
             'home_financeiro' => '1',
             'home_social' => '1',
             'home_location' => '1',
             'home_message' => '1',
+            'home_timeline' => '1',
             //dash
             'view_periodo' => '1',
-			'view_dash' => '1',
-			'view_detail' => '1',
-			'view_resumo_financeiro' => '1',
+            'view_dash' => '1',
+            'view_detail' => '1',
+            'view_resumo_financeiro' => '1',
             //settings
             'settings_general' => '1',
-			'settings_email' => '1',
-			'settings_meta' => '1',
-			'settings_social' => '1',
+            'settings_email' => '1',
+            'settings_meta' => '1',
+            'settings_social' => '1',
             'settings_roles' => '1',
             //report
             'report_view' => '1',
         ]);
 
-        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
+        DB::table('roles_local')->insert([
             'name' => 'Membro',
             //home
             'home_financeiro_valores' => '1',
@@ -92,47 +110,86 @@ class BaseSeeder extends Seeder
             'home_social' => '1',
             'home_location' => '1',
             'home_message' => '1',
+            'home_dados' => '1',
+            'home_oracao' => '1',
+            'home_eventos' => '1',
+            'home_timeline' => '1',
+            'view_sermons' => '1',
+            //adicionar oracao
+            'add_prayer' => '1',
         ]);
-        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
+        DB::table('roles_local')->insert([
             'name' => 'Financeiro',
             //home
             'home_financeiro' => '1',
             'home_message' => '1',
-             //financeiro
-			'add_entrada_financial' => '1',
+            'home_eventos' => '1',
+            'home_timeline' => '1',
+            //financeiro
+            'add_entrada_financial' => '1',
             'add_retirada_financial' => '1',
             'edit_financial' => '1',
             'view_financial' => '1',
             'delete_financial' => '1',
         ]);
-        DB::table(config::get('database.connections.tenant.schema').'.roles')->insert([
+        DB::table('roles_local')->insert([
             'name' => 'Secretaria',
             'add_people' => '1',
-			'edit_people' => '1',
+            'edit_people' => '1',
             'view_people' => '1',
             'delete_people' => '1',
             //precadastro
             'edit_precadastro' => '1',
             'view_precadastro' => '1',
             //grupo
-			'add_group' => '1',
+            'add_group' => '1',
             'add_group_people' => '1',
             'edit_group' => '1',
             'view_group' => '1',
             'delete_group' => '1',
             'delete_group_people' => '1',
             //recado
-			'add_message' => '1',
+            'add_message' => '1',
             'edit_message' => '1',
             'view_message' => '1',
             'delete_message' => '1',
+            //oracao
+            'add_prayer' => '1',
+            'edit_prayer' => '1',
+            'view_prayer' => '1',
+            'delete_prayer' => '1',
+            //calendar
+            'add_calendar' => '1',
+            'edit_calendar' => '1',
+            'view_calendar' => '1',
+            'delete_calendar' => '1',
+            //media
+            'add_media' => '1',
+            'edit_media' => '1',
+            'view_media' => '1',
+            'delete_media' => '1',
             //home
             'home_financeiro' => '1',
             'home_message' => '1',
+            'home_timeline' => '1',
         ]);
-
-        DB::table(config::get('database.connections.tenant.schema').'.config_social')->insert([
+        error_log('Configurando complemento');
+        DB::table('config_social')->insert([
             'created_at' => date('Y/m/d'),
+        ]);
+        DB::table('folder')->insert([
+            'name' => 'root',
+            'resource' => '1',
+        ]);
+        DB::table('people')->insert([
+            'id' => '1',
+            'user_id' => '1',
+            'name' => 'admin',
+            'role' => '1',
+            'status_id' => '14',
+        ]);
+        DB::table('accounts')->insert([
+            'name_company' => 'Demo',
         ]);
     }
 }
