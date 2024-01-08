@@ -1,14 +1,16 @@
 
-# Gestão de Igrejas - DeskApps
+# Gestão de Igrejas - Kirk
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Ao utiliar o repositorio, pedimos que seja mencionado o Autor.
 
 ![Dashboard](https://github.com/julianopimentel/laravel-deskapps/blob/5bbf1db68843754431a12374c2597b9a248b712b/screenshot/dashboard.png)
 ![Login](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/login.png)
 ![Financeiro](https://github.com/julianopimentel/laravel-deskapps/blob/8172d87af146d5fd23be0d1592756941cba14ba0/screenshot/financeiro.png)
 
-Plataforma de Gestão de Membros para a sua Igreja - Open Source
 
+Plataforma de Gestão de Membros para a sua Igreja - Open Source
 Aplicações: 
 
  - Laravel 8
@@ -45,7 +47,7 @@ Processo:
 
 ``` bash
 # clone the repo
-$ git clone https://github.com/julianopimentel/laravel-deskapps.git laravel-deskapps
+$ git clone https://github.com/julianopimentel/kirk-contaUnica.git laravel-deskapps
 
 # go into app's directory
 $ cd laravel-deskapps
@@ -298,7 +300,4 @@ It is an example of managing e-mail templates. Allows you to create, edit and de
 
 * <https://github.com/julianopimentel>
 
-**Elton Santos**
-
-* <https://github.com/EltonSA>
-
+Email: julianopimentel7@gmail.com
